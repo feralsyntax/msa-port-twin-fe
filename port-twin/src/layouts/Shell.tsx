@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Shell.scss';
 
 const primaryNav = [
@@ -70,6 +70,9 @@ const primaryNav = [
 ]
 
 export default function Shell() {
+  const { pathname } = useLocation()
+  const isDashboard = pathname === '/'
+
   return (
     <div className="shell">
       <aside className="shell__rail" aria-label="Primary navigation">
@@ -119,11 +122,21 @@ export default function Shell() {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `shell__nav-item shell__nav-item--secondary${isActive ? ' shell__nav-item--active' : ''}`
+                `shell__nav-item shell__nav-item--secondary${
+                  isActive ? ' shell__nav-item--active' : ''
+                }`
               }
             >
               <span className="shell__nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <circle cx="12" cy="12" r="10" />
                   <line x1="12" y1="16" x2="12" y2="12" />
                   <line x1="12" y1="8" x2="12.01" y2="8" />
@@ -134,7 +147,7 @@ export default function Shell() {
           </div>
         </div>
 
-                <div className="shell__status">
+        <div className="shell__status">
           <div className="shell__status-row">
             <div className="shell__status-live">
               <span className="shell__status-dot" aria-hidden="true">
@@ -148,43 +161,74 @@ export default function Shell() {
         </div>
       </aside>
 
-            <div className="shell__main">
+      <div className="shell__main">
         <header className="shell__topbar">
           <div className="shell__topbar-left">
-            <div
-              className="shell__title-placeholder"
-              aria-label="Page title placeholder"
-            />
+            {isDashboard ? (
+              <div className="shell__page-meta">
+                <h1 className="shell__page-title">Port Operations Dashboard</h1>
+                <div className="shell__sector">
+                  <span className="shell__sector-label">SECTOR</span>
+                  <span className="shell__sector-value">
+                    MOMBASA-KILINDINI // 04°03'S 39°38'E
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div
+                className="shell__title-placeholder"
+                aria-label="Page title placeholder"
+              />
+            )}
           </div>
 
           <div className="shell__topbar-right">
             <div className="shell__search" role="search">
-              <div className="shell__search-field">
+          <div className="shell__search-field">
+              <svg
+              className="shell__search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              className="shell__search-input"
+              placeholder={isDashboard ? 'Filter telemetry, vessel, berth...' : 'Search...'}
+            />
+          </div>
+          <kbd className="shell__search-kbd">⌘K</kbd>
+        </div>
+
+            {isDashboard ? (
+              <button type="button" className="shell__action shell__action--live">
                 <svg
-                  className="shell__search-icon"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeWidth="2"
                   aria-hidden="true"
                 >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                 </svg>
-                <span className="shell__search-placeholder">Search...</span>
-              </div>
-              <kbd className="shell__search-kbd">⌘K</kbd>
-            </div>
-
-            <button
-              type="button"
-              className="shell__action"
-              aria-label="Primary action"
-            >
-              <span className="shell__action-placeholder" />
-            </button>
+                <span>New Simulation</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="shell__action"
+                aria-label="Primary action"
+              >
+                <span className="shell__action-placeholder" />
+              </button>
+            )}
           </div>
         </header>
 

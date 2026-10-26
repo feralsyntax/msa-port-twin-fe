@@ -1,194 +1,39 @@
 @use '../../styles/tokens' as *;
 
+
+
 .dashboard {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 0;
-  background: $canvas-0;
-  overflow: hidden;
-}
-
-/* ── Top Header ────────────────────────────────────────── */
-
-.dashboard__header {
-  height: 72px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  padding: 0 1.5rem;
-  background: $canvas-1;
-  border-bottom: 1px solid $hairline;
-  z-index: 10;
-}
-
-.dashboard__header-left {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  min-width: 0;
-}
-
-.dashboard__title {
-  margin: 0;
-  font-family: $font-display;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 26px;
-  color: $ink-0;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-
-.dashboard__sector {
-  display: none;
-  align-items: center;
-  gap: 0.5rem;
-  padding-left: 1rem;
-  border-left: 1px solid $hairline;
-  color: $ink-2;
-
-  @media (min-width: 1280px) {
-    display: flex;
-  }
-}
-
-.dashboard__sector-label {
-  font-family: $font-mono;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $ink-2;
-}
-
-.dashboard__sector-value {
-  font-family: $font-mono;
-  font-size: 11px;
-  color: $ink-1;
-}
-
-/* ── Search ─────────────────────────────────────────────── */
-
-.dashboard__header-right {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  flex-shrink: 0;
-}
-
-.dashboard__search {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.dashboard__search-icon {
-  position: absolute;
-  left: 0.75rem;
-  width: 14px;
-  height: 14px;
-  color: $ink-2;
-  pointer-events: none;
-}
-
-.dashboard__search-input {
-  width: 16rem;
-  height: 32px;
-  padding: 0 2.75rem 0 2.25rem;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  padding: 1.25rem 1.5rem 1.5rem;
+  overflow-y: auto;
   background: $canvas-0;
-  border: 1px solid $hairline;
-  border-radius: $radius-sm;
-  color: $ink-0;
-  font-family: $font-mono;
-  font-size: 13px;
-  font-weight: 500;
-  outline: none;
-  transition: border-color 150ms ease;
-
-  &::placeholder {
-    color: $ink-2;
-  }
-
-  &:focus {
-    border-color: $signal;
-  }
 }
-
-.dashboard__search-kbd {
-  position: absolute;
-  right: 0.625rem;
-  padding: 0.125rem 0.375rem;
-  font-family: $font-mono;
-  font-size: 9px;
-  color: $ink-2;
-  background: rgba($canvas-2, 0.6);
-  border: 1px solid $hairline;
-  border-radius: $radius-sm;
-  pointer-events: none;
-}
-
-/* ── Primary Button ─────────────────────────────────────── */
-
-.dashboard__primary-btn {
-  height: 32px;
-  padding: 0 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: $signal;
-  color: $canvas-0;
-  font-family: $font-mono;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: $radius-sm;
-  transition: background-color 150ms ease;
-
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  &:hover {
-    background: $signal-dim;
-  }
-
-  &:active {
-    background: rgba($signal-dim, 0.9);
-  }
-}
-
-/* ── Content area (placeholder for next sections) ───────── */
+/* ── Content ────────────────────────────────────────────── */
 
 .dashboard__content {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-
-
-
-
-/* ── KPI Summary Row ────────────────────────────────────── */
+/* ── KPI Row ────────────────────────────────────────────── */
 
 .dashboard__kpi-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
 
   @media (max-width: 1100px) {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -196,11 +41,16 @@
   background: $canvas-1;
   border: 1px solid $hairline;
   border-radius: $radius-md;
-  padding: 1rem 1.125rem;
+  padding: 0.875rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  min-height: 96px;
+  gap: 0.4rem;
+}
+
+.kpi-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .kpi-card__label {
@@ -212,58 +62,79 @@
   color: $ink-2;
 }
 
-.kpi-card__value {
+.kpi-card__trend {
   font-family: $font-mono;
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.15;
-  color: $ink-0;
-  letter-spacing: -0.02em;
+  font-size: 11px;
+  font-weight: 500;
 
-  &--signal {
-    color: $signal;
-  }
-
-  &--amber {
-    color: $amber;
-  }
-
-  &--moss {
+  &--up {
     color: $moss;
   }
 
-  &--coral {
+  &--down {
     color: $coral;
   }
 }
 
-.kpi-card__sub {
-  font-family: $font-sans;
-  font-size: 12px;
-  color: $ink-1;
-  margin-top: auto;
+.kpi-card__value-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
+.kpi-card__value {
+  font-family: $font-mono;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: $ink-0;
+  letter-spacing: -0.02em;
+}
 
+.kpi-card__bar {
+  flex: 1;
+  height: 6px;
+  background: $canvas-2;
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 80px;
+}
 
+.kpi-card__bar-fill {
+  height: 100%;
+  background: $signal;
+  border-radius: 2px;
+}
 
-/* ── Main Operational Grid ──────────────────────────────── */
+.kpi-card__provenance {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $ink-2;
+  letter-spacing: 0.04em;
+}
 
-.dashboard__grid {
+.kpi-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $ink-1;
+  flex-shrink: 0;
+}
+
+/* ── Main Grid ──────────────────────────────────────────── */
+
+.dashboard__main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: 1rem;
+  min-height: 340px;
 
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
   }
-}
-
-.dashboard__col {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  min-width: 0;
 }
 
 /* ── Shared Panel ───────────────────────────────────────── */
@@ -281,7 +152,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
   border-bottom: 1px solid $hairline;
 }
 
@@ -290,33 +161,11 @@
   font-family: $font-display;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: $ink-0;
 }
 
-.panel__meta {
-  font-family: $font-mono;
-  font-size: 11px;
-  color: $ink-2;
-}
-
-.panel__badge {
-  font-family: $font-mono;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 0.15rem 0.45rem;
-  border-radius: $radius-sm;
-
-  &--signal {
-    color: $signal;
-    background: rgba($signal, 0.12);
-    border: 1px solid rgba($signal, 0.35);
-  }
-}
-
-.panel__action {
+.panel__link {
   font-family: $font-mono;
   font-size: 11px;
   color: $ink-1;
@@ -330,212 +179,298 @@
   }
 }
 
-.panel__body {
-  padding: 1rem;
-  flex: 1;
-}
-
-.panel__body--map {
-  padding: 0;
-  min-height: 220px;
-}
-
-.panel__body--list {
-  padding: 0.5rem 0;
-}
-
-/* ── Map Preview ────────────────────────────────────────── */
-
-.map-preview {
-  height: 220px;
-  background: $canvas-0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.map-preview__placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
+.panel__meta {
+  font-family: $font-mono;
+  font-size: 11px;
   color: $ink-2;
 }
 
-.map-preview__label {
-  font-family: $font-mono;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.panel__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-top: 1px solid $hairline;
+  margin-top: auto;
 }
 
-.map-preview__coords {
+.panel__footer-link {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $signal;
+  cursor: pointer;
+}
+
+.panel__footer-meta {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $ink-2;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── Vessel Queue Table ─────────────────────────────────── */
+
+.queue-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.queue-table__head {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0.8fr 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $ink-2;
+  border-bottom: 1px solid $hairline;
+}
+
+.queue-table__row {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0.8fr 1fr;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  align-items: center;
+  border-bottom: 1px solid rgba($hairline, 0.6);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.queue-table__name {
+  font-size: 13px;
+  font-weight: 500;
+  color: $ink-0;
+}
+
+.queue-table__wait {
   font-family: $font-mono;
   font-size: 12px;
   color: $ink-1;
 }
 
-/* ── Congestion Bars ────────────────────────────────────── */
+.queue-table__berth {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-1;
+}
 
-.congestion-row {
-  display: grid;
-  grid-template-columns: 90px 1fr 70px;
+.queue-table__prov {
+  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: 0.35rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+
+  &--measured {
+    color: $ink-1;
+  }
+
+  &--estimated {
+    color: $amber;
+  }
+}
+
+.queue-table__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Port Status ────────────────────────────────────────── */
+
+.status-map {
+  padding: 0.75rem 1rem 0.5rem;
+}
+
+.status-map__canvas {
+  height: 120px;
+  background: $canvas-0;
+  border: 1px solid $hairline;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-map__label {
+  font-family: $font-mono;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: $ink-2;
+}
+
+.berth-list {
+  padding: 0.5rem 1rem 0.75rem;
+}
+
+.berth-list__title {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ink-2;
+  margin-bottom: 0.6rem;
+}
+
+.berth-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 40px;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.45rem;
 
   &:last-child {
     margin-bottom: 0;
   }
 }
 
-.congestion-row__label {
-  font-family: $font-sans;
-  font-size: 12px;
+.berth-row__name {
+  font-family: $font-mono;
+  font-size: 11px;
   color: $ink-1;
 }
 
-.congestion-row__value {
-  font-family: $font-mono;
-  font-size: 11px;
-  text-align: right;
-  color: $ink-0;
-}
-
-.congestion-bar {
+.berth-row__track {
   height: 6px;
   background: $canvas-2;
   border-radius: 2px;
   overflow: hidden;
 }
 
-.congestion-bar__fill {
+.berth-row__fill {
   height: 100%;
   border-radius: 2px;
 
-  &--low {
-    background: $moss;
+  &--signal {
+    background: $signal;
   }
 
-  &--moderate {
+  &--amber {
     background: $amber;
   }
+}
 
-  &--high {
-    background: $coral;
+.berth-row__pct {
+  font-family: $font-mono;
+  font-size: 11px;
+  text-align: right;
+  color: $ink-0;
+}
+
+/* ── Bottom Grid ────────────────────────────────────────── */
+
+.dashboard__bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  min-height: 200px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
   }
 }
 
-/* ── Arrival List ───────────────────────────────────────── */
-
-.arrival-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.prediction-canvas {
+  flex: 1;
+  min-height: 160px;
+  background: $canvas-0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.arrival-list__item {
-  padding: 0.65rem 1rem;
-  border-bottom: 1px solid $hairline;
+.prediction-canvas__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-2;
+}
+
+.prediction-canvas__hint {
+  font-size: 11px;
+  color: $ink-2;
+  opacity: 0.7;
+}
+
+/* ── Simulations List ───────────────────────────────────── */
+
+.sim-list {
+  padding: 0.4rem 0;
+  flex: 1;
+}
+
+.sim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid rgba($hairline, 0.6);
 
   &:last-child {
     border-bottom: none;
   }
 }
 
-.arrival-list__main {
+.sim-row__left {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.25rem;
+  gap: 0.6rem;
 }
 
-.arrival-list__name {
-  font-family: $font-sans;
-  font-size: 13px;
-  font-weight: 500;
-  color: $ink-0;
-}
-
-.arrival-list__eta {
+.sim-row__id {
   font-family: $font-mono;
   font-size: 12px;
-  color: $signal;
-}
-
-.arrival-list__meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.arrival-list__berth {
-  font-family: $font-mono;
-  font-size: 11px;
   color: $ink-1;
 }
 
-.arrival-list__status {
+.sim-row__name {
+  font-size: 13px;
+  color: $ink-0;
+}
+
+.sim-row__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sim-row__duration {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-2;
+}
+
+.sim-row__status {
   font-family: $font-mono;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 0.15rem 0.4rem;
+  border-radius: $radius-sm;
 
-  &--assigned {
+  &--completed {
     color: $moss;
+    background: rgba($moss, 0.12);
   }
 
-  &--pending {
-    color: $amber;
+  &--failed {
+    color: $coral;
+    background: rgba($coral, 0.12);
   }
-
-  &--anchored {
-    color: $ink-2;
-  }
-}
-
-/* ── Scenario List ──────────────────────────────────────── */
-
-.scenario-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.scenario-list__item {
-  padding: 0.65rem 1rem;
-  border-bottom: 1px solid $hairline;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.scenario-list__main {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.2rem;
-}
-
-.scenario-list__name {
-  font-family: $font-sans;
-  font-size: 13px;
-  color: $ink-0;
-}
-
-.scenario-list__time {
-  font-family: $font-mono;
-  font-size: 11px;
-  color: $ink-2;
-}
-
-.scenario-list__result {
-  font-family: $font-mono;
-  font-size: 11px;
-  color: $ink-1;
 }

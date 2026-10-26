@@ -224,7 +224,7 @@
 }
 
 .shell__search {
-  width: 180px;
+  width: 240px;
   height: 2rem;
   padding: 0 0.625rem;
   background-color: $canvas-1;
@@ -270,6 +270,23 @@
   flex-shrink: 0;
 }
 
+.shell__search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: $ink-0;
+  font-family: $font-mono;
+  font-size: 11px;
+  outline: none;
+
+  &::placeholder {
+    color: $ink-2;
+    letter-spacing: 0.02em;
+  }
+}
+
 .shell__action {
   height: 2rem;
   padding: 0 0.875rem;
@@ -303,4 +320,72 @@
   padding: 2rem;
   color: $ink-2;
   font-size: 13px;
+}
+
+
+
+
+
+
+/* ── Route-aware top bar (Dashboard only) ───────────────── */
+
+.shell__page-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.shell__page-title {
+  margin: 0;
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: $ink-0;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.shell__sector {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 1rem;
+  border-left: 1px solid $hairline;
+
+  @media (min-width: 1280px) {
+    display: flex;
+  }
+}
+
+.shell__sector-label {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ink-2;
+}
+
+.shell__sector-value {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+  white-space: nowrap;
+}
+
+.shell__action--live {
+  gap: 0.45rem;
+  padding: 0 1rem;
+  font-family: $font-mono;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 }
