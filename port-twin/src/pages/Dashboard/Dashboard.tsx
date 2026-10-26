@@ -1,4 +1,35 @@
-import './Dashboard.scss';
+import './Dashboard.scss'
+//Dummy 
+const kpiCards = [
+  {
+    id: 'vessels',
+    label: 'Monitored Vessels',
+    value: '48',
+    sub: '12 in channel',
+    tone: 'signal' as const,
+  },
+  {
+    id: 'waiting',
+    label: 'Vessels Waiting',
+    value: '6',
+    sub: 'Avg queue 2.4 h',
+    tone: 'amber' as const,
+  },
+  {
+    id: 'wait-time',
+    label: 'Avg Waiting Time',
+    value: '1.8 h',
+    sub: '−0.4 h vs baseline',
+    tone: 'moss' as const,
+  },
+  {
+    id: 'berth-util',
+    label: 'Berth Utilization',
+    value: '87%',
+    sub: '11 of 14 berths',
+    tone: 'signal' as const,
+  },
+]
 
 export default function Dashboard() {
   return (
@@ -51,9 +82,22 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Content area — next sections will go here */}
+      {/* Content area */}
       <div className="dashboard__content">
-        {/* Section 2 will start here */}
+        {/* Section 2 — KPI Cards */}
+        <section className="dashboard__kpi-row" aria-label="Key performance indicators">
+          {kpiCards.map((card) => (
+            <article key={card.id} className="kpi-card">
+              <div className="kpi-card__label">{card.label}</div>
+              <div className={`kpi-card__value kpi-card__value--${card.tone}`}>
+                {card.value}
+              </div>
+              <div className="kpi-card__sub">{card.sub}</div>
+            </article>
+          ))}
+        </section>
+
+        {/* Section 3 will go here */}
       </div>
     </div>
   )
