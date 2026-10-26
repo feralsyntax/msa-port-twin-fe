@@ -1,4 +1,4 @@
-import './PlaceholderPage.scss'
+import './PlaceholderPage.scss';
 type PlaceholderPageProps = {
   title: string
 }

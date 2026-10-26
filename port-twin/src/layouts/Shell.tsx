@@ -1,5 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
-import './Shell.scss'
+import { NavLink, Outlet } from 'react-router-dom';
+import './Shell.scss';
 
 const primaryNav = [
   {

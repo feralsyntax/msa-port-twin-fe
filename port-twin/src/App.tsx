@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Shell from './layouts/Shell'
-import PlaceholderPage from './pages/PlaceholderPage'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Shell from './layouts/Shell';
+import PlaceholderPage from './pages/PlaceholderPage';
 
 export default function App() {
   return (
