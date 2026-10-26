@@ -6,7 +6,7 @@ Interface for an AI-powered maritime digital twin for port monitoring, vessel si
   ```
   git clone https://github.com/feralsyntax/msa-port-twin-fe
   ```
-- navigate to the project folder
+- navigate to the `React` project folder
   ```
   cd msa-port-twin-fe/port-twin
   ```
