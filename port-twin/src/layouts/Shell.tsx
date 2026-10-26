@@ -148,7 +148,7 @@ export default function Shell() {
         </div>
       </aside>
 
-      <      <div className="shell__main">
+            <div className="shell__main">
         <header className="shell__topbar">
           <div className="shell__topbar-left">
             <div
