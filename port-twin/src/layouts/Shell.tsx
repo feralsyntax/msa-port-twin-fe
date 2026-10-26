@@ -1,5 +1,73 @@
-import { Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import './Shell.scss'
+
+const primaryNav = [
+  {
+    to: '/',
+    label: 'Dashboard',
+    end: true,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="0.5" />
+        <rect x="14" y="3" width="7" height="7" rx="0.5" />
+        <rect x="14" y="14" width="7" height="7" rx="0.5" />
+        <rect x="3" y="14" width="7" height="7" rx="0.5" />
+      </svg>
+    ),
+  },
+  {
+    to: '/vessels',
+    label: 'Vessels',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 19c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 5 1" />
+        <path d="M4 14l2-8h12l2 8" />
+        <path d="M12 6V2" />
+      </svg>
+    ),
+  },
+  {
+    to: '/berths',
+    label: 'Berths',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" />
+        <path d="M3 11h18" />
+        <path d="M8 21v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" />
+      </svg>
+    ),
+  },
+  {
+    to: '/predictions',
+    label: 'Marine Predictions',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+  },
+  {
+    to: '/simulations',
+    label: 'Simulations',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polygon points="5 3 19 12 5 21 5 3" />
+      </svg>
+    ),
+  },
+  {
+    to: '/map',
+    label: 'Marine Map',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+        <line x1="8" y1="2" x2="8" y2="18" />
+        <line x1="16" y1="6" x2="16" y2="22" />
+      </svg>
+    ),
+  },
+]
 
 export default function Shell() {
   return (
@@ -29,16 +97,47 @@ export default function Shell() {
             <span className="shell__brand-wordmark">MSA PORTTWIN</span>
           </div>
 
-          {/* Nav items added in next section */}
-          <nav className="shell__nav" aria-label="Primary Navigation" />
+          <nav className="shell__nav" aria-label="Primary Navigation">
+            {primaryNav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `shell__nav-item${isActive ? ' shell__nav-item--active' : ''}`
+                }
+              >
+                <span className="shell__nav-icon">{item.icon}</span>
+                <span className="shell__nav-label">{item.label}</span>
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="shell__divider" />
+
+          <div className="shell__secondary">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `shell__nav-item shell__nav-item--secondary${isActive ? ' shell__nav-item--active' : ''}`
+              }
+            >
+              <span className="shell__nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+              </span>
+              <span className="shell__nav-label">About</span>
+            </NavLink>
+          </div>
         </div>
 
-        {/* Status footer added in a later section */}
         <div className="shell__status" />
       </aside>
 
       <div className="shell__main">
-        {/* Top bar added in a later section */}
         <header className="shell__topbar" />
 
         <section className="shell__content" aria-label="Main content">
