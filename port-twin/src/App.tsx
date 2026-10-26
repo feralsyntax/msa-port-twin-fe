@@ -1,8 +1,18 @@
-import "./App.css";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Shell from './layouts/Shell'
 
-function App() {
-
-  return <></>;
+function Placeholder() {
+  return <p>Page content renders here</p>
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Shell />}>
+          <Route index element={<Placeholder />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
