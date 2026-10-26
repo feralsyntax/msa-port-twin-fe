@@ -128,14 +128,62 @@
 .shell__secondary {
   padding: 0.5rem 0;
 }
-
 .shell__status {
   padding: 1rem;
   border-top: 1px solid $hairline;
   background-color: rgba($canvas-1, 0.8);
-  min-height: 3.25rem;
 }
 
+.shell__status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shell__status-live {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shell__status-dot {
+  position: relative;
+  display: flex;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.shell__status-dot-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: $signal;
+  opacity: 0.75;
+  animation: sonar-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.shell__status-dot-core {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: $signal;
+}
+
+.shell__status-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $ink-1;
+}
+
+.shell__status-version {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $ink-2;
+  letter-spacing: -0.01em;
+}
 // Main column
 .shell__main {
   flex: 1;
