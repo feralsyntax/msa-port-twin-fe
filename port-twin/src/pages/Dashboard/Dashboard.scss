@@ -243,3 +243,299 @@
   color: $ink-1;
   margin-top: auto;
 }
+
+
+
+
+/* ── Main Operational Grid ──────────────────────────────── */
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard__col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* ── Shared Panel ───────────────────────────────────────── */
+
+.panel {
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid $hairline;
+}
+
+.panel__title {
+  margin: 0;
+  font-family: $font-display;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $ink-0;
+}
+
+.panel__meta {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-2;
+}
+
+.panel__badge {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.45rem;
+  border-radius: $radius-sm;
+
+  &--signal {
+    color: $signal;
+    background: rgba($signal, 0.12);
+    border: 1px solid rgba($signal, 0.35);
+  }
+}
+
+.panel__action {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: $signal;
+  }
+}
+
+.panel__body {
+  padding: 1rem;
+  flex: 1;
+}
+
+.panel__body--map {
+  padding: 0;
+  min-height: 220px;
+}
+
+.panel__body--list {
+  padding: 0.5rem 0;
+}
+
+/* ── Map Preview ────────────────────────────────────────── */
+
+.map-preview {
+  height: 220px;
+  background: $canvas-0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-preview__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: $ink-2;
+}
+
+.map-preview__label {
+  font-family: $font-mono;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.map-preview__coords {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-1;
+}
+
+/* ── Congestion Bars ────────────────────────────────────── */
+
+.congestion-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 70px;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.congestion-row__label {
+  font-family: $font-sans;
+  font-size: 12px;
+  color: $ink-1;
+}
+
+.congestion-row__value {
+  font-family: $font-mono;
+  font-size: 11px;
+  text-align: right;
+  color: $ink-0;
+}
+
+.congestion-bar {
+  height: 6px;
+  background: $canvas-2;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.congestion-bar__fill {
+  height: 100%;
+  border-radius: 2px;
+
+  &--low {
+    background: $moss;
+  }
+
+  &--moderate {
+    background: $amber;
+  }
+
+  &--high {
+    background: $coral;
+  }
+}
+
+/* ── Arrival List ───────────────────────────────────────── */
+
+.arrival-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.arrival-list__item {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid $hairline;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.arrival-list__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.arrival-list__name {
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 500;
+  color: $ink-0;
+}
+
+.arrival-list__eta {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $signal;
+}
+
+.arrival-list__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrival-list__berth {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+}
+
+.arrival-list__status {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  &--assigned {
+    color: $moss;
+  }
+
+  &--pending {
+    color: $amber;
+  }
+
+  &--anchored {
+    color: $ink-2;
+  }
+}
+
+/* ── Scenario List ──────────────────────────────────────── */
+
+.scenario-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scenario-list__item {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid $hairline;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.scenario-list__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.2rem;
+}
+
+.scenario-list__name {
+  font-family: $font-sans;
+  font-size: 13px;
+  color: $ink-0;
+}
+
+.scenario-list__time {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-2;
+}
+
+.scenario-list__result {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+}
