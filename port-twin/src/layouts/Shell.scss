@@ -193,15 +193,105 @@
   min-width: 0;
   background-color: $canvas-0;
 }
-
 .shell__topbar {
   height: $topbar-height;
   flex-shrink: 0;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid $hairline;
   background-color: $canvas-0;
   z-index: 10;
 }
 
+.shell__topbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.shell__title-placeholder {
+  width: 180px;
+  height: 16px;
+  background-color: $hairline;
+  border-radius: $radius-sm;
+}
+
+.shell__topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.shell__search {
+  width: 180px;
+  height: 2rem;
+  padding: 0 0.625rem;
+  background-color: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.shell__search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.shell__search-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  color: $ink-2;
+}
+
+.shell__search-placeholder {
+  font-size: 11px;
+  color: $ink-2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shell__search-kbd {
+  font-family: $font-mono;
+  font-size: 9px;
+  color: $ink-2;
+  padding: 0.125rem 0.25rem;
+  border-radius: $radius-sm;
+  background-color: rgba($canvas-2, 0.6);
+  border: 1px solid rgba($hairline, 0.6);
+  flex-shrink: 0;
+}
+
+.shell__action {
+  height: 2rem;
+  padding: 0 0.875rem;
+  background-color: $signal;
+  color: $canvas-0;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.12s ease;
+
+  &:hover {
+    background-color: $signal-dim;
+  }
+}
+
+.shell__action-placeholder {
+  width: 100px;
+  height: 10px;
+  background-color: rgba($canvas-0, 0.6);
+  border-radius: 1px;
+}
 .shell__content {
   flex: 1;
   width: 100%;

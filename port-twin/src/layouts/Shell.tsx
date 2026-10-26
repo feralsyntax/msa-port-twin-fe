@@ -148,8 +148,45 @@ export default function Shell() {
         </div>
       </aside>
 
-      <div className="shell__main">
-        <header className="shell__topbar" />
+      <      <div className="shell__main">
+        <header className="shell__topbar">
+          <div className="shell__topbar-left">
+            <div
+              className="shell__title-placeholder"
+              aria-label="Page title placeholder"
+            />
+          </div>
+
+          <div className="shell__topbar-right">
+            <div className="shell__search" role="search">
+              <div className="shell__search-field">
+                <svg
+                  className="shell__search-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span className="shell__search-placeholder">Search...</span>
+              </div>
+              <kbd className="shell__search-kbd">⌘K</kbd>
+            </div>
+
+            <button
+              type="button"
+              className="shell__action"
+              aria-label="Primary action"
+            >
+              <span className="shell__action-placeholder" />
+            </button>
+          </div>
+        </header>
 
         <section className="shell__content" aria-label="Main content">
           <Outlet />
