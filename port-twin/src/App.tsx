@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Shell from './layouts/Shell';
+import Dashboard from './pages/Dashboard/Dashboard';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 export default function App() {
@@ -7,7 +8,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Shell />}>
-          <Route index element={<PlaceholderPage title="Dashboard" />} />
+          <Route index element={<Dashboard />} />
           <Route path="vessels" element={<PlaceholderPage title="Vessels" />} />
           <Route path="berths" element={<PlaceholderPage title="Berths" />} />
           <Route
