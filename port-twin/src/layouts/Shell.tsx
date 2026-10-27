@@ -3,7 +3,7 @@ import './Shell.scss';
 
 const primaryNav = [
   {
-    to: '/',
+    to: '/app',
     label: 'Dashboard',
     end: true,
     icon: (
@@ -16,7 +16,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/vessels',
+    to: '/app/vessels',
     label: 'Vessels',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -27,7 +27,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/berths',
+    to: '/app/berths',
     label: 'Berths',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -38,7 +38,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/predictions',
+    to: '/app/predictions',
     label: 'Marine Predictions',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -48,7 +48,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/simulations',
+    to: '/app/simulations',
     label: 'Simulations',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -57,7 +57,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/map',
+    to: '/app/map',
     label: 'Marine Map',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -71,8 +71,7 @@ const primaryNav = [
 
 export default function Shell() {
   const { pathname } = useLocation()
-  const isDashboard = pathname === '/'
-
+const isDashboard = pathname === '/app' || pathname === '/app/'
   return (
     <div className="shell">
       <aside className="shell__rail" aria-label="Primary navigation">
@@ -120,7 +119,7 @@ export default function Shell() {
 
           <div className="shell__secondary">
             <NavLink
-              to="/about"
+              to="/app/about"
               className={({ isActive }) =>
                 `shell__nav-item shell__nav-item--secondary${
                   isActive ? ' shell__nav-item--active' : ''
