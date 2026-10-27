@@ -15,6 +15,7 @@ body,
   margin: 0;
   padding: 0;
 
+  overflow: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -31,7 +32,6 @@ body {
   line-height: 18px;
   -webkit-font-smoothing: antialiased;
   antialiased: true;
-  overflow: hidden;
   user-select: none;
 }
 
