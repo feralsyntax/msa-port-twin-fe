@@ -1,0 +1,476 @@
+@use '../../styles/tokens' as *;
+
+
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  padding: 1.25rem 1.5rem 1.5rem;
+  overflow-y: hidden;
+  background: $canvas-0;
+}
+/* ── Content ────────────────────────────────────────────── */
+
+.dashboard__content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: hidden;
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── KPI Row ────────────────────────────────────────────── */
+
+.dashboard__kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.kpi-card {
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: $radius-md;
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.kpi-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-card__label {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ink-2;
+}
+
+.kpi-card__trend {
+  font-family: $font-mono;
+  font-size: 11px;
+  font-weight: 500;
+
+  &--up {
+    color: $moss;
+  }
+
+  &--down {
+    color: $coral;
+  }
+}
+
+.kpi-card__value-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.kpi-card__value {
+  font-family: $font-mono;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: $ink-0;
+  letter-spacing: -0.02em;
+}
+
+.kpi-card__bar {
+  flex: 1;
+  height: 6px;
+  background: $canvas-2;
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.kpi-card__bar-fill {
+  height: 100%;
+  background: $signal;
+  border-radius: 2px;
+}
+
+.kpi-card__provenance {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $ink-2;
+  letter-spacing: 0.04em;
+}
+
+.kpi-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $ink-1;
+  flex-shrink: 0;
+}
+
+/* ── Main Grid ──────────────────────────────────────────── */
+
+.dashboard__main-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  min-height: 340px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Shared Panel ───────────────────────────────────────── */
+
+.panel {
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid $hairline;
+}
+
+.panel__title {
+  margin: 0;
+  font-family: $font-display;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: $ink-0;
+}
+
+.panel__link {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: $signal;
+  }
+}
+
+.panel__meta {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-2;
+}
+
+.panel__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-top: 1px solid $hairline;
+  margin-top: auto;
+}
+
+.panel__footer-link {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $signal;
+  cursor: pointer;
+}
+
+.panel__footer-meta {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $ink-2;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── Vessel Queue Table ─────────────────────────────────── */
+
+.queue-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.queue-table__head {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0.8fr 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $ink-2;
+  border-bottom: 1px solid $hairline;
+}
+
+.queue-table__row {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0.8fr 1fr;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  align-items: center;
+  border-bottom: 1px solid rgba($hairline, 0.6);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.queue-table__name {
+  font-size: 13px;
+  font-weight: 500;
+  color: $ink-0;
+}
+
+.queue-table__wait {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-1;
+}
+
+.queue-table__berth {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-1;
+}
+
+.queue-table__prov {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+
+  &--measured {
+    color: $ink-1;
+  }
+
+  &--estimated {
+    color: $amber;
+  }
+}
+
+.queue-table__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Port Status ────────────────────────────────────────── */
+
+.status-map {
+  padding: 0.75rem 1rem 0.5rem;
+}
+
+.status-map__canvas {
+  height: 120px;
+  background: $canvas-0;
+  border: 1px solid $hairline;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-map__label {
+  font-family: $font-mono;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: $ink-2;
+}
+
+.berth-list {
+  padding: 0.5rem 1rem 0.75rem;
+}
+
+.berth-list__title {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ink-2;
+  margin-bottom: 0.6rem;
+}
+
+.berth-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 40px;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.45rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.berth-row__name {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-1;
+}
+
+.berth-row__track {
+  height: 6px;
+  background: $canvas-2;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.berth-row__fill {
+  height: 100%;
+  border-radius: 2px;
+
+  &--signal {
+    background: $signal;
+  }
+
+  &--amber {
+    background: $amber;
+  }
+}
+
+.berth-row__pct {
+  font-family: $font-mono;
+  font-size: 11px;
+  text-align: right;
+  color: $ink-0;
+}
+
+/* ── Bottom Grid ────────────────────────────────────────── */
+
+.dashboard__bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  min-height: 200px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prediction-canvas {
+  flex: 1;
+  min-height: 160px;
+  background: $canvas-0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prediction-canvas__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-2;
+}
+
+.prediction-canvas__hint {
+  font-size: 11px;
+  color: $ink-2;
+  opacity: 0.7;
+}
+
+/* ── Simulations List ───────────────────────────────────── */
+
+.sim-list {
+  padding: 0.4rem 0;
+  flex: 1;
+}
+
+.sim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid rgba($hairline, 0.6);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sim-row__left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.sim-row__id {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-1;
+}
+
+.sim-row__name {
+  font-size: 13px;
+  color: $ink-0;
+}
+
+.sim-row__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sim-row__duration {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $ink-2;
+}
+
+.sim-row__status {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.4rem;
+  border-radius: $radius-sm;
+
+  &--completed {
+    color: $moss;
+    background: rgba($moss, 0.12);
+  }
+
+  &--failed {
+    color: $coral;
+    background: rgba($coral, 0.12);
+  }
+}

@@ -1,6 +1,6 @@
-@use './tokens' as *;
+@use "./tokens" as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 *,
 *::before,
@@ -14,6 +14,14 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+
+  overflow: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
@@ -24,7 +32,6 @@ body {
   line-height: 18px;
   -webkit-font-smoothing: antialiased;
   antialiased: true;
-  overflow: hidden;
   user-select: none;
 }
 
