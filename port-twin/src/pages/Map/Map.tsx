@@ -22,6 +22,7 @@ export default function MapPage() {
   const [isPanning, setIsPanning] = useState(false)
   const dragOrigin = useRef<Point | null>(null)
   const offsetOrigin = useRef<Point>({ x: 0, y: 0 })
+  const [inspectorOpen, setInspectorOpen] = useState(true)
 
   const [layers, setLayers] = useState<Record<LayerKey, boolean>>(() =>
     Object.fromEntries(
@@ -224,7 +225,13 @@ export default function MapPage() {
                   <polygon points="0,-6 6,0 0,6 -6,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
                   <text x="10" y="3" fill="#5F7688" fontFamily="'JetBrains Mono', monospace" fontSize="9">PACIFIC JADE [ANC]</text>
                 </g>
-                <g transform="translate(560, 420)" className="map-page__vessel--active">
+                <g
+                  transform="translate(560, 420)"
+                  className="map-page__vessel--active"
+                  style={{ pointerEvents: 'auto', cursor: 'pointer' }}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={() => setInspectorOpen((open) => !open)}
+                >
                   <circle cx="0" cy="0" r="14" fill="none" stroke="#00D2C8" strokeWidth="1.2" opacity="0.8">
                     <animate attributeName="r" values="6;26" dur="2.4s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0.9;0" dur="2.4s" repeatCount="indefinite" />
@@ -281,6 +288,50 @@ export default function MapPage() {
           <span className="map-layers__footer-value">UTM 37S / WGS84</span>
         </div>
       </aside>
+            {inspectorOpen && (
+        <aside
+          className="map-inspector"
+          aria-label="Selected vessel"
+          onPointerDown={(e) => e.stopPropagation()}
+        >
+          <div className="map-inspector__header">
+            <div className="map-inspector__title-row">
+              <span className="map-inspector__name">MV KWALE STAR</span>
+              <span className="map-inspector__prov">
+                <span className="map-inspector__prov-dot" />
+                MEASURED
+              </span>
+            </div>
+            <span className="map-inspector__type">CONTAINER</span>
+          </div>
+
+          <div className="map-inspector__grid">
+            <div className="map-inspector__cell">
+              <span className="map-inspector__cell-label">SPEED</span>
+              <span className="map-inspector__cell-value map-inspector__cell-value--signal">
+                14.2 kn
+              </span>
+            </div>
+            <div className="map-inspector__cell">
+              <span className="map-inspector__cell-label">COURSE</span>
+              <span className="map-inspector__cell-value">042° TRUE</span>
+            </div>
+            <div className="map-inspector__cell">
+              <span className="map-inspector__cell-label">ETA</span>
+              <span className="map-inspector__cell-value">14:20 UTC</span>
+            </div>
+            <div className="map-inspector__cell">
+              <span className="map-inspector__cell-label">MAX DRAFT</span>
+              <span className="map-inspector__cell-value">11.4 m</span>
+            </div>
+          </div>
+
+          <div className="map-inspector__berth">
+            <span className="map-inspector__berth-label">Berth 3</span>
+            <span className="map-inspector__berth-status">ASSIGNED</span>
+          </div>
+        </aside>
+      )}
     </div>
   )
 }
