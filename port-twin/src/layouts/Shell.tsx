@@ -71,7 +71,8 @@ const primaryNav = [
 
 export default function Shell() {
   const { pathname } = useLocation()
-const isDashboard = pathname === '/app' || pathname === '/app/'
+  const isDashboard = pathname === '/app' || pathname === '/app/'
+  const isMap = pathname === '/app/map'
   return (
     <div className="shell">
       <aside className="shell__rail" aria-label="Primary navigation">
@@ -173,6 +174,16 @@ const isDashboard = pathname === '/app' || pathname === '/app/'
                   </span>
                 </div>
               </div>
+            ) : isMap ? (
+              <div className="shell__page-meta">
+                <h1 className="shell__page-title">Marine Map</h1>
+                <div className="shell__sector">
+                  <span className="shell__sector-label">SECTOR</span>
+                  <span className="shell__sector-value">
+                    MOMBASA-KILINDINI // 04°03'S 39°38'E
+                  </span>
+                </div>
+              </div>
             ) : (
               <div
                 className="shell__title-placeholder"
@@ -200,13 +211,19 @@ const isDashboard = pathname === '/app' || pathname === '/app/'
             <input
               type="text"
               className="shell__search-input"
-              placeholder={isDashboard ? 'Filter telemetry, vessel, berth...' : 'Search...'}
+              placeholder={
+                isDashboard
+                  ? 'Filter telemetry, vessel, berth...'
+                : isMap
+                ? 'Search AIS, Berth, Waypoint...'
+                 : 'Search...'
+              }
             />
           </div>
           <kbd className="shell__search-kbd">⌘K</kbd>
         </div>
 
-            {isDashboard ? (
+                        {isDashboard ? (
               <button type="button" className="shell__action shell__action--live">
                 <svg
                   viewBox="0 0 24 24"
@@ -218,6 +235,10 @@ const isDashboard = pathname === '/app' || pathname === '/app/'
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                 </svg>
                 <span>New Simulation</span>
+              </button>
+            ) : isMap ? (
+              <button type="button" className="shell__action shell__action--live">
+                <span>REFRESH DATA</span>
               </button>
             ) : (
               <button
@@ -231,7 +252,10 @@ const isDashboard = pathname === '/app' || pathname === '/app/'
           </div>
         </header>
 
-        <section className="shell__content" aria-label="Main content">
+                <section
+          className={`shell__content${isMap ? ' shell__content--bleed' : ''}`}
+          aria-label="Main content"
+        >
           <Outlet />
         </section>
       </div>
