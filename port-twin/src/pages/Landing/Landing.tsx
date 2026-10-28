@@ -99,6 +99,85 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+
+
+
+
+            <section className="landing__band" id="problem">
+        <div className="landing__band-inner">
+          <p className="landing__section-eyebrow">The problem</p>
+          <h2 className="landing__section-title">
+            Congestion, uncertain channel conditions, and opaque schedule trade-offs
+          </h2>
+          <div className="landing__problem-grid">
+            <article className="landing__card">
+              <h3 className="landing__card-title">Vessel queue pressure</h3>
+              <p className="landing__card-body">
+                Arrivals stack outside Kilindini while berth slots and pilot windows
+                stay hard to negotiate in one operational picture.
+              </p>
+            </article>
+            <article className="landing__card">
+              <h3 className="landing__card-title">Hydrodynamic uncertainty</h3>
+              <p className="landing__card-body">
+                Depth, current, and tide affect safe transit windows. Operators need
+                model-backed channel insight, not only static charts.
+              </p>
+            </article>
+            <article className="landing__card">
+              <h3 className="landing__card-title">Schedule opacity</h3>
+              <p className="landing__card-body">
+                Baseline versus optimised berth plans are difficult to compare when
+                data provenance — measured, model, or simulated — is unclear.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="landing__band landing__band--muted" id="capabilities">
+        <div className="landing__band-inner">
+          <p className="landing__section-eyebrow">Capabilities</p>
+          <h2 className="landing__section-title">
+            One instrument for flow, queue, and berth decisions
+          </h2>
+          <div className="landing__cap-grid">
+            <article className="landing__cap">
+              <span className="landing__cap-tag">MODEL</span>
+              <h3 className="landing__card-title">Marine predictions</h3>
+              <p className="landing__card-body">
+                Fourier Neural Operator–style channel flow fields for water level and
+                current context on the approach and harbour.
+              </p>
+            </article>
+            <article className="landing__cap">
+              <span className="landing__cap-tag landing__cap-tag--measured">MEASURED</span>
+              <h3 className="landing__card-title">Operations dashboard</h3>
+              <p className="landing__card-body">
+                Live-style KPIs for vessels in port, active berths, waiting time, and
+                capacity utilisation with explicit provenance chips.
+              </p>
+            </article>
+            <article className="landing__cap">
+              <span className="landing__cap-tag landing__cap-tag--sim">SIMULATED</span>
+              <h3 className="landing__card-title">Scenario lab</h3>
+              <p className="landing__card-body">
+                Queue and berth scenarios you can run, compare, and keep in history
+                before changing the real schedule.
+              </p>
+            </article>
+            <article className="landing__cap">
+              <span className="landing__cap-tag landing__cap-tag--measured">MEASURED</span>
+              <h3 className="landing__card-title">Marine map</h3>
+              <p className="landing__card-body">
+                Cartographic instrument view of Kilindini — vessels, berths, flow
+                overlays, and layer controls in one dense canvas.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
