@@ -19,6 +19,7 @@ const layerConfig: {
 
 export default function MapPage() {
   const [offset, setOffset] = useState<Point>({ x: 0, y: 0 })
+  const [scale, setScale] = useState(1) 
   const [isPanning, setIsPanning] = useState(false)
   const dragOrigin = useRef<Point | null>(null)
   const offsetOrigin = useRef<Point>({ x: 0, y: 0 })
@@ -72,6 +73,16 @@ export default function MapPage() {
     }
   }, [])
 
+
+const zoomBy = (factor: number) => {
+    setScale((prev) => Math.min(2.5, Math.max(0.5, prev * factor)))
+  }
+
+const recenter = () => {
+    setOffset({ x: 0, y: 0 })
+    setScale(1)
+  }
+
   return (
     <div className="map-page">
       <div
@@ -87,7 +98,7 @@ export default function MapPage() {
           xmlns="http://www.w3.org/2000/svg"
           aria-label="Kilindini Harbour cartographic layer"
         >
-          <g transform={`translate(${offset.x} ${offset.y})`}>
+        <g transform={`translate(${offset.x} ${offset.y}) scale(${scale})`}>
             <defs>
               <pattern
                 id="carto-grid"
@@ -246,6 +257,96 @@ export default function MapPage() {
             )}
           </g>
         </svg>
+      </div>
+
+
+
+
+            {/* Compass */}
+      <div
+        className="map-compass"
+        aria-hidden="true"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <svg className="map-compass__svg" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="21" stroke="#1E2E3F" strokeWidth="1" />
+          <circle
+            cx="24"
+            cy="24"
+            r="17"
+            stroke="#1E2E3F"
+            strokeWidth="0.75"
+            strokeDasharray="2 2"
+          />
+          <line x1="24" y1="3" x2="24" y2="7" stroke="#00D2C8" strokeWidth="1.5" />
+          <line x1="24" y1="41" x2="24" y2="45" stroke="#9CB0C2" strokeWidth="1" />
+          <line x1="3" y1="24" x2="7" y2="24" stroke="#9CB0C2" strokeWidth="1" />
+          <line x1="41" y1="24" x2="45" y2="24" stroke="#9CB0C2" strokeWidth="1" />
+          <polygon
+            points="24,8 27,24 24,21 21,24"
+            fill="#00D2C8"
+            stroke="#00D2C8"
+            strokeWidth="0.5"
+          />
+          <polygon
+            points="24,40 27,24 24,27 21,24"
+            fill="#1E2E3F"
+            stroke="#1E2E3F"
+            strokeWidth="0.5"
+          />
+          <circle cx="24" cy="24" r="2" fill="#06121B" stroke="#00D2C8" strokeWidth="1" />
+          <text
+            x="24"
+            y="16"
+            textAnchor="middle"
+            fill="#00D2C8"
+            fontFamily="'Space Grotesk', sans-serif"
+            fontSize="8"
+            fontWeight="700"
+          >
+            N
+          </text>
+        </svg>
+      </div>
+
+      {/* Zoom controls */}
+      <div
+        className="map-zoom"
+        aria-label="Map navigation"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="map-zoom__btn"
+          title="Zoom in"
+          onClick={() => zoomBy(1.15)}
+        >
+          +
+        </button>
+        <button
+          type="button"
+          className="map-zoom__btn"
+          title="Zoom out"
+          onClick={() => zoomBy(1 / 1.15)}
+        >
+          −
+        </button>
+        <button
+          type="button"
+          className="map-zoom__btn"
+          title="Recenter Kilindini Harbour"
+          onClick={recenter}
+        >
+          ⊙
+        </button>
+        <button
+          type="button"
+          className="map-zoom__btn"
+          title="Fit basin"
+          onClick={recenter}
+        >
+          ⛶
+        </button>
       </div>
 
       {/* Layers HUD — does not trigger pan */}
