@@ -349,6 +349,92 @@ const recenter = () => {
         </button>
       </div>
 
+
+            {/* Provenance legend */}
+      <div
+        className="map-legend"
+        aria-label="Data provenance legend"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <span className="map-legend__title">PROVENANCE</span>
+        <div className="map-legend__items">
+          <span className="map-legend__item map-legend__item--measured">
+            <span className="map-legend__dot" />
+            MEASURED
+          </span>
+          <span className="map-legend__item map-legend__item--model">
+            <span className="map-legend__dot" />
+            MODEL
+          </span>
+          <span className="map-legend__item map-legend__item--historical">
+            <span className="map-legend__dot" />
+            HISTORICAL
+          </span>
+          <span className="map-legend__item map-legend__item--simulated">
+            <span className="map-legend__dot" />
+            SIMULATED
+          </span>
+        </div>
+      </div>
+
+      {/* Timeline scrubber */}
+      <div
+        className="map-timeline"
+        aria-label="Timeline scrubber"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <div className="map-timeline__telemetry">
+          <div className="map-timeline__env">
+            <span>
+              WIND <strong>12 kn ESE</strong>
+            </span>
+            <span className="map-timeline__sep">|</span>
+            <span>
+              WAVE <strong>0.8m @ 6s</strong>
+            </span>
+            <span className="map-timeline__sep">|</span>
+            <span>
+              TIDE <strong>+1.4m FLOOD</strong>
+            </span>
+          </div>
+          <div className="map-timeline__live">
+            <span className="map-timeline__live-dot" />
+            LIVE TELEMETRY
+          </div>
+        </div>
+
+        <div className="map-timeline__track-wrap">
+          <div className="map-timeline__track">
+            <div className="map-timeline__fill" />
+            <span className="map-timeline__tick" style={{ left: '0%' }}>
+              08:00
+            </span>
+            <span className="map-timeline__tick" style={{ left: '20%' }}>
+              10:00
+            </span>
+            <span className="map-timeline__tick" style={{ left: '40%' }}>
+              12:00
+            </span>
+            <span
+              className="map-timeline__tick map-timeline__tick--active"
+              style={{ left: '60%' }}
+            >
+              14:00
+            </span>
+            <span className="map-timeline__tick" style={{ left: '80%' }}>
+              16:00
+            </span>
+            <span className="map-timeline__tick" style={{ left: '100%' }}>
+              18:00
+            </span>
+          </div>
+          <div className="map-timeline__thumb" style={{ left: '64%' }}>
+            <span className="map-timeline__thumb-label">14:22</span>
+            <span className="map-timeline__thumb-grip" />
+          </div>
+        </div>
+      </div>
+
       {/* Layers HUD — does not trigger pan */}
       <aside
         className="map-layers"
