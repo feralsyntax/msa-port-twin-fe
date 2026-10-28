@@ -1,4 +1,5 @@
 @use '../../styles/tokens' as *;
+
 .landing {
   min-height: 100vh;
   background-color: $canvas-0;
@@ -7,9 +8,8 @@
   overflow-x: hidden;
 }
 
-body:has(.landing) {
-  overflow: auto;
-}
+// ── Nav ──────────────────────────────────────────────────
+
 .landing__nav {
   height: 64px;
   padding: 0 1.5rem;
@@ -17,11 +17,11 @@ body:has(.landing) {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $hairline;
-  background-color: rgba($canvas-1, 0.92);
+  background-color: rgba($canvas-0, 0.92);
   position: sticky;
   top: 0;
   z-index: 30;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 .landing__brand {
@@ -33,7 +33,6 @@ body:has(.landing) {
 .landing__brand-glyph {
   width: 1rem;
   height: 1rem;
-  flex-shrink: 0;
 }
 
 .landing__brand-wordmark {
@@ -53,7 +52,6 @@ body:has(.landing) {
   a {
     font-size: 13px;
     color: $ink-1;
-    transition: color 0.12s ease;
 
     &:hover {
       color: $ink-0;
@@ -77,16 +75,17 @@ body:has(.landing) {
 
   &:hover {
     background-color: $signal-dim;
-    color: $canvas-0 !important;
   }
 }
+
+// ── Hero ─────────────────────────────────────────────────
 
 .landing__hero {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 4rem;
+  padding: 4rem 1.5rem 4.5rem;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 2.5rem;
   align-items: center;
 
@@ -97,43 +96,54 @@ body:has(.landing) {
 }
 
 .landing__eyebrow {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: $font-mono;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $signal;
+}
+
+.landing__live-pip {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background-color: $signal;
+  box-shadow: 0 0 0 4px rgba($signal, 0.2);
 }
 
 .landing__title {
   margin: 0 0 1rem;
   font-family: $font-display;
   font-weight: 600;
-  font-size: clamp(28px, 4vw, 36px);
-  line-height: 1.2;
+  font-size: clamp(32px, 4.5vw, 44px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   color: $ink-0;
-  letter-spacing: -0.02em;
 }
 
 .landing__lead {
   margin: 0 0 1.5rem;
   font-size: 15px;
-  line-height: 1.55;
+  line-height: 1.6;
   color: $ink-1;
-  max-width: 36rem;
+  max-width: 34rem;
 }
 
 .landing__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
 }
 
 .landing__btn {
   height: 2.5rem;
-  padding: 0 1.1rem;
+  padding: 0 1.15rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,7 +165,7 @@ body:has(.landing) {
   }
 
   &--ghost {
-    background-color: transparent;
+    background: transparent;
     color: $ink-1;
     border: 1px solid $hairline;
 
@@ -166,67 +176,108 @@ body:has(.landing) {
   }
 }
 
-.landing__disclaimer {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.45;
+.landing__stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid $hairline;
+}
+
+.landing__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.landing__stat-label {
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: $ink-2;
-  max-width: 32rem;
 }
 
-.landing__hero-panel {
-  min-height: 280px;
+.landing__stat strong {
+  font-family: $font-display;
+  font-size: 14px;
+  font-weight: 500;
+  color: $ink-0;
 }
 
-.landing__monitor {
+// ── Hero product screen ──────────────────────────────────
+
+.landing__screen {
   background-color: $canvas-1;
   border: 1px solid $hairline;
-  border-radius: $radius-md;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 0 0 1px rgba($signal, 0.06),
+    0 28px 64px rgba(0, 0, 0, 0.45);
 }
 
-.landing__monitor-bar {
+.landing__screen-bar {
   height: 36px;
   padding: 0 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  border-bottom: 1px solid $hairline;
+  gap: 0.75rem;
   background-color: $canvas-2;
+  border-bottom: 1px solid $hairline;
 }
 
-.landing__monitor-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
-  background-color: $hairline-strong;
+.landing__screen-dots {
+  display: flex;
+  gap: 0.3rem;
 
-  &:first-child {
-    background-color: $coral;
+  i {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: $hairline-strong;
+    display: block;
+
+    &:first-child {
+      background-color: $coral;
+    }
   }
 }
 
-.landing__monitor-label {
-  margin-left: auto;
+.landing__screen-title {
   font-family: $font-mono;
   font-size: 10px;
   letter-spacing: 0.1em;
   color: $ink-2;
 }
 
-.landing__monitor-body {
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.landing__screen-live {
+  margin-left: auto;
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: $signal;
+}
+
+.landing__screen-body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
-.landing__monitor-kpi {
-  background-color: $canvas-0;
-  border: 1px solid $hairline;
-  border-radius: $radius-sm;
-  padding: 0.75rem;
+.landing__screen-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+
+  div {
+    background-color: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: $radius-sm;
+    padding: 0.55rem 0.65rem;
+  }
 
   span {
     display: block;
@@ -234,64 +285,108 @@ body:has(.landing) {
     font-size: 9px;
     letter-spacing: 0.08em;
     color: $ink-2;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.2rem;
   }
 
   strong {
     font-family: $font-mono;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 18px;
     color: $ink-0;
   }
 }
 
-.landing__monitor-map {
-  grid-column: 1 / -1;
-  height: 140px;
-  border: 1px solid $hairline;
-  border-radius: $radius-sm;
-  background:
-    linear-gradient(135deg, rgba($signal, 0.08), transparent 40%),
-    $canvas-0;
+.landing__screen-map {
   position: relative;
+  height: 180px;
+  border-radius: $radius-sm;
+  border: 1px solid $hairline;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba($signal, 0.12), transparent 50%),
+    linear-gradient(160deg, $canvas-2 0%, $canvas-0 55%);
+  overflow: hidden;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 20% 15% 25% 10%;
-    border: 1px dashed rgba($signal, 0.35);
-    border-radius: 2px;
+.landing__screen-channel {
+  position: absolute;
+  left: 8%;
+  top: 20%;
+  width: 70%;
+  height: 55%;
+  border: 1px dashed rgba($signal, 0.35);
+  border-radius: 40% 20% 30% 50%;
+  transform: rotate(-12deg);
+}
+
+.landing__screen-vessel {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: $ink-0;
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 3px rgba($ink-0, 0.12);
+
+  &--a {
+    left: 28%;
+    top: 42%;
+    background-color: $signal;
+    box-shadow: 0 0 0 4px rgba($signal, 0.25);
+  }
+
+  &--b {
+    left: 48%;
+    top: 36%;
+  }
+
+  &--c {
+    left: 62%;
+    top: 58%;
+    opacity: 0.7;
   }
 }
 
-.landing__monitor-map-tag {
+.landing__screen-map-tag {
   position: absolute;
-  left: 0.75rem;
-  bottom: 0.75rem;
+  left: 0.65rem;
+  bottom: 0.65rem;
   font-family: $font-mono;
   font-size: 9px;
   letter-spacing: 0.1em;
   color: $signal;
-  z-index: 1;
 }
 
-
-
-
-// ── Shared bands ─────────────────────────────────────────
+// ── Bands ────────────────────────────────────────────────
 
 .landing__band {
   border-top: 1px solid $hairline;
-  padding: 3.5rem 1.5rem;
+  padding: 4rem 1.5rem;
 
   &--muted {
-    background-color: rgba($canvas-1, 0.55);
+    background-color: rgba($canvas-1, 0.45);
   }
 }
 
 .landing__band-inner {
   max-width: 1120px;
   margin: 0 auto;
+}
+
+.landing__band-head {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: end;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing__band-aside {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: $ink-1;
 }
 
 .landing__section-eyebrow {
@@ -305,76 +400,79 @@ body:has(.landing) {
 }
 
 .landing__section-title {
-  margin: 0 0 1.75rem;
-  max-width: 40rem;
+  margin: 0;
   font-family: $font-display;
   font-weight: 600;
-  font-size: clamp(22px, 3vw, 28px);
-  line-height: 1.25;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.2;
   color: $ink-0;
-}
-
-.landing__problem-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.landing__card {
-  background-color: $canvas-1;
-  border: 1px solid $hairline;
-  border-radius: $radius-md;
-  padding: 1.25rem;
 }
 
 .landing__card-title {
   margin: 0 0 0.5rem;
   font-family: $font-display;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 17px;
   color: $ink-0;
 }
 
 .landing__card-body {
   margin: 0;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.55;
   color: $ink-1;
 }
 
-.landing__cap-grid {
+// ── Systems ──────────────────────────────────────────────
+
+.landing__systems {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 }
 
-.landing__cap {
-  background-color: $canvas-0;
+.landing__system {
+  background-color: $canvas-1;
   border: 1px solid $hairline;
   border-radius: $radius-md;
-  padding: 1.25rem;
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 200px;
 }
 
-.landing__cap-tag {
+.landing__system-meta {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: $ink-2;
+  border-top: 1px solid rgba($hairline, 0.8);
+}
+
+.landing__pill {
   display: inline-block;
-  margin-bottom: 0.65rem;
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
   font-family: $font-mono;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $signal;
-  border: 1px solid rgba($signal, 0.45);
-  border-radius: $radius-sm;
   padding: 0.15rem 0.4rem;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+
+  &--model {
+    color: $signal;
+    border-color: rgba($signal, 0.4);
+  }
 
   &--measured {
     color: $measured;
@@ -387,13 +485,9 @@ body:has(.landing) {
   }
 }
 
+// ── Trust ────────────────────────────────────────────────
 
-// ── How it works ─────────────────────────────────────────
-
-.landing__steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.landing__trust-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -403,64 +497,17 @@ body:has(.landing) {
   }
 }
 
-.landing__step {
-  display: flex;
-  gap: 1rem;
-  background-color: $canvas-1;
-  border: 1px solid $hairline;
-  border-radius: $radius-md;
-  padding: 1.25rem;
-}
-
-.landing__step-index {
-  font-family: $font-mono;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: $signal;
-  flex-shrink: 0;
-}
-
-// ── Cloud ────────────────────────────────────────────────
-
-.landing__cloud {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2rem;
-  align-items: start;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.landing__cloud-copy {
-  max-width: 36rem;
-}
-
-.landing__cloud-list {
-  list-style: none;
-  margin: 0;
-  padding: 1rem 1.25rem;
+.landing__trust-card {
   background-color: $canvas-0;
   border: 1px solid $hairline;
   border-radius: $radius-md;
+  padding: 1.25rem;
 
-  li {
-    font-family: $font-mono;
-    font-size: 12px;
-    color: $ink-1;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid rgba($hairline, 0.7);
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    &:first-child {
-      padding-top: 0;
-    }
+  &--note {
+    border-color: rgba($signal, 0.35);
+    background:
+      linear-gradient(135deg, rgba($signal, 0.06), transparent 50%),
+      $canvas-0;
   }
 }
 
@@ -470,16 +517,16 @@ body:has(.landing) {
   border-top: 1px solid $hairline;
   padding: 3.5rem 1.5rem;
   background:
-    linear-gradient(180deg, rgba($signal, 0.06), transparent 55%),
+    radial-gradient(ellipse at 20% 0%, rgba($signal, 0.1), transparent 45%),
     $canvas-0;
 }
 
 .landing__cta {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  max-width: 40rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .landing__footer {

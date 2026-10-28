@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.scss';
-import { useEffect } from 'react';
 
 export default function LandingPage() {
-   useEffect(() => {
+  useEffect(() => {
     const html = document.documentElement
     const body = document.body
     const root = document.getElementById('root')
@@ -41,16 +41,12 @@ export default function LandingPage() {
       }
     }
   }, [])
+
   return (
     <div className="landing">
       <header className="landing__nav">
         <div className="landing__brand">
-          <svg
-            className="landing__brand-glyph"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
+          <svg className="landing__brand-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <circle cx="12" cy="12" r="10" stroke="#1E2E3F" strokeWidth="1.2" />
             <polygon
               points="12,3 14,10 21,12 14,14 12,21 10,14 3,12 10,10"
@@ -66,229 +62,188 @@ export default function LandingPage() {
         </div>
 
         <nav className="landing__nav-links" aria-label="Landing">
-          <a href="#problem">Problem</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#how">How it works</a>
+          <a href="#systems">Architecture</a>
+          <a href="#trust">Data trust</a>
+          <a href="#demo">Demo</a>
           <Link to="/app" className="landing__nav-cta">
-            Open demo
+            Open dashboard
           </Link>
         </nav>
       </header>
 
+      {/* Hero */}
       <section className="landing__hero">
         <div className="landing__hero-copy">
           <p className="landing__eyebrow">
+            <span className="landing__live-pip" />
             Port of Mombasa · Digital twin · Huawei Cloud
           </p>
-          <h1 className="landing__title">
-            Maritime instrument for channel flow, vessel queue, and berth decisions
-          </h1>
+          <h1 className="landing__title">Navigate the future of port operations.</h1>
           <p className="landing__lead">
-            MSA PortTwin combines hydrodynamic modelling, queue simulation, and
-            berth scheduling so operators can test scenarios before they hit the
-            fairway  with every number labelled measured, model, or simulated.
+            An AI-powered hydrodynamic and vessel-queueing twin for the Port of
+            Mombasa. Simulate conditions, predict congestion, and optimise berth
+            scheduling — with every value labelled measured, model, or simulated.
           </p>
           <div className="landing__actions">
             <Link to="/app" className="landing__btn landing__btn--primary">
-              Explore operations demo
+              Open dashboard
             </Link>
-            <a href="#how" className="landing__btn landing__btn--ghost">
-              See how it works
+            <a href="#systems" className="landing__btn landing__btn--ghost">
+              View architecture
             </a>
           </div>
-          <p className="landing__disclaimer">
-            Demo data is simulated for competition review. Live AIS and model
-            endpoints wire in as backend services come online.
-          </p>
-        </div>
-
-        <div className="landing__hero-panel" aria-hidden="true">
-          <div className="landing__monitor">
-            <div className="landing__monitor-bar">
-              <span className="landing__monitor-dot" />
-              <span className="landing__monitor-dot" />
-              <span className="landing__monitor-dot" />
-              <span className="landing__monitor-label">PORT OPERATIONS · LIVE</span>
+          <div className="landing__stat-row">
+            <div className="landing__stat">
+              <span className="landing__stat-label">Status</span>
+              <strong>Live twin</strong>
             </div>
-            <div className="landing__monitor-body">
-              <div className="landing__monitor-kpi">
-                <span>VESSELS IN PORT</span>
-                <strong>14</strong>
-              </div>
-              <div className="landing__monitor-kpi">
-                <span>AVG WAIT</span>
-                <strong>3.2 h</strong>
-              </div>
-              <div className="landing__monitor-kpi">
-                <span>UTILIZATION</span>
-                <strong>78%</strong>
-              </div>
-              <div className="landing__monitor-map">
-                <span className="landing__monitor-map-tag">KILINDINI · RADAR</span>
-              </div>
+            <div className="landing__stat">
+              <span className="landing__stat-label">AIS</span>
+              <strong>Vessel feeds</strong>
+            </div>
+            <div className="landing__stat">
+              <span className="landing__stat-label">FNO</span>
+              <strong>Channel model</strong>
             </div>
           </div>
         </div>
-      </section>
 
-
-
-
-
-            <section className="landing__band" id="problem">
-        <div className="landing__band-inner">
-          <p className="landing__section-eyebrow">The problem</p>
-          <h2 className="landing__section-title">
-            Congestion, uncertain channel conditions, and opaque schedule trade-offs
-          </h2>
-          <div className="landing__problem-grid">
-            <article className="landing__card">
-              <h3 className="landing__card-title">Vessel queue pressure</h3>
-              <p className="landing__card-body">
-                Arrivals stack outside Kilindini while berth slots and pilot windows
-                stay hard to negotiate in one operational picture.
-              </p>
-            </article>
-            <article className="landing__card">
-              <h3 className="landing__card-title">Hydrodynamic uncertainty</h3>
-              <p className="landing__card-body">
-                Depth, current, and tide affect safe transit windows. Operators need
-                model-backed channel insight, not only static charts.
-              </p>
-            </article>
-            <article className="landing__card">
-              <h3 className="landing__card-title">Schedule opacity</h3>
-              <p className="landing__card-body">
-                Baseline versus optimised berth plans are difficult to compare when
-                data provenance  measured, model, or simulated  is unclear.
-              </p>
-            </article>
+        <div className="landing__hero-visual" aria-hidden="true">
+          <div className="landing__screen">
+            <div className="landing__screen-bar">
+              <span className="landing__screen-dots">
+                <i /><i /><i />
+              </span>
+              <span className="landing__screen-title">KILINDINI · OPERATIONS VIEW</span>
+              <span className="landing__screen-live">LIVE</span>
+            </div>
+            <div className="landing__screen-body">
+              <div className="landing__screen-kpis">
+                <div><span>IN PORT</span><strong>14</strong></div>
+                <div><span>WAIT</span><strong>3.2h</strong></div>
+                <div><span>UTIL</span><strong>78%</strong></div>
+              </div>
+              <div className="landing__screen-map">
+                <div className="landing__screen-channel" />
+                <div className="landing__screen-vessel landing__screen-vessel--a" />
+                <div className="landing__screen-vessel landing__screen-vessel--b" />
+                <div className="landing__screen-vessel landing__screen-vessel--c" />
+                <span className="landing__screen-map-tag">RADAR ACTIVE</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="landing__band landing__band--muted" id="capabilities">
+      {/* Three systems */}
+      <section className="landing__band" id="systems">
         <div className="landing__band-inner">
-          <p className="landing__section-eyebrow">Capabilities</p>
-          <h2 className="landing__section-title">
-            One instrument for flow, queue, and berth decisions
-          </h2>
-          <div className="landing__cap-grid">
-            <article className="landing__cap">
-              <span className="landing__cap-tag">MODEL</span>
-              <h3 className="landing__card-title">Marine predictions</h3>
-              <p className="landing__card-body">
-                Fourier Neural Operatorstyle channel flow fields for water level and
-                current context on the approach and harbour.
-              </p>
-            </article>
-            <article className="landing__cap">
-              <span className="landing__cap-tag landing__cap-tag--measured">MEASURED</span>
-              <h3 className="landing__card-title">Operations dashboard</h3>
-              <p className="landing__card-body">
-                Live-style KPIs for vessels in port, active berths, waiting time, and
-                capacity utilisation with explicit provenance chips.
-              </p>
-            </article>
-            <article className="landing__cap">
-              <span className="landing__cap-tag landing__cap-tag--sim">SIMULATED</span>
-              <h3 className="landing__card-title">Scenario lab</h3>
-              <p className="landing__card-body">
-                Queue and berth scenarios you can run, compare, and keep in history
-                before changing the real schedule.
-              </p>
-            </article>
-            <article className="landing__cap">
-              <span className="landing__cap-tag landing__cap-tag--measured">MEASURED</span>
-              <h3 className="landing__card-title">Marine map</h3>
-              <p className="landing__card-body">
-                Cartographic instrument view of Kilindini — vessels, berths, flow
-                overlays, and layer controls in one dense canvas.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-          <section className="landing__band" id="how">
-        <div className="landing__band-inner">
-          <p className="landing__section-eyebrow">How it works</p>
-          <h2 className="landing__section-title">
-            From harbour state to scenario decision in one path
-          </h2>
-          <ol className="landing__steps">
-            <li className="landing__step">
-              <span className="landing__step-index">01</span>
-              <div>
-                <h3 className="landing__card-title">Observe the port</h3>
-                <p className="landing__card-body">
-                  Dashboard and marine map show vessels, berths, and queue pressure
-                  with measured versus estimated labels.
-                </p>
-              </div>
-            </li>
-            <li className="landing__step">
-              <span className="landing__step-index">02</span>
-              <div>
-                <h3 className="landing__card-title">Read the channel</h3>
-                <p className="landing__card-body">
-                  Marine predictions supply model flow context so transit windows
-                  are not guessed from a static chart alone.
-                </p>
-              </div>
-            </li>
-            <li className="landing__step">
-              <span className="landing__step-index">03</span>
-              <div>
-                <h3 className="landing__card-title">Run a scenario</h3>
-                <p className="landing__card-body">
-                  Simulations test queue and berth alternatives; results stay
-                  comparable and archived for review.
-                </p>
-              </div>
-            </li>
-            <li className="landing__step">
-              <span className="landing__step-index">04</span>
-              <div>
-                <h3 className="landing__card-title">Decide with provenance</h3>
-                <p className="landing__card-body">
-                  Every figure stays tagged measured, model, historical, or
-                  simulated so judges and operators know what they are looking at.
-                </p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <section className="landing__band landing__band--muted" id="cloud">
-        <div className="landing__band-inner landing__cloud">
-          <div>
-            <p className="landing__section-eyebrow">Platform</p>
-            <h2 className="landing__section-title">Built for Huawei Cloud delivery</h2>
-            <p className="landing__card-body landing__cloud-copy">
-              Training and inference targets ModelArts; application services sit on
-              ECS with RDS/PostGIS for spatial state and OBS for artefacts. The
-              frontend is the operational instrument over that stack.
+          <div className="landing__band-head">
+            <div>
+              <p className="landing__section-eyebrow">System architecture</p>
+              <h2 className="landing__section-title">Three systems. One view.</h2>
+            </div>
+            <p className="landing__band-aside">
+              A coupled operational model linking hydrodynamics, vessel queueing,
+              and berth allocation under one instrument.
             </p>
           </div>
-          <ul className="landing__cloud-list">
-            <li>ModelArts — FNO marine modelling</li>
-            <li>ECS — API and orchestration</li>
-            <li>RDS + PostGIS — port and vessel state</li>
-            <li>OBS — model and scenario artefacts</li>
-          </ul>
+
+          <div className="landing__systems">
+            <article className="landing__system">
+              <span className="landing__pill landing__pill--model">MODEL</span>
+              <h3 className="landing__card-title">Marine-Condition Modelling</h3>
+              <p className="landing__card-body">
+                Fourier Neural Operator (FNO) estimates channel state. Tide, current,
+                and depth context feed safe transit windows on the approach.
+              </p>
+              <span className="landing__system-meta">Grid · channel flow · ModelArts</span>
+            </article>
+            <article className="landing__system">
+              <span className="landing__pill landing__pill--sim">SIMULATED</span>
+              <h3 className="landing__card-title">Vessel Queue Simulation</h3>
+              <p className="landing__card-body">
+                Arrival pressure, anchorage, and waiting times under changing
+                throughput so congestion is visible before it compounds.
+              </p>
+              <span className="landing__system-meta">Queue horizon · wait metrics</span>
+            </article>
+            <article className="landing__system">
+              <span className="landing__pill landing__pill--measured">MEASURED</span>
+              <h3 className="landing__card-title">Schedule Optimisation</h3>
+              <p className="landing__card-body">
+                Compare baseline and optimised berth plans. Scenario history keeps
+                decisions reviewable with clear provenance.
+              </p>
+              <span className="landing__system-meta">Berths · scenarios · history</span>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section className="landing__cta-band">
+      {/* Data trust */}
+      <section className="landing__band landing__band--muted" id="trust">
+        <div className="landing__band-inner">
+          <div className="landing__band-head">
+            <div>
+              <p className="landing__section-eyebrow">The trust layer</p>
+              <h2 className="landing__section-title">Data you can trust.</h2>
+            </div>
+            <p className="landing__band-aside">
+              Every readout is tagged so operators and judges always know whether
+              a number is measured, modelled, historical, or simulated.
+            </p>
+          </div>
+
+          <div className="landing__trust-grid">
+            <article className="landing__trust-card">
+              <span className="landing__pill landing__pill--measured">MEASURED</span>
+              <h3 className="landing__card-title">Live AIS &amp; berths</h3>
+              <p className="landing__card-body">
+                Observed vessel presence and berth occupancy when feeds are
+                connected — labelled measured in the UI.
+              </p>
+            </article>
+            <article className="landing__trust-card">
+              <span className="landing__pill landing__pill--model">MODEL</span>
+              <h3 className="landing__card-title">Channel predictions</h3>
+              <p className="landing__card-body">
+                FNO-derived flow and water-level context for the fairway, never
+                mixed silently with sensor values.
+              </p>
+            </article>
+            <article className="landing__trust-card">
+              <span className="landing__pill landing__pill--sim">SIMULATED</span>
+              <h3 className="landing__card-title">Scenario outputs</h3>
+              <p className="landing__card-body">
+                Queue and schedule runs stay marked simulated so demo figures are
+                not mistaken for live port state.
+              </p>
+            </article>
+            <article className="landing__trust-card landing__trust-card--note">
+              <h3 className="landing__card-title">Competition transparency</h3>
+              <p className="landing__card-body">
+                This build ships with labelled demo data. Backend ModelArts, ECS,
+                and PostGIS services replace placeholders as they come online.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="landing__cta-band" id="demo">
         <div className="landing__band-inner landing__cta">
-          <h2 className="landing__section-title">Open the operations instrument</h2>
-          <p className="landing__card-body">
-            Enter the demo shell: dashboard, marine map, and scenario placeholders
-            aligned to the Maritime Instrument design system.
-          </p>
+          <div>
+            <p className="landing__section-eyebrow">Ready to inspect</p>
+            <h2 className="landing__section-title">Enter the operations instrument</h2>
+            <p className="landing__card-body">
+              Dashboard, marine map, and scenario placeholders — same design system
+              as the control-room shell.
+            </p>
+          </div>
           <Link to="/app" className="landing__btn landing__btn--primary">
-            Launch demo
+            Launch dashboard
           </Link>
         </div>
       </section>
@@ -297,12 +252,10 @@ export default function LandingPage() {
         <div className="landing__band-inner landing__footer-inner">
           <span className="landing__footer-brand">MSA PORTTWIN</span>
           <span className="landing__footer-meta">
-            Huawei competition · Port of Mombasa digital twin · Demo build
+            Huawei competition · Port of Mombasa · Demo build
           </span>
         </div>
       </footer>
-
-      
     </div>
   )
 }
