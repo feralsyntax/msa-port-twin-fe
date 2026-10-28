@@ -3,13 +3,44 @@ import './Landing.scss';
 import { useEffect } from 'react';
 
 export default function LandingPage() {
-    useEffect(() => {
-        const prev = document.body.style.overflow
-        document.body.style.overflow = 'auto'
-        return () => {
-            document.body.style.overflow = prev
-        }
-    }, [])
+   useEffect(() => {
+    const html = document.documentElement
+    const body = document.body
+    const root = document.getElementById('root')
+
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      htmlHeight: html.style.height,
+      bodyHeight: body.style.height,
+      rootOverflow: root?.style.overflow ?? '',
+      rootHeight: root?.style.height ?? '',
+      rootMinHeight: root?.style.minHeight ?? '',
+    }
+
+    html.style.overflow = 'auto'
+    body.style.overflow = 'auto'
+    html.style.height = 'auto'
+    body.style.height = 'auto'
+
+    if (root) {
+      root.style.overflow = 'visible'
+      root.style.height = 'auto'
+      root.style.minHeight = '100%'
+    }
+
+    return () => {
+      html.style.overflow = prev.htmlOverflow
+      body.style.overflow = prev.bodyOverflow
+      html.style.height = prev.htmlHeight
+      body.style.height = prev.bodyHeight
+      if (root) {
+        root.style.overflow = prev.rootOverflow
+        root.style.height = prev.rootHeight
+        root.style.minHeight = prev.rootMinHeight
+      }
+    }
+  }, [])
   return (
     <div className="landing">
       <header className="landing__nav">
@@ -55,7 +86,7 @@ export default function LandingPage() {
           <p className="landing__lead">
             MSA PortTwin combines hydrodynamic modelling, queue simulation, and
             berth scheduling so operators can test scenarios before they hit the
-            fairway — with every number labelled measured, model, or simulated.
+            fairway  with every number labelled measured, model, or simulated.
           </p>
           <div className="landing__actions">
             <Link to="/app" className="landing__btn landing__btn--primary">
@@ -129,7 +160,7 @@ export default function LandingPage() {
               <h3 className="landing__card-title">Schedule opacity</h3>
               <p className="landing__card-body">
                 Baseline versus optimised berth plans are difficult to compare when
-                data provenance — measured, model, or simulated — is unclear.
+                data provenance  measured, model, or simulated  is unclear.
               </p>
             </article>
           </div>
@@ -147,7 +178,7 @@ export default function LandingPage() {
               <span className="landing__cap-tag">MODEL</span>
               <h3 className="landing__card-title">Marine predictions</h3>
               <p className="landing__card-body">
-                Fourier Neural Operator–style channel flow fields for water level and
+                Fourier Neural Operatorstyle channel flow fields for water level and
                 current context on the approach and harbour.
               </p>
             </article>
@@ -178,6 +209,100 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+          <section className="landing__band" id="how">
+        <div className="landing__band-inner">
+          <p className="landing__section-eyebrow">How it works</p>
+          <h2 className="landing__section-title">
+            From harbour state to scenario decision in one path
+          </h2>
+          <ol className="landing__steps">
+            <li className="landing__step">
+              <span className="landing__step-index">01</span>
+              <div>
+                <h3 className="landing__card-title">Observe the port</h3>
+                <p className="landing__card-body">
+                  Dashboard and marine map show vessels, berths, and queue pressure
+                  with measured versus estimated labels.
+                </p>
+              </div>
+            </li>
+            <li className="landing__step">
+              <span className="landing__step-index">02</span>
+              <div>
+                <h3 className="landing__card-title">Read the channel</h3>
+                <p className="landing__card-body">
+                  Marine predictions supply model flow context so transit windows
+                  are not guessed from a static chart alone.
+                </p>
+              </div>
+            </li>
+            <li className="landing__step">
+              <span className="landing__step-index">03</span>
+              <div>
+                <h3 className="landing__card-title">Run a scenario</h3>
+                <p className="landing__card-body">
+                  Simulations test queue and berth alternatives; results stay
+                  comparable and archived for review.
+                </p>
+              </div>
+            </li>
+            <li className="landing__step">
+              <span className="landing__step-index">04</span>
+              <div>
+                <h3 className="landing__card-title">Decide with provenance</h3>
+                <p className="landing__card-body">
+                  Every figure stays tagged measured, model, historical, or
+                  simulated so judges and operators know what they are looking at.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="landing__band landing__band--muted" id="cloud">
+        <div className="landing__band-inner landing__cloud">
+          <div>
+            <p className="landing__section-eyebrow">Platform</p>
+            <h2 className="landing__section-title">Built for Huawei Cloud delivery</h2>
+            <p className="landing__card-body landing__cloud-copy">
+              Training and inference targets ModelArts; application services sit on
+              ECS with RDS/PostGIS for spatial state and OBS for artefacts. The
+              frontend is the operational instrument over that stack.
+            </p>
+          </div>
+          <ul className="landing__cloud-list">
+            <li>ModelArts — FNO marine modelling</li>
+            <li>ECS — API and orchestration</li>
+            <li>RDS + PostGIS — port and vessel state</li>
+            <li>OBS — model and scenario artefacts</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="landing__cta-band">
+        <div className="landing__band-inner landing__cta">
+          <h2 className="landing__section-title">Open the operations instrument</h2>
+          <p className="landing__card-body">
+            Enter the demo shell: dashboard, marine map, and scenario placeholders
+            aligned to the Maritime Instrument design system.
+          </p>
+          <Link to="/app" className="landing__btn landing__btn--primary">
+            Launch demo
+          </Link>
+        </div>
+      </section>
+
+      <footer className="landing__footer">
+        <div className="landing__band-inner landing__footer-inner">
+          <span className="landing__footer-brand">MSA PORTTWIN</span>
+          <span className="landing__footer-meta">
+            Huawei competition · Port of Mombasa digital twin · Demo build
+          </span>
+        </div>
+      </footer>
+
+      
     </div>
   )
 }

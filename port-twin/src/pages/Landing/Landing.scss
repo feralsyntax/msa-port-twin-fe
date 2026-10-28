@@ -1,17 +1,15 @@
 @use '../../styles/tokens' as *;
-
 .landing {
   min-height: 100vh;
   background-color: $canvas-0;
   color: $ink-0;
   font-family: $font-sans;
   overflow-x: hidden;
-  overflow-y: auto;
-}
-:global(body:has(.landing)) {
-    overflow: auto;
 }
 
+body:has(.landing) {
+  overflow: auto;
+}
 .landing__nav {
   height: 64px;
   padding: 0 1.5rem;
@@ -387,4 +385,127 @@
     color: $amber;
     border-color: rgba($amber, 0.4);
   }
+}
+
+
+// ── How it works ─────────────────────────────────────────
+
+.landing__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing__step {
+  display: flex;
+  gap: 1rem;
+  background-color: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: $radius-md;
+  padding: 1.25rem;
+}
+
+.landing__step-index {
+  font-family: $font-mono;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: $signal;
+  flex-shrink: 0;
+}
+
+// ── Cloud ────────────────────────────────────────────────
+
+.landing__cloud {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing__cloud-copy {
+  max-width: 36rem;
+}
+
+.landing__cloud-list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background-color: $canvas-0;
+  border: 1px solid $hairline;
+  border-radius: $radius-md;
+
+  li {
+    font-family: $font-mono;
+    font-size: 12px;
+    color: $ink-1;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba($hairline, 0.7);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+// ── CTA + footer ─────────────────────────────────────────
+
+.landing__cta-band {
+  border-top: 1px solid $hairline;
+  padding: 3.5rem 1.5rem;
+  background:
+    linear-gradient(180deg, rgba($signal, 0.06), transparent 55%),
+    $canvas-0;
+}
+
+.landing__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 40rem;
+}
+
+.landing__footer {
+  border-top: 1px solid $hairline;
+  padding: 1.25rem 1.5rem 2rem;
+}
+
+.landing__footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.landing__footer-brand {
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $ink-1;
+}
+
+.landing__footer-meta {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $ink-2;
 }
