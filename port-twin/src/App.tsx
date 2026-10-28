@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Shell from './layouts/Shell';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PlaceholderPage from './pages/PlaceholderPage';
+import MapPage from './pages/Map/Map';
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
           <Route path="berths" element={<PlaceholderPage title="Berths" />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
-          <Route path="map" element={<PlaceholderPage title="Marine Map" />} />
+          <Route path="map" element={<MapPage/>}/>
           <Route path="about" element={<PlaceholderPage title="About" />} />
         </Route>
       </Routes>
