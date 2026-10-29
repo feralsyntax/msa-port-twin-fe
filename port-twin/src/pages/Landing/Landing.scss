@@ -1,18 +1,11 @@
 @use '../../styles/tokens' as *;
-
 .landing {
   min-height: 100vh;
   background-color: $canvas-0;
   color: $ink-0;
   font-family: $font-sans;
   overflow-x: hidden;
-  background-image:
-    linear-gradient(rgba($hairline, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba($hairline, 0.35) 1px, transparent 1px);
-  background-size: 48px 48px;
-  background-position: center top;
 }
-
 // ── Nav ──────────────────────────────────────────────────
 
 .landing__nav {
@@ -103,14 +96,35 @@
 }
 
 // ── Hero ─────────────────────────────────────────────────
-
 .landing__hero {
   max-width: 1180px;
   margin: 0 auto;
   padding: 4.5rem 1.5rem 4rem;
+  position: relative;
+}
+
+// full-bleed grid behind hero only
+.landing__hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 0;
+  pointer-events: none;
+  background-color: $canvas-0;
+  background-image:
+    linear-gradient(rgba($hairline, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($hairline, 0.35) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 .landing__hero-grid {
+  position: relative;
+  z-index: 1;
+  
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 2.5rem;
@@ -546,4 +560,172 @@
 
 .landing__pillar-meta-good {
   color: $moss !important;
+}
+
+
+
+
+// ── Trust / ethical spine ────────────────────────────────
+
+.landing__band--trust {
+  background-color: rgba($canvas-1, 0.35);
+}
+
+.landing__trust {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing__trust-lead {
+  margin: 1rem 0 0.9rem;
+  font-size: 15px;
+  line-height: 1.55;
+  color: $ink-1;
+  max-width: 34rem;
+}
+
+.landing__trust-body {
+  margin: 0 0 1.25rem;
+  font-size: 13px;
+  line-height: 1.55;
+  color: $ink-1;
+  max-width: 34rem;
+}
+
+.landing__law {
+  border: 1px solid rgba($amber, 0.45);
+  border-radius: 6px;
+  background-color: rgba($canvas-0, 0.75);
+  padding: 0.9rem 1rem;
+  max-width: 34rem;
+}
+
+.landing__law-label {
+  margin: 0 0 0.45rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: $amber;
+}
+
+.landing__law-text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $ink-1;
+
+  span {
+    color: $amber;
+    font-weight: 600;
+  }
+}
+
+.landing__trust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing__trust-card {
+  background-color: rgba($canvas-1, 0.95);
+  border: 1px solid $hairline;
+  border-radius: 6px;
+  padding: 1rem;
+
+  &--model {
+    border-color: rgba($signal, 0.45);
+  }
+}
+
+.landing__trust-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.landing__trust-line-label {
+  font-family: $font-mono;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: $ink-2;
+}
+
+.landing__pill--hist {
+  color: $historical;
+  border-color: rgba($historical, 0.45);
+}
+
+.landing__trust-card .landing__pillar-title {
+  font-size: 16px;
+}
+
+.landing__trust-card .landing__pillar-body {
+  margin-bottom: 0;
+}
+
+// ── Footer ───────────────────────────────────────────────
+
+.landing__footer {
+  border-top: 1px solid $hairline;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background-color: $canvas-0;
+}
+
+.landing__footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.landing__footer-brand-block {
+  min-width: 180px;
+}
+
+.landing__footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.landing__footer-brand {
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $ink-0;
+}
+
+.landing__footer-built {
+  margin: 0;
+  font-size: 12px;
+  color: $ink-2;
+}
+
+.landing__footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: $ink-2;
+  text-align: center;
 }
