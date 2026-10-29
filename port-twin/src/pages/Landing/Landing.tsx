@@ -301,6 +301,100 @@ export default function LandingPage() {
           </aside>
         </div>
       </section>
+
+
+
+
+
+
+
+
+
+
+            <section className="landing__band" id="architecture">
+        <div className="landing__band-inner">
+          <div className="landing__band-head">
+            <div>
+              <p className="landing__section-eyebrow">SYSTEM ARCHITECTURE</p>
+              <h2 className="landing__section-title">Three systems. One view.</h2>
+            </div>
+            <p className="landing__band-aside">
+              A coupled operational model bringing hydrodynamics, vessel queuing,
+              and berth allocation into one instrument.
+            </p>
+          </div>
+
+          <div className="landing__pillars">
+            <article className="landing__pillar">
+              <div className="landing__pillar-top">
+                <span className="landing__pillar-index">PILLAR 01</span>
+                <span className="landing__pill landing__pill--model">MODEL</span>
+              </div>
+              <h3 className="landing__pillar-title">Marine-Condition Modelling</h3>
+              <p className="landing__pillar-body">
+                Fourier Neural Operator (FNO) networks estimate water-flow patterns
+                based on 2D shallow-water equations in real time.
+              </p>
+              <dl className="landing__pillar-meta">
+                <div>
+                  <dt>Resolution:</dt>
+                  <dd>5m bathymetric mesh</dd>
+                </div>
+                <div>
+                  <dt>Update interval:</dt>
+                  <dd>10-minute cadence</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article className="landing__pillar">
+              <div className="landing__pillar-top">
+                <span className="landing__pillar-index">PILLAR 02</span>
+                <span className="landing__pill landing__pill--sim">SIMULATED</span>
+              </div>
+              <h3 className="landing__pillar-title">Vessel Queue Simulation</h3>
+              <p className="landing__pillar-body">
+                Simulate arrivals, channel occupancy, and waiting times under
+                changing operational scenarios, seasonal surges, and weather
+                disruptions.
+              </p>
+              <dl className="landing__pillar-meta">
+                <div>
+                  <dt>Queue horizon:</dt>
+                  <dd>12h – 72h predictive</dd>
+                </div>
+                <div>
+                  <dt>Disruption bounds:</dt>
+                  <dd className="landing__pillar-meta-accent">Monte Carlo variance</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article className="landing__pillar">
+              <div className="landing__pillar-top">
+                <span className="landing__pillar-index">PILLAR 03</span>
+                <span className="landing__pill landing__pill--opt">OPTIMIZED</span>
+              </div>
+              <h3 className="landing__pillar-title">Schedule Optimization</h3>
+              <p className="landing__pillar-body">
+                Compare baseline and optimized berth schedules to minimize
+                congestion, reduce dwell times, and coordinate tugboat assist
+                assets.
+              </p>
+              <dl className="landing__pillar-meta">
+                <div>
+                  <dt>Avg Dwell Reduction:</dt>
+                  <dd className="landing__pillar-meta-good">-18.4% target</dd>
+                </div>
+                <div>
+                  <dt>Berth turnaround:</dt>
+                  <dd>4 designated quays</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
