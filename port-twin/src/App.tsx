@@ -3,13 +3,14 @@ import Shell from './layouts/Shell';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PlaceholderPage from './pages/PlaceholderPage';
 import MapPage from './pages/Map/Map';
+import LandingPage from './pages/Landing/Landing';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public landing page (future) */}
-        <Route path="/" element={<PlaceholderPage title="Landing" />} />
+        <Route path="/" element={<LandingPage/>} />
 
         {/* Authenticated app shell */}
         <Route path="/app" element={<Shell />}>
