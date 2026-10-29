@@ -395,6 +395,125 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+
+          <section className="landing__band landing__band--trust" id="provenance">
+        <div className="landing__band-inner landing__trust">
+          <div className="landing__trust-copy">
+            <p className="landing__section-eyebrow">THE ETHICAL SPINE</p>
+            <h2 className="landing__section-title">Data you can trust.</h2>
+            <p className="landing__trust-lead">
+              In high-stakes maritime navigation and harbor master control rooms,
+              knowing where a number came from is not metadata — it is safety law.
+            </p>
+            <p className="landing__trust-body">
+              The PortTwin engine marks every telemetry read, prediction, and
+              simulated metric with its origin tier. Every chart, map layer, and
+              report enforces absolute transparency so operators never mistake a
+              synthetic scenario for live harbor telemetry.
+            </p>
+
+            <aside className="landing__law">
+              <p className="landing__law-label">NON-NEGOTIABLE SYSTEM LAW</p>
+              <p className="landing__law-text">
+                &quot;Any view containing simulated data displays a persistent
+                banner: <span>Simulated scenario — not live port data.</span>{' '}
+                Cannot be dismissed in settings.&quot;
+              </p>
+            </aside>
+          </div>
+
+          <div className="landing__trust-grid">
+            <article className="landing__trust-card">
+              <div className="landing__trust-card-top">
+                <span className="landing__pill landing__pill--measured">MEASURED</span>
+                <span className="landing__trust-line-label">SOLID LINE</span>
+              </div>
+              <h3 className="landing__pillar-title">Live AIS &amp; Sensors</h3>
+              <p className="landing__pillar-body">
+                Real-time physical telemetry streamed directly from coastal AIS
+                antennas, tide gauges, and mooring strain sensors.
+              </p>
+            </article>
+
+            <article className="landing__trust-card">
+              <div className="landing__trust-card-top">
+                <span className="landing__pill landing__pill--hist">HISTORICAL</span>
+                <span className="landing__trust-line-label">DASHED LINE</span>
+              </div>
+              <h3 className="landing__pillar-title">Recorded Past Voyages</h3>
+              <p className="landing__pillar-body">
+                Multi-year repository of logged passage times, seasonal pilot
+                delays, and past berth turnaround archives.
+              </p>
+            </article>
+
+            <article className="landing__trust-card landing__trust-card--model">
+              <div className="landing__trust-card-top">
+                <span className="landing__pill landing__pill--model">MODEL</span>
+                <span className="landing__trust-line-label">DOTTED LINE</span>
+              </div>
+              <h3 className="landing__pillar-title">FNO Hydrodynamics</h3>
+              <p className="landing__pillar-body">
+                Physics-informed neural operator estimates predicting tidal rip,
+                eddy vectors, and draft clearance.
+              </p>
+            </article>
+
+            <article className="landing__trust-card">
+              <div className="landing__trust-card-top">
+                <span className="landing__pill landing__pill--sim">SIMULATED</span>
+                <span className="landing__trust-line-label">HATCHED</span>
+              </div>
+              <h3 className="landing__pillar-title">Scenario Variations</h3>
+              <p className="landing__pillar-body">
+                What-if queue horizons, simulated crane breakdowns, channel
+                closures, and contingency rerouting stress tests.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <footer className="landing__footer" id="specifications">
+        <div className="landing__band-inner landing__footer-inner">
+          <div className="landing__footer-brand-block">
+            <div className="landing__footer-brand-row">
+              <svg
+                className="landing__brand-glyph"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" stroke="#1E2E3F" strokeWidth="1.2" />
+                <polygon
+                  points="12,3 14,10 21,12 14,14 12,21 10,14 3,12 10,10"
+                  fill="#00D2C8"
+                  fillOpacity="0.25"
+                  stroke="#00D2C8"
+                  strokeWidth="1.2"
+                  strokeLinejoin="round"
+                />
+                <circle cx="12" cy="12" r="1.5" fill="#E6F0F5" />
+              </svg>
+              <span className="landing__footer-brand">MSA PORTTWIN</span>
+            </div>
+            <p className="landing__footer-built">
+              Built with React, Django, and Huawei Cloud.
+            </p>
+          </div>
+
+          <div className="landing__footer-center">
+            <span>CORE ENGINE // v1.4.0-TWIN</span>
+            <span>KENYA MARITIME AUTHORITY &amp; KPA COMPLIANT</span>
+          </div>
+
+          <Link to="/app" className="landing__nav-cta">
+            ENTER DASHBOARD →
+          </Link>
+        </div>
+      </footer>
+
     </div>
   )
 }
