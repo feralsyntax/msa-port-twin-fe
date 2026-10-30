@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import PlaceholderPage from './pages/PlaceholderPage';
 import MapPage from './pages/Map/Map';
 import LandingPage from './pages/Landing/Landing';
+import VesselsDirectoryPage from './pages/Vessels/VesselDirectory/VesselDirectory';
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
         {/* Authenticated app shell */}
         <Route path="/app" element={<Shell />}>
           <Route index element={<Dashboard />} />
-          <Route path="vessels" element={<PlaceholderPage title="Vessels" />} />
+          <Route path="vessels" element={<VesselsDirectoryPage />} />
           <Route path="berths" element={<PlaceholderPage title="Berths" />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />

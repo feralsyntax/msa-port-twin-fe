@@ -1,0 +1,129 @@
+.vessel-pagination {
+  min-height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #0c1c2a;
+  border: 1px solid #1e2e3f;
+  border-top: none;
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    > span:first-child {
+      color: #5f7688;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+    }
+
+    strong {
+      color: #9cb0c2;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+    }
+  }
+
+  &__stream {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #00d2c8;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  &__stream-dot {
+    width: 6px;
+    height: 6px;
+    background: #00d2c8;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0, 210, 200, 0.5);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__button {
+    height: 28px;
+    padding: 0 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid #1e2e3f;
+    border-radius: 3px;
+    color: #9cb0c2;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    cursor: pointer;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    &:hover:not(:disabled) {
+      background: #14283b;
+      color: #e6f0f5;
+    }
+
+    &:disabled {
+      color: #5f7688;
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &__page {
+    color: #5f7688;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    white-space: nowrap;
+
+    strong {
+      color: #e6f0f5;
+      font-weight: 500;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .vessel-pagination {
+    padding: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+
+    &__summary {
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    &__controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .vessel-pagination {
+    &__summary {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+}

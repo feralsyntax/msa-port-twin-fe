@@ -1,0 +1,190 @@
+.vessel-filters {
+  min-height: 48px;
+  flex-shrink: 0;
+  margin-bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  // Status Tabs
+  &__tabs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__tab {
+    height: 32px;
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 3px 3px 0 0;
+
+    color: #9cb0c2;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+
+    white-space: nowrap;
+    cursor: pointer;
+
+    transition:
+      color 120ms ease,
+      background-color 120ms ease;
+
+    &:hover {
+      color: #e6f0f5;
+    }
+
+    &--active {
+      background: #0c1c2a;
+      border-bottom-color: #00d2c8;
+      color: #e6f0f5;
+    }
+  }
+
+  &__count {
+    padding: 3px 6px;
+
+    background: rgba(20, 40, 59, 0.7);
+    border-radius: 3px;
+
+    color: #5f7688;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+  }
+
+  &__tab--active &__count {
+    color: #00d2c8;
+    background: #14283b;
+  }
+
+  // Search and Actions
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__search {
+    position: relative;
+    width: 260px;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 14px;
+      height: 14px;
+
+      position: absolute;
+      left: 10px;
+
+      color: #5f7688;
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      height: 32px;
+
+      padding: 0 12px 0 32px;
+
+      background: #0c1c2a;
+      border: 1px solid #1e2e3f;
+      border-radius: 3px;
+
+      color: #e6f0f5;
+
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+
+      outline: none;
+
+      &::placeholder {
+        color: #5f7688;
+      }
+
+      &:focus {
+        border-color: #00d2c8;
+      }
+    }
+  }
+
+  // Additional Filters Button
+  &__button {
+    height: 32px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #0c1c2a;
+    border: 1px solid #1e2e3f;
+    border-radius: 3px;
+
+    color: #9cb0c2;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      color: #5f7688;
+    }
+
+    &:hover {
+      background: #14283b;
+      color: #e6f0f5;
+    }
+  }
+}
+
+// Responsive Behaviour
+@media (max-width: 768px) {
+  .vessel-filters {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &__actions {
+      width: 100%;
+    }
+
+    &__search {
+      flex: 1;
+      width: auto;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .vessel-filters {
+    &__tabs {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    &__tab {
+      padding: 0 8px;
+      font-size: 11px;
+    }
+  }
+}

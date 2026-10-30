@@ -1,0 +1,168 @@
+.vessel-table {
+  width: 100%;
+  overflow: hidden;
+  background: #0c1c2a;
+  border: 1px solid #1e2e3f;
+  border-radius: 4px;
+
+  &__scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  thead {
+    background: #14283b;
+
+    th {
+      height: 40px;
+      padding: 0 16px;
+      color: #5f7688;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-bottom: 1px solid #1e2e3f;
+    }
+  }
+
+  tbody {
+    tr {
+      height: 48px;
+      border-bottom: 1px solid #1e2e3f;
+      transition: background-color 120ms ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: rgba(20, 40, 59, 0.55);
+      }
+
+      &.is-selected {
+        background: #14283b;
+        box-shadow: inset 2px 0 0 #00d2c8;
+      }
+    }
+
+    td {
+      padding: 0 16px;
+      color: #9cb0c2;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #e6f0f5;
+    font-weight: 600;
+  }
+
+  &__selection-indicator {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    background: #00d2c8;
+    border-radius: 50%;
+  }
+
+  &__mono {
+    color: #9cb0c2 !important;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 10px !important;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 7px;
+    border-radius: 3px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 500;
+
+    &--in-port {
+      background: rgba(0, 210, 200, 0.1);
+      color: #00d2c8;
+
+      .vessel-table__status-dot {
+        background: #00d2c8;
+      }
+    }
+
+    &--approaching {
+      background: rgba(245, 166, 35, 0.1);
+      color: #f5a623;
+
+      .vessel-table__status-dot {
+        background: #f5a623;
+      }
+    }
+
+    &--delayed {
+      background: rgba(255, 92, 108, 0.1);
+      color: #ff5c6c;
+
+      .vessel-table__status-dot {
+        background: #ff5c6c;
+      }
+    }
+
+    &--departed {
+      background: rgba(95, 118, 136, 0.15);
+      color: #9cb0c2;
+
+      .vessel-table__status-dot {
+        background: #5f7688;
+      }
+    }
+  }
+
+  &__status-dot,
+  &__live-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  &__measurement {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #5f7688;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+  }
+
+  &__live-dot {
+    background: #00d2c8;
+    box-shadow: 0 0 6px rgba(0, 210, 200, 0.45);
+  }
+
+  &__empty {
+    height: 100px;
+    color: #5f7688 !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .vessel-table {
+    border-radius: 3px;
+  }
+}
