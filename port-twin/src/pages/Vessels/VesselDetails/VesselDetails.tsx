@@ -4,6 +4,7 @@ import VesselIdentityHeader from "../../../components/Vessels/VesselDetails/Vess
 import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecification/VesselSpecification";
 import VesselIdentityPanel from "../../../components/Vessels/VesselDetails/VesselIdentityPanel/VesselIdentityPanel";
 import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/LastKnownPositionPanel/LastKnownPositionPanel";
+import VesselSimulationUsage from "../../../components/Vessels/VesselDetails/VesselSimulationUsage/VesselSimulationUsage";
 
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
@@ -47,6 +48,8 @@ const VesselDetailsPage = () => {
       provenance: "MEASURED",
       lastUpdate: "2m ago",
     },
+
+    simulationRuns: 0,
   };
 
   const handleViewMap = () => {
@@ -85,6 +88,10 @@ const VesselDetailsPage = () => {
 
         <LastKnownPositionPanel position={vessel.position} />
       </section>
+      <VesselSimulationUsage
+        runCount={vessel.simulationRuns}
+        onViewSimulations={() => navigate("/app/simulations")}
+      />
     </>
   );
 };
