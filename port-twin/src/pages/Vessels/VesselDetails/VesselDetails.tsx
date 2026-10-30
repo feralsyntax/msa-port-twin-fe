@@ -5,7 +5,7 @@ import VesselSpecifications from "../../../components/Vessels/VesselDetails/Vess
 import VesselIdentityPanel from "../../../components/Vessels/VesselDetails/VesselIdentityPanel/VesselIdentityPanel";
 import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/LastKnownPositionPanel/LastKnownPositionPanel";
 import VesselSimulationUsage from "../../../components/Vessels/VesselDetails/VesselSimulationUsage/VesselSimulationUsage";
-
+import "./VesselDetails.scss";
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
 
