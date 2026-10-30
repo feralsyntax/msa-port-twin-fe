@@ -1,10 +1,43 @@
-.vessel-details-overview {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 24px;
-  flex-shrink: 0;
+@use "../../../styles/tokens" as *;
+
+.vessel-details-page {
+  min-width: 0;
+  min-height: 100%;
+  background: $canvas-0;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 28px 32px 40px;
+  }
+
+  &__overview {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 24px;
+    min-width: 0;
+  }
 
   @media (max-width: 1023px) {
-    grid-template-columns: 1fr;
+    &__overview {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__content {
+      gap: 18px;
+      padding: 22px 20px 32px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__content {
+      gap: 16px;
+      padding: 18px 14px 28px;
+    }
   }
 }

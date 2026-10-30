@@ -59,40 +59,51 @@ const VesselDetailsPage = () => {
       },
     });
   };
+
+  const handleViewSimulations = () => {
+    navigate("/app/simulations");
+  };
+
   return (
-    <>
+    <main className='vessel-details-page'>
       <VesselDetailsTopBar
         vesselName={vessel.name}
         sector={vessel.sector}
         onViewMap={handleViewMap}
       />
-      <VesselIdentityHeader
-        name={vessel.name}
-        status='Active in Port'
-        imo={vessel.imo}
-        mmsi={vessel.mmsi}
-        vesselType={vessel.vessel_type}
-        flag='Marshall Islands'
-        flagCode='MH'
-      />
-      <VesselSpecifications
-        lengthOverall={vessel.lengthOverall}
-        parallelBody={vessel.parallelBody}
-        width={vessel.width}
-        mouldedDepth={vessel.mouldedDepth}
-        draft={vessel.draft}
-        airDraftClearance={vessel.airDraftClearance}
-      />
-      <section className='vessel-details-overview'>
-        <VesselIdentityPanel vessel={vessel.identity} />
 
-        <LastKnownPositionPanel position={vessel.position} />
-      </section>
-      <VesselSimulationUsage
-        runCount={vessel.simulationRuns}
-        onViewSimulations={() => navigate("/app/simulations")}
-      />
-    </>
+      <div className='vessel-details-page__content'>
+        <VesselIdentityHeader
+          name={vessel.name}
+          status={vessel.status}
+          imo={vessel.imo}
+          mmsi={vessel.mmsi}
+          vesselType={vessel.vessel_type}
+          flag={vessel.flag}
+          flagCode={vessel.flagCode}
+        />
+
+        <VesselSpecifications
+          lengthOverall={vessel.lengthOverall}
+          parallelBody={vessel.parallelBody}
+          width={vessel.width}
+          mouldedDepth={vessel.mouldedDepth}
+          draft={vessel.draft}
+          airDraftClearance={vessel.airDraftClearance}
+        />
+
+        <section className='vessel-details-page__overview'>
+          <VesselIdentityPanel vessel={vessel.identity} />
+
+          <LastKnownPositionPanel position={vessel.position} />
+        </section>
+
+        <VesselSimulationUsage
+          runCount={vessel.simulationRuns}
+          onViewSimulations={handleViewSimulations}
+        />
+      </div>
+    </main>
   );
 };
 
