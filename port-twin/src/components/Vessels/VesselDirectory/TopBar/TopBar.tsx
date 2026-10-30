@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Topbar.scss";
+import "./TopBar.scss";
 
 interface TopbarProps {
   onSyncAIS?: () => void;
