@@ -1,0 +1,88 @@
+@use "../../styles/variables" as *;
+
+.vessel-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__name {
+    margin: 0;
+    color: $ink-0;
+
+    font-family: $font-display;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 2px 8px;
+
+    background: $canvas-1;
+    border: 1px solid rgba($moss, 0.3);
+    border-radius: 4px;
+
+    color: $moss;
+    font-family: $font-mono;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__status-dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+
+    background: $moss;
+    border-radius: 50%;
+  }
+
+  &__metadata {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    row-gap: 4px;
+
+    color: $ink-1;
+    font-family: $font-mono;
+    font-size: 12px;
+  }
+
+  &__value {
+    color: $ink-0;
+    font-family: $font-sans;
+    font-size: 13px;
+  }
+
+  &__separator {
+    color: $hairline-strong;
+  }
+
+  @media (max-width: 600px) {
+    &__name {
+      font-size: 23px;
+    }
+
+    &__heading {
+      gap: 8px;
+    }
+  }
+}
