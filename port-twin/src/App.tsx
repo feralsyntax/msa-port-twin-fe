@@ -5,6 +5,7 @@ import PlaceholderPage from './pages/PlaceholderPage';
 import MapPage from './pages/Map/Map';
 import LandingPage from './pages/Landing/Landing';
 import VesselsDirectoryPage from './pages/Vessels/VesselDirectory/VesselDirectory';
+import VesselDetailsPage from './pages/Vessels/VesselDetails/VesselDetails';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/app" element={<Shell />}>
           <Route index element={<Dashboard />} />
           <Route path="vessels" element={<VesselsDirectoryPage />} />
+          <Route path="vessels/:vesselId" element={<VesselDetailsPage />} />
           <Route path="berths" element={<PlaceholderPage title="Berths" />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
