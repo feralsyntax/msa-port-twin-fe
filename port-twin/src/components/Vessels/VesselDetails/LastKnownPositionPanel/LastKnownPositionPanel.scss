@@ -1,0 +1,246 @@
+@use "../../styles/variables" as *;
+
+.last-known-position {
+  min-width: 0;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__header {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    border-bottom: 1px solid $hairline;
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  &__feed {
+    padding: 2px 6px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 3px;
+
+    color: $signal;
+    font-family: $font-mono;
+    font-size: 10px;
+    white-space: nowrap;
+
+    span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $signal;
+    }
+  }
+
+  &__chart {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 4px;
+  }
+
+  &__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__telemetry-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+
+    padding: 3px 8px;
+
+    background: rgba($canvas-1, 0.9);
+    border: 1px solid $hairline;
+    border-radius: 4px;
+
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    span:first-child {
+      color: $ink-0;
+    }
+
+    strong {
+      color: $signal;
+      font-weight: 600;
+    }
+  }
+
+  &__sector {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 10px;
+  }
+
+  &__metadata {
+    margin-top: 16px;
+    padding-top: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    border-top: 1px solid $hairline;
+  }
+
+  &__coordinates {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    > span {
+      color: $ink-1;
+      font-size: 13px;
+    }
+  }
+
+  &__coordinate-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    strong {
+      color: $ink-0;
+      font-family: $font-mono;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+
+  &__provenance {
+    padding: 2px 6px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 3px;
+
+    color: $ink-0;
+    font-family: $font-mono;
+    font-size: 9px;
+
+    span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d9e9f0;
+    }
+  }
+
+  &__metrics {
+    padding-top: 4px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    span {
+      color: $ink-1;
+      font-size: 13px;
+    }
+
+    strong {
+      color: $ink-0;
+      font-family: $font-mono;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+
+  &__update {
+    padding-top: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid rgba($hairline, 0.4);
+
+    span {
+      color: $ink-2;
+      font-size: 12px;
+    }
+
+    strong {
+      color: $ink-1;
+      font-family: $font-mono;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__coordinates {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &__coordinate-value {
+      justify-content: flex-start;
+    }
+
+    &__metrics {
+      gap: 8px;
+
+      > div {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  }
+}

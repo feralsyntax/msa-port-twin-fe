@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import VesselDetailsTopBar from "../../../components/Vessels/VesselDetails/VesselDetailsTopBar/VesselDetailsTopBar";
 import VesselIdentityHeader from "../../../components/Vessels/VesselDetails/VesselIdentityHeader/VesselIdentityHeader";
 import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecification/VesselSpecification";
+import VesselIdentityPanel from "../../../components/Vessels/VesselDetails/VesselIdentityPanel/VesselIdentityPanel";
+import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/LastKnownPositionPanel/LastKnownPositionPanel";
 
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
@@ -24,6 +26,27 @@ const VesselDetailsPage = () => {
     mouldedDepth: 24.6,
     draft: 14.2,
     airDraftClearance: 48.3,
+
+    identity: {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      vesselType: "Container Ship",
+      imo: "9876543",
+      mmsi: "636019283",
+      callSign: "D5NX4",
+      grossTonnage: 74210,
+      recordCreated: "2024-05-12 08:00",
+      lastUpdated: "2024-05-12 14:20",
+    },
+
+    position: {
+      latitude: "04°03′ S",
+      longitude: "39°41′ E",
+      speed: 12.4,
+      heading: 240,
+      sector: "C-2",
+      provenance: "MEASURED",
+      lastUpdate: "2m ago",
+    },
   };
 
   const handleViewMap = () => {
@@ -57,6 +80,11 @@ const VesselDetailsPage = () => {
         draft={vessel.draft}
         airDraftClearance={vessel.airDraftClearance}
       />
+      <section className='vessel-details-overview'>
+        <VesselIdentityPanel vessel={vessel.identity} />
+
+        <LastKnownPositionPanel position={vessel.position} />
+      </section>
     </>
   );
 };
