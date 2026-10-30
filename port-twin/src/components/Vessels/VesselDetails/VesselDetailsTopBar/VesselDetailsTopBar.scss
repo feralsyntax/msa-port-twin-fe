@@ -1,0 +1,132 @@
+@use "../../../../styles/tokens" as *;
+
+.vessel-details-topbar {
+  height: 72px;
+  flex-shrink: 0;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  background: $canvas-1;
+  border-bottom: 1px solid $hairline;
+  z-index: 10;
+
+  &__breadcrumb {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+
+    a {
+      color: $ink-2;
+      text-decoration: none;
+      transition: color 120ms ease;
+
+      &:hover {
+        color: $ink-1;
+      }
+    }
+  }
+
+  &__separator {
+    color: $hairline-strong;
+    font-family: $font-mono;
+  }
+
+  &__vessel-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: $ink-0;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  &__sector {
+    display: none;
+    align-items: center;
+    gap: 6px;
+
+    padding: 2px 8px;
+
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 3px;
+  }
+
+  &__sector-label {
+    color: $ink-2;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  &__sector-value {
+    color: $signal;
+    font-family: $font-mono;
+    font-size: 11px;
+  }
+
+  &__map-button {
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: $signal;
+    border: none;
+    border-radius: 4px;
+
+    color: $canvas-0;
+    font-family: $font-mono;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+
+    cursor: pointer;
+    transition: background 120ms ease;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background: $signal-dim;
+    }
+
+    &:active {
+      background: $signal;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &__sector {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 16px;
+    gap: 12px;
+
+    &__map-button {
+      padding: 0 10px;
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
