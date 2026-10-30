@@ -1,0 +1,189 @@
+.vessels-topbar {
+  height: 72px;
+  flex-shrink: 0;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  background: #0c1c2a;
+  border-bottom: 1px solid #1e2e3f;
+
+  z-index: 10;
+
+  // Page Heading
+  &__heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    min-width: 0;
+
+    h1 {
+      margin: 0;
+      color: #e6f0f5;
+
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+
+      white-space: nowrap;
+    }
+  }
+
+  &__sector {
+    color: #00d2c8;
+
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Header Actions
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  // Global Search
+  &__search {
+    position: relative;
+    width: 256px;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 14px;
+      height: 14px;
+
+      position: absolute;
+      left: 12px;
+
+      color: #5f7688;
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      height: 32px;
+
+      padding: 0 12px 0 32px;
+
+      background: #06121b;
+      border: 1px solid #1e2e3f;
+      border-radius: 3px;
+
+      color: #e6f0f5;
+
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+
+      outline: none;
+
+      &::placeholder {
+        color: #5f7688;
+      }
+
+      &:focus {
+        border-color: #00d2c8;
+      }
+    }
+  }
+
+  // AIS Sync Button
+  &__sync-button {
+    height: 32px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: #00d2c8;
+    border: none;
+    border-radius: 3px;
+
+    color: #06121b;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 120ms ease;
+
+    &:hover {
+      background: #0b9993;
+    }
+
+    &:active {
+      background: #00d2c8;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+
+      &.is-syncing {
+        animation: ais-spin 900ms linear;
+      }
+    }
+  }
+}
+
+@keyframes ais-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive behaviour
+@media (max-width: 1024px) {
+  .vessels-topbar {
+    &__search {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .vessels-topbar {
+    padding: 0 16px;
+    gap: 12px;
+
+    &__sector {
+      display: none;
+    }
+
+    &__heading h1 {
+      font-size: 20px;
+    }
+
+    &__sync-button {
+      padding: 0 10px;
+    }
+  }
+}
