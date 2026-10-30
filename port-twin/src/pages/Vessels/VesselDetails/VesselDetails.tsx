@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import VesselDetailsTopBar from "../../../components/Vessels/VesselDetails/VesselDetailsTopBar/VesselDetailsTopBar";
 import VesselIdentityHeader from "../../../components/Vessels/VesselDetails/VesselIdentityHeader/VesselIdentityHeader";
-import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecification/VesselSpecification";
+import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecifications/VesselSpecifications";
 import VesselIdentityPanel from "../../../components/Vessels/VesselDetails/VesselIdentityPanel/VesselIdentityPanel";
 import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/LastKnownPositionPanel/LastKnownPositionPanel";
 import VesselSimulationUsage from "../../../components/Vessels/VesselDetails/VesselSimulationUsage/VesselSimulationUsage";
