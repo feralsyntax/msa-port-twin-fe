@@ -1,0 +1,92 @@
+@use "../../styles/variables" as *;
+
+.vessel-specifications {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  flex-shrink: 0;
+
+  &__card {
+    min-width: 0;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: $canvas-1;
+    border: 1px solid $hairline;
+    border-radius: 4px;
+
+    transition: border-color 120ms ease;
+
+    &:hover {
+      border-color: $hairline-strong;
+    }
+  }
+
+  &__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    color: $ink-1;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    span:last-child {
+      color: $ink-2;
+      text-align: right;
+    }
+  }
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  &__number {
+    color: $ink-0;
+    font-family: $font-mono;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  &__unit {
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 13px;
+  }
+
+  &__footer {
+    margin-top: 12px;
+    padding-top: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    border-top: 1px solid rgba($hairline, 0.6);
+
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 10px;
+  }
+
+  &__secondary-value {
+    color: $ink-1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

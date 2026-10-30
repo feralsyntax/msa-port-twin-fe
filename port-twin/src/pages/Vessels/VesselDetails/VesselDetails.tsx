@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import VesselDetailsTopBar from "../../../components/Vessels/VesselDetails/VesselDetailsTopBar/VesselDetailsTopBar";
 import VesselIdentityHeader from "../../../components/Vessels/VesselDetails/VesselIdentityHeader/VesselIdentityHeader";
+import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecification/VesselSpecification";
 
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,14 @@ const VesselDetailsPage = () => {
     flag: "Marshall Islands",
     flagCode: "MH",
     sector: "KILINDINI-04",
+
+    // Physical specifications
+    lengthOverall: 300.0,
+    parallelBody: 184.2,
+    width: 42.0,
+    mouldedDepth: 24.6,
+    draft: 14.2,
+    airDraftClearance: 48.3,
   };
 
   const handleViewMap = () => {
@@ -39,6 +48,14 @@ const VesselDetailsPage = () => {
         vesselType={vessel.vessel_type}
         flag='Marshall Islands'
         flagCode='MH'
+      />
+      <VesselSpecifications
+        lengthOverall={vessel.lengthOverall}
+        parallelBody={vessel.parallelBody}
+        width={vessel.width}
+        mouldedDepth={vessel.mouldedDepth}
+        draft={vessel.draft}
+        airDraftClearance={vessel.airDraftClearance}
       />
     </>
   );
