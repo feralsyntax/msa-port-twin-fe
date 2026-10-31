@@ -14,14 +14,21 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+}
 
-  overflow: hidden;
+* {
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+html,
+body,
+#root {
+  overflow: hidden;
 }
 
 body {
