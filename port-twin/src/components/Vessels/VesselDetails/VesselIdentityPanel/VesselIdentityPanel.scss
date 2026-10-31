@@ -1,0 +1,97 @@
+@use "../../../../styles/tokens" as *;
+
+.vessel-identity-panel {
+  min-width: 0;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__header {
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    border-bottom: 1px solid $hairline;
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    > span {
+      color: $ink-2;
+      font-family: $font-mono;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+  }
+
+  &__list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__row {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    border-bottom: 1px solid rgba($hairline, 0.5);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    dt {
+      color: $ink-1;
+      font-size: 13px;
+    }
+
+    dd {
+      margin: 0;
+      color: $ink-0;
+      font-size: 13px;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__value--mono {
+    font-family: $font-mono;
+    font-size: 11px !important;
+    letter-spacing: -0.025em;
+  }
+
+  &__value--muted {
+    color: $ink-1 !important;
+  }
+
+  &__id-short {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    &__id-full {
+      display: none;
+    }
+
+    &__id-short {
+      display: inline;
+    }
+  }
+}

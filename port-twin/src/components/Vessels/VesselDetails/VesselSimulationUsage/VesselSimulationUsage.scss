@@ -1,0 +1,133 @@
+@use "../../../../styles/tokens" as *;
+
+.vessel-simulation-usage {
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px;
+    border-bottom: 1px solid $hairline;
+
+    h2 {
+      margin: 5px 0 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  &__eyebrow {
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  &__count {
+    padding: 6px 9px;
+    border: 1px solid $hairline-strong;
+    border-radius: 4px;
+    color: $ink-1;
+    font-family: $font-mono;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    display: flex;
+    min-height: 245px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  &__icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    margin-bottom: 17px;
+    border: 1px solid $hairline-strong;
+    border-radius: 50%;
+    color: $ink-2;
+
+    svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  &__empty h3 {
+    margin: 0 0 8px;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  &__empty p {
+    max-width: 390px;
+    margin: 0;
+    color: $ink-2;
+    font-family: $font-sans;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: $signal;
+    cursor: pointer;
+    font-family: $font-mono;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: color 150ms ease;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 150ms ease;
+    }
+
+    &:hover {
+      color: $ink-0;
+
+      svg {
+        transform: translateX(3px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $signal;
+      outline-offset: 5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__header {
+      padding: 18px 16px;
+    }
+
+    &__empty {
+      min-height: 220px;
+      padding: 28px 18px;
+    }
+  }
+}
