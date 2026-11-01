@@ -1,3 +1,5 @@
+@use "../../../../styles/tokens" as *;
+
 .add-vessel-actions {
   display: flex;
   align-items: center;
@@ -13,7 +15,8 @@
     justify-content: center;
     gap: 8px;
 
-    border-radius: 2px;
+    border-radius: $radius-sm;
+    font-family: $font-display;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -30,25 +33,25 @@
 
   &__cancel {
     background: transparent;
-    border: 1px solid var(--hairline);
-    color: var(--ink-1);
+    border: 1px solid $hairline;
+    color: $ink-1;
 
     &:hover:not(:disabled) {
-      border-color: var(--hairline-strong);
-      color: var(--ink-0);
+      border-color: $hairline-strong;
+      color: $ink-0;
     }
   }
 
   &__submit {
     padding: 0 24px !important;
 
-    background: var(--signal);
-    border: 1px solid var(--signal);
-    color: var(--canvas-0);
+    background: $signal;
+    border: 1px solid $signal;
+    color: $canvas-0;
 
     &:hover:not(:disabled) {
-      background: var(--signal-dim);
-      border-color: var(--signal-dim);
+      background: $signal-dim;
+      border-color: $signal-dim;
     }
 
     .material-symbols-outlined {
