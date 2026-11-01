@@ -8,7 +8,7 @@ export default defineConfig({
       target: "./src/api/generated",
       schemas: "./src/api/models",
       client: "react-query",
-      httpClient: "fetch",
+      httpClient: "axios",
       mock: true,
       indexFiles: true,
       clean: true,
