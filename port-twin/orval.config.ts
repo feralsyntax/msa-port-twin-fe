@@ -14,6 +14,11 @@ export default defineConfig({
       clean: true,
 
       override: {
+        mutator: {
+          path: "./src/api/axios/custom-instance.ts",
+          name: "customInstance",
+        },
+
         query: {
           useQuery: true,
           useMutation: true,
