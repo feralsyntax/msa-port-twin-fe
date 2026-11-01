@@ -1,0 +1,123 @@
+@use "../../../../styles/tokens" as *;
+
+.vessel-identity {
+  padding: 24px;
+  margin-bottom: 24px;
+
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__header {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid $hairline;
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 4px 0 0;
+      color: $ink-1;
+      font-size: 13px;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    label {
+      margin-bottom: 8px;
+      color: $ink-1;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+
+      span {
+        color: $signal;
+      }
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+
+      background: $canvas-0;
+      border: 1px solid $hairline;
+      border-radius: $radius-sm;
+
+      color: $ink-0;
+      font-family: $font-sans;
+      font-size: 13px;
+
+      outline: none;
+      transition: border-color 0.15s ease;
+
+      &::placeholder {
+        color: $ink-2;
+      }
+
+      &:focus {
+        border-color: $signal;
+      }
+    }
+
+    input {
+      font-family: $font-mono;
+    }
+
+    select {
+      appearance: none;
+      cursor: pointer;
+      padding-right: 40px;
+    }
+
+    &--name {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  &__select-wrapper {
+    position: relative;
+
+    .material-symbols-outlined {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+
+      color: $ink-2;
+      font-size: 18px;
+
+      pointer-events: none;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .vessel-identity {
+    padding: 18px;
+
+    &__row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+}
