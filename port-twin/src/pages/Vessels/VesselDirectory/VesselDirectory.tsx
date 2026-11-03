@@ -19,6 +19,16 @@ const VesselsDirectoryPage = () => {
   const totalItems = data?.count ?? 0;
   const totalPages = Math.ceil(totalItems / PAGE_SIZE);
 
+  const canGoPrevious = Boolean(data?.previous);
+  const canGoNext = Boolean(data?.next);
+
+  const handlePageChange = (page: number) => {
+    if (isPlaceholderData) return;
+    if (page < 1 || page > totalPages) return;
+
+    setCurrentPage(page);
+  };
+
   return (
     <div className='vessels-page'>
       <TopBar />
@@ -55,7 +65,9 @@ const VesselsDirectoryPage = () => {
                 totalPages={totalPages}
                 totalItems={totalItems}
                 pageSize={PAGE_SIZE}
-                onPageChange={setCurrentPage}
+                onPageChange={handlePageChange}
+                canGoPrevious={canGoPrevious}
+                canGoNext={canGoNext}
               />
             </div>
 

@@ -27,25 +27,6 @@
     }
   }
 
-  &__stream {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    color: #00d2c8;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-
-  &__stream-dot {
-    width: 6px;
-    height: 6px;
-    background: #00d2c8;
-    border-radius: 50%;
-    box-shadow: 0 0 6px rgba(0, 210, 200, 0.5);
-  }
-
   &__controls {
     display: flex;
     align-items: center;
