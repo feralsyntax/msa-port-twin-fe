@@ -37,6 +37,16 @@ const VesselDetailsPage = () => {
     return latest;
   }, undefined);
 
+  const position = latestPosition
+    ? {
+        latitude: latestPosition.latitude,
+        longitude: latestPosition.longitude,
+        speed: latestPosition.speed_over_ground,
+        course: latestPosition.course_over_ground,
+        recordedAt: latestPosition.recorded_at,
+      }
+    : undefined;
+
   const handleViewMap = () => {
     navigate("/app/map", {
       state: {
@@ -55,9 +65,9 @@ const VesselDetailsPage = () => {
 
   if (isError) {
     return (
-      <div role="alert" className='alert'>
+      <div role='alert' className='alert'>
         <p>Failed to load vessel details.</p>
-        <button type="button" onClick={() => refetch()}>
+        <button type='button' onClick={() => refetch()}>
           Try again
         </button>
       </div>
@@ -99,7 +109,7 @@ const VesselDetailsPage = () => {
         <section className='vessel-details-page__overview'>
           <VesselIdentityPanel vessel={vessel} />
 
-          <LastKnownPositionPanel position={vessel.position} />
+          <LastKnownPositionPanel position={position} />
         </section>
 
         <VesselSimulationUsage

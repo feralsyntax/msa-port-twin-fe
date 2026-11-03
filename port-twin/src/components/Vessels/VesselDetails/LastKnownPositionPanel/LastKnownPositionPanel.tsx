@@ -9,11 +9,11 @@ export interface VesselPositionData {
 }
 
 interface LastKnownPositionPanelProps {
-  position: VesselPositionData;
+  position?: VesselPositionData;
 }
 
 const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
-  const formattedLastUpdate = new Date(position.recordedAt).toLocaleString();
+  const formattedLastUpdate = position && new Date(position.recordedAt).toLocaleString();
 
   return (
     <article className='last-known-position'>
@@ -134,7 +134,7 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
 
           <div className='last-known-position__coordinate-value'>
             <strong>
-              {position.latitude}, {position.longitude}
+              {position?.latitude}, {position?.longitude}
             </strong>
           </div>
         </div>
@@ -143,8 +143,8 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
           <div>
             <span>Speed</span>
             <strong>
-              {position.speed !== null
-                ? `${Number(position.speed).toFixed(1)} kn`
+              {position?.speed !== null
+                ? `${Number(position?.speed).toFixed(1)} kn`
                 : "—"}
             </strong>
           </div>
@@ -152,8 +152,8 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
           <div>
             <span>Course</span>
             <strong>
-              {position.course !== null
-                ? `${Number(position.course).toFixed(1)}°`
+              {position?.course !== null
+                ? `${Number(position?.course).toFixed(1)}°`
                 : "—"}
             </strong>
           </div>
