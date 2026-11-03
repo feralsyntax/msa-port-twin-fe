@@ -1,21 +1,8 @@
 import "./VesselIdentityForm.scss";
 
-interface VesselIdentityFormProps {
-  formData: {
-    name: string;
-    imo_number: string;
-    mmsi: string;
-    vessel_type: string;
-  };
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => void;
-}
 
-const VesselIdentityForm = ({
-  formData,
-  onChange,
-}: VesselIdentityFormProps) => {
+
+const VesselIdentityForm = () => {
   return (
     <section className='vessel-identity'>
       <div className='vessel-identity__header'>
