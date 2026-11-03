@@ -12,7 +12,6 @@ interface VesselFiltersProps {
     inPort: number;
     approaching: number;
   };
-  onOpenFilters?: () => void;
 }
 
 const VesselFilters = ({
@@ -25,7 +24,6 @@ const VesselFilters = ({
     inPort: 14,
     approaching: 22,
   },
-  onOpenFilters,
 }: VesselFiltersProps) => {
   const filters = [
     {
