@@ -7,6 +7,8 @@ import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/La
 import VesselSimulationUsage from "../../../components/Vessels/VesselDetails/VesselSimulationUsage/VesselSimulationUsage";
 import "./VesselDetails.scss";
 import { useGetVesselDetails } from "../../../hooks/vessels/useGetVesselDetails";
+import { useGetVesselPositions } from "../../../hooks/vessels/useGetVesselPositions";
+import type { VesselPosition } from "../../../api/models";
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
 
@@ -18,6 +20,22 @@ const VesselDetailsPage = () => {
     isError,
     refetch,
   } = useGetVesselDetails(vesselId);
+
+  const { data: positionsData } = useGetVesselPositions(vesselId);
+
+  const latestPosition = positionsData?.results.reduce<
+    VesselPosition | undefined
+  >((latest, current) => {
+    if (
+      !latest ||
+      new Date(current.recorded_at).getTime() >
+        new Date(latest.recorded_at).getTime()
+    ) {
+      return current;
+    }
+
+    return latest;
+  }, undefined);
 
   const handleViewMap = () => {
     navigate("/app/map", {
