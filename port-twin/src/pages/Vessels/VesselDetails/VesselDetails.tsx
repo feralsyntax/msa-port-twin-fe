@@ -47,14 +47,6 @@ const VesselDetailsPage = () => {
       }
     : undefined;
 
-  const handleViewMap = () => {
-    navigate("/app/map", {
-      state: {
-        selectedVesselId: vessel?.id,
-      },
-    });
-  };
-
   const handleViewSimulations = () => {
     navigate("/app/simulations");
   };
@@ -94,7 +86,7 @@ const VesselDetailsPage = () => {
         </section>
 
         <VesselSimulationUsage
-          runCount={vessel.simulationRuns}
+          runCount={0}
           onViewSimulations={handleViewSimulations}
         />
       </div>
