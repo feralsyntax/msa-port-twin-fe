@@ -1,23 +1,11 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TopBar.scss";
 
-interface TopbarProps {
-  onSyncAIS?: () => void;
-}
+const TopBar = () => {
+  const navigate = useNavigate();
 
-const TopBar = ({ onSyncAIS }: TopbarProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSyncing, setIsSyncing] = useState(false);
-
-  const handleSync = () => {
-    if (isSyncing) return;
-
-    setIsSyncing(true);
-    onSyncAIS?.();
-
-    window.setTimeout(() => {
-      setIsSyncing(false);
-    }, 900);
+  const handleAddVesselClick = () => {
+    navigate("/app/vessels/new");
   };
 
   return (
@@ -25,56 +13,20 @@ const TopBar = ({ onSyncAIS }: TopbarProps) => {
       {/* Page Information */}
       <div className='vessels-topbar__heading'>
         <h1>Vessels</h1>
-
-        <span className='vessels-topbar__sector'>
-          SECTOR MOMBASA-KILINDINI // AIS INGEST ACTIVE
-        </span>
       </div>
 
       {/* Header Actions */}
       <div className='vessels-topbar__actions'>
-        {/* Global AIS Search */}
-        <div className='vessels-topbar__search'>
-          <svg viewBox='0 0 24 24' fill='none' stroke='currentColor'>
-            <circle cx='11' cy='11' r='8' strokeWidth='1.75' />
-            <path
-              d='m21 21-4.35-4.35'
-              strokeWidth='1.75'
-              strokeLinecap='round'
-            />
-          </svg>
-
-          <input
-            type='text'
-            placeholder='Global AIS index...'
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-            aria-label='Global AIS search'
-          />
-        </div>
-
-        {/* AIS Synchronization */}
+        {/* Add Vessel Button */}
         <button
           type='button'
-          className='vessels-topbar__sync-button'
-          onClick={handleSync}
-          disabled={isSyncing}
+          className='vessels-topbar__add-vessel-button'
+          onClick={handleAddVesselClick}
         >
-          <svg
-            className={isSyncing ? "is-syncing" : ""}
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-          >
-            <path
-              d='M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-
-          <span>{isSyncing ? "Syncing..." : "Sync AIS"}</span>
+          <span className='vessels-topbar__add-vessel-icon material-symbols-outlined'>
+            add
+          </span>
+          <span>Add Vessel</span>
         </button>
       </div>
     </header>
