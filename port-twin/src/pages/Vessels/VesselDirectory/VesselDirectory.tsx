@@ -6,7 +6,7 @@ import VesselPagination from "../../../components/Vessels/VesselDirectory/Vessel
 import "./VesselDirectory.scss";
 import { useGetVessels } from "../../../hooks/vessels/useGetVessels";
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 20;
 
 const VesselsDirectoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
