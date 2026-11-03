@@ -1,25 +1,17 @@
+import type { VesselResponse } from "../../../../api/models";
 import "./VesselSpecifications.scss";
 
 interface VesselSpecificationsProps {
-  lengthOverall: number;
-  parallelBody: number;
-  width: number;
-  mouldedDepth: number;
-  draft: number;
-  airDraftClearance: number;
+  vessel: VesselResponse;
 }
 
-const VesselSpecifications = ({
-  lengthOverall,
-  parallelBody,
-  width,
-  mouldedDepth,
-  draft,
-  airDraftClearance,
-}: VesselSpecificationsProps) => {
+const formatMeasurement = (value: string | null): string => {
+  return value !== null ? Number(value).toFixed(2) : "—";
+};
+
+const VesselSpecifications = ({ vessel }: VesselSpecificationsProps) => {
   return (
     <section className='vessel-specifications'>
-      {/* Length Overall */}
       <article className='vessel-specifications__card'>
         <div className='vessel-specifications__card-header'>
           <span>LENGTH OVERALL</span>
@@ -28,20 +20,17 @@ const VesselSpecifications = ({
 
         <div className='vessel-specifications__value'>
           <span className='vessel-specifications__number'>
-            {lengthOverall.toFixed(2)}
+            {formatMeasurement(vessel.length_overall)}
           </span>
           <span className='vessel-specifications__unit'>m</span>
         </div>
 
         <div className='vessel-specifications__footer'>
           <span>PARALLEL BODY</span>
-          <span className='vessel-specifications__secondary-value'>
-            {parallelBody.toFixed(1)} m
-          </span>
+          <span className='vessel-specifications__secondary-value'>—</span>
         </div>
       </article>
 
-      {/* Width */}
       <article className='vessel-specifications__card'>
         <div className='vessel-specifications__card-header'>
           <span>WIDTH</span>
@@ -50,38 +39,33 @@ const VesselSpecifications = ({
 
         <div className='vessel-specifications__value'>
           <span className='vessel-specifications__number'>
-            {width.toFixed(2)}
+            {formatMeasurement(vessel.width)}
           </span>
           <span className='vessel-specifications__unit'>m</span>
         </div>
 
         <div className='vessel-specifications__footer'>
           <span>MOULDED DEPTH</span>
-          <span className='vessel-specifications__secondary-value'>
-            {mouldedDepth.toFixed(1)} m
-          </span>
+          <span className='vessel-specifications__secondary-value'>—</span>
         </div>
       </article>
 
-      {/* Draft */}
       <article className='vessel-specifications__card'>
         <div className='vessel-specifications__card-header'>
           <span>DRAFT</span>
-          <span>CURRENT MAXIMUM</span>
+          <span>REGISTERED VALUE</span>
         </div>
 
         <div className='vessel-specifications__value'>
           <span className='vessel-specifications__number'>
-            {draft.toFixed(2)}
+            {formatMeasurement(vessel.draft)}
           </span>
           <span className='vessel-specifications__unit'>m</span>
         </div>
 
         <div className='vessel-specifications__footer'>
           <span>AIR DRAFT CLEARANCE</span>
-          <span className='vessel-specifications__secondary-value'>
-            {airDraftClearance.toFixed(1)} m
-          </span>
+          <span className='vessel-specifications__secondary-value'>—</span>
         </div>
       </article>
     </section>

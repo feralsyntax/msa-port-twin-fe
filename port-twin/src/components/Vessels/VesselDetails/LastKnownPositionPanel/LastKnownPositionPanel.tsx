@@ -1,20 +1,20 @@
 import "./LastKnownPositionPanel.scss";
 
 export interface VesselPositionData {
-  latitude: string;
-  longitude: string;
-  speed: number;
-  heading: number;
-  sector: string;
-  provenance: string;
-  lastUpdate: string;
+  latitude: number;
+  longitude: number;
+  speed: string | null;
+  course: string | null;
+  recordedAt: string;
 }
 
 interface LastKnownPositionPanelProps {
-  position: VesselPositionData;
+  position?: VesselPositionData;
 }
 
 const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
+  const formattedLastUpdate = position && new Date(position.recordedAt).toLocaleString();
+
   return (
     <article className='last-known-position'>
       <div className='last-known-position__main'>
@@ -121,14 +121,8 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
             <polygon points='140,63 145,68 140,73 135,68' fill='#00D2C8' />
           </svg>
 
-          <div className='last-known-position__telemetry-badge'>
-            HDG <span>{position.heading}°T</span>
-            <span>·</span>
-            SPD <strong>{position.speed.toFixed(1)} kn</strong>
-          </div>
-
           <span className='last-known-position__sector'>
-            SECTOR {position.sector}
+            SECTOR: KILINDINI-04
           </span>
         </div>
       </div>
@@ -140,31 +134,34 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
 
           <div className='last-known-position__coordinate-value'>
             <strong>
-              {position.latitude}, {position.longitude}
+              {position?.latitude}, {position?.longitude}
             </strong>
-
-            <span className='last-known-position__provenance'>
-              <span />
-              {position.provenance}
-            </span>
           </div>
         </div>
 
         <div className='last-known-position__metrics'>
           <div>
             <span>Speed</span>
-            <strong>{position.speed.toFixed(1)} kn</strong>
+            <strong>
+              {position?.speed !== null
+                ? `${Number(position?.speed).toFixed(1)} kn`
+                : "—"}
+            </strong>
           </div>
 
           <div>
-            <span>Heading</span>
-            <strong>{position.heading}°</strong>
+            <span>Course</span>
+            <strong>
+              {position?.course !== null
+                ? `${Number(position?.course).toFixed(1)}°`
+                : "—"}
+            </strong>
           </div>
         </div>
 
         <div className='last-known-position__update'>
           <span>Last Update</span>
-          <strong>{position.lastUpdate}</strong>
+          <strong>{formattedLastUpdate}</strong>
         </div>
       </div>
     </article>

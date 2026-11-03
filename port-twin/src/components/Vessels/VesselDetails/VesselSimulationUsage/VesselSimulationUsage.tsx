@@ -39,7 +39,8 @@ const VesselSimulationUsage = ({
         <h3>No simulation history</h3>
 
         <p>
-          This vessel has not been included in any completed simulations yet.
+          Vessel-specific simulation history will be displayed here when
+          simulation usage data is available.
         </p>
 
         <button
