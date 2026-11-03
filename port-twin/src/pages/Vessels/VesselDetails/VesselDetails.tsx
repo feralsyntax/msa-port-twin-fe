@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import VesselDetailsTopBar from "../../../components/Vessels/VesselDetails/VesselDetailsTopBar/VesselDetailsTopBar";
 import VesselIdentityHeader from "../../../components/Vessels/VesselDetails/VesselIdentityHeader/VesselIdentityHeader";
 import VesselSpecifications from "../../../components/Vessels/VesselDetails/VesselSpecifications/VesselSpecifications";
@@ -6,56 +6,23 @@ import VesselIdentityPanel from "../../../components/Vessels/VesselDetails/Vesse
 import LastKnownPositionPanel from "../../../components/Vessels/VesselDetails/LastKnownPositionPanel/LastKnownPositionPanel";
 import VesselSimulationUsage from "../../../components/Vessels/VesselDetails/VesselSimulationUsage/VesselSimulationUsage";
 import "./VesselDetails.scss";
+import { useGetVesselDetails } from "../../../hooks/vessels/useGetVesselDetails";
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
 
-  const vessel = {
-    id: "550e8400-e29b-41d4-a716-446655440000",
-    name: "MV Kwale Star",
-    imo: "9876543",
-    mmsi: "636019283",
-    vessel_type: "Container Ship",
-    status: "Active in Port",
-    flag: "Marshall Islands",
-    flagCode: "MH",
-    sector: "KILINDINI-04",
+  const { vesselId } = useParams<{ vesselId: string }>();
 
-    // Physical specifications
-    lengthOverall: 300.0,
-    parallelBody: 184.2,
-    width: 42.0,
-    mouldedDepth: 24.6,
-    draft: 14.2,
-    airDraftClearance: 48.3,
-
-    identity: {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      vesselType: "Container Ship",
-      imo: "9876543",
-      mmsi: "636019283",
-      callSign: "D5NX4",
-      grossTonnage: 74210,
-      recordCreated: "2024-05-12 08:00",
-      lastUpdated: "2024-05-12 14:20",
-    },
-
-    position: {
-      latitude: "04°03′ S",
-      longitude: "39°41′ E",
-      speed: 12.4,
-      heading: 240,
-      sector: "C-2",
-      provenance: "MEASURED",
-      lastUpdate: "2m ago",
-    },
-
-    simulationRuns: 0,
-  };
+  const {
+    data: vessel,
+    isPending,
+    isError,
+    refetch,
+  } = useGetVesselDetails(vesselId);
 
   const handleViewMap = () => {
     navigate("/app/map", {
       state: {
-        selectedVesselId: vessel.id,
+        selectedVesselId: vessel?.id,
       },
     });
   };
@@ -63,6 +30,25 @@ const VesselDetailsPage = () => {
   const handleViewSimulations = () => {
     navigate("/app/simulations");
   };
+
+  if (isPending) {
+    return <p role='status'>Loading vessel details...</p>;
+  }
+
+  if (isError) {
+    return (
+      <div role="alert" className='alert'>
+        <p>Failed to load vessel details.</p>
+        <button type="button" onClick={() => refetch()}>
+          Try again
+        </button>
+      </div>
+    );
+  }
+
+  if (!vessel) {
+    return <p>Vessel not found.</p>;
+  }
 
   return (
     <main className='vessel-details-page'>
