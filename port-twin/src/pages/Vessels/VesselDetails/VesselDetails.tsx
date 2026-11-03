@@ -80,11 +80,7 @@ const VesselDetailsPage = () => {
 
   return (
     <main className='vessel-details-page'>
-      <VesselDetailsTopBar
-        vesselName={vessel.name}
-        sector={vessel.sector}
-        onViewMap={handleViewMap}
-      />
+      <VesselDetailsTopBar vesselName={vessel.name} />
 
       <div className='vessel-details-page__content'>
         <VesselIdentityHeader vessel={vessel} />
