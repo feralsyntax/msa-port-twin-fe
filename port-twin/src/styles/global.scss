@@ -54,6 +54,12 @@ button {
   background: none;
 }
 
+.form {
+  &-error {
+    color: $coral;
+  }
+}
+
 @keyframes sonar-pulse {
   0%,
   100% {
