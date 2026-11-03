@@ -87,24 +87,9 @@ const VesselDetailsPage = () => {
       />
 
       <div className='vessel-details-page__content'>
-        <VesselIdentityHeader
-          name={vessel.name}
-          status={vessel.status}
-          imo={vessel.imo}
-          mmsi={vessel.mmsi}
-          vesselType={vessel.vessel_type}
-          flag={vessel.flag}
-          flagCode={vessel.flagCode}
-        />
+        <VesselIdentityHeader vessel={vessel} />
 
-        <VesselSpecifications
-          lengthOverall={vessel.lengthOverall}
-          parallelBody={vessel.parallelBody}
-          width={vessel.width}
-          mouldedDepth={vessel.mouldedDepth}
-          draft={vessel.draft}
-          airDraftClearance={vessel.airDraftClearance}
-        />
+        <VesselSpecifications vessel={vessel} />
 
         <section className='vessel-details-page__overview'>
           <VesselIdentityPanel vessel={vessel} />
