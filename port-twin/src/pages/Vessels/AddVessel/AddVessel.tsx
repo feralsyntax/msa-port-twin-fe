@@ -52,17 +52,21 @@ const AddVesselPage = () => {
             className='add-vessel-page__form'
             onSubmit={handleSubmit(onSubmit)}
           >
-            <VesselIdentityForm register={register} errors={errors} />
-
-            <VesselDimensionsForm register={register} errors={errors} />
-
             {addVessel.isError && (
-              <p role='alert'>Failed to register vessel. Please try again.</p>
+              <p role='alert' className='alert'>
+                Failed to register vessel. Please try again.
+              </p>
             )}
 
             {addVessel.isSuccess && (
-              <p role='status'>Vessel registered successfully.</p>
+              <p role='status' className='success'>
+                Vessel registered successfully.
+              </p>
             )}
+
+            <VesselIdentityForm register={register} errors={errors} />
+
+            <VesselDimensionsForm register={register} errors={errors} />
 
             <AddVesselActions
               isSubmitting={addVessel.isPending}

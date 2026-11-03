@@ -60,6 +60,14 @@ button {
   }
 }
 
+.alert {
+  color: $amber;
+}
+
+.success {
+  color: $moss;
+}
+
 @keyframes sonar-pulse {
   0%,
   100% {
