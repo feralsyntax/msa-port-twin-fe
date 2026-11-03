@@ -97,7 +97,7 @@ const VesselDetailsPage = () => {
         />
 
         <section className='vessel-details-page__overview'>
-          <VesselIdentityPanel vessel={vessel.identity} />
+          <VesselIdentityPanel vessel={vessel} />
 
           <LastKnownPositionPanel position={vessel.position} />
         </section>

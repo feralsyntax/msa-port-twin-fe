@@ -1,34 +1,39 @@
+import type { VesselResponse } from "../../../../api/models";
+import { formatVesselType } from "../../../../utils/formatVesselType";
 import "./VesselIdentityPanel.scss";
 
-export interface VesselIdentityData {
-  id: string;
-  vesselType: string;
-  imo: string;
-  mmsi: string;
-  callSign: string;
-  grossTonnage: number;
-  recordCreated: string;
-  lastUpdated: string;
-}
-
 interface VesselIdentityPanelProps {
-  vessel: VesselIdentityData;
+  vessel: VesselResponse;
 }
 
 const VesselIdentityPanel = ({ vessel }: VesselIdentityPanelProps) => {
   const identityRows = [
     { label: "System ID", value: vessel.id, mono: true },
-    { label: "Vessel Type", value: vessel.vesselType },
-    { label: "IMO Number", value: vessel.imo, mono: true },
-    { label: "MMSI", value: vessel.mmsi, mono: true },
-    { label: "Call Sign", value: vessel.callSign, mono: true },
+    { label: "Vessel Type", value: formatVesselType(vessel.vessel_type) },
+    { label: "IMO Number", value: vessel.imo_number ?? "—", mono: true },
+    { label: "MMSI", value: vessel.mmsi ?? "—", mono: true },
     {
-      label: "Gross Tonnage",
-      value: `${vessel.grossTonnage.toLocaleString()} GT`,
-      mono: true,
+      label: "Length Overall",
+      value: vessel.length_overall ? `${vessel.length_overall} m` : "—",
     },
-    { label: "Record Created", value: vessel.recordCreated, muted: true },
-    { label: "Last Updated", value: vessel.lastUpdated, muted: true },
+    {
+      label: "Width",
+      value: vessel.width ? `${vessel.width} m` : "—",
+    },
+    {
+      label: "Draft",
+      value: vessel.draft ? `${vessel.draft} m` : "—",
+    },
+    {
+      label: "Record Created",
+      value: new Date(vessel.created_at).toLocaleString(),
+      muted: true,
+    },
+    {
+      label: "Last Updated",
+      value: new Date(vessel.updated_at).toLocaleString(),
+      muted: true,
+    },
   ];
 
   return (
