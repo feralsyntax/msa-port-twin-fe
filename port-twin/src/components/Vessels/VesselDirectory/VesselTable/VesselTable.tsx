@@ -34,8 +34,9 @@ const VesselTable = ({ vessels }: VesselTableProps) => {
                         <Link
                           to={`/app/vessels/${vessel.id}`}
                           className='vessel-table__name-link'
-                        ></Link>
-                        {vessel.name}
+                        >
+                          {vessel.name}
+                        </Link>
                       </div>
                     </td>
 
