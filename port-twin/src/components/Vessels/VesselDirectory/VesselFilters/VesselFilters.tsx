@@ -20,9 +20,9 @@ const VesselFilters = ({
   searchQuery,
   onSearchChange,
   counts = {
-    all: 124,
-    inPort: 14,
-    approaching: 22,
+    all: 0,
+    inPort: 0,
+    approaching: 0,
   },
 }: VesselFiltersProps) => {
   const filters = [
