@@ -49,6 +49,7 @@ const VesselIdentityForm = ({ register, errors }: VesselIdentityFormProps) => {
             maxLength={7}
             placeholder='e.g., 9876543'
             {...register("imo_number", {
+              setValueAs: (value) => (value === "" ? null : value),
               pattern: {
                 value: /^[0-9]{7}$/,
                 message: "IMO number must be a 7-digit number.",
@@ -71,6 +72,7 @@ const VesselIdentityForm = ({ register, errors }: VesselIdentityFormProps) => {
             maxLength={9}
             placeholder='e.g., 636019283'
             {...register("mmsi", {
+              setValueAs: (value) => (value === "" ? null : value),
               pattern: {
                 value: /^[0-9]{9}$/,
                 message: "MMSI must be a 9-digit number.",
