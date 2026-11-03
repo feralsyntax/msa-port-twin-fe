@@ -1,17 +1,15 @@
+import type { UseFormRegister, FieldErrors } from "react-hook-form";
+import type { VesselCreateRequest } from "../../../../api/models";
 import "./VesselDimensionsForm.scss";
 
 interface VesselDimensionsFormProps {
-  formData: {
-    length_overall: string;
-    beam_width: string;
-    draft_depth: string;
-  };
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  register: UseFormRegister<VesselCreateRequest>;
+  errors: FieldErrors<VesselCreateRequest>;
 }
 
 const VesselDimensionsForm = ({
-  formData,
-  onChange,
+  register,
+  errors,
 }: VesselDimensionsFormProps) => {
   return (
     <section className='vessel-dimensions'>
@@ -31,16 +29,24 @@ const VesselDimensionsForm = ({
           <div className='vessel-dimensions__input-wrapper'>
             <input
               id='length-overall'
-              name='length_overall'
               type='number'
               min='0'
               step='0.01'
               placeholder='e.g., 300.00'
-              value={formData.length_overall}
-              onChange={onChange}
+              {...register("length_overall", {
+                setValueAs: (value) => (value === "" ? null : value),
+                min: {
+                  value: 0,
+                  message: "Length cannot be negative.",
+                },
+              })}
             />
             <span>m</span>
           </div>
+
+          {errors.length_overall && (
+            <p className='form-error'>{errors.length_overall.message}</p>
+          )}
         </div>
 
         <div className='vessel-dimensions__field'>
@@ -49,16 +55,22 @@ const VesselDimensionsForm = ({
           <div className='vessel-dimensions__input-wrapper'>
             <input
               id='beam-width'
-              name='beam_width'
               type='number'
               min='0'
               step='0.01'
               placeholder='e.g., 42.00'
-              value={formData.beam_width}
-              onChange={onChange}
+              {...register("width", {
+                setValueAs: (value) => (value === "" ? null : value),
+                min: {
+                  value: 0,
+                  message: "Width cannot be negative.",
+                },
+              })}
             />
             <span>m</span>
           </div>
+
+          {errors.width && <p className='form-error'>{errors.width.message}</p>}
         </div>
 
         <div className='vessel-dimensions__field'>
@@ -67,16 +79,22 @@ const VesselDimensionsForm = ({
           <div className='vessel-dimensions__input-wrapper'>
             <input
               id='draft-depth'
-              name='draft_depth'
               type='number'
               min='0'
               step='0.01'
               placeholder='e.g., 14.20'
-              value={formData.draft_depth}
-              onChange={onChange}
+              {...register("draft", {
+                setValueAs: (value) => (value === "" ? null : value),
+                min: {
+                  value: 0,
+                  message: "Draft cannot be negative.",
+                },
+              })}
             />
             <span>m</span>
           </div>
+
+          {errors.draft && <p className='form-error'>{errors.draft.message}</p>}
         </div>
       </div>
     </section>
