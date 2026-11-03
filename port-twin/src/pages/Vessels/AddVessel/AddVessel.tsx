@@ -1,4 +1,3 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./AddVessel.scss";
@@ -6,60 +5,41 @@ import AddVesselTopBar from "../../../components/Vessels/AddVessel/AddVesselTopB
 import VesselIdentityForm from "../../../components/Vessels/AddVessel/VesselIdentityForm/VesselIdentityForm";
 import VesselDimensionsForm from "../../../components/Vessels/AddVessel/VesselDimensionsForm/VesselDimensionsForm";
 import AddVesselActions from "../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions";
-
-interface VesselFormData {
-  name: string;
-  imo_number: string;
-  mmsi: string;
-  vessel_type: string;
-  length_overall: string;
-  beam_width: string;
-  draft_depth: string;
-}
-
-const initialFormData: VesselFormData = {
-  name: "",
-  imo_number: "",
-  mmsi: "",
-  vessel_type: "container",
-  length_overall: "",
-  beam_width: "",
-  draft_depth: "",
-};
+import { useForm } from "react-hook-form";
+import type { VesselCreateRequest } from "../../../api/models";
+import { useAddVessel } from "../../../hooks/vessels/useAddVessel";
 
 const AddVesselPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<VesselCreateRequest>({
+    defaultValues: {
+      name: "",
+      imo_number: "",
+      mmsi: "",
+      vessel_type: undefined,
+      length_overall: "",
+      width: "",
+      draft: "",
+    },
+  });
+
   const navigate = useNavigate();
+  const addVessel = useAddVessel();
 
-  const [formData, setFormData] = useState<VesselFormData>(initialFormData);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = event.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const onSubmit = (data: VesselCreateRequest) => {
+    addVessel.mutate(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
 
   const handleCancel = () => {
     navigate("/app/vessels");
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    setIsSubmitting(true);
-
-    // Temporary submission handler until backend integration.
-    console.log("New vessel form data:", formData);
-
-    alert("Form captured successfully. Backend integration is pending.");
-
-    setIsSubmitting(false);
   };
 
   return (
@@ -68,13 +48,28 @@ const AddVesselPage = () => {
 
       <div className='add-vessel-page__content'>
         <div className='add-vessel-page__container'>
-          <form className='add-vessel-page__form' onSubmit={handleSubmit}>
-            <VesselIdentityForm formData={formData} onChange={handleChange} />
+          <form
+            className='add-vessel-page__form'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {addVessel.isError && (
+              <p role='alert' className='alert'>
+                Failed to register vessel. Please try again.
+              </p>
+            )}
 
-            <VesselDimensionsForm formData={formData} onChange={handleChange} />
+            {addVessel.isSuccess && (
+              <p role='status' className='success'>
+                Vessel registered successfully.
+              </p>
+            )}
+
+            <VesselIdentityForm register={register} errors={errors} />
+
+            <VesselDimensionsForm register={register} errors={errors} />
 
             <AddVesselActions
-              isSubmitting={isSubmitting}
+              isSubmitting={addVessel.isPending}
               onCancel={handleCancel}
             />
           </form>
