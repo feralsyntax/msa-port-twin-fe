@@ -1,4 +1,3 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./AddVessel.scss";
@@ -6,8 +5,42 @@ import AddVesselTopBar from "../../../components/Vessels/AddVessel/AddVesselTopB
 import VesselIdentityForm from "../../../components/Vessels/AddVessel/VesselIdentityForm/VesselIdentityForm";
 import VesselDimensionsForm from "../../../components/Vessels/AddVessel/VesselDimensionsForm/VesselDimensionsForm";
 import AddVesselActions from "../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions";
+import { useForm } from "react-hook-form";
+import type { VesselCreateRequest } from "../../../api/models";
+import { useAddVessel } from "../../../hooks/vessels/useAddVessel";
 
 const AddVesselPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<VesselCreateRequest>({
+    defaultValues: {
+      name: "",
+      imo_number: "",
+      mmsi: "",
+      vessel_type: undefined,
+      length_overall: "",
+      width: "",
+      draft: "",
+    },
+  });
+
+  const navigate = useNavigate();
+  const addVessel = useAddVessel();
+
+  const onSubmit = (data: VesselCreateRequest) => {
+    addVessel.mutate(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
+  };
+
+  const handleCancel = () => {
+    navigate("/app/vessels");
+  };
 
   return (
     <div className='add-vessel-page'>
@@ -15,13 +48,24 @@ const AddVesselPage = () => {
 
       <div className='add-vessel-page__content'>
         <div className='add-vessel-page__container'>
-          <form className='add-vessel-page__form' onSubmit={handleSubmit}>
-            <VesselIdentityForm formData={formData} onChange={handleChange} />
+          <form
+            className='add-vessel-page__form'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <VesselIdentityForm register={register} errors={errors} />
 
-            <VesselDimensionsForm formData={formData} onChange={handleChange} />
+            <VesselDimensionsForm register={register} errors={errors} />
+
+            {addVessel.isError && (
+              <p role='alert'>Failed to register vessel. Please try again.</p>
+            )}
+
+            {addVessel.isSuccess && (
+              <p role='status'>Vessel registered successfully.</p>
+            )}
 
             <AddVesselActions
-              isSubmitting={isSubmitting}
+              isSubmitting={addVessel.isPending}
               onCancel={handleCancel}
             />
           </form>
