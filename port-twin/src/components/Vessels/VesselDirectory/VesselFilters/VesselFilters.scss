@@ -120,42 +120,6 @@
       }
     }
   }
-
-  // Additional Filters Button
-  &__button {
-    height: 32px;
-    padding: 0 10px;
-
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    background: #0c1c2a;
-    border: 1px solid #1e2e3f;
-    border-radius: 3px;
-
-    color: #9cb0c2;
-
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-
-    cursor: pointer;
-
-    transition:
-      background-color 120ms ease,
-      color 120ms ease;
-
-    svg {
-      width: 14px;
-      height: 14px;
-      color: #5f7688;
-    }
-
-    &:hover {
-      background: #14283b;
-      color: #e6f0f5;
-    }
-  }
 }
 
 // Responsive Behaviour

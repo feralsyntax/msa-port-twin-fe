@@ -6,7 +6,8 @@ interface VesselPaginationProps {
   totalItems: number;
   pageSize: number;
   onPageChange: (page: number) => void;
-  aisStreamHealth?: number;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
 }
 
 const VesselPagination = ({
@@ -15,14 +16,12 @@ const VesselPagination = ({
   totalItems,
   pageSize,
   onPageChange,
-  aisStreamHealth = 100,
+  canGoPrevious,
+  canGoNext,
 }: VesselPaginationProps) => {
   const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
 
   const endItem = Math.min(currentPage * pageSize, totalItems);
-
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
 
   return (
     <footer className='vessel-pagination'>
@@ -33,11 +32,6 @@ const VesselPagination = ({
             {startItem}–{endItem}
           </strong>{" "}
           of <strong>{totalItems}</strong> vessels
-        </span>
-
-        <span className='vessel-pagination__stream'>
-          <span className='vessel-pagination__stream-dot' />
-          AIS STREAM: {aisStreamHealth}%
         </span>
       </div>
 
@@ -64,7 +58,7 @@ const VesselPagination = ({
         </button>
 
         <span className='vessel-pagination__page'>
-          Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
+          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of <strong>{totalPages}</strong>
         </span>
 
         <button

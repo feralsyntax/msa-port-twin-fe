@@ -12,7 +12,6 @@ interface VesselFiltersProps {
     inPort: number;
     approaching: number;
   };
-  onOpenFilters?: () => void;
 }
 
 const VesselFilters = ({
@@ -21,11 +20,10 @@ const VesselFilters = ({
   searchQuery,
   onSearchChange,
   counts = {
-    all: 124,
-    inPort: 14,
-    approaching: 22,
+    all: 0,
+    inPort: 0,
+    approaching: 0,
   },
-  onOpenFilters,
 }: VesselFiltersProps) => {
   const filters = [
     {
@@ -71,7 +69,7 @@ const VesselFilters = ({
         ))}
       </div>
 
-      {/* Search and Additional Filters */}
+      {/* Search */}
       <div className='vessel-filters__actions'>
         <div className='vessel-filters__search'>
           <svg
@@ -92,28 +90,6 @@ const VesselFilters = ({
             aria-label='Search vessels'
           />
         </div>
-
-        <button
-          type='button'
-          className='vessel-filters__button'
-          title='Filter parameters'
-          onClick={onOpenFilters}
-        >
-          <svg
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='1.75'
-          >
-            <path
-              d='M3 4.5h18m-15 5h12m-9 5h6m-3 5h0'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-
-          <span>Filters</span>
-        </button>
       </div>
     </section>
   );

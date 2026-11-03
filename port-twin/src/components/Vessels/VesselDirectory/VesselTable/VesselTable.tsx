@@ -1,19 +1,13 @@
-import type { Vessel, VesselStatus } from "./demoVessels";
+import { Link } from "react-router-dom";
+import type { VesselResponse } from "../../../../api/models";
 import "./VesselTable.scss";
+import { formatVesselType } from "../../../../utils/formatVesselType";
 
 interface VesselTableProps {
-  vessels: Vessel[];
-  selectedVesselId?: string;
+  vessels: VesselResponse[];
 }
 
-const statusLabels: Record<VesselStatus, string> = {
-  "in-port": "In Port",
-  approaching: "Approaching",
-  delayed: "Delayed",
-  departed: "Departed",
-};
-
-const VesselTable = ({ vessels, selectedVesselId = "1" }: VesselTableProps) => {
+const VesselTable = ({ vessels }: VesselTableProps) => {
   return (
     <section className='vessel-table'>
       <div className='vessel-table__scroll'>
@@ -21,58 +15,43 @@ const VesselTable = ({ vessels, selectedVesselId = "1" }: VesselTableProps) => {
           <thead>
             <tr>
               <th scope='col'>Vessel Name</th>
+              <th scope='col'>IMO</th>
               <th scope='col'>MMSI</th>
               <th scope='col'>Type</th>
-              <th scope='col'>Status</th>
-              <th scope='col'>ETA</th>
-              <th scope='col'>Berth</th>
-              <th scope='col'>Measured (AIS Live)</th>
+              <th scope='col'>Length</th>
+              <th scope='col'>Width</th>
+              <th scope='col'>Draft</th>
             </tr>
           </thead>
 
           <tbody>
             {vessels.length > 0 ? (
               vessels.map((vessel) => {
-                const isSelected = vessel.id === selectedVesselId;
-
                 return (
-                  <tr
-                    key={vessel.id}
-                    className={isSelected ? "is-selected" : ""}
-                    aria-selected={isSelected}
-                  >
+                  <tr key={vessel.id}>
                     <td>
                       <div className='vessel-table__name'>
-                        {isSelected && (
-                          <span className='vessel-table__selection-indicator' />
-                        )}
-                        <span>{vessel.name}</span>
+                        <Link
+                          to={`/app/vessels/${vessel.id}`}
+                          className='vessel-table__name-link'
+                        ></Link>
+                        {vessel.name}
                       </div>
                     </td>
 
-                    <td className='vessel-table__mono'>{vessel.mmsi}</td>
-
-                    <td>{vessel.type}</td>
-
-                    <td>
-                      <span
-                        className={`vessel-table__status vessel-table__status--${vessel.status}`}
-                      >
-                        <span className='vessel-table__status-dot' />
-                        {statusLabels[vessel.status]}
-                      </span>
+                    <td className='vessel-table__mono'>
+                      {vessel.imo_number ?? "—"}
                     </td>
 
-                    <td className='vessel-table__mono'>{vessel.eta}</td>
+                    <td className='vessel-table__mono'>{vessel.mmsi ?? "—"}</td>
 
-                    <td>{vessel.berth}</td>
+                    <td>{formatVesselType(vessel.vessel_type)}</td>
 
-                    <td>
-                      <span className='vessel-table__measurement'>
-                        <span className='vessel-table__live-dot' />
-                        {vessel.lastMeasured}
-                      </span>
-                    </td>
+                    <td>{vessel.length_overall ?? "—"}</td>
+
+                    <td>{vessel.width ?? "—"}</td>
+
+                    <td>{vessel.draft ?? "—"}</td>
                   </tr>
                 );
               })
