@@ -7,6 +7,8 @@ import LandingPage from './pages/Landing/Landing';
 import VesselsDirectoryPage from './pages/Vessels/VesselDirectory/VesselDirectory';
 import VesselDetailsPage from './pages/Vessels/VesselDetails/VesselDetails';
 import AddVesselPage from './pages/Vessels/AddVessel/AddVessel';
+import BerthDirectoryPage from './pages/Berths/BerthDirectory/BerthDirectory';
+
 
 export default function App() {
   return (
@@ -21,7 +23,7 @@ export default function App() {
           <Route path="vessels" element={<VesselsDirectoryPage />} />
           <Route path="vessels/:vesselId" element={<VesselDetailsPage />} />
           <Route path="vessels/new" element={<AddVesselPage />} />
-          <Route path="berths" element={<PlaceholderPage title="Berths" />} />
+          <Route path="berths" element={<BerthDirectoryPage />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
           <Route path="map" element={<MapPage/>}/>
