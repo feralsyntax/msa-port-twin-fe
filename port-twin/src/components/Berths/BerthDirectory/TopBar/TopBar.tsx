@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import './TopBar.scss'
+import { useNavigate } from 'react-router-dom';
+import './TopBar.scss';
 
 const TopBar = () => {
   const navigate = useNavigate()
