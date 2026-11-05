@@ -4,6 +4,7 @@ import BerthIdentityForm, {
   type BerthFormValues,
 } from '../../../components/Berths/AddBerth/BerthIdentityForm/BerthIdentityForm';
 import './AddBerth.scss';
+import BerthConstraintsForm from '../../../components/Berths/AddBerth/BerthConstraintsForm/BerthConstraintsForm';
 
 const AddBerthPage = () => {
   const {
@@ -38,8 +39,10 @@ const AddBerthPage = () => {
             onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
+             
             <BerthIdentityForm register={register} errors={errors} />
-            {/* Sections 3–5 next */}
+            <BerthConstraintsForm register={register} errors={errors} />
+            {/* Section 4 next */}
           </form>
         </div>
       </div>
