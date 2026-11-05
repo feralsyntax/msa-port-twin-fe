@@ -4,6 +4,7 @@ import BerthDetailsTopBar from '../../../components/Berths/BerthDetails/BerthDet
 import BerthIdentityHeader from '../../../components/Berths/BerthDetails/BerthIdentityHeader/BerthIdentityHeader';
 import { demoBerths } from '../../../components/Berths/BerthDirectory/BerthTable/demoBerths';
 import './BerthDetails.scss';
+import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
 
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>()
@@ -27,9 +28,14 @@ const BerthDetailsPage = () => {
       <BerthDetailsTopBar berthName={berth.name} />
 
       <div className="berth-details-page__content">
-        <BerthIdentityHeader name={berth.name} status={statusLabel} />
+       <BerthIdentityHeader name={berth.name} status={statusLabel} />
 
-        {/* Spec cards, assignments, location, simulation impact — later sections */}
+        <BerthSpecCards
+          maxLoaM={berth.id === '3' ? 350 : berth.maxLoaM}
+          maxDraftM={berth.id === '3' ? 16 : berth.maxDraftM}
+          currentVessel={berth.id === '3' ? 'None' : berth.currentVessel}
+          isAvailable={berth.id === '3' ? true : berth.status === 'available'}
+        />
       </div>
     </main>
   )
