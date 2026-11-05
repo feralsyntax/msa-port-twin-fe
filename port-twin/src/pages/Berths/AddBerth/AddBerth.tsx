@@ -5,6 +5,8 @@ import BerthIdentityForm, {
 } from '../../../components/Berths/AddBerth/BerthIdentityForm/BerthIdentityForm';
 import './AddBerth.scss';
 import BerthConstraintsForm from '../../../components/Berths/AddBerth/BerthConstraintsForm/BerthConstraintsForm';
+import BerthLocationForm from '../../../components/Berths/AddBerth/BerthLocationForm/BerthLocationForm';
+
 
 const AddBerthPage = () => {
   const {
@@ -42,7 +44,8 @@ const AddBerthPage = () => {
              
             <BerthIdentityForm register={register} errors={errors} />
             <BerthConstraintsForm register={register} errors={errors} />
-            {/* Section 4 next */}
+            <BerthLocationForm register={register} errors={errors} />
+            {/* Section 5 next */}
           </form>
         </div>
       </div>
