@@ -15,4 +15,17 @@
     gap: 24px;
     overflow-y: auto;
   }
+  
+&__split {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 24px;
+    flex: 1;
+    min-height: 340px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }
+

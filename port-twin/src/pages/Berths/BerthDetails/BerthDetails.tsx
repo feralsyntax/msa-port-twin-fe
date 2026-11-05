@@ -5,6 +5,7 @@ import BerthIdentityHeader from '../../../components/Berths/BerthDetails/BerthId
 import { demoBerths } from '../../../components/Berths/BerthDirectory/BerthTable/demoBerths';
 import './BerthDetails.scss';
 import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
+import RecentAssignments from '../../../components/Berths/BerthDetails/RecentAssignments/RecentAssignments';
 
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>()
@@ -36,6 +37,11 @@ const BerthDetailsPage = () => {
           currentVessel={berth.id === '3' ? 'None' : berth.currentVessel}
           isAvailable={berth.id === '3' ? true : berth.status === 'available'}
         />
+
+                <div className="berth-details-page__split">
+          <RecentAssignments />
+          {/* Berth Location — section 4 */}
+        </div>
       </div>
     </main>
   )
