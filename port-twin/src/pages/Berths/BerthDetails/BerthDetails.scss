@@ -1,0 +1,31 @@
+.berth-details-page {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #06121b;
+  color: #e6f0f5;
+
+  &__content {
+    flex: 1;
+    min-height: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+  }
+  
+&__split {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 24px;
+    flex: 1;
+    min-height: 340px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+

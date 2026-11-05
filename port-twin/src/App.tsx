@@ -8,7 +8,7 @@ import VesselsDirectoryPage from './pages/Vessels/VesselDirectory/VesselDirector
 import VesselDetailsPage from './pages/Vessels/VesselDetails/VesselDetails';
 import AddVesselPage from './pages/Vessels/AddVessel/AddVessel';
 import BerthDirectoryPage from './pages/Berths/BerthDirectory/BerthDirectory';
-
+import BerthDetailsPage from './pages/Berths/BerthDetails/BerthDetails';
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ export default function App() {
           <Route path="vessels/:vesselId" element={<VesselDetailsPage />} />
           <Route path="vessels/new" element={<AddVesselPage />} />
           <Route path="berths" element={<BerthDirectoryPage />} />
+          <Route path="berths/:berthId" element={<BerthDetailsPage />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
           <Route path="map" element={<MapPage/>}/>

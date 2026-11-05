@@ -1,0 +1,104 @@
+.simulation-impact {
+  background: #0c1c2a;
+  border: 1px solid #1e2e3f;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+
+  &__header {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1e2e3f;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e6f0f5;
+  }
+
+  &__summary {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #9cb0c2;
+  }
+
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding-top: 4px;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__metric {
+    background: #06121b;
+    border: 1px solid #1e2e3f;
+    border-radius: 2px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__metric-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__metric-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #9cb0c2;
+  }
+
+  &__tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &--sim {
+      color: #f5a623;
+    }
+
+    &--hist {
+      color: #9cb0c2;
+    }
+  }
+
+  &__metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e6f0f5;
+    line-height: 1.2;
+
+    &--text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__metric-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #5f7688;
+  }
+}
