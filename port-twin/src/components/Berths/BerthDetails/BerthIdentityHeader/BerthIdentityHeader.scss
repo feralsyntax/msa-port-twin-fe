@@ -1,0 +1,77 @@
+.berth-identity-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+
+  &__title {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #e6f0f5;
+  }
+
+  &__status {
+    height: 20px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    &--available {
+      background: rgba(93, 181, 128, 0.1);
+      border: 1px solid rgba(93, 181, 128, 0.3);
+      color: #5db580;
+
+      .berth-identity-header__status-dot {
+        background: #5db580;
+      }
+    }
+
+    &--occupied {
+      background: rgba(0, 210, 200, 0.1);
+      border: 1px solid rgba(0, 210, 200, 0.3);
+      color: #00d2c8;
+
+      .berth-identity-header__status-dot {
+        background: #00d2c8;
+      }
+    }
+
+    &--reserved {
+      background: rgba(245, 166, 35, 0.1);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+      color: #f5a623;
+
+      .berth-identity-header__status-dot {
+        background: #f5a623;
+      }
+    }
+
+    &--maintenance {
+      background: rgba(255, 92, 108, 0.1);
+      border: 1px solid rgba(255, 92, 108, 0.3);
+      color: #ff5c6c;
+
+      .berth-identity-header__status-dot {
+        background: #ff5c6c;
+      }
+    }
+  }
+
+  &__status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+}

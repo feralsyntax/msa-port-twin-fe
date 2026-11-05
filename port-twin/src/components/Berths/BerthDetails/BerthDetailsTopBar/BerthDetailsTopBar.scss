@@ -1,0 +1,42 @@
+.berth-details-topbar {
+  height: 56px;
+  flex-shrink: 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0c1c2a;
+  border-bottom: 1px solid #1e2e3f;
+
+  &__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__parent {
+    color: #9cb0c2;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+
+    &:hover {
+      color: #e6f0f5;
+    }
+  }
+
+  &__sep {
+    color: #2c4257;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  &__current {
+    color: #e6f0f5;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}
