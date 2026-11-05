@@ -7,7 +7,7 @@ import './BerthDetails.scss';
 import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
 import RecentAssignments from '../../../components/Berths/BerthDetails/RecentAssignments/RecentAssignments';
 import BerthLocation from '../../../components/Berths/BerthDetails/BerthLocation/BerthLocation';
-
+import SimulationImpact from '../../../components/Berths/BerthDetails/SimulationImpact/SimulationImpact';
 
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>()
@@ -44,6 +44,9 @@ const BerthDetailsPage = () => {
           <RecentAssignments />
           <BerthLocation berthLabel={berth.name.toUpperCase()} />
         </div>
+
+        <SimulationImpact/>
+
       </div>
     </main>
   )
