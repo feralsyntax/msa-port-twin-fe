@@ -5,10 +5,8 @@ const TopBar = () => {
   const navigate = useNavigate()
 
   const handleAddBerthClick = () => {
-    // Route reserved for a later card; keep button wired for parity with vessels
-    navigate('/app/berths')
+    navigate('/app/berths/new')
   }
-
   return (
     <header className="berths-topbar">
       <div className="berths-topbar__heading">
