@@ -1,18 +1,23 @@
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+
 import AddBerthTopBar from '../../../components/Berths/AddBerth/AddBerthTopBar/AddBerthTopBar';
 import BerthIdentityForm, {
   type BerthFormValues,
 } from '../../../components/Berths/AddBerth/BerthIdentityForm/BerthIdentityForm';
-import './AddBerth.scss';
 import BerthConstraintsForm from '../../../components/Berths/AddBerth/BerthConstraintsForm/BerthConstraintsForm';
 import BerthLocationForm from '../../../components/Berths/AddBerth/BerthLocationForm/BerthLocationForm';
-
+import AddBerthActions from '../../../components/Berths/AddBerth/AddBerthActions/AddBerthActions';
+import './AddBerth.scss';
 
 const AddBerthPage = () => {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<BerthFormValues>({
     defaultValues: {
       name: '',
@@ -26,8 +31,15 @@ const AddBerthPage = () => {
   })
 
   const onSubmit = (data: BerthFormValues) => {
-    // Wired in a later section when actions + API hook are ready
-    console.log('Add berth draft:', data)
+    // Backend currently exposes GET-only berth endpoints.
+    // Keep the form production-ready; wire useAddBerth when POST lands.
+    console.info('Add berth payload (ready for API):', data)
+    reset()
+    navigate('/app/berths')
+  }
+
+  const handleCancel = () => {
+    navigate('/app/berths')
   }
 
   return (
@@ -41,11 +53,13 @@ const AddBerthPage = () => {
             onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
-             
             <BerthIdentityForm register={register} errors={errors} />
             <BerthConstraintsForm register={register} errors={errors} />
             <BerthLocationForm register={register} errors={errors} />
-            {/* Section 5 next */}
+            <AddBerthActions
+              isSubmitting={isSubmitting}
+              onCancel={handleCancel}
+            />
           </form>
         </div>
       </div>
