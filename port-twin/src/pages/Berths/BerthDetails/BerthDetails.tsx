@@ -6,6 +6,8 @@ import { demoBerths } from '../../../components/Berths/BerthDirectory/BerthTable
 import './BerthDetails.scss';
 import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
 import RecentAssignments from '../../../components/Berths/BerthDetails/RecentAssignments/RecentAssignments';
+import BerthLocation from '../../../components/Berths/BerthDetails/BerthLocation/BerthLocation';
+
 
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>()
@@ -38,9 +40,9 @@ const BerthDetailsPage = () => {
           isAvailable={berth.id === '3' ? true : berth.status === 'available'}
         />
 
-                <div className="berth-details-page__split">
+        <div className="berth-details-page__split">
           <RecentAssignments />
-          {/* Berth Location — section 4 */}
+          <BerthLocation berthLabel={berth.name.toUpperCase()} />
         </div>
       </div>
     </main>
