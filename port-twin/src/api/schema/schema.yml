@@ -19,8 +19,6 @@ paths:
       tags:
       - berths
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -43,8 +41,6 @@ paths:
       tags:
       - berths
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -61,8 +57,6 @@ paths:
       tags:
       - data-status
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -100,8 +94,6 @@ paths:
       tags:
       - marine-conditions
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -124,8 +116,6 @@ paths:
       tags:
       - marine-predictions
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -148,8 +138,6 @@ paths:
       tags:
       - marine-predictions
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -177,8 +165,6 @@ paths:
               $ref: '#/components/schemas/MarinePredictionRequest'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '201':
@@ -186,6 +172,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MarinePrediction'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
           description: ''
         '503':
           content:
@@ -200,8 +192,6 @@ paths:
       tags:
       - overview
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -224,8 +214,6 @@ paths:
       tags:
       - scenarios
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -252,8 +240,6 @@ paths:
               $ref: '#/components/schemas/ScenarioCreateUpdateRequest'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '201':
@@ -261,6 +247,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ScenarioResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
           description: ''
   /api/v1/scenarios/{id}/:
     get:
@@ -276,8 +268,6 @@ paths:
       tags:
       - scenarios
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -311,8 +301,6 @@ paths:
               $ref: '#/components/schemas/ScenarioCreateUpdateRequest'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -320,6 +308,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ScenarioResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
           description: ''
     patch:
       operationId: scenarios_partial_update
@@ -345,8 +339,6 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedScenarioCreateUpdateRequest'
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -355,10 +347,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScenarioResponse'
           description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+          description: ''
   /api/v1/scenarios/{id}/simulations/:
     post:
       operationId: scenarios_simulations_create
-      description: Execute a simulation for a saved scenario.
+      description: Queue a simulation for a saved scenario.
       parameters:
       - in: path
         name: id
@@ -369,17 +367,21 @@ paths:
       tags:
       - scenarios
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
-        '201':
+        '202':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ScenarioSimulationResponse'
           description: ''
-        '400':
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+          description: ''
+        '503':
           content:
             application/json:
               schema:
@@ -398,8 +400,6 @@ paths:
       tags:
       - simulations
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -422,8 +422,6 @@ paths:
       tags:
       - simulations
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -451,8 +449,6 @@ paths:
       tags:
       - simulations
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -486,8 +482,6 @@ paths:
       tags:
       - vessel-positions
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -510,8 +504,6 @@ paths:
       tags:
       - vessels
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -538,8 +530,6 @@ paths:
               $ref: '#/components/schemas/VesselCreateRequest'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '201':
@@ -547,6 +537,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VesselResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
           description: ''
   /api/v1/vessels/{id}/:
     get:
@@ -562,8 +558,6 @@ paths:
       tags:
       - vessels
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -592,8 +586,6 @@ paths:
       tags:
       - vessels
       security:
-      - cookieAuth: []
-      - basicAuth: []
       - {}
       responses:
         '200':
@@ -637,13 +629,53 @@ components:
       - latest_prediction_model_version
       - latest_prediction_status
       - readiness
+    APIErrorDetail:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details: {}
+      required:
+      - code
+      - details
+      - message
     APIErrorResponse:
       type: object
       properties:
-        detail:
-          type: string
+        error:
+          $ref: '#/components/schemas/APIErrorDetail'
       required:
-      - detail
+      - error
+    AssignedVessel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        imo_number:
+          type: string
+          readOnly: true
+          nullable: true
+        mmsi:
+          type: string
+          readOnly: true
+          nullable: true
+        vessel_type:
+          allOf:
+          - $ref: '#/components/schemas/VesselTypeEnum'
+          readOnly: true
+      required:
+      - id
+      - imo_number
+      - mmsi
+      - name
+      - vessel_type
     Berth:
       type: object
       properties:
@@ -682,6 +714,14 @@ components:
           allOf:
           - $ref: '#/components/schemas/BerthOperationalStatusEnum'
           readOnly: true
+        is_occupied:
+          type: boolean
+          readOnly: true
+        assigned_vessel:
+          allOf:
+          - $ref: '#/components/schemas/AssignedVessel'
+          readOnly: true
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -691,8 +731,10 @@ components:
           format: date-time
           readOnly: true
       required:
+      - assigned_vessel
       - created_at
       - id
+      - is_occupied
       - latitude
       - longitude
       - max_vessel_draft
@@ -844,16 +886,8 @@ components:
         start_time:
           type: string
           format: date-time
-        steps:
-          type: integer
-          minimum: 1
-        step_seconds:
-          type: integer
-          minimum: 1
       required:
       - start_time
-      - step_seconds
-      - steps
     MarineGridInput:
       type: object
       properties:
@@ -942,17 +976,15 @@ components:
           $ref: '#/components/schemas/MarineForecastInput'
         bathymetry_m: {}
         initial_water_level_m: {}
-        wind_u_ms: {}
-        wind_v_ms: {}
-        boundary_conditions: {}
+        initial_current_u_ms: {}
+        initial_current_v_ms: {}
       required:
       - bathymetry_m
-      - boundary_conditions
       - forecast
       - grid
+      - initial_current_u_ms
+      - initial_current_v_ms
       - initial_water_level_m
-      - wind_u_ms
-      - wind_v_ms
     MarinePredictionStatusEnum:
       enum:
       - completed
@@ -1214,9 +1246,20 @@ components:
         description:
           type: string
         parameters:
-          description: Configuration values used by the simulation.
+          $ref: '#/components/schemas/ScenarioParameters'
         status:
           $ref: '#/components/schemas/ScenarioStatusEnum'
+    QueueTimelinePoint:
+      type: object
+      properties:
+        hour:
+          type: number
+          format: double
+        vessels_waiting:
+          type: integer
+      required:
+      - hour
+      - vessels_waiting
     ScenarioCreateUpdateRequest:
       type: object
       properties:
@@ -1226,11 +1269,39 @@ components:
         description:
           type: string
         parameters:
-          description: Configuration values used by the simulation.
+          $ref: '#/components/schemas/ScenarioParameters'
         status:
           $ref: '#/components/schemas/ScenarioStatusEnum'
       required:
       - name
+      - parameters
+    ScenarioParameters:
+      type: object
+      properties:
+        simulation_hours:
+          type: number
+          format: double
+          minimum: 0
+        expected_vessel_arrivals:
+          type: integer
+          minimum: 0
+        arrival_interval_hours:
+          type: number
+          format: double
+          minimum: 0
+        average_service_time_hours:
+          type: number
+          format: double
+          minimum: 0
+        available_berths:
+          type: integer
+          minimum: 0
+          default: 2
+      required:
+      - arrival_interval_hours
+      - average_service_time_hours
+      - expected_vessel_arrivals
+      - simulation_hours
     ScenarioResponse:
       type: object
       properties:
@@ -1366,11 +1437,17 @@ components:
           allOf:
           - $ref: '#/components/schemas/VesselResults'
           nullable: true
+        queue_timeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueTimelinePoint'
+          nullable: true
       required:
       - completed_at
       - created_at
       - error_message
       - id
+      - queue_timeline
       - scenario_id
       - scenario_name
       - started_at
@@ -1706,11 +1783,3 @@ components:
         * `passenger` - Passenger
         * `other` - Other
         * `unknown` - Unknown
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-    cookieAuth:
-      type: apiKey
-      in: cookie
-      name: sessionid

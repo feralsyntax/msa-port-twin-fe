@@ -1,103 +1,100 @@
-import { useEffect, useMemo, useState } from 'react';
-import TopBar from '../../../components/Berths/BerthDirectory/TopBar/TopBar';
+import { useState } from "react";
+
+import TopBar from "../../../components/Berths/BerthDirectory/TopBar/TopBar";
 import BerthFilters, {
   type BerthFilterStatus,
-} from '../../../components/Berths/BerthDirectory/BerthFilters/BerthFilters';
-import BerthTable from '../../../components/Berths/BerthDirectory/BerthTable/BerthTable';
-import BerthPagination from '../../../components/Berths/BerthDirectory/BerthPagination/BerthPagination';
-import { demoBerths } from '../../../components/Berths/BerthDirectory/BerthTable/demoBerths';
-import './BerthDirectory.scss';
+} from "../../../components/Berths/BerthDirectory/BerthFilters/BerthFilters";
+import BerthTable from "../../../components/Berths/BerthDirectory/BerthTable/BerthTable";
+import BerthPagination from "../../../components/Berths/BerthDirectory/BerthPagination/BerthPagination";
 
-const PAGE_SIZE = 5
+import "./BerthDirectory.scss";
+import { useGetBerths } from "../../../hooks/berths/useGetBerths";
+
+const PAGE_SIZE = 20;
+
+const DEMO_COUNTS = {
+  occupied: 8,
+  available: 12,
+};
 
 const BerthDirectoryPage = () => {
-  const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>('all')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>("all");
 
-  const filteredBerths = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase()
+  const [currentPage, setCurrentPage] = useState(1);
 
-    return demoBerths.filter((berth) => {
-      const matchesFilter =
-        activeFilter === 'all' ||
-        (activeFilter === 'occupied' &&
-          (berth.status === 'occupied' || berth.status === 'reserved')) ||
-        (activeFilter === 'available' && berth.status === 'available')
+  const { data, isPending, isError, isPlaceholderData, refetch } =
+    useGetBerths(currentPage);
 
-      const matchesQuery =
-        query.length === 0 ||
-        berth.name.toLowerCase().includes(query) ||
-        berth.terminal.toLowerCase().includes(query) ||
-        berth.currentVessel.toLowerCase().includes(query)
+  const berths = data?.results ?? [];
+  const totalItems = data?.count ?? 0;
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
 
-      return matchesFilter && matchesQuery
-    })
-  }, [activeFilter, searchQuery])
-
-  const totalItems = filteredBerths.length
-  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE))
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [activeFilter, searchQuery])
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages)
-    }
-  }, [currentPage, totalPages])
-
-  const pageBerths = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE
-    return filteredBerths.slice(start, start + PAGE_SIZE)
-  }, [filteredBerths, currentPage])
-
-  const counts = useMemo(
-    () => ({
-      all: demoBerths.length,
-      occupied: demoBerths.filter(
-        (b) => b.status === 'occupied' || b.status === 'reserved',
-      ).length,
-      available: demoBerths.filter((b) => b.status === 'available').length,
-    }),
-    [],
-  )
+  const handleFilterChange = (filter: BerthFilterStatus) => {
+    setActiveFilter(filter);
+  };
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return
-    setCurrentPage(page)
-  }
+    if (page < 1 || page > totalPages || isPlaceholderData) {
+      return;
+    }
+
+    setCurrentPage(page);
+  };
 
   return (
-    <div className="berths-page">
+    <div className='berths-page'>
       <TopBar />
 
-      <main className="berths-page__content">
+      <main className='berths-page__content'>
         <BerthFilters
           activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          counts={counts}
+          onFilterChange={handleFilterChange}
+          counts={{
+            all: totalItems,
+            occupied: DEMO_COUNTS.occupied,
+            available: DEMO_COUNTS.available,
+          }}
         />
 
-        <div className="berths-page__table">
-          <BerthTable berths={pageBerths} />
+        <div className='berths-page__table'>
+          {isPending ? (
+            <div className='berths-page__state'>Loading berths...</div>
+          ) : isError && !data ? (
+            <div className='berths-page__state' role='alert'>
+              <p>Unable to load berths.</p>
+              <button type='button' onClick={() => refetch()}>
+                Try again
+              </button>
+            </div>
+          ) : (
+            <>
+              {isError && (
+                <div role='alert' className='berths-page__error'>
+                  Unable to refresh berth data. Showing previously loaded
+                  results.
+                  <button type='button' onClick={() => refetch()}>
+                    Retry
+                  </button>
+                </div>
+              )}
 
-          <BerthPagination
-            currentPage={totalItems === 0 ? 0 : currentPage}
-            totalPages={totalItems === 0 ? 0 : totalPages}
-            totalItems={totalItems}
-            pageSize={PAGE_SIZE}
-            onPageChange={handlePageChange}
-            canGoPrevious={currentPage > 1 && totalItems > 0}
-            canGoNext={currentPage < totalPages && totalItems > 0}
-          />
+              <BerthTable berths={berths} />
+
+              <BerthPagination
+                currentPage={totalItems === 0 ? 0 : currentPage}
+                totalPages={totalPages}
+                totalItems={totalItems}
+                pageSize={PAGE_SIZE}
+                onPageChange={handlePageChange}
+                canGoPrevious={Boolean(data?.previous) && !isPlaceholderData}
+                canGoNext={Boolean(data?.next) && !isPlaceholderData}
+              />
+            </>
+          )}
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default BerthDirectoryPage
+export default BerthDirectoryPage;

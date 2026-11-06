@@ -1,0 +1,34 @@
+name: Run linting on pull request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+          cache: npm
+          cache-dependency-path: port-twin/package-lock.json
+
+    
+      - name: Install Dependencies
+        working-directory: port-twin
+        run: npm ci
+
+      - name: Run Linting
+        working-directory: port-twin
+        run: npm run lint
