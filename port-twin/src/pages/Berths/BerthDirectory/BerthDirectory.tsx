@@ -12,6 +12,10 @@ import "./BerthDirectory.scss";
 import { useGetBerths } from "../../../hooks/berths/useGetBerths";
 
 const PAGE_SIZE = 20;
+const DEMO_COUNTS = {
+  occupied: 8,
+  available: 12,
+}
 
 const BerthDirectoryPage = () => {
   const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>("all");
@@ -51,8 +55,8 @@ const BerthDirectoryPage = () => {
           onSearchChange={handleSearchChange}
           counts={{
             all: totalItems,
-            occupied: 0,
-            available: 0,
+            occupied: DEMO_COUNTS.occupied,
+            available: DEMO_COUNTS.available,
           }}
         />
 
