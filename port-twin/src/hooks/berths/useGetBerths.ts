@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { berthsList } from "../../api/generated/berths/berths";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export const useBerths = (page: number = 1) => {
+import { berthsList } from "../../api/generated";
+
+export const useGetBerths = (page: number) => {
   return useQuery({
-    queryKey: ["berthsList", page],
+    queryKey: ["berthsList", { page }],
     queryFn: ({ signal }) => berthsList({ page }, undefined, signal),
-    enabled: page >= 1,
+    placeholderData: keepPreviousData,
+    staleTime: 30_000,
   });
 };
