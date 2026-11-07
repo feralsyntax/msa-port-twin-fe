@@ -10,6 +10,7 @@ import ScenarioTableFooter from '../../../components/Scenarios/ScenariosDirector
 
 import './ScenariosDirectory.scss';
 import ScenariosDirectoryHeader from '../../../components/Scenarios/ScenariosDirectory/ScenariosDirectoryHeader/ScenariosDirectoryHeader';
+import { useNavigate } from 'react-router-dom';
 
 const MOCK_SCENARIOS: Scenario[] = [
   {
@@ -43,6 +44,7 @@ const MOCK_SCENARIOS: Scenario[] = [
 ];
 
 const ScenariosDirectoryPage = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<ScenarioStatusFilter>('all');
 
   const filteredScenarios = useMemo(() => {
@@ -53,9 +55,13 @@ const ScenariosDirectoryPage = () => {
     return MOCK_SCENARIOS.filter((scenario) => scenario.status === activeFilter);
   }, [activeFilter]);
 
+  const handleNewScenario = () => {
+    navigate('/app/scenarios/new');
+  };
+
   return (
     <div className="scenarios-directory">
-      <ScenariosDirectoryHeader />
+      <ScenariosDirectoryHeader onNewScenario={handleNewScenario} />
 
       <div className="scenarios-directory__content">
         <ScenarioFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
