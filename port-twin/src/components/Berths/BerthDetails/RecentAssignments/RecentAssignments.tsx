@@ -1,14 +1,14 @@
 import './RecentAssignments.scss';
 
 export interface BerthAssignment {
-  vessel: string
-  arrived: string
-  departed: string
-  duration: string
+  vessel: string;
+  arrived: string;
+  departed: string;
+  duration: string;
 }
 
 interface RecentAssignmentsProps {
-  assignments?: BerthAssignment[]
+  assignments?: BerthAssignment[];
 }
 
 const defaultAssignments: BerthAssignment[] = [
@@ -30,11 +30,9 @@ const defaultAssignments: BerthAssignment[] = [
     departed: '05 May, 16:20',
     duration: '9h 35m',
   },
-]
+];
 
-const RecentAssignments = ({
-  assignments = defaultAssignments,
-}: RecentAssignmentsProps) => {
+const RecentAssignments = ({ assignments = defaultAssignments }: RecentAssignmentsProps) => {
   return (
     <section className="recent-assignments" aria-label="Recent assignments">
       <div className="recent-assignments__header">
@@ -70,7 +68,7 @@ const RecentAssignments = ({
         </table>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default RecentAssignments
+export default RecentAssignments;

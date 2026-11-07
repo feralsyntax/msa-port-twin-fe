@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './BerthDetailsTopBar.scss';
 
 interface BerthDetailsTopBarProps {
-  berthName: string
+  berthName: string;
 }
 
 const BerthDetailsTopBar = ({ berthName }: BerthDetailsTopBarProps) => {
@@ -16,7 +16,7 @@ const BerthDetailsTopBar = ({ berthName }: BerthDetailsTopBarProps) => {
         <span className="berth-details-topbar__current">{berthName}</span>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default BerthDetailsTopBar
+export default BerthDetailsTopBar;

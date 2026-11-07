@@ -1,13 +1,13 @@
 import './BerthPagination.scss';
 
 interface BerthPaginationProps {
-  currentPage: number
-  totalPages: number
-  totalItems: number
-  pageSize: number
-  onPageChange: (page: number) => void
-  canGoPrevious: boolean
-  canGoNext: boolean
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
 }
 
 const BerthPagination = ({
@@ -19,8 +19,8 @@ const BerthPagination = ({
   canGoPrevious,
   canGoNext,
 }: BerthPaginationProps) => {
-  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1
-  const endItem = Math.min(currentPage * pageSize, totalItems)
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
     <footer className="berth-pagination">
@@ -34,10 +34,7 @@ const BerthPagination = ({
         </span>
       </div>
 
-      <nav
-        className="berth-pagination__controls"
-        aria-label="Berth table pagination"
-      >
+      <nav className="berth-pagination__controls" aria-label="Berth table pagination">
         <button
           type="button"
           className="berth-pagination__button"
@@ -46,12 +43,7 @@ const BerthPagination = ({
           aria-label="Previous page"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path
-              d="m15 18-6-6 6-6"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span>Previous</span>
         </button>
@@ -70,17 +62,12 @@ const BerthPagination = ({
         >
           <span>Next</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path
-              d="m9 18 6-6-6-6"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
       </nav>
     </footer>
-  )
-}
+  );
+};
 
-export default BerthPagination
+export default BerthPagination;

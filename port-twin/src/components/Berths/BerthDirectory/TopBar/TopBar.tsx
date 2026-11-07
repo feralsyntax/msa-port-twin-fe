@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import './TopBar.scss';
 
 const TopBar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleAddBerthClick = () => {
-    navigate('/app/berths/new')
-  }
+    navigate('/app/berths/new');
+  };
   return (
     <header className="berths-topbar">
       <div className="berths-topbar__heading">
@@ -14,19 +14,13 @@ const TopBar = () => {
       </div>
 
       <div className="berths-topbar__actions">
-        <button
-          type="button"
-          className="berths-topbar__add-button"
-          onClick={handleAddBerthClick}
-        >
-          <span className="berths-topbar__add-icon material-symbols-outlined">
-            add
-          </span>
+        <button type="button" className="berths-topbar__add-button" onClick={handleAddBerthClick}>
+          <span className="berths-topbar__add-icon material-symbols-outlined">add</span>
           <span>Add Berth</span>
         </button>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default TopBar
+export default TopBar;

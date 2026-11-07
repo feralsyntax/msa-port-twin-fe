@@ -34,7 +34,7 @@ const kpiCards = [
     provenance: 'MEASURED',
     progress: 78,
   },
-]
+];
 
 const vesselQueue = [
   { name: 'MV KWALE STAR', wait: '2.1 h', berth: 'Berth 3', provenance: 'MEASURED' },
@@ -43,21 +43,21 @@ const vesselQueue = [
   { name: 'MAERSK TSAVO', wait: '5.2 h', berth: '—', provenance: 'ESTIMATED' },
   { name: 'CMA CGM MOMBASA', wait: '6.0 h', berth: '—', provenance: 'ESTIMATED' },
   { name: 'MV NYALI TRADER', wait: '7.5 h', berth: '—', provenance: 'ESTIMATED' },
-]
+];
 
 const berthOccupancy = [
   { name: 'Berth 1', pct: 72, tone: 'signal' },
   { name: 'Berth 2', pct: 85, tone: 'signal' },
   { name: 'Berth 3', pct: 58, tone: 'signal' },
   { name: 'Berth 4', pct: 100, tone: 'amber' },
-]
+];
 
 const recentSims = [
   { id: '0042', name: 'Scenario A', duration: '2 h', status: 'COMPLETED' },
   { id: '0041', name: 'Scenario B', duration: '1 h', status: 'COMPLETED' },
   { id: '0040', name: 'Scenario A', duration: '4 h', status: 'FAILED' },
   { id: '0039', name: 'Scenario C', duration: '1 h', status: 'COMPLETED' },
-]
+];
 
 export default function Dashboard() {
   return (
@@ -82,10 +82,7 @@ export default function Dashboard() {
               <span className="kpi-card__value">{card.value}</span>
               {card.progress !== undefined && (
                 <div className="kpi-card__bar">
-                  <div
-                    className="kpi-card__bar-fill"
-                    style={{ width: `${card.progress}%` }}
-                  />
+                  <div className="kpi-card__bar-fill" style={{ width: `${card.progress}%` }} />
                 </div>
               )}
             </div>
@@ -186,9 +183,7 @@ export default function Dashboard() {
           <div className="prediction-canvas">
             <div className="prediction-canvas__placeholder">
               <span>Flow field visualization</span>
-              <span className="prediction-canvas__hint">
-                FNO output · current scenario
-              </span>
+              <span className="prediction-canvas__hint">FNO output · current scenario</span>
             </div>
           </div>
         </article>
@@ -208,9 +203,7 @@ export default function Dashboard() {
                 </div>
                 <div className="sim-row__right">
                   <span className="sim-row__duration">{s.duration}</span>
-                  <span
-                    className={`sim-row__status sim-row__status--${s.status.toLowerCase()}`}
-                  >
+                  <span className={`sim-row__status sim-row__status--${s.status.toLowerCase()}`}>
                     {s.status}
                   </span>
                 </div>
@@ -220,5 +213,5 @@ export default function Dashboard() {
         </article>
       </section>
     </div>
-  )
+  );
 }

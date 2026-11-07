@@ -15,8 +15,8 @@
     gap: 24px;
     overflow-y: auto;
   }
-  
-&__split {
+
+  &__split {
     display: grid;
     grid-template-columns: 7fr 5fr;
     gap: 24px;
@@ -28,4 +28,3 @@
     }
   }
 }
-

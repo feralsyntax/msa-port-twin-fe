@@ -1,4 +1,4 @@
-@use "../../../../styles/tokens" as *;
+@use '../../../../styles/tokens' as *;
 
 .vessel-dimensions {
   padding: 24px;
@@ -82,7 +82,7 @@
         appearance: none;
       }
 
-      &[type="number"] {
+      &[type='number'] {
         appearance: textfield;
       }
     }

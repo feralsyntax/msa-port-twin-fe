@@ -124,7 +124,7 @@
 .landing__hero-grid {
   position: relative;
   z-index: 1;
-  
+
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 2.5rem;
@@ -320,16 +320,8 @@
     pointer-events: none;
     z-index: 1;
     background:
-      radial-gradient(
-        ellipse 70% 55% at 78% 18%,
-        rgba($signal, 0.16),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 50% 40% at 30% 80%,
-        rgba($signal, 0.05),
-        transparent 55%
-      );
+      radial-gradient(ellipse 70% 55% at 78% 18%, rgba($signal, 0.16), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 30% 80%, rgba($signal, 0.05), transparent 55%);
   }
 }
 
@@ -376,17 +368,11 @@
   color: $signal;
 }
 
-
 @media (max-width: 960px) {
   .landing__hero-panel {
     transform: none;
   }
 }
-
-
-
-
-
 
 // ── Architecture band ────────────────────────────────────
 
@@ -561,9 +547,6 @@
 .landing__pillar-meta-good {
   color: $moss !important;
 }
-
-
-
 
 // ── Trust / ethical spine ────────────────────────────────
 

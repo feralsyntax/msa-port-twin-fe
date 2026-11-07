@@ -1,4 +1,4 @@
-import "./VesselPagination.scss";
+import './VesselPagination.scss';
 
 interface VesselPaginationProps {
   currentPage: number;
@@ -24,58 +24,46 @@ const VesselPagination = ({
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <footer className='vessel-pagination'>
-      <div className='vessel-pagination__summary'>
+    <footer className="vessel-pagination">
+      <div className="vessel-pagination__summary">
         <span>
-          Showing{" "}
+          Showing{' '}
           <strong>
             {startItem}–{endItem}
-          </strong>{" "}
+          </strong>{' '}
           of <strong>{totalItems}</strong> vessels
         </span>
       </div>
 
-      <nav
-        className='vessel-pagination__controls'
-        aria-label='Vessel table pagination'
-      >
+      <nav className="vessel-pagination__controls" aria-label="Vessel table pagination">
         <button
-          type='button'
-          className='vessel-pagination__button'
+          type="button"
+          className="vessel-pagination__button"
           disabled={!canGoPrevious}
           onClick={() => onPageChange(currentPage - 1)}
-          aria-label='Previous page'
+          aria-label="Previous page"
         >
-          <svg viewBox='0 0 24 24' fill='none' stroke='currentColor'>
-            <path
-              d='m15 18-6-6 6-6'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span>Previous</span>
         </button>
 
-        <span className='vessel-pagination__page'>
-          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of <strong>{totalPages}</strong>
+        <span className="vessel-pagination__page">
+          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of{' '}
+          <strong>{totalPages}</strong>
         </span>
 
         <button
-          type='button'
-          className='vessel-pagination__button'
+          type="button"
+          className="vessel-pagination__button"
           disabled={!canGoNext}
           onClick={() => onPageChange(currentPage + 1)}
-          aria-label='Next page'
+          aria-label="Next page"
         >
           <span>Next</span>
-          <svg viewBox='0 0 24 24' fill='none' stroke='currentColor'>
-            <path
-              d='m9 18 6-6-6-6'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
       </nav>

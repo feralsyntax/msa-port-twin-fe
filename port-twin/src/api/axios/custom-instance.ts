@@ -1,6 +1,6 @@
-import type { AxiosError, AxiosRequestConfig } from "axios";
+import type { AxiosError, AxiosRequestConfig } from 'axios';
 
-import axiosInstance from "./axios";
+import axiosInstance from './axios';
 
 export const customInstance = <T>(
   config: AxiosRequestConfig,

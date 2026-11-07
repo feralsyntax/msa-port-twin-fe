@@ -1,10 +1,10 @@
 import './BerthSpecCards.scss';
 
 interface BerthSpecCardsProps {
-  maxLoaM: number
-  maxDraftM: number
-  currentVessel: string
-  isAvailable: boolean
+  maxLoaM: number;
+  maxDraftM: number;
+  currentVessel: string;
+  isAvailable: boolean;
 }
 
 const BerthSpecCards = ({
@@ -13,8 +13,7 @@ const BerthSpecCards = ({
   currentVessel,
   isAvailable,
 }: BerthSpecCardsProps) => {
-  const vesselLabel =
-    !currentVessel || currentVessel === '—' ? 'None' : currentVessel
+  const vesselLabel = !currentVessel || currentVessel === '—' ? 'None' : currentVessel;
 
   return (
     <section className="berth-spec-cards" aria-label="Berth specifications">
@@ -56,18 +55,14 @@ const BerthSpecCards = ({
         </div>
         <div className="berth-spec-card__value">{vesselLabel}</div>
         <div
-          className={`berth-spec-card__meta${
-            isAvailable ? ' berth-spec-card__meta--ready' : ''
-          }`}
+          className={`berth-spec-card__meta${isAvailable ? ' berth-spec-card__meta--ready' : ''}`}
         >
           <span className="berth-spec-card__meta-dot" />
-          {isAvailable
-            ? 'READY FOR DOCKING ALLOCATION'
-            : 'VESSEL CURRENTLY ALLOCATED'}
+          {isAvailable ? 'READY FOR DOCKING ALLOCATION' : 'VESSEL CURRENTLY ALLOCATED'}
         </div>
       </article>
     </section>
-  )
-}
+  );
+};
 
-export default BerthSpecCards
+export default BerthSpecCards;

@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import TopBar from "../../../components/Berths/BerthDirectory/TopBar/TopBar";
+import TopBar from '../../../components/Berths/BerthDirectory/TopBar/TopBar';
 import BerthFilters, {
   type BerthFilterStatus,
-} from "../../../components/Berths/BerthDirectory/BerthFilters/BerthFilters";
-import BerthTable from "../../../components/Berths/BerthDirectory/BerthTable/BerthTable";
-import BerthPagination from "../../../components/Berths/BerthDirectory/BerthPagination/BerthPagination";
+} from '../../../components/Berths/BerthDirectory/BerthFilters/BerthFilters';
+import BerthTable from '../../../components/Berths/BerthDirectory/BerthTable/BerthTable';
+import BerthPagination from '../../../components/Berths/BerthDirectory/BerthPagination/BerthPagination';
 
-import "./BerthDirectory.scss";
-import { useGetBerths } from "../../../hooks/berths/useGetBerths";
+import './BerthDirectory.scss';
+import { useGetBerths } from '../../../hooks/berths/useGetBerths';
 
 const PAGE_SIZE = 20;
 
@@ -18,12 +18,11 @@ const DEMO_COUNTS = {
 };
 
 const BerthDirectoryPage = () => {
-  const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>("all");
+  const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>('all');
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isPending, isError, isPlaceholderData, refetch } =
-    useGetBerths(currentPage);
+  const { data, isPending, isError, isPlaceholderData, refetch } = useGetBerths(currentPage);
 
   const berths = data?.results ?? [];
   const totalItems = data?.count ?? 0;
@@ -42,10 +41,10 @@ const BerthDirectoryPage = () => {
   };
 
   return (
-    <div className='berths-page'>
+    <div className="berths-page">
       <TopBar />
 
-      <main className='berths-page__content'>
+      <main className="berths-page__content">
         <BerthFilters
           activeFilter={activeFilter}
           onFilterChange={handleFilterChange}
@@ -56,23 +55,22 @@ const BerthDirectoryPage = () => {
           }}
         />
 
-        <div className='berths-page__table'>
+        <div className="berths-page__table">
           {isPending ? (
-            <div className='berths-page__state'>Loading berths...</div>
+            <div className="berths-page__state">Loading berths...</div>
           ) : isError && !data ? (
-            <div className='berths-page__state' role='alert'>
+            <div className="berths-page__state" role="alert">
               <p>Unable to load berths.</p>
-              <button type='button' onClick={() => refetch()}>
+              <button type="button" onClick={() => refetch()}>
                 Try again
               </button>
             </div>
           ) : (
             <>
               {isError && (
-                <div role='alert' className='berths-page__error'>
-                  Unable to refresh berth data. Showing previously loaded
-                  results.
-                  <button type='button' onClick={() => refetch()}>
+                <div role="alert" className="berths-page__error">
+                  Unable to refresh berth data. Showing previously loaded results.
+                  <button type="button" onClick={() => refetch()}>
                     Retry
                   </button>
                 </div>

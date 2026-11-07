@@ -1,18 +1,17 @@
-import { useState } from "react";
-import TopBar from "../../../components/Vessels/VesselDirectory/TopBar/TopBar";
-import VesselFilters from "../../../components/Vessels/VesselDirectory/VesselFilters/VesselFilters";
-import VesselTable from "../../../components/Vessels/VesselDirectory/VesselTable/VesselTable";
-import VesselPagination from "../../../components/Vessels/VesselDirectory/VesselPagination/VesselPagination";
-import "./VesselDirectory.scss";
-import { useGetVessels } from "../../../hooks/vessels/useGetVessels";
+import { useState } from 'react';
+import TopBar from '../../../components/Vessels/VesselDirectory/TopBar/TopBar';
+import VesselFilters from '../../../components/Vessels/VesselDirectory/VesselFilters/VesselFilters';
+import VesselTable from '../../../components/Vessels/VesselDirectory/VesselTable/VesselTable';
+import VesselPagination from '../../../components/Vessels/VesselDirectory/VesselPagination/VesselPagination';
+import './VesselDirectory.scss';
+import { useGetVessels } from '../../../hooks/vessels/useGetVessels';
 
 const PAGE_SIZE = 20;
 
 const VesselsDirectoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isPending, isError, isPlaceholderData, refetch } =
-    useGetVessels(currentPage);
+  const { data, isPending, isError, isPlaceholderData, refetch } = useGetVessels(currentPage);
 
   const vessels = data?.results ?? [];
 
@@ -30,25 +29,25 @@ const VesselsDirectoryPage = () => {
   };
 
   return (
-    <div className='vessels-page'>
+    <div className="vessels-page">
       <TopBar />
 
-      <main className='vessels-page__content'>
+      <main className="vessels-page__content">
         {isPending ? (
-          <p role='status'>Loading vessels...</p>
+          <p role="status">Loading vessels...</p>
         ) : isError ? (
-          <div role='alert'>
+          <div role="alert">
             <p>Failed to load vessels.</p>
-            <button type='button' onClick={() => refetch()}>
+            <button type="button" onClick={() => refetch()}>
               Try again
             </button>
           </div>
         ) : (
           <>
             <VesselFilters
-              activeFilter='all'
+              activeFilter="all"
               onFilterChange={() => {}}
-              searchQuery=''
+              searchQuery=""
               onSearchChange={() => {}}
               counts={{
                 all: totalItems,
@@ -57,7 +56,7 @@ const VesselsDirectoryPage = () => {
               }}
             />
 
-            <div className='vessels-page__table'>
+            <div className="vessels-page__table">
               <VesselTable vessels={vessels} />
 
               <VesselPagination
@@ -71,9 +70,7 @@ const VesselsDirectoryPage = () => {
               />
             </div>
 
-            {isPlaceholderData && (
-              <p role='status'>Loading the selected page...</p>
-            )}
+            {isPlaceholderData && <p role="status">Loading the selected page...</p>}
           </>
         )}
       </main>

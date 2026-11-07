@@ -1,13 +1,13 @@
 import './SimulationImpact.scss';
 
 interface SimulationImpactProps {
-  scenarioCount?: number
-  avgUtilization?: string
-  utilizationDelta?: string
-  mostFrequentVessel?: string
-  vesselClass?: string
-  simulatedClosures?: number
-  closuresNote?: string
+  scenarioCount?: number;
+  avgUtilization?: string;
+  utilizationDelta?: string;
+  mostFrequentVessel?: string;
+  vesselClass?: string;
+  simulatedClosures?: number;
+  closuresNote?: string;
 }
 
 const SimulationImpact = ({
@@ -26,17 +26,14 @@ const SimulationImpact = ({
       </div>
 
       <p className="simulation-impact__summary">
-        This berth has been used in {scenarioCount} simulation scenarios over the
-        last 30 days.
+        This berth has been used in {scenarioCount} simulation scenarios over the last 30 days.
       </p>
 
       <div className="simulation-impact__metrics">
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
             <span className="simulation-impact__metric-label">Avg. Utilization</span>
-            <span className="simulation-impact__tag simulation-impact__tag--sim">
-              SIMULATED
-            </span>
+            <span className="simulation-impact__tag simulation-impact__tag--sim">SIMULATED</span>
           </div>
           <div className="simulation-impact__metric-value">{avgUtilization}</div>
           <div className="simulation-impact__metric-note">{utilizationDelta}</div>
@@ -44,12 +41,8 @@ const SimulationImpact = ({
 
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
-            <span className="simulation-impact__metric-label">
-              Most Frequent Vessel
-            </span>
-            <span className="simulation-impact__tag simulation-impact__tag--hist">
-              HISTORICAL
-            </span>
+            <span className="simulation-impact__metric-label">Most Frequent Vessel</span>
+            <span className="simulation-impact__tag simulation-impact__tag--hist">HISTORICAL</span>
           </div>
           <div className="simulation-impact__metric-value simulation-impact__metric-value--text">
             {mostFrequentVessel}
@@ -59,19 +52,15 @@ const SimulationImpact = ({
 
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
-            <span className="simulation-impact__metric-label">
-              Simulated Closures
-            </span>
-            <span className="simulation-impact__tag simulation-impact__tag--sim">
-              SIMULATED
-            </span>
+            <span className="simulation-impact__metric-label">Simulated Closures</span>
+            <span className="simulation-impact__tag simulation-impact__tag--sim">SIMULATED</span>
           </div>
           <div className="simulation-impact__metric-value">{simulatedClosures}</div>
           <div className="simulation-impact__metric-note">{closuresNote}</div>
         </article>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default SimulationImpact
+export default SimulationImpact;

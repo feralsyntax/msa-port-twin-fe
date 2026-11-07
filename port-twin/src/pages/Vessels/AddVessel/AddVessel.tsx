@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import "./AddVessel.scss";
-import AddVesselTopBar from "../../../components/Vessels/AddVessel/AddVesselTopBar/AddVesselTopBar";
-import VesselIdentityForm from "../../../components/Vessels/AddVessel/VesselIdentityForm/VesselIdentityForm";
-import VesselDimensionsForm from "../../../components/Vessels/AddVessel/VesselDimensionsForm/VesselDimensionsForm";
-import AddVesselActions from "../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions";
-import { useForm } from "react-hook-form";
-import type { VesselCreateRequest } from "../../../api/models";
-import { useAddVessel } from "../../../hooks/vessels/useAddVessel";
+import './AddVessel.scss';
+import AddVesselTopBar from '../../../components/Vessels/AddVessel/AddVesselTopBar/AddVesselTopBar';
+import VesselIdentityForm from '../../../components/Vessels/AddVessel/VesselIdentityForm/VesselIdentityForm';
+import VesselDimensionsForm from '../../../components/Vessels/AddVessel/VesselDimensionsForm/VesselDimensionsForm';
+import AddVesselActions from '../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions';
+import { useForm } from 'react-hook-form';
+import type { VesselCreateRequest } from '../../../api/models';
+import { useAddVessel } from '../../../hooks/vessels/useAddVessel';
 
 const AddVesselPage = () => {
   const {
@@ -17,13 +17,13 @@ const AddVesselPage = () => {
     formState: { errors },
   } = useForm<VesselCreateRequest>({
     defaultValues: {
-      name: "",
-      imo_number: "",
-      mmsi: "",
+      name: '',
+      imo_number: '',
+      mmsi: '',
       vessel_type: undefined,
-      length_overall: "",
-      width: "",
-      draft: "",
+      length_overall: '',
+      width: '',
+      draft: '',
     },
   });
 
@@ -39,27 +39,24 @@ const AddVesselPage = () => {
   };
 
   const handleCancel = () => {
-    navigate("/app/vessels");
+    navigate('/app/vessels');
   };
 
   return (
-    <div className='add-vessel-page'>
+    <div className="add-vessel-page">
       <AddVesselTopBar />
 
-      <div className='add-vessel-page__content'>
-        <div className='add-vessel-page__container'>
-          <form
-            className='add-vessel-page__form'
-            onSubmit={handleSubmit(onSubmit)}
-          >
+      <div className="add-vessel-page__content">
+        <div className="add-vessel-page__container">
+          <form className="add-vessel-page__form" onSubmit={handleSubmit(onSubmit)}>
             {addVessel.isError && (
-              <p role='alert' className='alert'>
+              <p role="alert" className="alert">
                 Failed to register vessel. Please try again.
               </p>
             )}
 
             {addVessel.isSuccess && (
-              <p role='status' className='success'>
+              <p role="status" className="success">
                 Vessel registered successfully.
               </p>
             )}
@@ -68,10 +65,7 @@ const AddVesselPage = () => {
 
             <VesselDimensionsForm register={register} errors={errors} />
 
-            <AddVesselActions
-              isSubmitting={addVessel.isPending}
-              onCancel={handleCancel}
-            />
+            <AddVesselActions isSubmitting={addVessel.isPending} onCancel={handleCancel} />
           </form>
         </div>
       </div>
