@@ -1,4 +1,4 @@
-import './ScenarioPageHeader.scss';
+import './ScenariosDirectoryHeader.scss';
 
 interface ScenariosDirectoryHeaderProps {
   onNewScenario?: () => void;
