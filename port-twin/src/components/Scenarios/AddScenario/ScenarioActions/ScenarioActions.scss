@@ -1,0 +1,80 @@
+.scenario-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $hairline;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    padding: 0 1rem;
+    border: 1px solid $hairline;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: $ink-1;
+    font-family: $font-sans;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition:
+      color 120ms ease,
+      border-color 120ms ease,
+      background-color 120ms ease;
+
+    &:hover {
+      color: $ink-0;
+      border-color: $hairline-strong;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__draft {
+    background-color: $canvas-1 !important;
+  }
+
+  &__submit {
+    gap: 0.5rem;
+    padding: 0 1.25rem !important;
+    border-color: $signal !important;
+    background-color: $signal !important;
+    color: $canvas-0 !important;
+    font-family: $font-display !important;
+    font-size: 0.75rem !important;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    &:hover {
+      border-color: $signal-dim !important;
+      background-color: $signal-dim !important;
+    }
+
+    .material-symbols-outlined {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .scenario-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+
+    &__buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
