@@ -1,87 +1,82 @@
 import { useCallback, useRef, useState } from 'react';
 import './Map.scss';
 
-type Point = { x: number; y: number }
+type Point = { x: number; y: number };
 
-type LayerKey = 'vessels' | 'flow' | 'berths' | 'tracks'
+type LayerKey = 'vessels' | 'flow' | 'berths' | 'tracks';
 
 const layerConfig: {
-  key: LayerKey
-  label: string
-  provenance: 'MEASURED' | 'MODEL' | 'HISTORICAL'
-  defaultOn: boolean
+  key: LayerKey;
+  label: string;
+  provenance: 'MEASURED' | 'MODEL' | 'HISTORICAL';
+  defaultOn: boolean;
 }[] = [
   { key: 'vessels', label: 'Vessels', provenance: 'MEASURED', defaultOn: true },
   { key: 'flow', label: 'Flow field', provenance: 'MODEL', defaultOn: true },
   { key: 'berths', label: 'Berth occupancy', provenance: 'MEASURED', defaultOn: true },
   { key: 'tracks', label: 'Vessel tracks', provenance: 'HISTORICAL', defaultOn: false },
-]
+];
 
 export default function MapPage() {
-  const [offset, setOffset] = useState<Point>({ x: 0, y: 0 })
-  const [scale, setScale] = useState(1) 
-  const [isPanning, setIsPanning] = useState(false)
-  const dragOrigin = useRef<Point | null>(null)
-  const offsetOrigin = useRef<Point>({ x: 0, y: 0 })
-  const [inspectorOpen, setInspectorOpen] = useState(true)
+  const [offset, setOffset] = useState<Point>({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
+  const [isPanning, setIsPanning] = useState(false);
+  const dragOrigin = useRef<Point | null>(null);
+  const offsetOrigin = useRef<Point>({ x: 0, y: 0 });
+  const [inspectorOpen, setInspectorOpen] = useState(true);
 
-  const [layers, setLayers] = useState<Record<LayerKey, boolean>>(() =>
-    Object.fromEntries(
-      layerConfig.map((l) => [l.key, l.defaultOn]),
-    ) as Record<LayerKey, boolean>,
-  )
+  const [layers, setLayers] = useState<Record<LayerKey, boolean>>(
+    () =>
+      Object.fromEntries(layerConfig.map((l) => [l.key, l.defaultOn])) as Record<LayerKey, boolean>,
+  );
 
-  const activeCount = Object.values(layers).filter(Boolean).length
+  const activeCount = Object.values(layers).filter(Boolean).length;
 
   const toggleLayer = (key: LayerKey) => {
-    setLayers((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
+    setLayers((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const onPointerDown = useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (event.button !== 0) return
-      event.currentTarget.setPointerCapture(event.pointerId)
-      dragOrigin.current = { x: event.clientX, y: event.clientY }
-      offsetOrigin.current = { ...offset }
-      setIsPanning(true)
+      if (event.button !== 0) return;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      dragOrigin.current = { x: event.clientX, y: event.clientY };
+      offsetOrigin.current = { ...offset };
+      setIsPanning(true);
     },
     [offset],
-  )
+  );
 
-  const onPointerMove = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!dragOrigin.current) return
-      const dx = event.clientX - dragOrigin.current.x
-      const dy = event.clientY - dragOrigin.current.y
-      setOffset({
-        x: offsetOrigin.current.x + dx,
-        y: offsetOrigin.current.y + dy,
-      })
-    },
-    [],
-  )
+  const onPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragOrigin.current) return;
+    const dx = event.clientX - dragOrigin.current.x;
+    const dy = event.clientY - dragOrigin.current.y;
+    setOffset({
+      x: offsetOrigin.current.x + dx,
+      y: offsetOrigin.current.y + dy,
+    });
+  }, []);
 
   const endPan = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (dragOrigin.current) {
-      dragOrigin.current = null
-      setIsPanning(false)
+      dragOrigin.current = null;
+      setIsPanning(false);
       try {
-        event.currentTarget.releasePointerCapture(event.pointerId)
+        event.currentTarget.releasePointerCapture(event.pointerId);
       } catch {
         // already released
       }
     }
-  }, [])
+  }, []);
 
+  const zoomBy = (factor: number) => {
+    setScale((prev) => Math.min(2.5, Math.max(0.5, prev * factor)));
+  };
 
-const zoomBy = (factor: number) => {
-    setScale((prev) => Math.min(2.5, Math.max(0.5, prev * factor)))
-  }
-
-const recenter = () => {
-    setOffset({ x: 0, y: 0 })
-    setScale(1)
-  }
+  const recenter = () => {
+    setOffset({ x: 0, y: 0 });
+    setScale(1);
+  };
 
   return (
     <div className="map-page">
@@ -98,14 +93,9 @@ const recenter = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-label="Kilindini Harbour cartographic layer"
         >
-        <g transform={`translate(${offset.x} ${offset.y}) scale(${scale})`}>
+          <g transform={`translate(${offset.x} ${offset.y}) scale(${scale})`}>
             <defs>
-              <pattern
-                id="carto-grid"
-                width="60"
-                height="60"
-                patternUnits="userSpaceOnUse"
-              >
+              <pattern id="carto-grid" width="60" height="60" patternUnits="userSpaceOnUse">
                 <path
                   d="M 60 0 L 0 0 0 60"
                   fill="none"
@@ -169,33 +159,121 @@ const recenter = () => {
             />
 
             <g fill="#5F7688" fontFamily="'JetBrains Mono', monospace" fontSize="10">
-              <text x="280" y="295">14.2m</text>
-              <text x="360" y="345">15.8m</text>
-              <text x="490" y="390">16.4m</text>
-              <text x="640" y="440">17.1m</text>
-              <text x="790" y="490">18.6m</text>
-              <text x="960" y="530">19.2m</text>
-              <text x="420" y="270" fill="#2C4257">9.6m</text>
-              <text x="560" y="310" fill="#2C4257">11.2m</text>
+              <text x="280" y="295">
+                14.2m
+              </text>
+              <text x="360" y="345">
+                15.8m
+              </text>
+              <text x="490" y="390">
+                16.4m
+              </text>
+              <text x="640" y="440">
+                17.1m
+              </text>
+              <text x="790" y="490">
+                18.6m
+              </text>
+              <text x="960" y="530">
+                19.2m
+              </text>
+              <text x="420" y="270" fill="#2C4257">
+                9.6m
+              </text>
+              <text x="560" y="310" fill="#2C4257">
+                11.2m
+              </text>
             </g>
 
             {layers.berths && (
               <g className="map-page__berths">
                 <g transform="rotate(-26, 235, 195)">
-                  <rect x="235" y="195" width="70" height="20" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.2" />
-                  <text x="242" y="210" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">BERTH 1</text>
+                  <rect
+                    x="235"
+                    y="195"
+                    width="70"
+                    height="20"
+                    rx="1"
+                    fill="#0C1C2A"
+                    stroke="#00D2C8"
+                    strokeWidth="1.2"
+                  />
+                  <text
+                    x="242"
+                    y="210"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    BERTH 1
+                  </text>
                 </g>
                 <g transform="rotate(-26, 180, 222)">
-                  <rect x="180" y="222" width="70" height="20" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.2" />
-                  <text x="187" y="237" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">BERTH 2</text>
+                  <rect
+                    x="180"
+                    y="222"
+                    width="70"
+                    height="20"
+                    rx="1"
+                    fill="#0C1C2A"
+                    stroke="#00D2C8"
+                    strokeWidth="1.2"
+                  />
+                  <text
+                    x="187"
+                    y="237"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    BERTH 2
+                  </text>
                 </g>
                 <g transform="rotate(-26, 125, 249)">
-                  <rect x="125" y="249" width="70" height="20" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.5" />
-                  <text x="132" y="264" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">BERTH 3</text>
+                  <rect
+                    x="125"
+                    y="249"
+                    width="70"
+                    height="20"
+                    rx="1"
+                    fill="#0C1C2A"
+                    stroke="#00D2C8"
+                    strokeWidth="1.5"
+                  />
+                  <text
+                    x="132"
+                    y="264"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    BERTH 3
+                  </text>
                 </g>
                 <g transform="rotate(-26, 70, 276)">
-                  <rect x="70" y="276" width="70" height="20" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.2" />
-                  <text x="77" y="291" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">BERTH 4</text>
+                  <rect
+                    x="70"
+                    y="276"
+                    width="70"
+                    height="20"
+                    rx="1"
+                    fill="#0C1C2A"
+                    stroke="#00D2C8"
+                    strokeWidth="1.2"
+                  />
+                  <text
+                    x="77"
+                    y="291"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    BERTH 4
+                  </text>
                 </g>
               </g>
             )}
@@ -225,16 +303,55 @@ const recenter = () => {
             {layers.vessels && (
               <g className="map-page__vessels">
                 <g transform="translate(340, 310)">
-                  <polygon points="0,-6 6,0 0,6 -6,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
-                  <text x="10" y="3" fill="#9CB0C2" fontFamily="'JetBrains Mono', monospace" fontSize="9">NYALI TUG (1.2 kn)</text>
+                  <polygon
+                    points="0,-6 6,0 0,6 -6,0"
+                    fill="#E6F0F5"
+                    stroke="#06121B"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="10"
+                    y="3"
+                    fill="#9CB0C2"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                  >
+                    NYALI TUG (1.2 kn)
+                  </text>
                 </g>
                 <g transform="translate(860, 420)">
-                  <polygon points="0,-7 7,0 0,7 -7,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
-                  <text x="12" y="3" fill="#9CB0C2" fontFamily="'JetBrains Mono', monospace" fontSize="9">CMA CGM MAASAI (16.8 kn)</text>
+                  <polygon
+                    points="0,-7 7,0 0,7 -7,0"
+                    fill="#E6F0F5"
+                    stroke="#06121B"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="12"
+                    y="3"
+                    fill="#9CB0C2"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                  >
+                    CMA CGM MAASAI (16.8 kn)
+                  </text>
                 </g>
                 <g transform="translate(1120, 490)">
-                  <polygon points="0,-6 6,0 0,6 -6,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
-                  <text x="10" y="3" fill="#5F7688" fontFamily="'JetBrains Mono', monospace" fontSize="9">PACIFIC JADE [ANC]</text>
+                  <polygon
+                    points="0,-6 6,0 0,6 -6,0"
+                    fill="#E6F0F5"
+                    stroke="#06121B"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="10"
+                    y="3"
+                    fill="#5F7688"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                  >
+                    PACIFIC JADE [ANC]
+                  </text>
                 </g>
                 <g
                   transform="translate(560, 420)"
@@ -243,15 +360,58 @@ const recenter = () => {
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={() => setInspectorOpen((open) => !open)}
                 >
-                  <circle cx="0" cy="0" r="14" fill="none" stroke="#00D2C8" strokeWidth="1.2" opacity="0.8">
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="14"
+                    fill="none"
+                    stroke="#00D2C8"
+                    strokeWidth="1.2"
+                    opacity="0.8"
+                  >
                     <animate attributeName="r" values="6;26" dur="2.4s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.9;0" dur="2.4s" repeatCount="indefinite" />
+                    <animate
+                      attributeName="opacity"
+                      values="0.9;0"
+                      dur="2.4s"
+                      repeatCount="indefinite"
+                    />
                   </circle>
-                  <circle cx="0" cy="0" r="8" fill="#00D2C8" fillOpacity="0.25" stroke="#00D2C8" strokeWidth="1.5" />
-                  <polygon points="0,-7 7,0 0,7 -7,0" fill="#00D2C8" stroke="#06121B" strokeWidth="1.5" />
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="8"
+                    fill="#00D2C8"
+                    fillOpacity="0.25"
+                    stroke="#00D2C8"
+                    strokeWidth="1.5"
+                  />
+                  <polygon
+                    points="0,-7 7,0 0,7 -7,0"
+                    fill="#00D2C8"
+                    stroke="#06121B"
+                    strokeWidth="1.5"
+                  />
                   <circle cx="0" cy="0" r="2" fill="#E6F0F5" />
-                  <line x1="0" y1="0" x2="22" y2="-20" stroke="#00D2C8" strokeWidth="1.5" strokeDasharray="2 2" />
-                  <text x="14" y="-28" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">MV KWALE STAR</text>
+                  <line
+                    x1="0"
+                    y1="0"
+                    x2="22"
+                    y2="-20"
+                    stroke="#00D2C8"
+                    strokeWidth="1.5"
+                    strokeDasharray="2 2"
+                  />
+                  <text
+                    x="14"
+                    y="-28"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    MV KWALE STAR
+                  </text>
                 </g>
               </g>
             )}
@@ -259,15 +419,8 @@ const recenter = () => {
         </svg>
       </div>
 
-
-
-
-            {/* Compass */}
-      <div
-        className="map-compass"
-        aria-hidden="true"
-        onPointerDown={(e) => e.stopPropagation()}
-      >
+      {/* Compass */}
+      <div className="map-compass" aria-hidden="true" onPointerDown={(e) => e.stopPropagation()}>
         <svg className="map-compass__svg" viewBox="0 0 48 48" fill="none">
           <circle cx="24" cy="24" r="21" stroke="#1E2E3F" strokeWidth="1" />
           <circle
@@ -339,18 +492,12 @@ const recenter = () => {
         >
           ⊙
         </button>
-        <button
-          type="button"
-          className="map-zoom__btn"
-          title="Fit basin"
-          onClick={recenter}
-        >
+        <button type="button" className="map-zoom__btn" title="Fit basin" onClick={recenter}>
           ⛶
         </button>
       </div>
 
-
-            {/* Provenance legend */}
+      {/* Provenance legend */}
       <div
         className="map-legend"
         aria-label="Data provenance legend"
@@ -415,10 +562,7 @@ const recenter = () => {
             <span className="map-timeline__tick" style={{ left: '40%' }}>
               12:00
             </span>
-            <span
-              className="map-timeline__tick map-timeline__tick--active"
-              style={{ left: '60%' }}
-            >
+            <span className="map-timeline__tick map-timeline__tick--active" style={{ left: '60%' }}>
               14:00
             </span>
             <span className="map-timeline__tick" style={{ left: '80%' }}>
@@ -475,7 +619,7 @@ const recenter = () => {
           <span className="map-layers__footer-value">UTM 37S / WGS84</span>
         </div>
       </aside>
-            {inspectorOpen && (
+      {inspectorOpen && (
         <aside
           className="map-inspector"
           aria-label="Selected vessel"
@@ -520,5 +664,5 @@ const recenter = () => {
         </aside>
       )}
     </div>
-  )
+  );
 }

@@ -12,7 +12,7 @@ const AddBerthTopBar = () => {
         <h1 className="add-berth-topbar__title">Add New</h1>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default AddBerthTopBar
+export default AddBerthTopBar;

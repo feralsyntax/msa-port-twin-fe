@@ -1,8 +1,8 @@
 import './BerthIdentityHeader.scss';
 
 interface BerthIdentityHeaderProps {
-  name: string
-  status: 'AVAILABLE' | 'OCCUPIED' | 'RESERVED' | 'MAINTENANCE'
+  name: string;
+  status: 'AVAILABLE' | 'OCCUPIED' | 'RESERVED' | 'MAINTENANCE';
 }
 
 const BerthIdentityHeader = ({ name, status }: BerthIdentityHeaderProps) => {
@@ -16,7 +16,7 @@ const BerthIdentityHeader = ({ name, status }: BerthIdentityHeaderProps) => {
         {status}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default BerthIdentityHeader
+export default BerthIdentityHeader;

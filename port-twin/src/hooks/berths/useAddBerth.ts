@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { berthsCreate } from "../../api/generated";
-import type { BerthCreateRequest } from "../../api/models";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { berthsCreate } from '../../api/generated';
+import type { BerthCreateRequest } from '../../api/models';
 
 export const useAddBerth = () => {
   const queryClient = useQueryClient();
@@ -11,12 +11,12 @@ export const useAddBerth = () => {
     onSuccess: () => {
       // Refresh the berths list after successful registration.
       queryClient.invalidateQueries({
-        queryKey: ["berthsList"],
+        queryKey: ['berthsList'],
       });
     },
 
     onError: (error) => {
-      console.error("Failed to register berth:", error);
+      console.error('Failed to register berth:', error);
     },
   });
 };

@@ -1,4 +1,4 @@
-name: Run linting on pull request
+name: Run code formatting & linting on PR
 
 on:
   pull_request:
@@ -28,6 +28,10 @@ jobs:
       - name: Install Dependencies
         working-directory: port-twin
         run: npm ci
+      
+      - name: Check formatting
+        working-directory: port-twin
+        run: npm run format:check
 
       - name: Run Linting
         working-directory: port-twin

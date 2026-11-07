@@ -1,6 +1,6 @@
-import "./BerthFilters.scss";
+import './BerthFilters.scss';
 
-export type BerthFilterStatus = "all" | "occupied" | "available";
+export type BerthFilterStatus = 'all' | 'occupied' | 'available';
 
 interface BerthFiltersProps {
   activeFilter: BerthFilterStatus;
@@ -12,49 +12,41 @@ interface BerthFiltersProps {
   };
 }
 
-const BerthFilters = ({
-  activeFilter,
-  onFilterChange,
-  counts,
-}: BerthFiltersProps) => {
+const BerthFilters = ({ activeFilter, onFilterChange, counts }: BerthFiltersProps) => {
   const filters = [
     {
-      label: "All Berths",
-      value: "all" as const,
+      label: 'All Berths',
+      value: 'all' as const,
       count: counts.all,
     },
     {
-      label: "Occupied",
-      value: "occupied" as const,
+      label: 'Occupied',
+      value: 'occupied' as const,
       count: counts.occupied,
     },
     {
-      label: "Available",
-      value: "available" as const,
+      label: 'Available',
+      value: 'available' as const,
       count: counts.available,
     },
   ];
 
   return (
-    <section className='berth-filters'>
-      <div
-        className='berth-filters__tabs'
-        role='tablist'
-        aria-label='Berth status filters'
-      >
+    <section className="berth-filters">
+      <div className="berth-filters__tabs" role="tablist" aria-label="Berth status filters">
         {filters.map((filter) => (
           <button
             key={filter.value}
-            type='button'
-            role='tab'
+            type="button"
+            role="tab"
             aria-selected={activeFilter === filter.value}
             className={`berth-filters__tab${
-              activeFilter === filter.value ? " berth-filters__tab--active" : ""
+              activeFilter === filter.value ? ' berth-filters__tab--active' : ''
             }`}
             onClick={() => onFilterChange(filter.value)}
           >
             <span>{filter.label}</span>
-            <span className='berth-filters__count'>{filter.count}</span>
+            <span className="berth-filters__count">{filter.count}</span>
           </button>
         ))}
       </div>

@@ -10,12 +10,12 @@ import BerthLocation from '../../../components/Berths/BerthDetails/BerthLocation
 import SimulationImpact from '../../../components/Berths/BerthDetails/SimulationImpact/SimulationImpact';
 
 const BerthDetailsPage = () => {
-  const { berthId } = useParams<{ berthId: string }>()
+  const { berthId } = useParams<{ berthId: string }>();
 
   const berth = useMemo(
     () => demoBerths.find((item) => item.id === berthId) ?? demoBerths[2],
     [berthId],
-  )
+  );
 
   const statusLabel =
     berth.status === 'available'
@@ -24,14 +24,14 @@ const BerthDetailsPage = () => {
         ? 'OCCUPIED'
         : berth.status === 'reserved'
           ? 'RESERVED'
-          : 'MAINTENANCE'
+          : 'MAINTENANCE';
 
   return (
     <main className="berth-details-page">
       <BerthDetailsTopBar berthName={berth.name} />
 
       <div className="berth-details-page__content">
-       <BerthIdentityHeader name={berth.name} status={statusLabel} />
+        <BerthIdentityHeader name={berth.name} status={statusLabel} />
 
         <BerthSpecCards
           maxLoaM={berth.id === '3' ? 350 : berth.maxLoaM}
@@ -45,11 +45,10 @@ const BerthDetailsPage = () => {
           <BerthLocation berthLabel={berth.name.toUpperCase()} />
         </div>
 
-        <SimulationImpact/>
-
+        <SimulationImpact />
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default BerthDetailsPage
+export default BerthDetailsPage;

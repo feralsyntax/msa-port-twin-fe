@@ -176,9 +176,6 @@
   letter-spacing: 0;
 }
 
-
-
-
 // ── Vessel inspector ─────────────────────────────────────
 
 .map-inspector {
@@ -309,8 +306,6 @@
   text-transform: uppercase;
 }
 
-
-
 // ── Compass ──────────────────────────────────────────────
 
 .map-compass {
@@ -367,7 +362,10 @@
   font-family: $font-mono;
   font-size: 14px;
   line-height: 1;
-  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  transition:
+    background-color 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
 
   &:hover {
     background-color: $canvas-2;
@@ -432,7 +430,10 @@
   font-family: $font-mono;
   font-size: 14px;
   line-height: 1;
-  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  transition:
+    background-color 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
 
   &:hover {
     background-color: $canvas-2;
@@ -440,8 +441,6 @@
     border-color: $hairline-strong;
   }
 }
-
-
 
 // ── Provenance legend ────────────────────────────────────
 

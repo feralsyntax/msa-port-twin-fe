@@ -11,13 +11,12 @@ import BerthDirectoryPage from './pages/Berths/BerthDirectory/BerthDirectory';
 import BerthDetailsPage from './pages/Berths/BerthDetails/BerthDetails';
 import AddBerthPage from './pages/Berths/AddBerth/AddBerth';
 
-
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public landing page (future) */}
-        <Route path="/" element={<LandingPage/>} />
+        <Route path="/" element={<LandingPage />} />
 
         {/* Authenticated app shell */}
         <Route path="/app" element={<Shell />}>
@@ -30,10 +29,10 @@ export default function App() {
           <Route path="berths/:berthId" element={<BerthDetailsPage />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
-          <Route path="map" element={<MapPage/>}/>
+          <Route path="map" element={<MapPage />} />
           <Route path="about" element={<PlaceholderPage title="About" />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

@@ -4,9 +4,9 @@ import './Landing.scss';
 
 export default function LandingPage() {
   useEffect(() => {
-    const html = document.documentElement
-    const body = document.body
-    const root = document.getElementById('root')
+    const html = document.documentElement;
+    const body = document.body;
+    const root = document.getElementById('root');
 
     const prev = {
       htmlOverflow: html.style.overflow,
@@ -16,31 +16,31 @@ export default function LandingPage() {
       rootOverflow: root?.style.overflow ?? '',
       rootHeight: root?.style.height ?? '',
       rootMinHeight: root?.style.minHeight ?? '',
-    }
+    };
 
-    html.style.overflow = 'auto'
-    body.style.overflow = 'auto'
-    html.style.height = 'auto'
-    body.style.height = 'auto'
+    html.style.overflow = 'auto';
+    body.style.overflow = 'auto';
+    html.style.height = 'auto';
+    body.style.height = 'auto';
 
     if (root) {
-      root.style.overflow = 'visible'
-      root.style.height = 'auto'
-      root.style.minHeight = '100%'
+      root.style.overflow = 'visible';
+      root.style.height = 'auto';
+      root.style.minHeight = '100%';
     }
 
     return () => {
-      html.style.overflow = prev.htmlOverflow
-      body.style.overflow = prev.bodyOverflow
-      html.style.height = prev.htmlHeight
-      body.style.height = prev.bodyHeight
+      html.style.overflow = prev.htmlOverflow;
+      body.style.overflow = prev.bodyOverflow;
+      html.style.height = prev.htmlHeight;
+      body.style.height = prev.bodyHeight;
       if (root) {
-        root.style.overflow = prev.rootOverflow
-        root.style.height = prev.rootHeight
-        root.style.minHeight = prev.rootMinHeight
+        root.style.overflow = prev.rootOverflow;
+        root.style.height = prev.rootHeight;
+        root.style.minHeight = prev.rootMinHeight;
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <div className="landing">
@@ -97,9 +97,8 @@ export default function LandingPage() {
             </h1>
 
             <p className="landing__lead">
-              An AI-powered hydrodynamic and vessel queueing twin for the Port of
-              Mombasa. Simulate conditions, predict congestion, and optimize berth
-              scheduling.
+              An AI-powered hydrodynamic and vessel queueing twin for the Port of Mombasa. Simulate
+              conditions, predict congestion, and optimize berth scheduling.
             </p>
 
             <div className="landing__actions">
@@ -129,7 +128,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-                    <aside className="landing__hero-panel" aria-label="Map surface preview">
+          <aside className="landing__hero-panel" aria-label="Map surface preview">
             <div className="landing__panel-bar">
               <span className="landing__panel-bar-left">
                 <span className="landing__panel-pip" />
@@ -218,25 +217,89 @@ export default function LandingPage() {
                 />
 
                 <g fill="#5F7688" fontFamily="'JetBrains Mono', monospace" fontSize="9">
-                  <text x="210" y="210">14.2m</text>
-                  <text x="290" y="250">15.8m</text>
-                  <text x="390" y="285">16.4m</text>
-                  <text x="500" y="320">17.1m</text>
-                  <text x="320" y="190" fill="#2C4257">9.6m</text>
+                  <text x="210" y="210">
+                    14.2m
+                  </text>
+                  <text x="290" y="250">
+                    15.8m
+                  </text>
+                  <text x="390" y="285">
+                    16.4m
+                  </text>
+                  <text x="500" y="320">
+                    17.1m
+                  </text>
+                  <text x="320" y="190" fill="#2C4257">
+                    9.6m
+                  </text>
                 </g>
 
                 <g>
                   <g transform="rotate(-26, 190, 160)">
-                    <rect x="190" y="160" width="56" height="16" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.2" />
-                    <text x="196" y="172" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="8" fontWeight="600">BERTH 1</text>
+                    <rect
+                      x="190"
+                      y="160"
+                      width="56"
+                      height="16"
+                      rx="1"
+                      fill="#0C1C2A"
+                      stroke="#00D2C8"
+                      strokeWidth="1.2"
+                    />
+                    <text
+                      x="196"
+                      y="172"
+                      fill="#00D2C8"
+                      fontFamily="'JetBrains Mono', monospace"
+                      fontSize="8"
+                      fontWeight="600"
+                    >
+                      BERTH 1
+                    </text>
                   </g>
                   <g transform="rotate(-26, 150, 185)">
-                    <rect x="150" y="185" width="56" height="16" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.2" />
-                    <text x="156" y="197" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="8" fontWeight="600">BERTH 2</text>
+                    <rect
+                      x="150"
+                      y="185"
+                      width="56"
+                      height="16"
+                      rx="1"
+                      fill="#0C1C2A"
+                      stroke="#00D2C8"
+                      strokeWidth="1.2"
+                    />
+                    <text
+                      x="156"
+                      y="197"
+                      fill="#00D2C8"
+                      fontFamily="'JetBrains Mono', monospace"
+                      fontSize="8"
+                      fontWeight="600"
+                    >
+                      BERTH 2
+                    </text>
                   </g>
                   <g transform="rotate(-26, 110, 210)">
-                    <rect x="110" y="210" width="56" height="16" rx="1" fill="#0C1C2A" stroke="#00D2C8" strokeWidth="1.5" />
-                    <text x="116" y="222" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="8" fontWeight="600">BERTH 3</text>
+                    <rect
+                      x="110"
+                      y="210"
+                      width="56"
+                      height="16"
+                      rx="1"
+                      fill="#0C1C2A"
+                      stroke="#00D2C8"
+                      strokeWidth="1.5"
+                    />
+                    <text
+                      x="116"
+                      y="222"
+                      fill="#00D2C8"
+                      fontFamily="'JetBrains Mono', monospace"
+                      fontSize="8"
+                      fontWeight="600"
+                    >
+                      BERTH 3
+                    </text>
                   </g>
                 </g>
 
@@ -257,36 +320,116 @@ export default function LandingPage() {
 
                 <g>
                   <g transform="translate(260, 220)">
-                    <polygon points="0,-5 5,0 0,5 -5,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
+                    <polygon
+                      points="0,-5 5,0 0,5 -5,0"
+                      fill="#E6F0F5"
+                      stroke="#06121B"
+                      strokeWidth="1"
+                    />
                   </g>
                   <g transform="translate(520, 300)">
-                    <polygon points="0,-5 5,0 0,5 -5,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" />
+                    <polygon
+                      points="0,-5 5,0 0,5 -5,0"
+                      fill="#E6F0F5"
+                      stroke="#06121B"
+                      strokeWidth="1"
+                    />
                   </g>
                   <g transform="translate(640, 340)">
-                    <polygon points="0,-5 5,0 0,5 -5,0" fill="#E6F0F5" stroke="#06121B" strokeWidth="1" opacity="0.85" />
+                    <polygon
+                      points="0,-5 5,0 0,5 -5,0"
+                      fill="#E6F0F5"
+                      stroke="#06121B"
+                      strokeWidth="1"
+                      opacity="0.85"
+                    />
                   </g>
 
                   {/* Active MV KWALE STAR */}
                   <g transform="translate(400, 290)">
-                    <circle cx="0" cy="0" r="10" fill="none" stroke="#00D2C8" strokeWidth="1.2" opacity="0.7" />
-                    <circle cx="0" cy="0" r="6" fill="#00D2C8" fillOpacity="0.25" stroke="#00D2C8" strokeWidth="1.2" />
-                    <polygon points="0,-6 6,0 0,6 -6,0" fill="#00D2C8" stroke="#06121B" strokeWidth="1.2" />
+                    <circle
+                      cx="0"
+                      cy="0"
+                      r="10"
+                      fill="none"
+                      stroke="#00D2C8"
+                      strokeWidth="1.2"
+                      opacity="0.7"
+                    />
+                    <circle
+                      cx="0"
+                      cy="0"
+                      r="6"
+                      fill="#00D2C8"
+                      fillOpacity="0.25"
+                      stroke="#00D2C8"
+                      strokeWidth="1.2"
+                    />
+                    <polygon
+                      points="0,-6 6,0 0,6 -6,0"
+                      fill="#00D2C8"
+                      stroke="#06121B"
+                      strokeWidth="1.2"
+                    />
                     <circle cx="0" cy="0" r="1.5" fill="#E6F0F5" />
-                    <line x1="0" y1="0" x2="16" y2="-14" stroke="#00D2C8" strokeWidth="1.2" strokeDasharray="2 2" />
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="16"
+                      y2="-14"
+                      stroke="#00D2C8"
+                      strokeWidth="1.2"
+                      strokeDasharray="2 2"
+                    />
                   </g>
                 </g>
 
                 {/* Callout */}
                 <g transform="translate(470, 200)">
-                  <rect width="128" height="36" rx="2" fill="#0C1C2A" fillOpacity="0.95" stroke="#00D2C8" strokeWidth="1" />
-                  <text x="10" y="15" fill="#E6F0F5" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="600">MV KWALE STAR</text>
-                  <text x="10" y="28" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="8">BERTH 3 ASSIGNED</text>
+                  <rect
+                    width="128"
+                    height="36"
+                    rx="2"
+                    fill="#0C1C2A"
+                    fillOpacity="0.95"
+                    stroke="#00D2C8"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="10"
+                    y="15"
+                    fill="#E6F0F5"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="600"
+                  >
+                    MV KWALE STAR
+                  </text>
+                  <text
+                    x="10"
+                    y="28"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="8"
+                  >
+                    BERTH 3 ASSIGNED
+                  </text>
                 </g>
 
                 {/* Compass */}
                 <g transform="translate(840, 36)">
                   <circle cx="0" cy="0" r="16" fill="#0C1C2A" stroke="#1E2E3F" strokeWidth="1" />
-                  <text x="0" y="4" textAnchor="middle" fill="#00D2C8" fontFamily="'JetBrains Mono', monospace" fontSize="9" fontWeight="700">N</text>
+                  <text
+                    x="0"
+                    y="4"
+                    textAnchor="middle"
+                    fill="#00D2C8"
+                    fontFamily="'JetBrains Mono', monospace"
+                    fontSize="9"
+                    fontWeight="700"
+                  >
+                    N
+                  </text>
                 </g>
               </svg>
 
@@ -302,16 +445,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-
-
-
-
-
-
-
-
-
-            <section className="landing__band" id="architecture">
+      <section className="landing__band" id="architecture">
         <div className="landing__band-inner">
           <div className="landing__band-head">
             <div>
@@ -319,8 +453,8 @@ export default function LandingPage() {
               <h2 className="landing__section-title">Three systems. One view.</h2>
             </div>
             <p className="landing__band-aside">
-              A coupled operational model bringing hydrodynamics, vessel queuing,
-              and berth allocation into one instrument.
+              A coupled operational model bringing hydrodynamics, vessel queuing, and berth
+              allocation into one instrument.
             </p>
           </div>
 
@@ -332,8 +466,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Marine-Condition Modelling</h3>
               <p className="landing__pillar-body">
-                Fourier Neural Operator (FNO) networks estimate water-flow patterns
-                based on 2D shallow-water equations in real time.
+                Fourier Neural Operator (FNO) networks estimate water-flow patterns based on 2D
+                shallow-water equations in real time.
               </p>
               <dl className="landing__pillar-meta">
                 <div>
@@ -354,9 +488,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Vessel Queue Simulation</h3>
               <p className="landing__pillar-body">
-                Simulate arrivals, channel occupancy, and waiting times under
-                changing operational scenarios, seasonal surges, and weather
-                disruptions.
+                Simulate arrivals, channel occupancy, and waiting times under changing operational
+                scenarios, seasonal surges, and weather disruptions.
               </p>
               <dl className="landing__pillar-meta">
                 <div>
@@ -377,9 +510,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Schedule Optimization</h3>
               <p className="landing__pillar-body">
-                Compare baseline and optimized berth schedules to minimize
-                congestion, reduce dwell times, and coordinate tugboat assist
-                assets.
+                Compare baseline and optimized berth schedules to minimize congestion, reduce dwell
+                times, and coordinate tugboat assist assets.
               </p>
               <dl className="landing__pillar-meta">
                 <div>
@@ -396,29 +528,27 @@ export default function LandingPage() {
         </div>
       </section>
 
-
-          <section className="landing__band landing__band--trust" id="provenance">
+      <section className="landing__band landing__band--trust" id="provenance">
         <div className="landing__band-inner landing__trust">
           <div className="landing__trust-copy">
             <p className="landing__section-eyebrow">THE ETHICAL SPINE</p>
             <h2 className="landing__section-title">Data you can trust.</h2>
             <p className="landing__trust-lead">
-              In high-stakes maritime navigation and harbor master control rooms,
-              knowing where a number came from is not metadata — it is safety law.
+              In high-stakes maritime navigation and harbor master control rooms, knowing where a
+              number came from is not metadata — it is safety law.
             </p>
             <p className="landing__trust-body">
-              The PortTwin engine marks every telemetry read, prediction, and
-              simulated metric with its origin tier. Every chart, map layer, and
-              report enforces absolute transparency so operators never mistake a
-              synthetic scenario for live harbor telemetry.
+              The PortTwin engine marks every telemetry read, prediction, and simulated metric with
+              its origin tier. Every chart, map layer, and report enforces absolute transparency so
+              operators never mistake a synthetic scenario for live harbor telemetry.
             </p>
 
             <aside className="landing__law">
               <p className="landing__law-label">NON-NEGOTIABLE SYSTEM LAW</p>
               <p className="landing__law-text">
-                &quot;Any view containing simulated data displays a persistent
-                banner: <span>Simulated scenario — not live port data.</span>{' '}
-                Cannot be dismissed in settings.&quot;
+                &quot;Any view containing simulated data displays a persistent banner:{' '}
+                <span>Simulated scenario — not live port data.</span> Cannot be dismissed in
+                settings.&quot;
               </p>
             </aside>
           </div>
@@ -431,8 +561,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Live AIS &amp; Sensors</h3>
               <p className="landing__pillar-body">
-                Real-time physical telemetry streamed directly from coastal AIS
-                antennas, tide gauges, and mooring strain sensors.
+                Real-time physical telemetry streamed directly from coastal AIS antennas, tide
+                gauges, and mooring strain sensors.
               </p>
             </article>
 
@@ -443,8 +573,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Recorded Past Voyages</h3>
               <p className="landing__pillar-body">
-                Multi-year repository of logged passage times, seasonal pilot
-                delays, and past berth turnaround archives.
+                Multi-year repository of logged passage times, seasonal pilot delays, and past berth
+                turnaround archives.
               </p>
             </article>
 
@@ -455,8 +585,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">FNO Hydrodynamics</h3>
               <p className="landing__pillar-body">
-                Physics-informed neural operator estimates predicting tidal rip,
-                eddy vectors, and draft clearance.
+                Physics-informed neural operator estimates predicting tidal rip, eddy vectors, and
+                draft clearance.
               </p>
             </article>
 
@@ -467,8 +597,8 @@ export default function LandingPage() {
               </div>
               <h3 className="landing__pillar-title">Scenario Variations</h3>
               <p className="landing__pillar-body">
-                What-if queue horizons, simulated crane breakdowns, channel
-                closures, and contingency rerouting stress tests.
+                What-if queue horizons, simulated crane breakdowns, channel closures, and
+                contingency rerouting stress tests.
               </p>
             </article>
           </div>
@@ -498,9 +628,7 @@ export default function LandingPage() {
               </svg>
               <span className="landing__footer-brand">MSA PORTTWIN</span>
             </div>
-            <p className="landing__footer-built">
-              Built with React, Django, and Huawei Cloud.
-            </p>
+            <p className="landing__footer-built">Built with React, Django, and Huawei Cloud.</p>
           </div>
 
           <div className="landing__footer-center">
@@ -513,7 +641,6 @@ export default function LandingPage() {
           </Link>
         </div>
       </footer>
-
     </div>
-  )
+  );
 }

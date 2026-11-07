@@ -1,14 +1,14 @@
 import './BerthLocation.scss';
 
 interface BerthLocationProps {
-  berthLabel?: string
-  coordinates?: string
-  quayLabel?: string
+  berthLabel?: string;
+  coordinates?: string;
+  quayLabel?: string;
 }
 
 const BerthLocation = ({
   berthLabel = 'BERTH 3',
-  coordinates = "04°03′ S, 39°41′ E",
+  coordinates = '04°03′ S, 39°41′ E',
   quayLabel = 'KILINDINI HARBOUR QUAY 3',
 }: BerthLocationProps) => {
   return (
@@ -26,12 +26,7 @@ const BerthLocation = ({
           aria-hidden="true"
         >
           <defs>
-            <pattern
-              id="berth-chart-grid"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-            >
+            <pattern id="berth-chart-grid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path
                 d="M 40 0 L 0 0 0 40"
                 fill="none"
@@ -64,13 +59,7 @@ const BerthLocation = ({
             strokeOpacity="0.18"
             strokeWidth="1"
           />
-          <text
-            x="220"
-            y="30"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="8"
-          >
+          <text x="220" y="30" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="8">
             -15m
           </text>
           <path
@@ -80,13 +69,7 @@ const BerthLocation = ({
             strokeOpacity="0.12"
             strokeWidth="0.8"
           />
-          <text
-            x="268"
-            y="55"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="8"
-          >
+          <text x="268" y="55" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="8">
             -20m
           </text>
           <path
@@ -96,55 +79,24 @@ const BerthLocation = ({
             strokeWidth="0.8"
           />
 
-          <text
-            x="210"
-            y="85"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="7"
-          >
+          <text x="210" y="85" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="7">
             14.8
           </text>
           <circle cx="206" cy="83" r="0.75" fill="#5F7688" />
-          <text
-            x="290"
-            y="110"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="7"
-          >
+          <text x="290" y="110" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="7">
             18.2
           </text>
           <circle cx="286" cy="108" r="0.75" fill="#5F7688" />
-          <text
-            x="325"
-            y="175"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="7"
-          >
+          <text x="325" y="175" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="7">
             22.4
           </text>
           <circle cx="321" cy="173" r="0.75" fill="#5F7688" />
-          <text
-            x="160"
-            y="205"
-            fill="#5F7688"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="7"
-          >
+          <text x="160" y="205" fill="#5F7688" fontFamily="JetBrains Mono, monospace" fontSize="7">
             16.1
           </text>
           <circle cx="156" cy="203" r="0.75" fill="#5F7688" />
 
-          <line
-            x1="170"
-            y1="95"
-            x2="115"
-            y2="160"
-            stroke="#2C4257"
-            strokeWidth="2"
-          />
+          <line x1="170" y1="95" x2="115" y2="160" stroke="#2C4257" strokeWidth="2" />
 
           <g transform="translate(162, 98) rotate(-40)">
             <rect
@@ -273,13 +225,7 @@ const BerthLocation = ({
           >
             {berthLabel}
           </text>
-          <text
-            x="252"
-            y="158"
-            fill="#5DB580"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="7"
-          >
+          <text x="252" y="158" fill="#5DB580" fontFamily="JetBrains Mono, monospace" fontSize="7">
             AVAIL
           </text>
 
@@ -312,7 +258,7 @@ const BerthLocation = ({
         <span className="berth-location__locked">GEO-LOCKED</span>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BerthLocation
+export default BerthLocation;
