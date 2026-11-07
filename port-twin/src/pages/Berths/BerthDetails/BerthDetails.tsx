@@ -45,9 +45,9 @@ const BerthDetailsPage = () => {
           ? 'OCCUPIED'
           : 'AVAILABLE';
 
-  const maxLoaM = berth.max_vessel_length ? Number(berth.max_vessel_length) : 0;
+  const maxLoaM = berth.max_vessel_length !== null ? Number(berth.max_vessel_length) : null;
 
-  const maxDraftM = berth.max_vessel_draft ? Number(berth.max_vessel_draft) : 0;
+  const maxDraftM = berth.max_vessel_draft !== null ? Number(berth.max_vessel_draft) : null;
 
   const currentVessel = berth.assigned_vessel?.name ?? 'None';
 
