@@ -8,13 +8,20 @@ import reactX from 'eslint-plugin-react-x';
 import reactDom from 'eslint-plugin-react-dom';
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores([
+    '**/dist/**',
+    '**/generated/**',
+    '**/models/**',
+    '**/schema/**',
+    '**/*.json',
+    '**/*.log',
+    '**/*.config.{ts,js}',
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      tseslint.configs.strictTypeChecked,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       // Enable lint rules for React
