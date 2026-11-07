@@ -2,17 +2,21 @@ import './AddScenarioTopBar.scss';
 
 const AddScenarioTopBar = () => {
   return (
-    <nav className="scenario-top-bar" aria-label="Breadcrumb">
-      <span className="scenario-top-bar__parent">Scenarios</span>
+    <header className="add-scenario-top-bar">
+      <div className="add-scenario-top-bar__breadcrumb-container">
+        <nav aria-label="Breadcrumb" className="add-scenario-top-bar__breadcrumb">
+          <a href="#" className="add-scenario-top-bar__parent">
+            Scenarios
+          </a>
 
-      <span className="material-symbols-outlined" aria-hidden="true">
-        chevron_right
-      </span>
+          <span className="add-scenario-top-bar__separator">/</span>
 
-      <span className="scenario-top-bar__current" aria-current="page">
-        New
-      </span>
-    </nav>
+          <span className="add-scenario-top-bar__current">New</span>
+        </nav>
+      </div>
+
+      <div className="add-scenario-top-bar__actions"></div>
+    </header>
   );
 };
 
