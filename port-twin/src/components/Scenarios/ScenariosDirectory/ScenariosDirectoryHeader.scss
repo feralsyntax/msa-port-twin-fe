@@ -1,0 +1,75 @@
+.scenarios-directory-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 32px;
+  border-bottom: 1px solid #1e2e3f;
+  background-color: #06121b;
+
+  &__title-group {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 24px;
+  }
+
+  &__title {
+    overflow: hidden;
+    margin: 0;
+    color: #e6f0f5;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 16px;
+    background-color: #1e2e3f;
+  }
+
+  &__action {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 16px;
+    gap: 6px;
+    border: none;
+    border-radius: 2px;
+    background-color: #00d2c8;
+    color: #06121b;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background-color: #0b9993;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #e6f0f5;
+      outline-offset: 3px;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .scenario-page-header {
+    padding: 0 16px;
+  }
+}
