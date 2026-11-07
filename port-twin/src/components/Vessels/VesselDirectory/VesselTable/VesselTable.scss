@@ -69,6 +69,12 @@
     gap: 9px;
     color: #e6f0f5;
     font-weight: 600;
+
+    &-link {
+      &:hover {
+        color: #00d2c8;
+      }
+    }
   }
 
   &__selection-indicator {
