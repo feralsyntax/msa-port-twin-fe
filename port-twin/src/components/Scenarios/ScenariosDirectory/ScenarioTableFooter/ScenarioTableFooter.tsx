@@ -11,10 +11,6 @@ const ScenarioTableFooter = ({ displayedCount, totalCount }: ScenarioTableFooter
       <span className="scenario-table-footer__count">
         SHOWING {displayedCount} OF {totalCount} SCENARIOS
       </span>
-
-      <span className="scenario-table-footer__repository">
-        REPOSITORY: LOCAL CLUSTER · REVISION: v1.4-SYNC
-      </span>
     </footer>
   );
 };
