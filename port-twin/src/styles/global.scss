@@ -54,10 +54,9 @@ button {
   background: none;
 }
 
-.form {
-  &-error {
-    color: $coral;
-  }
+.error,
+.form-error {
+  color: $coral;
 }
 
 .alert {

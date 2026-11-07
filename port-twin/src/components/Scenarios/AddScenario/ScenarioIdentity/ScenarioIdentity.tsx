@@ -1,6 +1,14 @@
-import './ScenarioIdentity.scss';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const ScenarioIdentity = () => {
+import './ScenarioIdentity.scss';
+import type { ScenarioCreateUpdateRequest } from '../../../../api/models';
+
+interface ScenarioIdentityProps {
+  register: UseFormRegister<ScenarioCreateUpdateRequest>;
+  errors: FieldErrors<ScenarioCreateUpdateRequest>;
+}
+
+const ScenarioIdentity = ({ register, errors }: ScenarioIdentityProps) => {
   return (
     <section className="scenario-identity">
       <div className="scenario-identity__header">
@@ -20,11 +28,19 @@ const ScenarioIdentity = () => {
 
           <input
             id="scenario-name"
-            name="scenario_name"
             type="text"
             placeholder="e.g., Storm Conditions — Neap Tide Vector"
-            required
+            maxLength={200}
+            {...register('name', {
+              required: 'Scenario name is required.',
+              maxLength: {
+                value: 200,
+                message: 'Scenario name cannot exceed 200 characters.',
+              },
+            })}
           />
+
+          {errors.name && <small className="form-error">{errors.name.message}</small>}
         </div>
 
         <div className="scenario-identity__field">
@@ -32,9 +48,9 @@ const ScenarioIdentity = () => {
 
           <textarea
             id="scenario-description"
-            name="scenario_description"
             placeholder="Describe the operational conditions, seasonal weather factors, or channel restrictions..."
             rows={3}
+            {...register('description')}
           />
         </div>
 
@@ -42,7 +58,7 @@ const ScenarioIdentity = () => {
           <label htmlFor="scenario-status">Status</label>
 
           <div className="scenario-identity__select-wrapper">
-            <select id="scenario-status" name="scenario_status" defaultValue="draft">
+            <select id="scenario-status" {...register('status')}>
               <option value="draft">Draft</option>
               <option value="ready">Ready (Operational Baseline)</option>
             </select>
