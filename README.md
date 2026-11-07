@@ -34,3 +34,11 @@ Before making a pull request, make the following checks:
   ```
   npm run lint:fix
   ```
+- Run code formatting
+  ```
+  npm run format
+  ```
+- Check code formatting without fixing
+  ```
+  npm run format:check
+  ```
