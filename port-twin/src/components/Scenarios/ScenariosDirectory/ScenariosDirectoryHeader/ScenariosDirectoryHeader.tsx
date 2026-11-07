@@ -9,8 +9,6 @@ const ScenariosDirectoryHeader = ({ onNewScenario }: ScenariosDirectoryHeaderPro
     <header className="scenarios-directory-header">
       <div className="scenarios-directory-header__title-group">
         <h1 className="scenarios-directory-header__title">Scenarios</h1>
-
-        <div className="scenarios-directory-header__divider" />
       </div>
 
       <button className="scenarios-directory-header__action" type="button" onClick={onNewScenario}>
