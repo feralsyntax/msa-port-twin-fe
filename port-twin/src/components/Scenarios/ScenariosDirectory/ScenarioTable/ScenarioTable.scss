@@ -1,0 +1,123 @@
+.scenario-table {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+
+  &__scroll {
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      text-align: left;
+    }
+
+    thead {
+      background-color: #0c1c2a;
+    }
+
+    thead tr {
+      height: 40px;
+      border-bottom: 1px solid #1e2e3f;
+    }
+
+    th {
+      padding: 0 16px;
+      color: #9cb0c2;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      height: 48px;
+      border-bottom: 1px solid rgba(30, 46, 63, 0.5);
+      transition: background-color 120ms ease;
+
+      &:hover {
+        background-color: #0c1c2a;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 0 16px;
+    }
+  }
+
+  &__name-column {
+    width: 40%;
+  }
+
+  &__status-column {
+    width: 20%;
+  }
+
+  &__date-column {
+    width: 20%;
+  }
+
+  &__name {
+    overflow: hidden;
+    color: #e6f0f5;
+    font-size: 13px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border: 1px solid;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    &--ready {
+      border-color: rgba(93, 181, 128, 0.3);
+      background-color: rgba(93, 181, 128, 0.12);
+      color: #5db580;
+    }
+
+    &--draft {
+      border-color: rgba(245, 166, 35, 0.3);
+      background-color: rgba(245, 166, 35, 0.12);
+      color: #f5a623;
+    }
+  }
+
+  &__date {
+    color: #9cb0c2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    height: 100px;
+    color: #5f7688;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  &__spacer {
+    flex: 1;
+    min-height: 0;
+    background-color: #06121b;
+  }
+}

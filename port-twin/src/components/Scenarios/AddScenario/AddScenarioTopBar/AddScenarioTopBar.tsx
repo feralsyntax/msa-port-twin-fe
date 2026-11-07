@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './AddScenarioTopBar.scss';
 
 const AddScenarioTopBar = () => {
@@ -5,9 +6,9 @@ const AddScenarioTopBar = () => {
     <header className="add-scenario-top-bar">
       <div className="add-scenario-top-bar__breadcrumb-container">
         <nav aria-label="Breadcrumb" className="add-scenario-top-bar__breadcrumb">
-          <a href="#" className="add-scenario-top-bar__parent">
+          <Link to="/app/scenarios" className="add-scenario-top-bar__parent">
             Scenarios
-          </a>
+          </Link>
 
           <span className="add-scenario-top-bar__separator">/</span>
 
