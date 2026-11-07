@@ -1,0 +1,40 @@
+.scenario-table-footer {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 16px;
+  border-top: 1px solid #1e2e3f;
+  background-color: #0c1c2a;
+  gap: 16px;
+
+  &__count,
+  &__repository {
+    overflow: hidden;
+    color: #5f7688;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .scenario-table-footer {
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    min-height: 48px;
+    padding: 8px 12px;
+    gap: 4px;
+
+    &__count,
+    &__repository {
+      max-width: 100%;
+      font-size: 9px;
+    }
+  }
+}
