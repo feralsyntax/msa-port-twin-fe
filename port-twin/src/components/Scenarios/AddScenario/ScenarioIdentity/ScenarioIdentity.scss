@@ -1,0 +1,124 @@
+@use '../../../../styles/tokens' as *;
+
+.scenario-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background-color: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 0.25rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $hairline;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+
+    .material-symbols-outlined {
+      font-size: 1.125rem;
+      color: $signal;
+    }
+
+    h2 {
+      font-family: $font-display;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: $ink-0;
+    }
+  }
+
+  &__section-number {
+    font-family: $font-mono;
+    font-size: 0.625rem;
+    color: $ink-2;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: $ink-1;
+
+      span {
+        color: $signal;
+      }
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0 0.75rem;
+      border: 1px solid $hairline;
+      border-radius: 0.25rem;
+      background-color: $canvas-0;
+      color: $ink-0;
+      font-family: $font-sans;
+      font-size: 0.875rem;
+      transition: border-color 120ms ease;
+
+      &::placeholder {
+        color: $ink-2;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $signal;
+      }
+    }
+
+    input,
+    select {
+      height: 2.25rem;
+    }
+
+    textarea {
+      min-height: 5rem;
+      padding: 0.5rem 0.75rem;
+      resize: none;
+    }
+  }
+
+  &__select-wrapper {
+    position: relative;
+
+    select {
+      padding-right: 2.25rem;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .material-symbols-outlined {
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      font-size: 1.125rem;
+      color: $ink-2;
+      pointer-events: none;
+    }
+  }
+}

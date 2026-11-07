@@ -1,0 +1,59 @@
+@use '../../../../styles/tokens' as *;
+
+.add-scenario-top-bar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid $hairline;
+  background-color: rgba($canvas-1, 0.9);
+  z-index: 10;
+
+  &__breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__parent {
+    font-family: $font-display;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: $ink-1;
+    transition: color 120ms ease;
+
+    &:hover {
+      color: $ink-0;
+    }
+  }
+
+  &__separator {
+    font-family: $font-mono;
+    font-size: 0.8125rem;
+    color: $ink-2;
+    user-select: none;
+  }
+
+  &__current {
+    font-family: $font-display;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: $ink-0;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+}
