@@ -1,8 +1,8 @@
 import './BerthSpecCards.scss';
 
 interface BerthSpecCardsProps {
-  maxLoaM: number;
-  maxDraftM: number;
+  maxLoaM: number | null;
+  maxDraftM: number | null;
   currentVessel: string;
   isAvailable: boolean;
 }
@@ -23,11 +23,11 @@ const BerthSpecCards = ({
           <span className="berth-spec-card__param">PARAM_01</span>
         </div>
         <div className="berth-spec-card__value">
-          {maxLoaM.toFixed(2)} <span>m</span>
+          {maxLoaM !== null ? maxLoaM.toFixed(2) : '—'} <span>m</span>
         </div>
         <div className="berth-spec-card__meta">
           <span className="berth-spec-card__meta-dot" />
-          MEASURED · MLWS clearance validated
+          MAXIMUM PERMITTED VESSEL LENGTH
         </div>
       </article>
 
@@ -37,11 +37,11 @@ const BerthSpecCards = ({
           <span className="berth-spec-card__param">PARAM_02</span>
         </div>
         <div className="berth-spec-card__value">
-          {maxDraftM.toFixed(2)} <span>m</span>
+          {maxDraftM !== null ? maxDraftM.toFixed(2) : '—'} <span>m</span>
         </div>
         <div className="berth-spec-card__meta">
           <span className="berth-spec-card__meta-dot" />
-          MEASURED · Hydrographic chart datum
+          MAXIMUM PERMITTED VESSEL DRAFT
         </div>
       </article>
 
@@ -50,7 +50,7 @@ const BerthSpecCards = ({
           <span className="berth-spec-card__label">CURRENT VESSEL</span>
           <span className="berth-spec-card__badge">
             <span className="berth-spec-card__badge-dot" />
-            MEASURED
+            ASSIGNMENT
           </span>
         </div>
         <div className="berth-spec-card__value">{vesselLabel}</div>
@@ -58,7 +58,7 @@ const BerthSpecCards = ({
           className={`berth-spec-card__meta${isAvailable ? ' berth-spec-card__meta--ready' : ''}`}
         >
           <span className="berth-spec-card__meta-dot" />
-          {isAvailable ? 'READY FOR DOCKING ALLOCATION' : 'VESSEL CURRENTLY ALLOCATED'}
+          {isAvailable ? 'READY FOR DOCKING ALLOCATION' : 'VESSEL NOT AVAILABLE FOR ALLOCATION'}
         </div>
       </article>
     </section>

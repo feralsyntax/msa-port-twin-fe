@@ -2,7 +2,7 @@ import './BerthIdentityHeader.scss';
 
 interface BerthIdentityHeaderProps {
   name: string;
-  status: 'AVAILABLE' | 'OCCUPIED' | 'RESERVED' | 'MAINTENANCE';
+  status: 'AVAILABLE' | 'OCCUPIED' | 'INACTIVE' | 'MAINTENANCE';
 }
 
 const BerthIdentityHeader = ({ name, status }: BerthIdentityHeaderProps) => {

@@ -1,30 +1,62 @@
-import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+
 import BerthDetailsTopBar from '../../../components/Berths/BerthDetails/BerthDetailsTopBar/BerthDetailsTopBar';
 import BerthIdentityHeader from '../../../components/Berths/BerthDetails/BerthIdentityHeader/BerthIdentityHeader';
-import { demoBerths } from '../../../components/Berths/BerthDirectory/BerthTable/demoBerths';
-import './BerthDetails.scss';
 import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
 import RecentAssignments from '../../../components/Berths/BerthDetails/RecentAssignments/RecentAssignments';
 import BerthLocation from '../../../components/Berths/BerthDetails/BerthLocation/BerthLocation';
 import SimulationImpact from '../../../components/Berths/BerthDetails/SimulationImpact/SimulationImpact';
 
+import { useGetBerthDetails } from '../../../hooks/berths/useGetBerthDetails';
+
+import './BerthDetails.scss';
+
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>();
 
-  const berth = useMemo(
-    () => demoBerths.find((item) => item.id === berthId) ?? demoBerths[2],
-    [berthId],
-  );
+  const { data: berth, isPending, isError } = useGetBerthDetails(berthId);
+
+  if (isPending) {
+    return (
+      <main className="berth-details-page">
+        <div className="berth-details-page__content">
+          <p>Loading berth details...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (isError || !berth) {
+    return (
+      <main className="berth-details-page">
+        <div className="berth-details-page__content">
+          <p>Unable to load berth details. Please try again.</p>
+        </div>
+      </main>
+    );
+  }
 
   const statusLabel =
-    berth.status === 'available'
-      ? 'AVAILABLE'
-      : berth.status === 'occupied'
-        ? 'OCCUPIED'
-        : berth.status === 'reserved'
-          ? 'RESERVED'
-          : 'MAINTENANCE';
+    berth.status === 'maintenance'
+      ? 'MAINTENANCE'
+      : berth.status === 'inactive'
+        ? 'INACTIVE'
+        : berth.is_occupied
+          ? 'OCCUPIED'
+          : 'AVAILABLE';
+
+  const maxLoaM = berth.max_vessel_length !== null ? Number(berth.max_vessel_length) : null;
+
+  const maxDraftM = berth.max_vessel_draft !== null ? Number(berth.max_vessel_draft) : null;
+
+  const currentVessel = berth.assigned_vessel?.name ?? 'None';
+
+  const isAvailable = berth.status === 'active' && !berth.is_occupied;
+
+  const coordinates =
+    berth.latitude !== null && berth.longitude !== null
+      ? `${berth.latitude.toFixed(4)}, ${berth.longitude.toFixed(4)}`
+      : 'Coordinates unavailable';
 
   return (
     <main className="berth-details-page">
@@ -34,15 +66,15 @@ const BerthDetailsPage = () => {
         <BerthIdentityHeader name={berth.name} status={statusLabel} />
 
         <BerthSpecCards
-          maxLoaM={berth.id === '3' ? 350 : berth.maxLoaM}
-          maxDraftM={berth.id === '3' ? 16 : berth.maxDraftM}
-          currentVessel={berth.id === '3' ? 'None' : berth.currentVessel}
-          isAvailable={berth.id === '3' ? true : berth.status === 'available'}
+          maxLoaM={maxLoaM}
+          maxDraftM={maxDraftM}
+          currentVessel={currentVessel}
+          isAvailable={isAvailable}
         />
 
         <div className="berth-details-page__split">
           <RecentAssignments />
-          <BerthLocation berthLabel={berth.name.toUpperCase()} />
+          <BerthLocation berthLabel={berth.name.toUpperCase()} coordinates={coordinates} />
         </div>
 
         <SimulationImpact />
