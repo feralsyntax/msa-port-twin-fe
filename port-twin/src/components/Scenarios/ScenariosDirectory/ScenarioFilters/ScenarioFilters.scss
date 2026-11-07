@@ -1,0 +1,46 @@
+.scenario-filters {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  &__tabs {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid #1e2e3f;
+  }
+
+  &__tab {
+    min-width: 76px;
+    padding: 10px 16px;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background-color: transparent;
+    color: #9cb0c2;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      color 120ms ease,
+      background-color 120ms ease;
+
+    &:hover {
+      color: #e6f0f5;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #00d2c8;
+      outline-offset: -2px;
+    }
+
+    &--active {
+      border-bottom-color: #00d2c8;
+      background-color: #0c1c2a;
+      color: #e6f0f5;
+    }
+  }
+}
