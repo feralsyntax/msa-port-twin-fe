@@ -83,7 +83,7 @@ const AddScenarioPage = () => {
 
         <form className="add-scenario-page__form" onSubmit={handleSubmit(onSubmit)} noValidate>
           {createScenario.isError && (
-            <div className="add-scenario-page__error" role="alert">
+            <div className="add-scenario-page__error alert" role="alert">
               {getErrorMessage()}
             </div>
           )}
