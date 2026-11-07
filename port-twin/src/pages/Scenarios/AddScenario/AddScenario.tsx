@@ -13,9 +13,9 @@ export const AddScenarioPage = () => {
 
   return (
     <div className="add-scenario-page">
-      <div className="add-scenario-page__content">
-        <AddScenarioTopBar />
+      <AddScenarioTopBar />
 
+      <div className="add-scenario-page__content">
         <ScenarioPageHeader />
 
         <form className="add-scenario-page__form" onSubmit={handleSubmit}>
