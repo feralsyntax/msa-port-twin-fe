@@ -42,7 +42,7 @@ const MOCK_SCENARIOS: Scenario[] = [
   },
 ];
 
-const ScenariosDirectory = () => {
+const ScenariosDirectoryPage = () => {
   const [activeFilter, setActiveFilter] = useState<ScenarioStatusFilter>('all');
 
   const filteredScenarios = useMemo(() => {
@@ -73,4 +73,4 @@ const ScenariosDirectory = () => {
   );
 };
 
-export default ScenariosDirectory;
+export default ScenariosDirectoryPage;
