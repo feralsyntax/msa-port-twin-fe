@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import SimulationDetailsTopBar from '../../../components/Simulations/SimulationDetails/SimulationDetailsTopBar/SimulationDetailsTopBar';
 import SimulatedDataBanner from '../../../components/Simulations/SimulationDetails/SimulatedDataBanner/SimulatedDataBanner';
 import SimulationIdentityHeader from '../../../components/Simulations/SimulationDetails/SimulationIdentityHeader/SimulationIdentityHeader';
+import SimulationMetricCards from '../../../components/Simulations/SimulationDetails/SimulationMetricCards/SimulationMetricCards';
 import './SimulationDetails.scss';
 
 const SimulationDetailsPage = () => {
@@ -15,8 +16,9 @@ const SimulationDetailsPage = () => {
 
       <div className="sim-details-page__content">
         <SimulationIdentityHeader simulationId={id} />
+        <SimulationMetricCards />
 
-        {/* Metrics, Gantt, queue impact — later sections */}
+        {/* Berth schedule Gantt + queue impact — later sections */}
       </div>
     </div>
   )
