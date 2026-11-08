@@ -1,0 +1,78 @@
+@use '../../../../styles/tokens' as *;
+
+.simulation-status-tabs {
+  height: 48px;
+  padding: 0 24px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  background: $canvas-0;
+  border-bottom: 1px solid $hairline;
+
+  &__list {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    overflow-x: auto;
+    min-width: 0;
+  }
+
+  &__tab {
+    padding: 0 14px;
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+
+    color: $ink-1;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+
+    cursor: pointer;
+    transition:
+      color 150ms ease,
+      background 150ms ease;
+
+    &:hover {
+      color: $ink-0;
+      background: rgba($canvas-1, 0.4);
+    }
+
+    &--active {
+      color: $ink-0;
+      background: $canvas-1;
+      border-bottom-color: $signal;
+    }
+  }
+
+  &__label {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &__count {
+    padding: 2px 6px;
+    border: 1px solid $hairline;
+    border-radius: 2px;
+
+    background: $canvas-1;
+    color: $ink-2;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  &__tab--active &__count {
+    color: $signal;
+    background: $canvas-2;
+  }
+}

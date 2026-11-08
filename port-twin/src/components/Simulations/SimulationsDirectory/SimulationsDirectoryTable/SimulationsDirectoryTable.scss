@@ -1,0 +1,198 @@
+@use '../../../../styles/tokens' as *;
+
+.simulations-table {
+  min-height: auto;
+  overflow: auto;
+  background: $canvas-0;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    background: $canvas-1;
+    box-shadow: 0 1px 0 $hairline;
+  }
+
+  th {
+    height: 40px;
+    padding: 0 16px;
+
+    color: $ink-1;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  td {
+    height: 48px;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba($hairline, 0.5);
+  }
+
+  tbody tr {
+    transition: background 100ms ease;
+
+    &:hover {
+      background: $canvas-1;
+    }
+  }
+
+  &__run-column {
+    width: 25%;
+    padding-left: 24px;
+  }
+
+  &__scenario-column {
+    width: 35%;
+  }
+
+  &__status-column {
+    width: 20%;
+  }
+
+  &__started-column {
+    width: 20%;
+    padding-right: 24px;
+    text-align: right;
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__simulated-label {
+    padding: 1px 5px;
+    border: 1px solid rgba($signal-dim, 0.3);
+    border-radius: 2px;
+
+    color: $signal-dim;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
+  &__run-id {
+    padding-left: 24px;
+
+    color: $ink-0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &__hash {
+    color: $ink-2;
+  }
+
+  &__scenario {
+    color: $ink-0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 3px 8px;
+    border: 1px solid;
+    border-radius: 2px;
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &--completed {
+      color: $moss;
+      background: rgba($moss, 0.1);
+      border-color: rgba($moss, 0.3);
+    }
+
+    &--running {
+      color: $signal;
+      background: rgba($signal, 0.1);
+      border-color: rgba($signal, 0.4);
+    }
+
+    &--pending {
+      color: $amber;
+      background: rgba($amber, 0.1);
+      border-color: rgba($amber, 0.3);
+    }
+
+    &--failed {
+      color: $coral;
+      background: rgba($coral, 0.1);
+      border-color: rgba($coral, 0.4);
+    }
+  }
+
+  &__pulse {
+    position: relative;
+    display: inline-flex;
+    width: 7px;
+    height: 7px;
+
+    span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: $signal;
+      animation: simulation-sonar-pulse 3s ease-in-out infinite;
+    }
+  }
+
+  &__started {
+    padding-right: 24px;
+    color: $ink-1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    height: 120px;
+    color: $ink-2;
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+@keyframes simulation-sonar-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 768px) {
+  .simulations-table {
+    min-width: 680px;
+  }
+}
