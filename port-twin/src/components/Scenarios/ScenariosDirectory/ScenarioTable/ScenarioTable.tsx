@@ -68,12 +68,13 @@ const ScenarioTable = ({
             ) : errorMessage ? (
               <tr>
                 <td colSpan={4} className="scenario-table__empty">
-                  <div className="scenario-table__error">
+                  <div className="scenario-table__error alert">
                     <span>{errorMessage}</span>
 
                     {onRetry && (
                       <button type="button" onClick={onRetry}>
-                        Try again
+                        <span className="material-symbols-outlined">refresh</span>
+                        <span>Retry</span>
                       </button>
                     )}
                   </div>
