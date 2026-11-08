@@ -1,0 +1,25 @@
+@use '../../../../styles/tokens' as *;
+
+.add-simulation-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  h1 {
+    margin: 0;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    color: $ink-1;
+    font-family: $font-sans;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}

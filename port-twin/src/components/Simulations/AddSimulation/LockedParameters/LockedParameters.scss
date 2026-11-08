@@ -1,0 +1,148 @@
+@use '../../../../styles/tokens' as *;
+
+.locked-parameters {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__heading {
+    padding-bottom: 12px;
+    border-bottom: 1px solid $hairline;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .material-symbols-outlined {
+      color: $ink-2;
+      font-size: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 15px;
+      font-weight: 600;
+    }
+  }
+
+  &__description {
+    margin: -4px 0 0;
+    color: $ink-1;
+    font-family: $font-sans;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  &__card {
+    min-width: 0;
+    min-height: 104px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 2px;
+  }
+
+  &__card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__label {
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    flex-shrink: 0;
+    padding: 3px 6px;
+    color: $amber;
+    background: rgba($amber, 0.1);
+    border: 1px solid rgba($amber, 0.3);
+    border-radius: 2px;
+    font-family: $font-mono;
+    font-size: 9px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+
+    &--measured {
+      color: $moss;
+      background: rgba($moss, 0.1);
+      border-color: rgba($moss, 0.3);
+    }
+  }
+
+  &__value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+
+    > span {
+      color: $ink-0;
+      font-family: $font-mono;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    small {
+      color: $ink-2;
+      font-family: $font-mono;
+      font-size: 11px;
+    }
+  }
+
+  &__berths {
+    color: $ink-0;
+    font-family: $font-mono;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  &__lock {
+    flex-shrink: 0;
+    color: $ink-2;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .locked-parameters {
+    padding: 18px 16px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

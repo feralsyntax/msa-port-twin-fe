@@ -1,0 +1,96 @@
+@use '../../../../styles/tokens' as *;
+
+.scenario-selector {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $hairline;
+
+    .material-symbols-outlined {
+      color: $ink-2;
+      font-size: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 15px;
+      font-weight: 600;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      color: $ink-1;
+      font-family: $font-sans;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      span {
+        color: $signal;
+      }
+    }
+  }
+
+  &__select-wrapper {
+    position: relative;
+
+    select {
+      width: 100%;
+      height: 44px;
+      padding: 0 40px 0 14px;
+      appearance: none;
+      background: $canvas-0;
+      border: 1px solid $hairline;
+      border-radius: 2px;
+      color: $ink-0;
+      font-family: $font-sans;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $signal;
+      }
+
+      option {
+        background: $canvas-0;
+        color: $ink-0;
+      }
+    }
+
+    > span {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      color: $ink-2;
+      font-size: 18px;
+      pointer-events: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .scenario-selector {
+    padding: 18px 16px;
+  }
+}

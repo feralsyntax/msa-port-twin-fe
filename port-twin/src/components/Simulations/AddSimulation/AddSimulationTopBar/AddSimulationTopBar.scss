@@ -1,0 +1,50 @@
+@use '../../../../styles/tokens' as *;
+
+.add-simulation-top-bar {
+  height: 56px;
+  flex-shrink: 0;
+  padding: 0 24px;
+  background: $canvas-1;
+  border-bottom: 1px solid $hairline;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: $font-display;
+    font-size: 13px;
+
+    a {
+      color: $ink-2;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: $ink-1;
+      }
+    }
+
+    > span:nth-child(2) {
+      color: $ink-2;
+      font-family: $font-mono;
+      font-size: 12px;
+    }
+  }
+
+  &__current {
+    color: $ink-0;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-simulation-top-bar {
+    padding: 0 16px;
+  }
+}

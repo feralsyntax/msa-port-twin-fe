@@ -1,0 +1,166 @@
+@use '../../../../styles/tokens' as *;
+
+.add-simulation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 32px;
+
+  &__divider {
+    width: 100%;
+    height: 1px;
+    background: $hairline;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__cancel,
+  &__run {
+    min-height: 36px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-family: $font-sans;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  &__cancel {
+    color: $ink-1;
+    background: $canvas-1;
+    border: 1px solid $hairline;
+
+    &:hover {
+      color: $ink-0;
+      background: $canvas-2;
+      border-color: $hairline-strong;
+    }
+  }
+
+  &__run {
+    gap: 8px;
+    color: $canvas-0;
+    background: $signal;
+    border: 1px solid $signal;
+    font-size: 13px;
+
+    .material-symbols-outlined {
+      font-size: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      background: $signal-dim;
+      border-color: $signal-dim;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &--queued {
+      color: $canvas-0;
+      background: $moss;
+      border-color: $moss;
+
+      &:hover:not(:disabled) {
+        background: $moss;
+        border-color: $moss;
+      }
+    }
+  }
+
+  &__toast {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: $canvas-1;
+    border: 1px solid rgba($signal, 0.4);
+    border-radius: 2px;
+  }
+
+  &__toast-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+
+    > div {
+      min-width: 0;
+    }
+
+    p {
+      margin: 0 0 4px;
+      color: $ink-0;
+      font-family: $font-mono;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    span:not(.simulation-actions__toast-indicator) {
+      color: $ink-2;
+      font-family: $font-mono;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+  }
+
+  &__toast-indicator {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: $signal;
+    animation: simulation-toast-pulse 1.5s ease-in-out infinite;
+  }
+
+  &__toast-status {
+    flex-shrink: 0;
+    color: $signal;
+    font-family: $font-mono;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+}
+
+@keyframes simulation-toast-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-simulation-actions {
+    &__buttons {
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+
+    &__cancel,
+    &__run {
+      width: 100%;
+    }
+
+    &__toast {
+      align-items: flex-start;
+    }
+
+    &__toast-status {
+      font-size: 9px;
+    }
+  }
+}
