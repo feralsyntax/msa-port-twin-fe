@@ -12,7 +12,6 @@ import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 import type { ScenarioParameters } from '../../../api/models';
 
-
 const isScenarioParameters = (value: unknown): value is ScenarioParameters => {
   if (!value || typeof value !== 'object') return false;
 

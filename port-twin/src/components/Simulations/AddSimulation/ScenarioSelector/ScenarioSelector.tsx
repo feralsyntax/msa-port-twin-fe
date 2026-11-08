@@ -1,7 +1,6 @@
 import type { ScenarioResponse } from '../../../../api/models';
 import './ScenarioSelector.scss';
 
-
 interface ScenarioSelectorProps {
   scenarios: ScenarioResponse[];
   selectedScenario: string;

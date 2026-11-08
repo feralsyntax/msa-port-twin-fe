@@ -1,7 +1,6 @@
 import type { ScenarioParameters } from '../../../../api/models';
 import './LockedParameters.scss';
 
-
 interface LockedParametersProps {
   parameters: ScenarioParameters;
 }
