@@ -5,7 +5,7 @@ interface ScenarioParametersProps {
   averageServiceTime: number;
   simulationHours: number;
   expectedArrivals: number;
-  availableBerthNames: string[];
+  availableBerths?: number | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -33,7 +33,7 @@ const ScenarioParameters = ({
   averageServiceTime,
   simulationHours,
   expectedArrivals,
-  availableBerthNames,
+  availableBerths,
   createdAt,
   updatedAt,
 }: ScenarioParametersProps) => {
@@ -56,7 +56,10 @@ const ScenarioParameters = ({
     },
     {
       label: 'Available Berths',
-      value: availableBerthNames.join(', '),
+      value:
+        availableBerths == null
+          ? 'Not specified'
+          : `${availableBerths} ${availableBerths === 1 ? 'berth' : 'berths'}`,
     },
   ];
 

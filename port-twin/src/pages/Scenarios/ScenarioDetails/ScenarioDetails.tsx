@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import ScenarioDetailsTopBar from '../../../components/Scenarios/ScenarioDetails/ScenarioDetailsTopBar/ScenarioDetailsTopBar';
 import ScenarioDetailsHeader from '../../../components/Scenarios/ScenarioDetails/ScenarioDetailsHeader/ScenarioDetailsHeader';
 import ScenarioMetrics from '../../../components/Scenarios/ScenarioDetails/ScenarioMetrics/ScenarioMetrics';
@@ -6,49 +8,70 @@ import ScenarioSimulationHistory, {
   type ScenarioSimulation,
 } from '../../../components/Scenarios/ScenarioDetails/ScenarioSimulationHistory/ScenarioSimulationHistory';
 
+import { useGetScenarioDetails } from '../../../hooks/scenarios/useGetScenarioDetails';
+import { useGetScenarioSimulations } from '../../../hooks/simulations/useGetScenarioSimulations';
+
+import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
+
 import './ScenarioDetails.scss';
+import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 
-const scenario = {
-  name: 'Baseline Operations',
-  description: 'Standard port operations with expected vessel arrivals.',
-  status: 'ready' as const,
-
-  expectedArrivals: 14,
-  arrivalInterval: 3.5,
-  averageServiceTime: 8.0,
-  simulationHours: 48,
-
-  availableBerths: 2,
-  totalBerths: 4,
-
-  availableBerthNames: ['Berth 1 (Container)', 'Berth 3 (Bulk)'],
-
-  createdAt: '2025-05-12T10:00:00Z',
-  updatedAt: '2025-05-12T13:42:00Z',
+type ScenarioParametersWithNullableBerths = Omit<ApiScenarioParameters, 'available_berths'> & {
+  available_berths?: number | null;
 };
 
-const simulations: ScenarioSimulation[] = [
-  {
-    id: 'sim_9a4b8e',
-    status: 'completed',
-    executedAt: '2025-05-12T14:08:00Z',
-  },
-  {
-    id: 'sim_7c1f4a',
-    status: 'completed',
-    executedAt: '2025-05-12T11:30:00Z',
-  },
-  {
-    id: 'sim_3d9e2b',
-    status: 'failed',
-    executedAt: '2025-05-11T16:45:00Z',
-  },
-];
-
 const ScenarioDetailsPage = () => {
+  const { scenarioId } = useParams<{ scenarioId: string }>();
+
+  const {
+    data: scenario,
+    isLoading: isScenarioLoading,
+    isError: isScenarioError,
+    refetch: refetchScenario,
+  } = useGetScenarioDetails(scenarioId);
+
+  const {
+    data: simulations = [],
+    isLoading: isSimulationsLoading,
+    isError: isSimulationsError,
+  } = useGetScenarioSimulations(scenarioId);
+
+  const runSimulation = useAddScenarioSimulation();
+
+  if (isScenarioLoading) {
+    return (
+      <div className="scenario-details scenario-details--state">
+        <p>Loading scenario details...</p>
+      </div>
+    );
+  }
+
+  if (isScenarioError || !scenario) {
+    return (
+      <div className="scenario-details scenario-details--state">
+        <p>Unable to load this scenario.</p>
+        <button type="button" onClick={() => refetchScenario()}>
+          Try again
+        </button>
+      </div>
+    );
+  }
+
+  const parameters = scenario.parameters as ScenarioParametersWithNullableBerths;
+
+  const scenarioSimulations: ScenarioSimulation[] = simulations.map((simulation) => ({
+    id: simulation.id,
+    status: simulation.status ?? 'pending',
+    executedAt: simulation.completed_at ?? simulation.started_at ?? simulation.created_at,
+  }));
+
   return (
     <div className="scenario-details">
-      <ScenarioDetailsTopBar scenarioName={scenario.name} />
+      <ScenarioDetailsTopBar
+        scenarioName={scenario.name}
+        onRunSimulation={() => runSimulation.mutate(scenario.id)}
+        isRunning={runSimulation.isPending}
+      />
 
       <div className="scenario-details__provenance">
         <span aria-hidden="true">◇</span>
@@ -64,27 +87,34 @@ const ScenarioDetailsPage = () => {
           />
 
           <ScenarioMetrics
-            expectedArrivals={scenario.expectedArrivals}
-            arrivalInterval={scenario.arrivalInterval}
-            averageServiceTime={scenario.averageServiceTime}
-            simulationHours={scenario.simulationHours}
-            availableBerths={scenario.availableBerths}
-            totalBerths={scenario.totalBerths}
-            activeBerthNames={scenario.availableBerthNames}
+            expectedArrivals={parameters.expected_vessel_arrivals}
+            arrivalInterval={parameters.arrival_interval_hours}
+            averageServiceTime={parameters.average_service_time_hours}
+            simulationHours={parameters.simulation_hours}
+            availableBerths={parameters.available_berths}
           />
 
           <section className="scenario-details__panels">
             <ScenarioParameters
-              arrivalInterval={scenario.arrivalInterval}
-              averageServiceTime={scenario.averageServiceTime}
-              simulationHours={scenario.simulationHours}
-              expectedArrivals={scenario.expectedArrivals}
-              availableBerthNames={scenario.availableBerthNames}
-              createdAt={scenario.createdAt}
-              updatedAt={scenario.updatedAt}
+              arrivalInterval={parameters.arrival_interval_hours}
+              averageServiceTime={parameters.average_service_time_hours}
+              simulationHours={parameters.simulation_hours}
+              expectedArrivals={parameters.expected_vessel_arrivals}
+              availableBerths={parameters.available_berths}
+              createdAt={scenario.created_at}
+              updatedAt={scenario.updated_at}
             />
 
-            <ScenarioSimulationHistory simulations={simulations} totalRuns={28} />
+            {isSimulationsLoading ? (
+              <p>Loading simulation history...</p>
+            ) : isSimulationsError ? (
+              <p>Unable to load simulation history.</p>
+            ) : (
+              <ScenarioSimulationHistory
+                simulations={scenarioSimulations}
+                totalRuns={scenarioSimulations.length}
+              />
+            )}
           </section>
         </div>
       </main>

@@ -5,9 +5,7 @@ interface ScenarioMetricsProps {
   arrivalInterval: number;
   averageServiceTime: number;
   simulationHours: number;
-  availableBerths: number;
-  totalBerths: number;
-  activeBerthNames: string[];
+  availableBerths?: number | null;
 }
 
 const ScenarioMetrics = ({
@@ -16,8 +14,6 @@ const ScenarioMetrics = ({
   averageServiceTime,
   simulationHours,
   availableBerths,
-  totalBerths,
-  activeBerthNames,
 }: ScenarioMetricsProps) => {
   const metrics = [
     {
@@ -40,10 +36,9 @@ const ScenarioMetrics = ({
     },
     {
       label: 'Available Berths',
-      value: availableBerths.toString(),
-      unit: `/ ${totalBerths} TOTAL`,
-      description: activeBerthNames.join(', '),
-      measured: true,
+      value: availableBerths == null ? '—' : availableBerths.toString(),
+      unit: availableBerths == null ? '' : 'BERTHS',
+      description: availableBerths == null ? 'Not specified' : 'Configured for this scenario',
     },
   ];
 
