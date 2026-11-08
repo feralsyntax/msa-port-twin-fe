@@ -3,8 +3,10 @@ import SimulationDetailsTopBar from '../../../components/Simulations/SimulationD
 import SimulatedDataBanner from '../../../components/Simulations/SimulationDetails/SimulatedDataBanner/SimulatedDataBanner';
 import SimulationIdentityHeader from '../../../components/Simulations/SimulationDetails/SimulationIdentityHeader/SimulationIdentityHeader';
 import SimulationMetricCards from '../../../components/Simulations/SimulationDetails/SimulationMetricCards/SimulationMetricCards';
-import './SimulationDetails.scss';
 import BerthSchedule from '../../../components/Simulations/SimulationDetails/BerthSchedule/BerthSchedule';
+import VesselQueueImpact from '../../../components/Simulations/SimulationDetails/VesselQueueImpact/VesselQueueImpact';
+import SimulationDetailsFooter from '../../../components/Simulations/SimulationDetails/SimulationDetailsFooter/SimulationDetailsFooter';
+import './SimulationDetails.scss';
 
 const SimulationDetailsPage = () => {
   const { simulationId } = useParams<{ simulationId: string }>()
@@ -18,9 +20,9 @@ const SimulationDetailsPage = () => {
       <div className="sim-details-page__content">
         <SimulationIdentityHeader simulationId={id} />
         <SimulationMetricCards />
-        <SimulationMetricCards />
-             <BerthSchedule />
-        {/* Berth schedule Gantt + queue impact — later sections */}
+        <BerthSchedule />
+        <VesselQueueImpact />
+        <SimulationDetailsFooter />
       </div>
     </div>
   )

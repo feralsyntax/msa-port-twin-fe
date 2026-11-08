@@ -1,0 +1,31 @@
+.sim-details-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top: 1px solid rgba(30, 46, 63, 0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #5f7688;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #00d2c8;
+    flex-shrink: 0;
+  }
+
+  &__right {
+    color: #5f7688;
+  }
+}
