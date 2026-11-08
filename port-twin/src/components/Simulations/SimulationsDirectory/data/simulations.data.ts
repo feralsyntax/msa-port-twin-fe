@@ -1,7 +1,7 @@
 import type {
   Simulation,
   SimulationStatusCount,
-} from '../SimulationsDirectory/types/simulations.types';
+} from '../types/simulations.types';
 
 export const simulationStatusCounts: SimulationStatusCount[] = [
   { status: 'all', label: 'All Runs', count: 18 },
