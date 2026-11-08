@@ -1,7 +1,4 @@
-import type {
-  Simulation,
-  SimulationStatusCount,
-} from '../types/simulations.types';
+import type { SimulationStatusCount, Simulation } from '../types/simulations.types';
 
 export const simulationStatusCounts: SimulationStatusCount[] = [
   { status: 'all', label: 'All Runs', count: 18 },
