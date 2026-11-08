@@ -1,9 +1,9 @@
 @use '../../../../styles/tokens' as *;
 
 .add-simulation-top-bar {
-  height: 56px;
+  height: 4.5rem;
   flex-shrink: 0;
-  padding: 0 24px;
+  padding: 1rem 24px;
   background: $canvas-1;
   border-bottom: 1px solid $hairline;
   display: flex;
