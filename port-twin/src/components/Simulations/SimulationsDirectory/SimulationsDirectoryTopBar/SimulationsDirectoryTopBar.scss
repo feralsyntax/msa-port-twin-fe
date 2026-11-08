@@ -1,0 +1,55 @@
+@use '../../../../styles/tokens' as *;
+
+.simulations-directory-top-bar {
+  height: 72px;
+  padding: 0 24px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: $canvas-1;
+  border-bottom: 1px solid $hairline;
+
+  &__title {
+    margin: 0;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  &__action {
+    height: 36px;
+    padding: 0 16px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background: $signal;
+    color: $canvas-0;
+
+    border-radius: 2px;
+    text-decoration: none;
+
+    font-family: $font-display;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+
+    transition: background 150ms ease;
+
+    &:hover {
+      background: $signal-dim;
+    }
+
+    .material-symbols-outlined {
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+}
