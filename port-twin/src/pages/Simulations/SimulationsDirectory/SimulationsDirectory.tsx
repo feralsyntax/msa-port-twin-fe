@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 
-import './SimulationsDirectoryPage.scss';
+import './SimulationsDirectory.scss';
 import { simulations, simulationStatusCounts } from '../../../components/Simulations/SimulationsDirectory/data/simulations.data';
 import SimulationProvenanceNotice from '../../../components/Simulations/SimulationsDirectory/SimulationProvenanceNotice/SimulationProvenanceNotice';
 import SimulationsTable from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTable/SimulationsDirectoryTable';

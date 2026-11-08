@@ -1,6 +1,6 @@
 import type { Simulation } from '../types/simulations.types';
 
-import './SimulationsTable.scss';
+import './SimulationsDirectoryTable.scss';
 
 interface SimulationsTableProps {
   simulations: Simulation[];
