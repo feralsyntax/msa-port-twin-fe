@@ -1,58 +1,72 @@
 import './SimulationsDirectoryPagination.scss';
 
 interface SimulationsDirectoryPaginationProps {
-  displayedCount: number;
-  totalCount: number;
-  pageSize?: number;
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
 }
 
 const SimulationsDirectoryPagination = ({
-  displayedCount,
-  totalCount,
-  pageSize = 6,
+  currentPage,
+  totalPages,
+  totalItems,
+  pageSize,
+  onPageChange,
+  canGoPrevious,
+  canGoNext,
 }: SimulationsDirectoryPaginationProps) => {
-  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
 
-  const firstRecord = totalCount > 0 ? 1 : 0;
-  const lastRecord = Math.min(displayedCount, pageSize);
+  const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
     <footer className="simulations-directory-pagination">
-      <div className="simulations-directory-pagination__metadata">
+      <div className="simulations-directory-pagination__summary">
         <span>
           Showing{' '}
           <strong>
-            {firstRecord}–{lastRecord}
+            {startItem}–{endItem}
           </strong>{' '}
-          of <strong>{totalCount}</strong> simulations
-        </span>
-
-        <span className="simulations-directory-pagination__divider">|</span>
-
-        <span className="simulations-directory-pagination__engine">
-          ◇ DISCRETE EVENT QUEUE ENGINE · MONTE CARLO BATCH
+          of <strong>{totalItems}</strong> simulations
         </span>
       </div>
 
-      <div className="simulations-directory-pagination__controls">
-        <span>
-          Page <strong>1</strong> of <strong>{totalPages}</strong>
+      <nav className="simulations-directory-pagination__controls" aria-label="Simulations table pagination">
+        <button
+          type="button"
+          className="simulations-directory-pagination__button"
+          disabled={!canGoPrevious}
+          onClick={() => onPageChange(currentPage - 1)}
+          aria-label="Previous page"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Previous</span>
+        </button>
+
+        <span className="simulations-directory-pagination__page">
+          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of{' '}
+          <strong>{totalPages}</strong>
         </span>
 
-        <div className="simulations-directory-pagination__navigation">
-          <span className="simulations-directory-pagination__disabled">Previous</span>
-
-          <span className="simulations-directory-pagination__separator">/</span>
-
-          <span
-            className={
-              totalPages > 1 ? 'simulations-directory-pagination__next' : 'simulations-directory-pagination__disabled'
-            }
-          >
-            Next
-          </span>
-        </div>
-      </div>
+        <button
+          type="button"
+          className="simulations-directory-pagination__button"
+          disabled={!canGoNext}
+          onClick={() => onPageChange(currentPage + 1)}
+          aria-label="Next page"
+        >
+          <span>Next</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </nav>
     </footer>
   );
 };
