@@ -35,7 +35,10 @@ const SimulationsDirectoryPagination = ({
         </span>
       </div>
 
-      <nav className="simulations-directory-pagination__controls" aria-label="Simulations table pagination">
+      <nav
+        className="simulations-directory-pagination__controls"
+        aria-label="Simulations table pagination"
+      >
         <button
           type="button"
           className="simulations-directory-pagination__button"
