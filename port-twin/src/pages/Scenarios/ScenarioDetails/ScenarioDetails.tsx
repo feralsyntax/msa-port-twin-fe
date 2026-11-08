@@ -10,11 +10,11 @@ import ScenarioSimulationHistory, {
 
 import { useGetScenarioDetails } from '../../../hooks/scenarios/useGetScenarioDetails';
 import { useGetScenarioSimulations } from '../../../hooks/simulations/useGetScenarioSimulations';
-import { useRunScenarioSimulation } from '../../../hooks/simulations/useRunScenarioSimulation';
 
 import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
 
 import './ScenarioDetails.scss';
+import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 
 type ScenarioParametersWithNullableBerths = Omit<ApiScenarioParameters, 'available_berths'> & {
   available_berths?: number | null;
@@ -36,7 +36,7 @@ const ScenarioDetailsPage = () => {
     isError: isSimulationsError,
   } = useGetScenarioSimulations(scenarioId);
 
-  const runSimulation = useRunScenarioSimulation();
+  const runSimulation = useAddScenarioSimulation();
 
   if (isScenarioLoading) {
     return (
