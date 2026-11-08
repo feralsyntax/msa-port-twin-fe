@@ -53,13 +53,6 @@ const ScenarioMetrics = ({
         <article className="scenario-metrics__card" key={metric.label}>
           <div className="scenario-metrics__card-header">
             <span className="scenario-metrics__label">{metric.label}</span>
-
-            {metric.measured && (
-              <span className="scenario-metrics__measured">
-                <span aria-hidden="true">●</span>
-                Measured Infrastructure
-              </span>
-            )}
           </div>
 
           <div className="scenario-metrics__value">
