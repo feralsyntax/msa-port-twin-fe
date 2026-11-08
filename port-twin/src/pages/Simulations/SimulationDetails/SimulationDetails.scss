@@ -1,0 +1,16 @@
+.sim-details-page {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #06121b;
+  color: #e6f0f5;
+  overflow-y: auto;
+
+  &__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
