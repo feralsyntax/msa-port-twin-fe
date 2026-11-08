@@ -1,16 +1,8 @@
+import type { ScenarioResponse } from '../../../../api/models';
 import './ScenarioSelector.scss';
 
-export interface SimulationScenario {
-  id: string;
-  name: string;
-  expectedArrivals: number;
-  averageServiceTime: number;
-  simulationHorizon: number;
-  availableBerths: string[];
-}
-
 interface ScenarioSelectorProps {
-  scenarios: SimulationScenario[];
+  scenarios: ScenarioResponse[];
   selectedScenario: string;
   onScenarioChange: (scenarioId: string) => void;
 }
