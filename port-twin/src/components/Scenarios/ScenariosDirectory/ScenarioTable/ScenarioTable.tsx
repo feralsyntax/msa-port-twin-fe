@@ -111,8 +111,6 @@ const ScenarioTable = ({
           </tbody>
         </table>
       </div>
-
-      <div className="scenario-table__spacer" />
     </div>
   );
 };

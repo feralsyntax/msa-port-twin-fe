@@ -12,6 +12,8 @@ import './ScenariosDirectory.scss';
 import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import type { ScenarioResponse } from '../../../api/models';
 
+const PAGE_SIZE = 20;
+
 const ScenariosDirectoryPage = () => {
   const navigate = useNavigate();
 
@@ -41,15 +43,7 @@ const ScenariosDirectoryPage = () => {
     setPage(1);
   };
 
-  const handlePreviousPage = () => {
-    setPage((currentPage) => Math.max(1, currentPage - 1));
-  };
-
-  const handleNextPage = () => {
-    if (data?.next) {
-      setPage((currentPage) => currentPage + 1);
-    }
-  };
+  
 
   return (
     <div className="scenarios-directory">
@@ -73,14 +67,13 @@ const ScenariosDirectoryPage = () => {
           />
 
           <ScenarioTableFooter
-            displayedCount={filteredScenarios.length}
-            pageCount={scenarios.length}
-            totalCount={data?.count ?? 0}
-            page={page}
-            hasPreviousPage={Boolean(data?.previous)}
-            hasNextPage={Boolean(data?.next)}
-            onPreviousPage={handlePreviousPage}
-            onNextPage={handleNextPage}
+            currentPage={page}
+            totalPages={Math.ceil((data?.count ?? 0) / PAGE_SIZE)}
+            totalItems={data?.count ?? 0}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+            canGoPrevious={Boolean(data?.previous)}
+            canGoNext={Boolean(data?.next)}
           />
         </section>
       </div>

@@ -1,57 +1,72 @@
 import './ScenarioTableFooter.scss';
 
 interface ScenarioTableFooterProps {
-  displayedCount: number;
-  pageCount: number;
-  totalCount: number;
-  page: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  onPreviousPage: () => void;
-  onNextPage: () => void;
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
 }
 
 const ScenarioTableFooter = ({
-  displayedCount,
-  pageCount,
-  totalCount,
-  page,
-  hasPreviousPage,
-  hasNextPage,
-  onPreviousPage,
-  onNextPage,
+  currentPage,
+  totalPages,
+  totalItems,
+  pageSize,
+  onPageChange,
+  canGoPrevious,
+  canGoNext,
 }: ScenarioTableFooterProps) => {
+  const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+
+  const endItem = Math.min(currentPage * pageSize, totalItems);
+
   return (
     <footer className="scenario-table-footer">
-      <span className="scenario-table-footer__count">
-        SHOWING {displayedCount} OF {pageCount} ON THIS PAGE
-        {' · '}
-        {totalCount} TOTAL SCENARIOS
-      </span>
+      <div className="scenario-table-footer__summary">
+        <span>
+          Showing{' '}
+          <strong>
+            {startItem}–{endItem}
+          </strong>{' '}
+          of <strong>{totalItems}</strong> scenarios
+        </span>
+      </div>
 
-      <div className="scenario-table-footer__pagination">
-        <span className="scenario-table-footer__page">PAGE {page}</span>
-
+      <nav className="scenario-table-footer__controls" aria-label="Scenario table pagination">
         <button
           type="button"
           className="scenario-table-footer__button"
-          onClick={onPreviousPage}
-          disabled={!hasPreviousPage}
+          disabled={!canGoPrevious}
+          onClick={() => onPageChange(currentPage - 1)}
           aria-label="Previous page"
         >
-          Previous
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Previous</span>
         </button>
+
+        <span className="scenario-table-footer__page">
+          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of{' '}
+          <strong>{totalPages}</strong>
+        </span>
 
         <button
           type="button"
           className="scenario-table-footer__button"
-          onClick={onNextPage}
-          disabled={!hasNextPage}
+          disabled={!canGoNext}
+          onClick={() => onPageChange(currentPage + 1)}
           aria-label="Next page"
         >
-          Next
+          <span>Next</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
-      </div>
+      </nav>
     </footer>
   );
 };

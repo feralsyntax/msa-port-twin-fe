@@ -1,75 +1,110 @@
-@use '../../../../styles/tokens' as *;
-
 .scenario-table-footer {
+  min-height: 56px;
+  padding: 0 16px;
   display: flex;
-  flex-shrink: 0;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
-  padding: 0 16px;
-  border-top: 1px solid #1e2e3f;
-  background-color: #0c1c2a;
   gap: 16px;
+  background: #0c1c2a;
+  border: 1px solid #1e2e3f;
+  border-top: none;
 
-  &__count,
-  &__repository {
-    overflow: hidden;
-    color: #5f7688;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    > span:first-child {
+      color: #5f7688;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+    }
+
+    strong {
+      color: #9cb0c2;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
   }
 
-  &__pagination {
+  &__controls {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  &__page {
-    color: $ink-2;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-  }
-
   &__button {
-    padding: 7px 12px;
-    border: 1px solid $hairline-strong;
-    border-radius: 4px;
+    height: 28px;
+    padding: 0 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     background: transparent;
-    color: $ink-1;
-    font-size: 12px;
+    border: 1px solid #1e2e3f;
+    border-radius: 3px;
+    color: #9cb0c2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
     cursor: pointer;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
 
     &:hover:not(:disabled) {
-      border-color: $signal;
-      color: $signal;
+      background: #14283b;
+      color: #e6f0f5;
     }
 
     &:disabled {
-      opacity: 0.4;
+      color: #5f7688;
+      opacity: 0.45;
       cursor: not-allowed;
+    }
+  }
+
+  &__page {
+    color: #5f7688;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    white-space: nowrap;
+
+    strong {
+      color: #e6f0f5;
+      font-weight: 500;
     }
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .scenario-table-footer {
+    padding: 12px;
     align-items: flex-start;
-    justify-content: center;
     flex-direction: column;
-    height: auto;
-    min-height: 48px;
-    padding: 8px 12px;
-    gap: 4px;
 
-    &__count,
-    &__repository {
-      max-width: 100%;
-      font-size: 9px;
+    &__summary {
+      width: 100%;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    &__controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .scenario-table-footer {
+    &__summary {
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
 }
