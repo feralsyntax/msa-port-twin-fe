@@ -1,18 +1,43 @@
+import type { ScenarioResponse } from '../../../../api/models';
 import './ScenarioTable.scss';
 
-export interface Scenario {
-  id: string;
-  name: string;
-  status: 'ready' | 'draft';
-  created: string;
-  updated: string;
-}
-
 interface ScenarioTableProps {
-  scenarios: Scenario[];
+  scenarios: ScenarioResponse[];
+  isLoading?: boolean;
+  errorMessage?: string;
+  onRetry?: () => void;
 }
 
-const ScenarioTable = ({ scenarios }: ScenarioTableProps) => {
+const formatScenarioDate = (value: string): string => {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return '—';
+  }
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+};
+
+const ScenarioTable = ({
+  scenarios,
+  isLoading = false,
+  errorMessage,
+  onRetry,
+}: ScenarioTableProps) => {
+  const renderTableMessage = (message: string) => (
+    <tr>
+      <td colSpan={4} className="scenario-table__empty">
+        {message}
+      </td>
+    </tr>
+  );
+
   return (
     <div className="scenario-table">
       <div className="scenario-table__scroll">
@@ -38,7 +63,23 @@ const ScenarioTable = ({ scenarios }: ScenarioTableProps) => {
           </thead>
 
           <tbody>
-            {scenarios.length > 0 ? (
+            {isLoading ? (
+              renderTableMessage('Loading scenarios...')
+            ) : errorMessage ? (
+              <tr>
+                <td colSpan={4} className="scenario-table__empty">
+                  <div className="scenario-table__error">
+                    <span>{errorMessage}</span>
+
+                    {onRetry && (
+                      <button type="button" onClick={onRetry}>
+                        Try again
+                      </button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ) : scenarios.length > 0 ? (
               scenarios.map((scenario) => (
                 <tr key={scenario.id}>
                   <td className="scenario-table__name">{scenario.name}</td>
@@ -51,17 +92,17 @@ const ScenarioTable = ({ scenarios }: ScenarioTableProps) => {
                     </span>
                   </td>
 
-                  <td className="scenario-table__date">{scenario.created}</td>
+                  <td className="scenario-table__date">
+                    {formatScenarioDate(scenario.created_at)}
+                  </td>
 
-                  <td className="scenario-table__date">{scenario.updated}</td>
+                  <td className="scenario-table__date">
+                    {formatScenarioDate(scenario.updated_at)}
+                  </td>
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan={4} className="scenario-table__empty">
-                  No scenarios found.
-                </td>
-              </tr>
+              renderTableMessage('No scenarios found.')
             )}
           </tbody>
         </table>
