@@ -1,0 +1,108 @@
+@use '../../../../styles/tokens' as *;
+
+.simulations-directory-pagination {
+  height: 48px;
+  padding: 0 24px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  background: $canvas-1;
+  border-top: 1px solid $hairline;
+
+  color: $ink-1;
+  font-size: 12px;
+
+  &__metadata {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+
+    strong {
+      color: $ink-0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+
+  &__divider,
+  &__separator {
+    color: $hairline-strong;
+  }
+
+  &__engine {
+    overflow: hidden;
+    color: $ink-2;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+
+    > span strong:first-of-type {
+      color: $ink-0;
+      font-weight: 500;
+    }
+
+    > span strong:last-of-type {
+      color: $ink-1;
+      font-weight: 500;
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__disabled {
+    color: $ink-2;
+    opacity: 0.5;
+  }
+
+  &__next {
+    color: $signal;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .simulations-pagination {
+    padding: 0 16px;
+
+    &__engine,
+    &__divider {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .simulations-directory-pagination {
+    padding: 0 12px;
+
+    &__metadata {
+      font-size: 10px;
+    }
+
+    &__controls {
+      gap: 8px;
+    }
+  }
+}
