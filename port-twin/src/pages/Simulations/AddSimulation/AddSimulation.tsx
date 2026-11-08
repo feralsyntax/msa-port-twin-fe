@@ -61,7 +61,7 @@ const AddSimulationPage = () => {
 
   return (
     <div className="add-simulation-page">
-      <AddSimulationTopBar onRun={handleRunSimulation} disabled={queued} />
+      <AddSimulationTopBar />
 
       <div className="add-simulation-page__content">
         <div className="add-simulation-page__container">

@@ -41,37 +41,6 @@
     font-weight: 600;
     letter-spacing: 0.04em;
   }
-
-  &__run-button {
-    height: 32px;
-    padding: 0 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    border: none;
-    border-radius: 2px;
-    background: $signal;
-    color: $canvas-0;
-    font-family: $font-sans;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s ease;
-
-    .material-symbols-outlined {
-      font-size: 15px;
-    }
-
-    &:hover:not(:disabled) {
-      background: $signal-dim;
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
 }
 
 @media (max-width: 480px) {
