@@ -62,6 +62,26 @@ const primaryNav = [
     ),
   },
   {
+    to: '/app/scenarios',
+    label: 'Scenarios',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="4" r="2" />
+        <path d="M12 6v3M5 9h14M5 9v5M12 9v5M19 9v5" />
+        <circle cx="5" cy="16" r="2" />
+        <circle cx="12" cy="16" r="2" />
+        <circle cx="19" cy="16" r="2" />
+      </svg>
+    ),
+  },
+  {
     to: '/app/predictions',
     label: 'Marine Predictions',
     icon: (
