@@ -1,0 +1,76 @@
+@use '../../../../styles/tokens' as *;
+
+.operational-mode-notice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba($canvas-1, 0.6);
+  border: 1px dashed rgba($amber, 0.4);
+  border-radius: 2px;
+
+  &__message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+
+    p {
+      margin: 0;
+      color: $amber;
+      font-family: $font-mono;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__symbol {
+    flex-shrink: 0;
+    color: $amber;
+    font-family: $font-mono;
+    font-size: 12px;
+  }
+
+  &__metadata {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__solver {
+    color: rgba($amber, 0.8);
+    font-family: $font-mono;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  &__indicator {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: $amber;
+    animation: operational-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes operational-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 640px) {
+  .operational-mode-notice {
+    &__solver {
+      display: none;
+    }
+  }
+}
