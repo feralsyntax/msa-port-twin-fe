@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import type { Simulation } from '../types/simulations.types';
 
 import './SimulationsDirectoryTable.scss';
 
 interface SimulationsTableProps {
-  simulations: Simulation[];
+  simulations: Simulation[]
 }
 
 const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
@@ -15,14 +16,14 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
             <th className="simulations-table__run-column">
               <div className="simulations-table__heading">
                 <span>Run ID</span>
-                <span className="simulations-table__simulated-label">◇ Simulated</span>
+                <span className="simulations-table__simulated-label">
+                  ◇ Simulated
+                </span>
               </div>
             </th>
 
             <th className="simulations-table__scenario-column">Scenario</th>
-
             <th className="simulations-table__status-column">Status</th>
-
             <th className="simulations-table__started-column">Started</th>
           </tr>
         </thead>
@@ -32,13 +33,18 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
             simulations.map((simulation) => (
               <tr key={simulation.id}>
                 <td className="simulations-table__run-id">
-                  <div>
+                  <Link
+                    to={`/app/simulations/${simulation.id}`}
+                    className="simulations-table__run-link"
+                  >
                     <span className="simulations-table__hash">#</span>
                     <span>{simulation.id}</span>
-                  </div>
+                  </Link>
                 </td>
 
-                <td className="simulations-table__scenario">{simulation.scenarioName}</td>
+                <td className="simulations-table__scenario">
+                  {simulation.scenarioName}
+                </td>
 
                 <td>
                   <span
@@ -49,12 +55,13 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
                         <span />
                       </span>
                     )}
-
                     {simulation.status}
                   </span>
                 </td>
 
-                <td className="simulations-table__started">{simulation.startedAt}</td>
+                <td className="simulations-table__started">
+                  {simulation.startedAt}
+                </td>
               </tr>
             ))
           ) : (
@@ -67,7 +74,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default SimulationsTable;
+export default SimulationsTable

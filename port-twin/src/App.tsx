@@ -39,8 +39,10 @@ export default function App() {
 
           <Route path="simulations" element={<SimulationsDirectoryPage />} />
           <Route path="simulations/new" element={<AddSimulationPage />} />
-          <Route path="simulations/:simulationId" element={<SimulationDetailsPage />} />
-
+          <Route
+              path="simulations/:simulationId"
+              element={<SimulationDetailsPage />}
+          />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="map" element={<MapPage />} />
           <Route path="about" element={<PlaceholderPage title="About" />} />
