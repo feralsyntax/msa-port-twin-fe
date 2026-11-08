@@ -43,8 +43,6 @@ const ScenariosDirectoryPage = () => {
     setPage(1);
   };
 
-  
-
   return (
     <div className="scenarios-directory">
       <ScenariosDirectoryHeader onNewScenario={handleNewScenario} />
