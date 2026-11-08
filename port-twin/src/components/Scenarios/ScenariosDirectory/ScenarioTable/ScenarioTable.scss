@@ -1,8 +1,9 @@
+@use '../../../../styles/tokens' as *;
+
 .scenario-table {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 0;
+  display: block;
+  width: 100%;
+  min-height: auto;
 
   &__scroll {
     width: 100%;
@@ -74,6 +75,10 @@
     font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &:hover {
+      color: $signal;
+    }
   }
 
   &__status {
@@ -115,9 +120,53 @@
     text-align: center;
   }
 
-  &__spacer {
-    flex: 1;
-    min-height: 0;
-    background-color: #06121b;
+  &__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+
+      padding: 0.45rem 0.85rem;
+      border: 1px solid $signal-dim;
+      border-radius: $radius-sm;
+
+      background: rgba($signal, 0.08);
+      color: $signal;
+
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+
+      cursor: pointer;
+      transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease;
+
+      .material-symbols-outlined {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      &:hover {
+        background: rgba($signal, 0.16);
+        border-color: $signal;
+      }
+
+      &:active {
+        background: rgba($signal, 0.22);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $signal;
+        outline-offset: 3px;
+      }
+    }
   }
 }

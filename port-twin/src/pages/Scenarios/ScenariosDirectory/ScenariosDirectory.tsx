@@ -1,62 +1,46 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ScenarioFilters, {
   type ScenarioStatusFilter,
 } from '../../../components/Scenarios/ScenariosDirectory/ScenarioFilters/ScenarioFilters';
-import ScenarioTable, {
-  type Scenario,
-} from '../../../components/Scenarios/ScenariosDirectory/ScenarioTable/ScenarioTable';
+import ScenarioTable from '../../../components/Scenarios/ScenariosDirectory/ScenarioTable/ScenarioTable';
 import ScenarioTableFooter from '../../../components/Scenarios/ScenariosDirectory/ScenarioTableFooter/ScenarioTableFooter';
+import ScenariosDirectoryHeader from '../../../components/Scenarios/ScenariosDirectory/ScenariosDirectoryHeader/ScenariosDirectoryHeader';
 
 import './ScenariosDirectory.scss';
-import ScenariosDirectoryHeader from '../../../components/Scenarios/ScenariosDirectory/ScenariosDirectoryHeader/ScenariosDirectoryHeader';
-import { useNavigate } from 'react-router-dom';
+import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
+import type { ScenarioResponse } from '../../../api/models';
 
-const MOCK_SCENARIOS: Scenario[] = [
-  {
-    id: '1',
-    name: 'Baseline Operations',
-    status: 'ready',
-    created: '12 May, 10:00',
-    updated: '12 May, 14:22',
-  },
-  {
-    id: '2',
-    name: 'Heavy Traffic Test',
-    status: 'ready',
-    created: '11 May, 15:30',
-    updated: '11 May, 18:40',
-  },
-  {
-    id: '3',
-    name: 'Storm Conditions',
-    status: 'draft',
-    created: '10 May, 09:15',
-    updated: '10 May, 11:05',
-  },
-  {
-    id: '4',
-    name: 'Berth 2 Closure',
-    status: 'ready',
-    created: '09 May, 08:00',
-    updated: '09 May, 16:30',
-  },
-];
+const PAGE_SIZE = 20;
 
 const ScenariosDirectoryPage = () => {
   const navigate = useNavigate();
+
   const [activeFilter, setActiveFilter] = useState<ScenarioStatusFilter>('all');
+  const [page, setPage] = useState(1);
+
+  const { data, isPending, isError, error, refetch } = useGetScenarios(page);
+
+  const EMPTY_SCENARIOS: ScenarioResponse[] = [];
+
+  const scenarios = data?.results ?? EMPTY_SCENARIOS;
 
   const filteredScenarios = useMemo(() => {
     if (activeFilter === 'all') {
-      return MOCK_SCENARIOS;
+      return scenarios;
     }
 
-    return MOCK_SCENARIOS.filter((scenario) => scenario.status === activeFilter);
-  }, [activeFilter]);
+    return scenarios.filter((scenario) => scenario.status === activeFilter);
+  }, [scenarios, activeFilter]);
 
   const handleNewScenario = () => {
     navigate('/app/scenarios/new');
+  };
+
+  const handleFilterChange = (filter: ScenarioStatusFilter) => {
+    setActiveFilter(filter);
+    setPage(1);
   };
 
   return (
@@ -64,14 +48,30 @@ const ScenariosDirectoryPage = () => {
       <ScenariosDirectoryHeader onNewScenario={handleNewScenario} />
 
       <div className="scenarios-directory__content">
-        <ScenarioFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+        <ScenarioFilters activeFilter={activeFilter} onFilterChange={handleFilterChange} />
 
         <section className="scenarios-directory__table-container">
-          <ScenarioTable scenarios={filteredScenarios} />
+          <ScenarioTable
+            scenarios={filteredScenarios}
+            isLoading={isPending}
+            errorMessage={
+              isError
+                ? error instanceof Error
+                  ? error.message
+                  : 'Unable to load scenarios. Please try again.'
+                : undefined
+            }
+            onRetry={() => refetch()}
+          />
 
           <ScenarioTableFooter
-            displayedCount={filteredScenarios.length}
-            totalCount={MOCK_SCENARIOS.length}
+            currentPage={page}
+            totalPages={Math.ceil((data?.count ?? 0) / PAGE_SIZE)}
+            totalItems={data?.count ?? 0}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+            canGoPrevious={Boolean(data?.previous)}
+            canGoNext={Boolean(data?.next)}
           />
         </section>
       </div>
