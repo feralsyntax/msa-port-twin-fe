@@ -1,39 +1,32 @@
+import type { ScenarioParameters } from '../../../../api/models';
 import './LockedParameters.scss';
 
-import type { SimulationScenario } from '../ScenarioSelector/ScenarioSelector';
 
 interface LockedParametersProps {
-  scenario: SimulationScenario;
+  parameters: ScenarioParameters;
 }
 
-const LockedParameters = ({ scenario }: LockedParametersProps) => {
-  const parameters = [
+const LockedParameters = ({ parameters }: LockedParametersProps) => {
+  const parameterCards = [
     {
       label: 'Expected Arrivals',
-      value: scenario.expectedArrivals,
+      value: parameters.expected_vessel_arrivals,
       unit: 'vessels',
-      status: 'simulated',
     },
     {
       label: 'Avg Service Time',
-      value: scenario.averageServiceTime.toFixed(1),
+      value: parameters.average_service_time_hours.toFixed(1),
       unit: 'h / turn',
-      status: 'simulated',
     },
     {
       label: 'Simulation Horizon',
-      value: scenario.simulationHorizon,
+      value: parameters.simulation_hours,
       unit: 'hours',
-      status: 'simulated',
     },
     {
       label: 'Available Berths',
-      value: scenario.availableBerths.length,
-      unit:
-        scenario.availableBerths.length > 0
-          ? `(${scenario.availableBerths.join(', ')})`
-          : '(None available)',
-      status: 'measured',
+      value: parameters.available_berths ?? '—',
+      unit: 'berths',
     },
   ];
 
@@ -52,18 +45,12 @@ const LockedParameters = ({ scenario }: LockedParametersProps) => {
       </p>
 
       <div className="locked-parameters__grid">
-        {parameters.map((parameter) => (
+        {parameterCards.map((parameter) => (
           <div className="locked-parameters__card" key={parameter.label}>
             <div className="locked-parameters__card-header">
               <span className="locked-parameters__label">{parameter.label}</span>
 
-              <span
-                className={`locked-parameters__status ${
-                  parameter.status === 'measured' ? 'locked-parameters__status--measured' : ''
-                }`}
-              >
-                {parameter.status === 'measured' ? '● Measured' : '◇ Simulated'}
-              </span>
+              <span className="locked-parameters__status">◇ Configured</span>
             </div>
 
             <div className="locked-parameters__value-row">
