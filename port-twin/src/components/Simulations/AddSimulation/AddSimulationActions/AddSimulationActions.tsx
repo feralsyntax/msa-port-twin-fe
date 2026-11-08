@@ -1,4 +1,4 @@
-import './SimulationActions.scss';
+import './AddSimulationActions.scss';
 
 interface AddSimulationActionsProps {
   onRun: () => void;
