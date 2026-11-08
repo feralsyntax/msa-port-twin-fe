@@ -26,6 +26,15 @@ const LockedParameters = ({ scenario }: LockedParametersProps) => {
       unit: 'hours',
       status: 'simulated',
     },
+    {
+      label: 'Available Berths',
+      value: scenario.availableBerths.length,
+      unit:
+        scenario.availableBerths.length > 0
+          ? `(${scenario.availableBerths.join(', ')})`
+          : '(None available)',
+      status: 'measured',
+    },
   ];
 
   return (
@@ -48,7 +57,13 @@ const LockedParameters = ({ scenario }: LockedParametersProps) => {
             <div className="locked-parameters__card-header">
               <span className="locked-parameters__label">{parameter.label}</span>
 
-              <span className="locked-parameters__status">◇ Simulated</span>
+              <span
+                className={`locked-parameters__status ${
+                  parameter.status === 'measured' ? 'locked-parameters__status--measured' : ''
+                }`}
+              >
+                {parameter.status === 'measured' ? '● Measured' : '◇ Simulated'}
+              </span>
             </div>
 
             <div className="locked-parameters__value-row">
@@ -66,31 +81,6 @@ const LockedParameters = ({ scenario }: LockedParametersProps) => {
             </div>
           </div>
         ))}
-
-        <div className="locked-parameters__card">
-          <div className="locked-parameters__card-header">
-            <span className="locked-parameters__label">Available Berths</span>
-
-            <span className="locked-parameters__status locked-parameters__status--measured">
-              ● Measured
-            </span>
-          </div>
-
-          <div className="locked-parameters__value-row">
-            <div className="locked-parameters__berths">
-              {scenario.availableBerths.length > 0
-                ? scenario.availableBerths.join(', ')
-                : 'No berths available'}
-            </div>
-
-            <span
-              className="material-symbols-outlined locked-parameters__lock"
-              title="Locked Parameter"
-            >
-              lock
-            </span>
-          </div>
-        </div>
       </div>
     </section>
   );
