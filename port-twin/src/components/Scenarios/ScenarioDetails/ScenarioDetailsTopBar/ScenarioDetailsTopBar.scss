@@ -1,0 +1,109 @@
+@use '../../../../styles/tokens' as *;
+
+.scenario-details-topbar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  min-height: 72px;
+  padding: 0 32px;
+
+  border-bottom: 1px solid $hairline;
+  background-color: rgba(#0c1c2a, 0.9);
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 0;
+
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+
+    a {
+      flex-shrink: 0;
+      color: $ink-1;
+      text-decoration: none;
+      transition: color 120ms ease;
+
+      &:hover {
+        color: $ink-0;
+      }
+    }
+
+    > span:nth-child(2) {
+      flex-shrink: 0;
+      color: $ink-2;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+  }
+
+  &__current {
+    overflow: hidden;
+    color: $ink-0;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__run-button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    height: 36px;
+    padding: 0 16px;
+
+    border: none;
+    border-radius: 2px;
+
+    background-color: $signal;
+    color: $canvas-0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+
+    cursor: pointer;
+    transition: background-color 120ms ease;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    &:hover {
+      background-color: $signal-dim;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $signal;
+      outline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .scenario-details-topbar {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scenario-details-topbar {
+    &__run-button {
+      gap: 4px;
+      padding: 0 10px;
+      font-size: 11px;
+    }
+  }
+}
