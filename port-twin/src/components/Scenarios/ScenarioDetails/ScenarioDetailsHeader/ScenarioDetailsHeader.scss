@@ -1,0 +1,70 @@
+@use '../../../../styles/tokens' as *;
+
+.scenario-details-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__identity {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    h1 {
+      margin: 0;
+      color: $ink-0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+
+    height: 20px;
+    padding: 0 8px;
+
+    border: 1px solid;
+    border-radius: 2px;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    &--ready {
+      border-color: rgba($moss, 0.4);
+      background-color: rgba($moss, 0.1);
+      color: $moss;
+    }
+
+    &--draft {
+      border-color: rgba($amber, 0.4);
+      background-color: rgba($amber, 0.1);
+      color: $amber;
+    }
+  }
+
+  > p {
+    margin: 0;
+    color: $ink-1;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .scenario-details-header {
+    &__identity {
+      h1 {
+        font-size: 26px;
+      }
+    }
+  }
+}
