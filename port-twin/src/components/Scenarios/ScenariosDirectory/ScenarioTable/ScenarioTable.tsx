@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { ScenarioResponse } from '../../../../api/models';
 import './ScenarioTable.scss';
 
@@ -83,7 +84,9 @@ const ScenarioTable = ({
             ) : scenarios.length > 0 ? (
               scenarios.map((scenario) => (
                 <tr key={scenario.id}>
-                  <td className="scenario-table__name">{scenario.name}</td>
+                  <td className="scenario-table__name">
+                    <Link to={`/app/scenarios/${scenario.id}`}>{scenario.name}</Link>
+                  </td>
 
                   <td>
                     <span
