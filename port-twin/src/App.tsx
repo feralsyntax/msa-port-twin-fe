@@ -12,6 +12,7 @@ import BerthDetailsPage from './pages/Berths/BerthDetails/BerthDetails';
 import AddBerthPage from './pages/Berths/AddBerth/AddBerth';
 import AddScenarioPage from './pages/Scenarios/AddScenario/AddScenario';
 import ScenariosDirectoryPage from './pages/Scenarios/ScenariosDirectory/ScenariosDirectory';
+import ScenarioDetailsPage from './pages/Scenarios/ScenarioDetails/ScenarioDetails';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="berths/:berthId" element={<BerthDetailsPage />} />
           <Route path="scenarios" element={<ScenariosDirectoryPage />} />
           <Route path="scenarios/new" element={<AddScenarioPage />} />
+          <Route path="scenarios/:scenarioId" element={<ScenarioDetailsPage />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
           <Route path="simulations" element={<PlaceholderPage title="Simulations" />} />
           <Route path="map" element={<MapPage />} />
