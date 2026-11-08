@@ -4,6 +4,7 @@ import SimulatedDataBanner from '../../../components/Simulations/SimulationDetai
 import SimulationIdentityHeader from '../../../components/Simulations/SimulationDetails/SimulationIdentityHeader/SimulationIdentityHeader';
 import SimulationMetricCards from '../../../components/Simulations/SimulationDetails/SimulationMetricCards/SimulationMetricCards';
 import './SimulationDetails.scss';
+import BerthSchedule from '../../../components/Simulations/SimulationDetails/BerthSchedule/BerthSchedule';
 
 const SimulationDetailsPage = () => {
   const { simulationId } = useParams<{ simulationId: string }>()
@@ -17,7 +18,8 @@ const SimulationDetailsPage = () => {
       <div className="sim-details-page__content">
         <SimulationIdentityHeader simulationId={id} />
         <SimulationMetricCards />
-
+        <SimulationMetricCards />
+             <BerthSchedule />
         {/* Berth schedule Gantt + queue impact — later sections */}
       </div>
     </div>
