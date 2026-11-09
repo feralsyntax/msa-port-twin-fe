@@ -1,0 +1,155 @@
+.queue-impact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #e6f0f5;
+  }
+
+  &__count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #5f7688;
+  }
+
+  &__scroll {
+    width: 100%;
+    overflow-x: auto;
+    border-top: 1px solid #1e2e3f;
+    border-bottom: 1px solid #1e2e3f;
+    background: #06121b;
+  }
+
+  table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  thead tr {
+    height: 40px;
+    background: #0c1c2a;
+    border-bottom: 1px solid #1e2e3f;
+  }
+
+  th {
+    padding: 0 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9cb0c2;
+    white-space: nowrap;
+
+    &:nth-child(4),
+    &:nth-child(5) {
+      text-align: right;
+    }
+  }
+
+  tbody tr {
+    height: 48px;
+    border-bottom: 1px solid rgba(30, 46, 63, 0.5);
+    transition: background-color 120ms ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #0c1c2a;
+    }
+  }
+
+  &__row--alert {
+    background: rgba(255, 92, 108, 0.05);
+
+    &:hover {
+      background: rgba(255, 92, 108, 0.1) !important;
+    }
+  }
+
+  td {
+    padding: 0 16px;
+    font-size: 13px;
+    color: #e6f0f5;
+    white-space: nowrap;
+  }
+
+  &__vessel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #e6f0f5;
+
+    .material-symbols-outlined {
+      font-size: 15px;
+      color: #5f7688;
+    }
+
+    &--alert {
+      color: #ff5c6c;
+
+      .material-symbols-outlined {
+        color: #ff5c6c;
+      }
+    }
+  }
+
+  &__mono {
+    font-family: 'JetBrains Mono', monospace;
+    color: #9cb0c2 !important;
+  }
+
+  &__opt {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: #e6f0f5;
+
+    &--alert {
+      color: #ff5c6c;
+      font-weight: 700;
+    }
+  }
+
+  &__base {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    color: #9cb0c2;
+  }
+
+  &__delta {
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: 500;
+
+    &--down {
+      color: #5db580;
+    }
+
+    &--up {
+      color: #ff5c6c;
+    }
+
+    &--flat {
+      color: #5f7688;
+    }
+  }
+}

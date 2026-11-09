@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Simulation } from '../types/simulations.types';
 
 import './SimulationsDirectoryTable.scss';
@@ -20,9 +21,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
             </th>
 
             <th className="simulations-table__scenario-column">Scenario</th>
-
             <th className="simulations-table__status-column">Status</th>
-
             <th className="simulations-table__started-column">Started</th>
           </tr>
         </thead>
@@ -32,10 +31,13 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
             simulations.map((simulation) => (
               <tr key={simulation.id}>
                 <td className="simulations-table__run-id">
-                  <div>
+                  <Link
+                    to={`/app/simulations/${simulation.id}`}
+                    className="simulations-table__run-link"
+                  >
                     <span className="simulations-table__hash">#</span>
                     <span>{simulation.id}</span>
-                  </div>
+                  </Link>
                 </td>
 
                 <td className="simulations-table__scenario">{simulation.scenarioName}</td>
@@ -49,7 +51,6 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
                         <span />
                       </span>
                     )}
-
                     {simulation.status}
                   </span>
                 </td>

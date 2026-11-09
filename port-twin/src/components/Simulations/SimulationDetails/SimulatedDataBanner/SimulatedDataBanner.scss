@@ -1,0 +1,68 @@
+.sim-data-banner {
+  position: relative;
+  margin: 16px 24px 0;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(12, 28, 42, 0.9);
+  border: 1px dashed #f5a623;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  &__accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #f5a623;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding-left: 8px;
+  }
+
+  &__icon {
+    font-size: 18px;
+    color: #f5a623;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 13px;
+    font-weight: 500;
+    color: #f5a623;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__pipe {
+    color: #2c4257;
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: inline;
+    }
+  }
+
+  &__tag {
+    flex-shrink: 0;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #f5a623;
+  }
+}
