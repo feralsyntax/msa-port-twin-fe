@@ -1,4 +1,5 @@
-import type { SimulationHistoryItem } from "../../../../api/models";
+import type { SimulationHistoryItem } from '../../../../api/models';
+import './SimulationsDirectoryTable.scss';
 
 interface SimulationsDirectoryTableProps {
   simulations: SimulationHistoryItem[];
@@ -49,7 +50,9 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
               <tr key={simulation.id}>
                 <td className="simulations-directory-table__id">{simulation.id}</td>
 
-                <td className="simulations-directory-table__scenario">{simulation.scenario_name}</td>
+                <td className="simulations-directory-table__scenario">
+                  {simulation.scenario_name}
+                </td>
 
                 <td>
                   <span

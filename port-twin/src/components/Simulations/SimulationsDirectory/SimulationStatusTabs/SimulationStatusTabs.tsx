@@ -1,4 +1,5 @@
 import type { SimulationStatusCount, SimulationFilter } from '../types/simulations.types';
+import './SimulationStatusTabs.scss';
 
 interface SimulationStatusTabsProps {
   tabs: SimulationStatusCount[];
