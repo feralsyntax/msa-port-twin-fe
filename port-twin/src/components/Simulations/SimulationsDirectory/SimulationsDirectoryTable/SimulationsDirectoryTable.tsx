@@ -1,74 +1,105 @@
-import { Link } from 'react-router-dom';
-import type { Simulation } from '../types/simulations.types';
+import type { SimulationHistoryItem } from '../../../../api/models';
 
 import './SimulationsDirectoryTable.scss';
 
-interface SimulationsTableProps {
-  simulations: Simulation[];
+interface SimulationsDirectoryTableProps {
+  simulations: SimulationHistoryItem[];
 }
 
-const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return '—';
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) return '—';
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+};
+
+const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTableProps) => {
   return (
-    <div className="simulations-table">
-      <table>
-        <thead>
-          <tr>
-            <th className="simulations-table__run-column">
-              <div className="simulations-table__heading">
-                <span>Run ID</span>
-                <span className="simulations-table__simulated-label">◇ Simulated</span>
-              </div>
-            </th>
-
-            <th className="simulations-table__scenario-column">Scenario</th>
-            <th className="simulations-table__status-column">Status</th>
-            <th className="simulations-table__started-column">Started</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {simulations.length > 0 ? (
-            simulations.map((simulation) => (
-              <tr key={simulation.id}>
-                <td className="simulations-table__run-id">
-                  <Link
-                    to={`/app/simulations/${simulation.id}`}
-                    className="simulations-table__run-link"
-                  >
-                    <span className="simulations-table__hash">#</span>
-                    <span>{simulation.id}</span>
-                  </Link>
-                </td>
-
-                <td className="simulations-table__scenario">{simulation.scenarioName}</td>
-
-                <td>
-                  <span
-                    className={`simulations-table__status simulations-table__status--${simulation.status}`}
-                  >
-                    {simulation.status === 'running' && (
-                      <span className="simulations-table__pulse">
-                        <span />
-                      </span>
-                    )}
-                    {simulation.status}
-                  </span>
-                </td>
-
-                <td className="simulations-table__started">{simulation.startedAt}</td>
-              </tr>
-            ))
-          ) : (
+    <div className="simulations-directory-table__wrapper">
+      {simulations.length === 0 ? (
+        <div className="simulations-directory-table__empty">No simulations found.</div>
+      ) : (
+        <table className="simulations-directory-table">
+          <thead>
             <tr>
-              <td colSpan={4} className="simulations-table__empty">
-                No simulations found.
-              </td>
+              <th className="simulations-directory-table__run-column" scope="col">
+                <div className="simulations-directory-table__heading">
+                  <span>RUN ID</span>
+
+                  <span className="simulations-directory-table__simulated-label">◇ SIMULATED</span>
+                </div>
+              </th>
+
+              <th className="simulations-directory-table__scenario-column" scope="col">
+                SCENARIO
+              </th>
+
+              <th className="simulations-directory-table__status-column" scope="col">
+                STATUS
+              </th>
+
+              <th className="simulations-directory-table__started-column" scope="col">
+                STARTED
+              </th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {simulations.map((simulation) => {
+              const status = simulation.status ?? 'pending';
+
+              return (
+                <tr
+                  key={simulation.id}
+                  className={
+                    status === 'running' ? 'simulations-directory-table__row--running' : undefined
+                  }
+                >
+                  <td className="simulations-directory-table__run-id">
+                    <div>
+                      <span className="simulations-directory-table__hash">#</span>
+                      <span>{simulation.id}</span>
+                    </div>
+                  </td>
+
+                  <td className="simulations-directory-table__scenario">
+                    {simulation.scenario_name}
+                  </td>
+
+                  <td>
+                    <span
+                      className={`simulations-directory-table__status simulations-directory-table__status--${status}`}
+                    >
+                      {status === 'running' && (
+                        <span className="simulations-directory-table__pulse">
+                          <span />
+                        </span>
+                      )}
+
+                      {status.replace('_', ' ')}
+                    </span>
+                  </td>
+
+                  <td className="simulations-directory-table__started">
+                    {formatDate(simulation.started_at ?? simulation.created_at)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
 
-export default SimulationsTable;
+export default SimulationsDirectoryTable;

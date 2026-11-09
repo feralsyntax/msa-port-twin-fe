@@ -1,15 +1,10 @@
 @use '../../../../styles/tokens' as *;
 
-.simulations-table {
-  min-height: auto;
-  overflow: auto;
+.simulations-directory-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
   background: $canvas-0;
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-  }
 
   thead {
     position: sticky;
@@ -47,6 +42,14 @@
     }
   }
 
+  &__wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+    background: $canvas-0;
+  }
+
   &__run-column {
     width: 25%;
     padding-left: 24px;
@@ -69,7 +72,7 @@
   &__heading {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
   }
 
   &__simulated-label {
@@ -88,23 +91,12 @@
     color: $ink-0;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
+    white-space: nowrap;
 
     > div {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-  }
-
-  &__run-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-    color: inherit;
-    text-decoration: none;
-
-    &:hover {
-      color: $signal;
     }
   }
 
@@ -116,6 +108,10 @@
     color: $ink-0;
     font-family: 'Inter', sans-serif;
     font-size: 13px;
+  }
+
+  &__row--running {
+    background: rgba($canvas-1, 0.25);
   }
 
   &__status {
@@ -175,6 +171,7 @@
 
   &__started {
     padding-right: 24px;
+
     color: $ink-1;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -183,10 +180,14 @@
   }
 
   &__empty {
-    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 120px;
+
     color: $ink-2;
     font-size: 13px;
-    text-align: center;
   }
 }
 
@@ -204,7 +205,7 @@
 }
 
 @media (max-width: 768px) {
-  .simulations-table {
+  .simulations-directory-table {
     min-width: 680px;
   }
 }
