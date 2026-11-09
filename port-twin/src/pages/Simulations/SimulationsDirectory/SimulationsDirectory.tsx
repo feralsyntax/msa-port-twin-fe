@@ -1,67 +1,114 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import './SimulationsDirectory.scss';
-import {
-  simulations,
-  simulationStatusCounts,
-} from '../../../components/Simulations/SimulationsDirectory/data/simulations.data';
-import SimulationProvenanceNotice from '../../../components/Simulations/SimulationsDirectory/SimulationProvenanceNotice/SimulationProvenanceNotice';
-import SimulationsTable from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTable/SimulationsDirectoryTable';
-import SimulationStatusTabs from '../../../components/Simulations/SimulationsDirectory/SimulationStatusTabs/SimulationStatusTabs';
-import type { SimulationFilter } from '../../../components/Simulations/SimulationsDirectory/types/simulations.types';
-import SimulationsDirectoryPagination from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryPagination/SimulationsDirectoryPagination';
+import './SimulationsDirectoryPage.scss';
+import type {
+  SimulationFilter,
+  SimulationStatusCount,
+} from '../../../components/Simulations/SimulationsDirectory/types/simulations.types';
+import useGetSimulations from '../../../hooks/simulations/useGetSimulations';
 import SimulationsDirectoryTopBar from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTopBar/SimulationsDirectoryTopBar';
+import SimulationProvenanceNotice from '../../../components/Simulations/SimulationsDirectory/SimulationProvenanceNotice/SimulationProvenanceNotice';
+import SimulationStatusTabs from '../../../components/Simulations/SimulationsDirectory/SimulationStatusTabs/SimulationStatusTabs';
+import SimulationsDirectoryTable from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTable/SimulationsDirectoryTable';
+import SimulationsDirectoryPagination from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryPagination/SimulationsDirectoryPagination';
+
+const PAGE_SIZE = 20;
+
+const statusLabels = {
+  all: 'All Runs',
+  running: 'Running',
+  completed: 'Completed',
+  failed: 'Failed',
+  pending: 'Pending',
+} as const;
 
 const SimulationsDirectoryPage = () => {
   const [activeFilter, setActiveFilter] = useState<SimulationFilter>('all');
-
   const [currentPage, setCurrentPage] = useState(1);
 
-  const pageSize = 6;
+  const { data: simulations = [], isLoading, isError, refetch } = useGetSimulations();
 
-  const filteredSimulations =
-    activeFilter === 'all'
-      ? simulations
-      : simulations.filter((simulation) => simulation.status === activeFilter);
+  const statusCounts = useMemo<SimulationStatusCount[]>(() => {
+    const counts = {
+      all: simulations.length,
+      running: 0,
+      completed: 0,
+      failed: 0,
+      pending: 0,
+    };
 
-  const totalItems = simulationStatusCounts.find((tab) => tab.status === activeFilter)?.count ?? 0;
+    simulations.forEach((simulation) => {
+      const status = simulation.status ?? 'pending';
+      counts[status] += 1;
+    });
 
-  const totalPages = Math.ceil(totalItems / pageSize);
+    return (Object.keys(statusLabels) as SimulationFilter[]).map((status) => ({
+      status,
+      label: statusLabels[status],
+      count: counts[status],
+    }));
+  }, [simulations]);
 
-  const paginatedSimulations = filteredSimulations.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
+  const filteredSimulations = useMemo(() => {
+    if (activeFilter === 'all') {
+      return simulations;
+    }
 
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
+    return simulations.filter((simulation) => (simulation.status ?? 'pending') === activeFilter);
+  }, [simulations, activeFilter]);
+
+  const totalItems = filteredSimulations.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedSimulations = useMemo(() => {
+    const startIndex = (safeCurrentPage - 1) * PAGE_SIZE;
+
+    return filteredSimulations.slice(startIndex, startIndex + PAGE_SIZE);
+  }, [filteredSimulations, safeCurrentPage]);
+
+  const handleFilterChange = (filter: SimulationFilter) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="simulations-directory-page">
       <SimulationsDirectoryTopBar />
 
-      <SimulationProvenanceNotice />
+      <div className="simulations-directory-page__content">
+        <SimulationProvenanceNotice />
 
-      <SimulationStatusTabs
-        tabs={simulationStatusCounts}
-        activeFilter={activeFilter}
-        onFilterChange={(filter) => {
-          setActiveFilter(filter);
-          setCurrentPage(1);
-        }}
-      />
+        {isLoading ? (
+          <div className="simulations-directory-page__state">Loading simulations...</div>
+        ) : isError ? (
+          <div className="simulations-directory-page__state simulations-directory-page__state--error">
+            <p>Unable to load simulations.</p>
 
-      <SimulationsTable simulations={paginatedSimulations} />
+            <button type="button" onClick={() => refetch()}>
+              Try again
+            </button>
+          </div>
+        ) : (
+          <>
+            <SimulationStatusTabs
+              tabs={statusCounts}
+              activeFilter={activeFilter}
+              onFilterChange={handleFilterChange}
+            />
 
-      <SimulationsDirectoryPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalItems}
-        pageSize={pageSize}
-        onPageChange={setCurrentPage}
-        canGoPrevious={canGoPrevious}
-        canGoNext={canGoNext}
-      />
+            <SimulationsDirectoryTable simulations={paginatedSimulations} />
+
+            <SimulationsDirectoryPagination
+              currentPage={safeCurrentPage}
+              totalPages={totalPages}
+              totalItems={totalItems}
+              pageSize={PAGE_SIZE}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };
