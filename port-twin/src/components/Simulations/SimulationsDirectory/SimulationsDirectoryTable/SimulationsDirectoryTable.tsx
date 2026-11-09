@@ -1,74 +1,74 @@
-import { Link } from 'react-router-dom';
-import type { Simulation } from '../types/simulations.types';
+import type { SimulationHistoryItem } from "../../../../api/models";
 
-import './SimulationsDirectoryTable.scss';
-
-interface SimulationsTableProps {
-  simulations: Simulation[];
+interface SimulationsDirectoryTableProps {
+  simulations: SimulationHistoryItem[];
 }
 
-const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
+const formatDate = (dateString: string | null | undefined) => {
+  if (!dateString) return '—';
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) return '—';
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+};
+
+const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTableProps) => {
+  if (simulations.length === 0) {
+    return (
+      <div className="simulations-directory-table__empty">
+        <span>No simulations found.</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="simulations-table">
-      <table>
+    <div className="simulations-directory-table__wrapper">
+      <table className="simulations-directory-table">
         <thead>
           <tr>
-            <th className="simulations-table__run-column">
-              <div className="simulations-table__heading">
-                <span>Run ID</span>
-                <span className="simulations-table__simulated-label">◇ Simulated</span>
-              </div>
-            </th>
-
-            <th className="simulations-table__scenario-column">Scenario</th>
-            <th className="simulations-table__status-column">Status</th>
-            <th className="simulations-table__started-column">Started</th>
+            <th>Run ID</th>
+            <th>Scenario</th>
+            <th>Status</th>
+            <th>Started</th>
           </tr>
         </thead>
 
         <tbody>
-          {simulations.length > 0 ? (
-            simulations.map((simulation) => (
-              <tr key={simulation.id}>
-                <td className="simulations-table__run-id">
-                  <Link
-                    to={`/app/simulations/${simulation.id}`}
-                    className="simulations-table__run-link"
-                  >
-                    <span className="simulations-table__hash">#</span>
-                    <span>{simulation.id}</span>
-                  </Link>
-                </td>
+          {simulations.map((simulation) => {
+            const status = simulation.status ?? 'pending';
 
-                <td className="simulations-table__scenario">{simulation.scenarioName}</td>
+            return (
+              <tr key={simulation.id}>
+                <td className="simulations-directory-table__id">{simulation.id}</td>
+
+                <td className="simulations-directory-table__scenario">{simulation.scenario_name}</td>
 
                 <td>
                   <span
-                    className={`simulations-table__status simulations-table__status--${simulation.status}`}
+                    className={`simulations-directory-table__status simulations-directory-table__status--${status}`}
                   >
-                    {simulation.status === 'running' && (
-                      <span className="simulations-table__pulse">
-                        <span />
-                      </span>
-                    )}
-                    {simulation.status}
+                    {status.replace('_', ' ')}
                   </span>
                 </td>
 
-                <td className="simulations-table__started">{simulation.startedAt}</td>
+                <td className="simulations-directory-table__date">
+                  {formatDate(simulation.started_at ?? simulation.created_at)}
+                </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={4} className="simulations-table__empty">
-                No simulations found.
-              </td>
-            </tr>
-          )}
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default SimulationsTable;
+export default SimulationsDirectoryTable;

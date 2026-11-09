@@ -1,6 +1,6 @@
 @use '../../../../styles/tokens' as *;
 
-.simulations-table {
+.simulations-directory-table {
   min-height: auto;
   overflow: auto;
   background: $canvas-0;
@@ -204,7 +204,7 @@
 }
 
 @media (max-width: 768px) {
-  .simulations-table {
+  .simulations-directory-table {
     min-width: 680px;
   }
 }
