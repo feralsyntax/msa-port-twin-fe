@@ -21,8 +21,11 @@ const SimulationsDirectoryPagination = ({
   return (
     <footer className="simulations-directory-pagination">
       <div className="simulations-directory-pagination__summary">
-        Showing <strong>{startItem}–{endItem}</strong> of{' '}
-        <strong>{totalItems}</strong> simulations
+        Showing{' '}
+        <strong>
+          {startItem}–{endItem}
+        </strong>{' '}
+        of <strong>{totalItems}</strong> simulations
       </div>
 
       <div className="simulations-directory-pagination__controls">

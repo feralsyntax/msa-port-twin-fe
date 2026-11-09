@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { simulationsList } from '../../api/generated';
 import type { SimulationHistoryItem } from '../../api/models';
 
-
 export const useGetSimulations = () => {
   return useQuery({
     queryKey: ['simulationsList'],

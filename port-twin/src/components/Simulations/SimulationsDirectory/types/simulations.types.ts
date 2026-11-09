@@ -1,4 +1,4 @@
-import type { SimulationRunStatusEnum } from "../../../../api/models";
+import type { SimulationRunStatusEnum } from '../../../../api/models';
 
 export type SimulationStatus = SimulationRunStatusEnum;
 
