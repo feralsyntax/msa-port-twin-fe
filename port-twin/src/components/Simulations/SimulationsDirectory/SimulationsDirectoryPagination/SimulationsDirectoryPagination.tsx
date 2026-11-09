@@ -6,8 +6,6 @@ interface SimulationsDirectoryPaginationProps {
   totalItems: number;
   pageSize: number;
   onPageChange: (page: number) => void;
-  canGoPrevious: boolean;
-  canGoNext: boolean;
 }
 
 const SimulationsDirectoryPagination = ({
@@ -16,60 +14,46 @@ const SimulationsDirectoryPagination = ({
   totalItems,
   pageSize,
   onPageChange,
-  canGoPrevious,
-  canGoNext,
 }: SimulationsDirectoryPaginationProps) => {
   const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
     <footer className="simulations-directory-pagination">
       <div className="simulations-directory-pagination__summary">
-        <span>
-          Showing{' '}
-          <strong>
-            {startItem}–{endItem}
-          </strong>{' '}
-          of <strong>{totalItems}</strong> simulations
-        </span>
+        Showing <strong>{startItem}–{endItem}</strong> of{' '}
+        <strong>{totalItems}</strong> simulations
       </div>
 
-      <nav
-        className="simulations-directory-pagination__controls"
-        aria-label="Simulations table pagination"
-      >
+      <div className="simulations-directory-pagination__controls">
         <button
           type="button"
           className="simulations-directory-pagination__button"
-          disabled={!canGoPrevious}
+          disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
           aria-label="Previous page"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M12.5 15L7.5 10L12.5 5" />
           </svg>
-          <span>Previous</span>
         </button>
 
         <span className="simulations-directory-pagination__page">
-          Page <strong>{totalPages === 0 ? 0 : currentPage}</strong> of{' '}
-          <strong>{totalPages}</strong>
+          Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
         </span>
 
         <button
           type="button"
           className="simulations-directory-pagination__button"
-          disabled={!canGoNext}
+          disabled={currentPage >= totalPages}
           onClick={() => onPageChange(currentPage + 1)}
           aria-label="Next page"
         >
-          <span>Next</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M7.5 15L12.5 10L7.5 5" />
           </svg>
         </button>
-      </nav>
+      </div>
     </footer>
   );
 };
