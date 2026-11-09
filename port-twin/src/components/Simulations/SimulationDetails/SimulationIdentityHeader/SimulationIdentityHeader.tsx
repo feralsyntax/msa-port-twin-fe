@@ -1,10 +1,10 @@
 import './SimulationIdentityHeader.scss';
 
 interface SimulationIdentityHeaderProps {
-  simulationId: string
-  status?: 'COMPLETED' | 'RUNNING' | 'FAILED'
-  scenarioTitle?: string
-  runAt?: string
+  simulationId: string;
+  status?: 'COMPLETED' | 'RUNNING' | 'FAILED';
+  scenarioTitle?: string;
+  runAt?: string;
 }
 
 const SimulationIdentityHeader = ({
@@ -17,9 +17,7 @@ const SimulationIdentityHeader = ({
     <section className="sim-identity">
       <div className="sim-identity__title-row">
         <h1 className="sim-identity__id">{simulationId}</h1>
-        <span
-          className={`sim-identity__status sim-identity__status--${status.toLowerCase()}`}
-        >
+        <span className={`sim-identity__status sim-identity__status--${status.toLowerCase()}`}>
           {status}
         </span>
       </div>
@@ -29,7 +27,7 @@ const SimulationIdentityHeader = ({
         <span>{runAt}</span>
       </p>
     </section>
-  )
-}
+  );
+};
 
-export default SimulationIdentityHeader
+export default SimulationIdentityHeader;

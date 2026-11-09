@@ -9,8 +9,8 @@ import SimulationDetailsFooter from '../../../components/Simulations/SimulationD
 import './SimulationDetails.scss';
 
 const SimulationDetailsPage = () => {
-  const { simulationId } = useParams<{ simulationId: string }>()
-  const id = simulationId ?? 'sim_9a4b8e'
+  const { simulationId } = useParams<{ simulationId: string }>();
+  const id = simulationId ?? 'sim_9a4b8e';
 
   return (
     <div className="sim-details-page">
@@ -25,7 +25,7 @@ const SimulationDetailsPage = () => {
         <SimulationDetailsFooter />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SimulationDetailsPage
+export default SimulationDetailsPage;

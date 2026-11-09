@@ -14,13 +14,13 @@ const hours = [
   '21:00',
   '22:00',
   '23:00',
-]
+];
 
 interface ScheduleRow {
-  berth: string
-  subtitle: string
-  optimized: { label: string; left: string; width: string }
-  baseline: { label: string; left: string; width: string }
+  berth: string;
+  subtitle: string;
+  optimized: { label: string; left: string; width: string };
+  baseline: { label: string; left: string; width: string };
 }
 
 const rows: ScheduleRow[] = [
@@ -80,10 +80,10 @@ const rows: ScheduleRow[] = [
       width: '41.66%',
     },
   },
-]
+];
 
 const BerthSchedule = () => {
-  const [showBaseline, setShowBaseline] = useState(true)
+  const [showBaseline, setShowBaseline] = useState(true);
 
   return (
     <section className="berth-schedule" aria-label="Berth schedule">
@@ -91,8 +91,7 @@ const BerthSchedule = () => {
         <div>
           <h2 className="berth-schedule__title">Berth Schedule</h2>
           <p className="berth-schedule__subtitle">
-            Temporal allocation comparison across Kilindini quayside berths
-            (12:00 – 24:00 UTC)
+            Temporal allocation comparison across Kilindini quayside berths (12:00 – 24:00 UTC)
           </p>
         </div>
 
@@ -173,13 +172,11 @@ const BerthSchedule = () => {
       </div>
 
       <div className="berth-schedule__footnote">
-        <span>
-          Gantt Resolution: 5 min steps // Port Area: Kilindini Channel South
-        </span>
+        <span>Gantt Resolution: 5 min steps // Port Area: Kilindini Channel South</span>
         <span>Tidal Window: High Water 17:42 UTC (3.6m)</span>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BerthSchedule
+export default BerthSchedule;

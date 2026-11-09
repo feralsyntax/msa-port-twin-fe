@@ -4,7 +4,7 @@ import type { Simulation } from '../types/simulations.types';
 import './SimulationsDirectoryTable.scss';
 
 interface SimulationsTableProps {
-  simulations: Simulation[]
+  simulations: Simulation[];
 }
 
 const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
@@ -16,9 +16,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
             <th className="simulations-table__run-column">
               <div className="simulations-table__heading">
                 <span>Run ID</span>
-                <span className="simulations-table__simulated-label">
-                  ◇ Simulated
-                </span>
+                <span className="simulations-table__simulated-label">◇ Simulated</span>
               </div>
             </th>
 
@@ -42,9 +40,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
                   </Link>
                 </td>
 
-                <td className="simulations-table__scenario">
-                  {simulation.scenarioName}
-                </td>
+                <td className="simulations-table__scenario">{simulation.scenarioName}</td>
 
                 <td>
                   <span
@@ -59,9 +55,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
                   </span>
                 </td>
 
-                <td className="simulations-table__started">
-                  {simulation.startedAt}
-                </td>
+                <td className="simulations-table__started">{simulation.startedAt}</td>
               </tr>
             ))
           ) : (
@@ -74,7 +68,7 @@ const SimulationsTable = ({ simulations }: SimulationsTableProps) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default SimulationsTable
+export default SimulationsTable;

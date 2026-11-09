@@ -2,12 +2,10 @@ import { Link } from 'react-router-dom';
 import './SimulationDetailsTopBar.scss';
 
 interface SimulationDetailsTopBarProps {
-  simulationId: string
+  simulationId: string;
 }
 
-const SimulationDetailsTopBar = ({
-  simulationId,
-}: SimulationDetailsTopBarProps) => {
+const SimulationDetailsTopBar = ({ simulationId }: SimulationDetailsTopBarProps) => {
   return (
     <header className="sim-details-topbar">
       <div className="sim-details-topbar__left">
@@ -26,7 +24,7 @@ const SimulationDetailsTopBar = ({
         <span>Compare Runs</span>
       </button>
     </header>
-  )
-}
+  );
+};
 
-export default SimulationDetailsTopBar
+export default SimulationDetailsTopBar;

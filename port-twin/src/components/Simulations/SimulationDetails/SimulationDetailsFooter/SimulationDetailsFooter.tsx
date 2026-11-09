@@ -11,7 +11,7 @@ const SimulationDetailsFooter = () => {
         Kilindini Port Twin Engine · Port Operations Center
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default SimulationDetailsFooter
+export default SimulationDetailsFooter;

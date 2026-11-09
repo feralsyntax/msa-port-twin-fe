@@ -1,16 +1,16 @@
 import './VesselQueueImpact.scss';
 
-type DeltaTone = 'down' | 'up' | 'flat'
+type DeltaTone = 'down' | 'up' | 'flat';
 
 interface QueueRow {
-  vessel: string
-  arrival: string
-  assignedBerth: string
-  waitOpt: string
-  waitBase: string
-  delta: string
-  tone: DeltaTone
-  alert?: boolean
+  vessel: string;
+  arrival: string;
+  assignedBerth: string;
+  waitOpt: string;
+  waitBase: string;
+  delta: string;
+  tone: DeltaTone;
+  alert?: boolean;
 }
 
 const rows: QueueRow[] = [
@@ -51,7 +51,7 @@ const rows: QueueRow[] = [
     delta: '(— 0.0 h)',
     tone: 'flat',
   },
-]
+];
 
 const VesselQueueImpact = () => {
   return (
@@ -74,10 +74,7 @@ const VesselQueueImpact = () => {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr
-                key={row.vessel}
-                className={row.alert ? 'queue-impact__row--alert' : undefined}
-              >
+              <tr key={row.vessel} className={row.alert ? 'queue-impact__row--alert' : undefined}>
                 <td>
                   <div
                     className={`queue-impact__vessel${
@@ -92,18 +89,12 @@ const VesselQueueImpact = () => {
                 </td>
                 <td className="queue-impact__mono">{row.arrival}</td>
                 <td>{row.assignedBerth}</td>
-                <td
-                  className={`queue-impact__opt${
-                    row.alert ? ' queue-impact__opt--alert' : ''
-                  }`}
-                >
+                <td className={`queue-impact__opt${row.alert ? ' queue-impact__opt--alert' : ''}`}>
                   {row.waitOpt}
                 </td>
                 <td className="queue-impact__base">
                   <span>{row.waitBase}</span>
-                  <span
-                    className={`queue-impact__delta queue-impact__delta--${row.tone}`}
-                  >
+                  <span className={`queue-impact__delta queue-impact__delta--${row.tone}`}>
                     {row.delta}
                   </span>
                 </td>
@@ -113,7 +104,7 @@ const VesselQueueImpact = () => {
         </table>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default VesselQueueImpact
+export default VesselQueueImpact;

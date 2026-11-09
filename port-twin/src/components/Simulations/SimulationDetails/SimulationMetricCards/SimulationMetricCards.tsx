@@ -1,13 +1,13 @@
 import './SimulationMetricCards.scss';
 
-type DeltaTone = 'up' | 'down' | 'flat'
+type DeltaTone = 'up' | 'down' | 'flat';
 
 interface MetricCard {
-  label: string
-  value: string
-  baseline: string
-  delta: string
-  tone: DeltaTone
+  label: string;
+  value: string;
+  baseline: string;
+  delta: string;
+  tone: DeltaTone;
 }
 
 const metrics: MetricCard[] = [
@@ -39,7 +39,7 @@ const metrics: MetricCard[] = [
     delta: '— 0',
     tone: 'flat',
   },
-]
+];
 
 const SimulationMetricCards = () => {
   return (
@@ -57,16 +57,14 @@ const SimulationMetricCards = () => {
             <span className="sim-metric-card__baseline">
               Baseline: <span>{metric.baseline}</span>
             </span>
-            <span
-              className={`sim-metric-card__delta sim-metric-card__delta--${metric.tone}`}
-            >
+            <span className={`sim-metric-card__delta sim-metric-card__delta--${metric.tone}`}>
               {metric.delta}
             </span>
           </div>
         </article>
       ))}
     </section>
-  )
-}
+  );
+};
 
-export default SimulationMetricCards
+export default SimulationMetricCards;
