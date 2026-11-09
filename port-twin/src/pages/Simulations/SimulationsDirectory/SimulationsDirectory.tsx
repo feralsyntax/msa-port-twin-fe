@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import './SimulationsDirectoryPage.scss';
+import './SimulationsDirectory.scss';
 import type {
   SimulationFilter,
   SimulationStatusCount,
