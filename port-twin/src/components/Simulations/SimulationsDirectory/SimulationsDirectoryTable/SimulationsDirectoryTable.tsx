@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { SimulationHistoryItem } from '../../../../api/models';
 
 import './SimulationsDirectoryTable.scss';
@@ -67,7 +68,9 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
                   <td className="simulations-directory-table__run-id">
                     <div>
                       <span className="simulations-directory-table__hash">#</span>
-                      <span>{simulation.id}</span>
+                      <span className="simulations-directory-table__id">
+                        <Link to={`/app/simulations/${simulation.id}`}>{simulation.id}</Link>
+                      </span>
                     </div>
                   </td>
 
