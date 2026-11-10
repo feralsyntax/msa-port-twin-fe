@@ -1,0 +1,82 @@
+@use '../../../../styles/tokens' as *;
+
+.run-comparison-card {
+  min-width: 0;
+  min-height: 112px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: $canvas-1;
+  border: 1px solid $hairline;
+  border-radius: 4px;
+
+  &__identity {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__details {
+    min-width: 0;
+
+    h2 {
+      margin: 0;
+      color: $ink-0;
+      font-family: $font-display;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 4px;
+    color: $signal;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__id {
+    display: block;
+    margin-top: 4px;
+    color: $ink-1;
+    font-family: $font-mono;
+    font-size: 11px;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    background: $canvas-0;
+    border: 1px solid;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &--reference {
+      color: $moss;
+      border-color: rgba($moss, 0.3);
+    }
+
+    &--stress {
+      color: $coral;
+      border-color: rgba($coral, 0.4);
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .run-comparison-card {
+    &__identity {
+      flex-direction: column;
+    }
+  }
+}

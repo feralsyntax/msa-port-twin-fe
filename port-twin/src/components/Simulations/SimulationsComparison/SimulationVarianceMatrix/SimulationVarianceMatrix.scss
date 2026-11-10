@@ -1,0 +1,142 @@
+@use '../../../../styles/tokens' as *;
+
+.simulation-variance-matrix {
+  width: 100%;
+  min-width: 0;
+
+  &__heading {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    span:first-child {
+      color: $ink-2;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    span:last-child {
+      color: $ink-2;
+      font-family: $font-mono;
+      font-size: 9px;
+      text-align: right;
+    }
+  }
+
+  &__scroll {
+    width: 100%;
+    overflow-x: auto;
+    background: $canvas-0;
+    border-top: 1px solid $hairline;
+    border-bottom: 1px solid $hairline;
+
+    &:focus-visible {
+      outline: 1px solid $signal;
+      outline-offset: 2px;
+    }
+  }
+
+  table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    padding: 0 16px;
+    text-align: left;
+    vertical-align: middle;
+
+    &:first-child {
+      width: 30%;
+    }
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      width: 25%;
+    }
+
+    &:last-child {
+      width: 20%;
+      text-align: right;
+    }
+  }
+
+  th {
+    height: 40px;
+    background: $canvas-1;
+    border-bottom: 1px solid $hairline;
+    color: $ink-1;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  td {
+    height: 44px;
+    border-bottom: 1px solid rgba($hairline, 0.5);
+    color: $ink-1;
+    font-family: $font-mono;
+    font-size: 11px;
+
+    &:first-child {
+      color: $ink-0;
+      font-family: $font-sans;
+      font-size: 12px;
+    }
+
+    &:nth-child(3) {
+      color: $ink-0;
+    }
+  }
+
+  tbody tr {
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba($canvas-1, 0.4);
+    }
+
+    &:last-child td {
+      border-bottom: 0;
+    }
+  }
+
+  &__delta {
+    &--moss {
+      color: $moss !important;
+    }
+
+    &--coral {
+      color: $coral !important;
+    }
+
+    &--amber {
+      color: $amber !important;
+    }
+
+    &--neutral {
+      color: $ink-2 !important;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .simulation-variance-matrix {
+    &__heading {
+      align-items: flex-start;
+      flex-direction: column;
+
+      span:last-child {
+        text-align: left;
+      }
+    }
+  }
+}
