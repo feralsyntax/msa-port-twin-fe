@@ -8,7 +8,6 @@ import BerthSchedule from '../../../components/Simulations/SimulationDetails/Ber
 import VesselQueueImpact from '../../../components/Simulations/SimulationDetails/VesselQueueImpact/VesselQueueImpact';
 import SimulationDetailsFooter from '../../../components/Simulations/SimulationDetails/SimulationDetailsFooter/SimulationDetailsFooter';
 
-
 import './SimulationDetails.scss';
 import useGetSimulationDetails from '../../../hooks/simulations/useGetSimulationDetails';
 
