@@ -15,7 +15,7 @@ const AddPredictionFooter = ({ disabled = false, onCancel }: AddPredictionFooter
 
       <button type="submit" className="add-prediction-footer__submit" disabled={disabled}>
         <span className="material-symbols-outlined">play_arrow</span>
-        <span>Validate Configuration</span>
+        <span>Generate Prediction</span>
       </button>
     </footer>
   );
