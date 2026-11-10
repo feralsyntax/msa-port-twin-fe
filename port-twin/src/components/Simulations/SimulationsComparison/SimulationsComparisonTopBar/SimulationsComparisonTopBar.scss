@@ -1,0 +1,40 @@
+@use '../../../../styles/tokens' as *;
+
+.simulations-comparison-top-bar {
+  height: 52px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  background: $canvas-1;
+  border-bottom: 1px solid $hairline;
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+
+    a {
+      color: $ink-1;
+      text-decoration: none;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: $ink-0;
+      }
+    }
+
+    span:nth-child(2) {
+      color: $hairline-strong;
+      font-family: $font-mono;
+      font-size: 12px;
+    }
+
+    span:last-child {
+      color: $ink-0;
+      font-weight: 600;
+    }
+  }
+}
