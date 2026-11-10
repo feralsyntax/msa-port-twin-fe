@@ -1,105 +1,101 @@
 import './VesselQueueImpact.scss';
 
-type DeltaTone = 'down' | 'up' | 'flat';
-
-interface QueueRow {
-  vessel: string;
-  arrival: string;
-  assignedBerth: string;
-  waitOpt: string;
-  waitBase: string;
-  delta: string;
-  tone: DeltaTone;
-  alert?: boolean;
+interface VesselSimulationResult {
+  vessel_id: string;
+  arrival_hour: number;
+  berth_id: string | null;
+  service_start_hour: number | null;
+  departure_hour: number | null;
+  waiting_hours: number | null;
+  status: string;
+  reason?: string | null;
 }
 
-const rows: QueueRow[] = [
-  {
-    vessel: 'MV KWALE STAR',
-    arrival: '14:00',
-    assignedBerth: 'Berth 3',
-    waitOpt: '2.1 h',
-    waitBase: '3.5 h',
-    delta: '(▼ -1.4 h)',
-    tone: 'down',
-  },
-  {
-    vessel: 'OCEAN HARMONY',
-    arrival: '14:15',
-    assignedBerth: 'Berth 1',
-    waitOpt: '0.5 h',
-    waitBase: '1.0 h',
-    delta: '(▼ -0.5 h)',
-    tone: 'down',
-  },
-  {
-    vessel: 'EVER HORIZON',
-    arrival: '14:30',
-    assignedBerth: 'Berth 2',
-    waitOpt: '4.5 h',
-    waitBase: '4.0 h',
-    delta: '(▲ +0.5 h)',
-    tone: 'up',
-    alert: true,
-  },
-  {
-    vessel: 'PACIFIC TRADER',
-    arrival: '15:00',
-    assignedBerth: 'Berth 4',
-    waitOpt: '2.0 h',
-    waitBase: '2.0 h',
-    delta: '(— 0.0 h)',
-    tone: 'flat',
-  },
-];
+interface VesselQueueImpactProps {
+  vesselResults: {
+    vessels: VesselSimulationResult[];
+  } | null;
+}
 
-const VesselQueueImpact = () => {
+const getArrivalLabel = (vesselId: string) => {
+  const match = vesselId.match(/-arrival-(\d+)$/i);
+
+  return match ? `Arrival ${match[1]}` : vesselId.slice(0, 12);
+};
+
+const formatHour = (hour: number) => {
+  const wholeHours = Math.floor(hour);
+  const minutes = Math.round((hour - wholeHours) * 60);
+
+  return `T+${wholeHours}:${String(minutes).padStart(2, '0')}`;
+};
+
+const formatWaitingTime = (hours: number | null) => {
+  if (hours === null) return '—';
+
+  return `${hours.toFixed(1)} h`;
+};
+
+const VesselQueueImpact = ({ vesselResults }: VesselQueueImpactProps) => {
+  const vessels = vesselResults?.vessels ?? [];
+
+  const sortedVessels = [...vessels].sort((a, b) => a.arrival_hour - b.arrival_hour);
+
   return (
     <section className="queue-impact" aria-label="Vessel queue impact telemetry">
       <div className="queue-impact__header">
         <h3 className="queue-impact__title">Vessel Queue Impact Telemetry</h3>
-        <span className="queue-impact__count">4 ARRIVALS MONITORED</span>
+
+        <span className="queue-impact__count">{vessels.length} ARRIVALS MONITORED</span>
       </div>
 
       <div className="queue-impact__scroll">
         <table>
           <thead>
             <tr>
-              <th scope="col">VESSEL NAME</th>
+              <th scope="col">VESSEL</th>
               <th scope="col">ARRIVAL</th>
               <th scope="col">ASSIGNED BERTH</th>
-              <th scope="col">WAIT TIME (OPT)</th>
-              <th scope="col">WAIT TIME (BASE)</th>
+              <th scope="col">WAIT TIME</th>
+              <th scope="col">STATUS</th>
             </tr>
           </thead>
+
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.vessel} className={row.alert ? 'queue-impact__row--alert' : undefined}>
-                <td>
-                  <div
-                    className={`queue-impact__vessel${
-                      row.alert ? ' queue-impact__vessel--alert' : ''
-                    }`}
-                  >
-                    <span className="material-symbols-outlined">
-                      {row.alert ? 'warning' : 'directions_boat'}
+            {sortedVessels.length > 0 ? (
+              sortedVessels.map((vessel) => (
+                <tr key={vessel.vessel_id}>
+                  <td>
+                    <div className="queue-impact__vessel">
+                      <span className="material-symbols-outlined">directions_boat</span>
+
+                      <span>{getArrivalLabel(vessel.vessel_id)}</span>
+                    </div>
+                  </td>
+
+                  <td className="queue-impact__mono">{formatHour(vessel.arrival_hour)}</td>
+
+                  <td>
+                    {vessel.berth_id ? `Berth · ${vessel.berth_id.slice(0, 8)}` : 'Unassigned'}
+                  </td>
+
+                  <td className="queue-impact__opt">{formatWaitingTime(vessel.waiting_hours)}</td>
+
+                  <td>
+                    <span
+                      className={`queue-impact__status queue-impact__status--${vessel.status.toLowerCase()}`}
+                      title={vessel.reason ?? undefined}
+                    >
+                      {vessel.status.replace(/_/g, ' ')}
                     </span>
-                    <span>{row.vessel}</span>
-                  </div>
-                </td>
-                <td className="queue-impact__mono">{row.arrival}</td>
-                <td>{row.assignedBerth}</td>
-                <td className={`queue-impact__opt${row.alert ? ' queue-impact__opt--alert' : ''}`}>
-                  {row.waitOpt}
-                </td>
-                <td className="queue-impact__base">
-                  <span>{row.waitBase}</span>
-                  <span className={`queue-impact__delta queue-impact__delta--${row.tone}`}>
-                    {row.delta}
-                  </span>
-                </td>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5}>No vessel results are available.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
