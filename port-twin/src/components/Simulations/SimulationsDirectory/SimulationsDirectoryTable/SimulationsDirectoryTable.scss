@@ -104,6 +104,10 @@
     color: $ink-2;
   }
 
+  &__id:hover {
+    color: $signal;
+  }
+
   &__scenario {
     color: $ink-0;
     font-family: 'Inter', sans-serif;
