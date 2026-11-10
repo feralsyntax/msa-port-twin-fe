@@ -39,25 +39,21 @@ const SimulationMetricCards = ({ summary, queueTimeline }: SimulationMetricCards
       label: 'AVG WAIT TIME',
       value: `${formatNumber(summary.average_waiting_hours)} h`,
       baseline: 'Not available',
-      delta: null,
     },
     {
       label: 'MAX QUEUE LENGTH',
       value: String(maxQueueLength),
       baseline: 'Not available',
-      delta: null,
     },
     {
       label: 'BERTH UTILIZATION',
       value: `${formatNumber(summary.berth_utilization_percent)}%`,
       baseline: 'Not available',
-      delta: null,
     },
     {
       label: 'VESSELS PROCESSED',
       value: `${summary.vessels_served} / ${summary.total_arrivals}`,
       baseline: `${summary.total_arrivals} arrivals`,
-      delta: null,
     },
   ];
 
