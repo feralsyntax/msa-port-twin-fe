@@ -1,0 +1,37 @@
+.add-prediction-top-bar {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 56px;
+  padding: 0 24px;
+  background: #0c1c2a;
+  border-bottom: 1px solid #1e2e3f;
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+
+    a {
+      color: #9cb0c2;
+      text-decoration: none;
+      transition: color 150ms ease;
+
+      &:hover {
+        color: #e6f0f5;
+      }
+    }
+
+    > span {
+      color: #5f7688;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+  }
+
+  &__current {
+    color: #e6f0f5 !important;
+    font-weight: 600;
+  }
+}
