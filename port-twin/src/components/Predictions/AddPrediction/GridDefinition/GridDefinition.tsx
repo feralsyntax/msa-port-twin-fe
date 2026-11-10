@@ -1,4 +1,5 @@
 import AddPredictionSectionHeader from '../AddPredictionSectionHeader/AddPredictionSectionHeader';
+import './GridDefinition.scss';
 
 interface GridDefinitionProps {
   westLon: string;

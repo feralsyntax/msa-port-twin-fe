@@ -1,4 +1,5 @@
 import AddPredictionSectionHeader from '../AddPredictionSectionHeader/AddPredictionSectionHeader';
+import './ForecastWindow.scss';
 
 interface ForecastWindowProps {
   startTime: string;
