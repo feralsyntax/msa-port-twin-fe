@@ -5,7 +5,7 @@ const AddPredictionTopBar = () => {
   return (
     <header className="add-prediction-top-bar">
       <nav aria-label="Breadcrumb">
-        <Link to="/app/marine-predictions">Marine Predictions</Link>
+        <Link to="/app/predictions">Marine Predictions</Link>
 
         <span>/</span>
 
