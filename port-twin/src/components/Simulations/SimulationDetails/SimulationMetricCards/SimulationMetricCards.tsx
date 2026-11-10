@@ -1,7 +1,5 @@
 import './SimulationMetricCards.scss';
 
-type DeltaTone = 'up' | 'down' | 'flat';
-
 interface SimulationMetricCardsProps {
   summary: {
     total_arrivals: number;
@@ -42,28 +40,24 @@ const SimulationMetricCards = ({ summary, queueTimeline }: SimulationMetricCards
       value: `${formatNumber(summary.average_waiting_hours)} h`,
       baseline: 'Not available',
       delta: null,
-      tone: 'flat' as DeltaTone,
     },
     {
       label: 'MAX QUEUE LENGTH',
       value: String(maxQueueLength),
       baseline: 'Not available',
       delta: null,
-      tone: 'flat' as DeltaTone,
     },
     {
       label: 'BERTH UTILIZATION',
       value: `${formatNumber(summary.berth_utilization_percent)}%`,
       baseline: 'Not available',
       delta: null,
-      tone: 'flat' as DeltaTone,
     },
     {
       label: 'VESSELS PROCESSED',
       value: `${summary.vessels_served} / ${summary.total_arrivals}`,
       baseline: `${summary.total_arrivals} arrivals`,
       delta: null,
-      tone: 'flat' as DeltaTone,
     },
   ];
 
