@@ -17,6 +17,7 @@ import AddSimulationPage from './pages/Simulations/AddSimulation/AddSimulation';
 import SimulationsDirectoryPage from './pages/Simulations/SimulationsDirectory/SimulationsDirectory';
 import SimulationDetailsPage from './pages/Simulations/SimulationDetails/SimulationDetails';
 import SimulationsComparisonPage from './pages/Simulations/SimulationsComparison/SimulationsComparison';
+import AddPredictionPage from './pages/Predictions/AddPrediction/AddPrediction';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="simulations/compare" element={<SimulationsComparisonPage />} />
           <Route path="simulations/:simulationId" element={<SimulationDetailsPage />} />
           <Route path="predictions" element={<PlaceholderPage title="Marine Predictions" />} />
+          <Route path="predictions/new" element={<AddPredictionPage />} />
           <Route path="map" element={<MapPage />} />
           <Route path="about" element={<PlaceholderPage title="About" />} />
         </Route>
