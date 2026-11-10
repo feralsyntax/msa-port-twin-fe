@@ -1,0 +1,44 @@
+.add-prediction-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  &__content {
+    h2 {
+      color: #e6f0f5;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    p {
+      margin-top: 6px;
+      color: #9cb0c2;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+  }
+
+  &__number {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    color: #5f7688;
+    background: #06121b;
+    border: 1px solid #1e2e3f;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-prediction-section-header {
+    gap: 10px;
+
+    &__content p {
+      max-width: 240px;
+    }
+  }
+}
