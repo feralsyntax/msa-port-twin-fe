@@ -20,6 +20,7 @@ import AddPredictionPage from './pages/Predictions/AddPrediction/AddPrediction';
 import PredictionsDirectoryPage from './pages/Predictions/PredictionsDirectory/PredictionsDirectory';
 import PredictionDetailsPage from './pages/Predictions/PredictionDetails/PredictionDetails';
 import AboutPage from './pages/About/About';
+import NotFoundPage from './pages/404/404';
 
 export default function App() {
   return (
@@ -51,6 +52,8 @@ export default function App() {
           <Route path="map" element={<MapPage />} />
           <Route path="about" element={<AboutPage />} />
         </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
