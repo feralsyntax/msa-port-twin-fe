@@ -3,10 +3,9 @@ import './PredictionDetailsHeader.scss';
 
 interface PredictionDetailsHeaderProps {
   predictionId: string;
-  status: 'completed' | 'failed';
 }
 
-const PredictionDetailsHeader = ({ predictionId, status }: PredictionDetailsHeaderProps) => {
+const PredictionDetailsHeader = ({ predictionId }: PredictionDetailsHeaderProps) => {
   const navigate = useNavigate();
 
   return (
@@ -20,12 +19,6 @@ const PredictionDetailsHeader = ({ predictionId, status }: PredictionDetailsHead
         <span className="prediction-details-header__separator">/</span>
         <span className="prediction-details-header__current">{predictionId}</span>
       </button>
-
-      <span
-        className={`prediction-details-header__status prediction-details-header__status--${status}`}
-      >
-        {status.toUpperCase()}
-      </span>
     </header>
   );
 };

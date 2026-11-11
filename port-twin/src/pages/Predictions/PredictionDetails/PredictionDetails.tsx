@@ -42,7 +42,7 @@ export const PredictionDetailsPage = () => {
 
   return (
     <div className="prediction-details-page">
-      <PredictionDetailsHeader predictionId={displayId} status={'completed'} />
+      <PredictionDetailsHeader predictionId={displayId} />
 
       <main className="prediction-details-page__content">
         <div className="prediction-details-page__status-header">
