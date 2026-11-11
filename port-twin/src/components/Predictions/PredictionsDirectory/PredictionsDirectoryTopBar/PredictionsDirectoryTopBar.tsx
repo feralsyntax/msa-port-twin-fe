@@ -14,7 +14,7 @@ const PredictionsDirectoryTopBar = () => {
       <button
         className="predictions-directory-top-bar__new-button"
         type="button"
-        onClick={() => navigate('/app/marine-predictions/new')}
+        onClick={() => navigate('/app/predictions/new')}
       >
         <span className="material-symbols-outlined" aria-hidden="true">
           add
