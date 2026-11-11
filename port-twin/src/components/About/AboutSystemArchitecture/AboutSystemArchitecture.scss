@@ -1,0 +1,72 @@
+@use '../../../styles/tokens' as *;
+
+.about-system-architecture {
+  padding-top: 32px;
+  margin-bottom: 48px;
+  border-top: 1px solid $hairline;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__container {
+    padding: 16px;
+    background: $canvas-1;
+    border: 1px solid $hairline;
+    border-radius: 4px;
+  }
+
+  &__technologies {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  &__technology-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__technology {
+    padding: 6px 10px;
+    color: $ink-0;
+    background: $canvas-0;
+    border: 1px solid $hairline;
+    border-radius: 4px;
+    font-family: $font-mono;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  &__separator {
+    color: $ink-2;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-system-architecture {
+    &__technology-group {
+      gap: 8px;
+    }
+
+    &__technology {
+      font-size: 10px;
+    }
+  }
+}
