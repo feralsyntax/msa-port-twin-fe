@@ -1,0 +1,52 @@
+.prediction-target-grid {
+  padding: 20px;
+  border: 1px solid #1e2e3f;
+  border-radius: 4px;
+  background: #0c1c2a;
+
+  h3 {
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #1e2e3f;
+    color: #e6f0f5;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  dl {
+    margin: 8px 0 0;
+  }
+
+  &__row {
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid rgba(30, 46, 63, 0.4);
+
+    &.is-last {
+      border-bottom: 0;
+    }
+  }
+
+  dt {
+    color: #5f7688;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    color: #e6f0f5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-align: right;
+  }
+}
