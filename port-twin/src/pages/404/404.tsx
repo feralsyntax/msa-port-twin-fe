@@ -1,17 +1,11 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './404.scss';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleStepBack = () => {
-    if (location.key !== 'default' && window.history.length > 1) {
-      navigate(-1);
-      return;
-    }
-
-    navigate('/app/dashboard');
+    navigate(-1);
   };
 
   return (
