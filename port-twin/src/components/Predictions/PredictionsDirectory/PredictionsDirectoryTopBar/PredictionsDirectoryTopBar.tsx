@@ -8,7 +8,6 @@ const PredictionsDirectoryTopBar = () => {
     <header className="predictions-directory-top-bar">
       <div className="predictions-directory-top-bar__heading">
         <h1>Marine Predictions</h1>
-        <span className="predictions-directory-top-bar__demo-label">DEMO DATA</span>
       </div>
 
       <button
