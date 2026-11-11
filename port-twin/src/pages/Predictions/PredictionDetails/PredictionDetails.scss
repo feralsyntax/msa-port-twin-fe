@@ -1,0 +1,134 @@
+.prediction-details-page {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #e6f0f5;
+  background: #06121b;
+  font-family: 'Inter', sans-serif;
+
+  &__content {
+    width: 100%;
+    max-width: 1720px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 24px 32px 32px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+  }
+
+  &__status-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(30, 46, 63, 0.6);
+  }
+
+  &__identity {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    h1 {
+      margin: 0;
+      color: #e6f0f5;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__status {
+    height: 22px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(93, 181, 128, 0.3);
+    border-radius: 2px;
+    color: #5db580;
+    background: rgba(93, 181, 128, 0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    > span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #5db580;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+  }
+
+  &__visualization {
+    min-width: 0;
+    grid-column: span 8;
+  }
+
+  &__metadata {
+    min-width: 0;
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .prediction-details-page {
+    &__content {
+      padding: 24px;
+    }
+
+    &__visualization {
+      grid-column: span 7;
+    }
+
+    &__metadata {
+      grid-column: span 5;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .prediction-details-page {
+    &__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__visualization,
+    &__metadata {
+      grid-column: 1;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .prediction-details-page {
+    &__content {
+      padding: 18px 14px 24px;
+      gap: 18px;
+    }
+
+    &__identity h1 {
+      font-size: 22px;
+    }
+  }
+}
