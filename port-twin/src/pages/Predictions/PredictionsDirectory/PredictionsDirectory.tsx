@@ -60,7 +60,7 @@ const SAMPLE_PREDICTIONS: MarinePrediction[] = [
 
 const PAGE_SIZE = 6;
 
-export const MarinePredictionsPage = () => {
+export const PredictionsDirectoryPage = () => {
   const navigate = useNavigate();
 
   const [activeFilter, setActiveFilter] = useState<PredictionFilter>('all');
@@ -107,7 +107,7 @@ export const MarinePredictionsPage = () => {
   };
 
   return (
-    <div className="marine-predictions-page">
+    <div className="predictions-directory-page">
       <PredictionsDirectoryTopBar />
 
       <PredictionsDirectoryStatusTabs
@@ -135,4 +135,4 @@ export const MarinePredictionsPage = () => {
   );
 };
 
-export default MarinePredictionsPage;
+export default PredictionsDirectoryPage;
