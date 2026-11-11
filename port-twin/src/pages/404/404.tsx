@@ -199,7 +199,7 @@ const NotFoundPage = () => {
           <button
             type="button"
             className="not-found-page__dashboard-button"
-            onClick={() => navigate('/app/dashboard')}
+            onClick={() => navigate('/app')}
           >
             <span className="material-symbols-outlined">grid_view</span>
             <span>Return to Dashboard</span>
