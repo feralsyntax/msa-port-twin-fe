@@ -1,0 +1,389 @@
+.not-found-page {
+  // Design tokens from Stitch
+  --canvas-0: #06121b;
+  --canvas-1: #0c1c2a;
+  --canvas-2: #14283b;
+  --hairline: #1e2e3f;
+  --hairline-strong: #2c4257;
+  --ink-0: #e6f0f5;
+  --ink-1: #9cb0c2;
+  --ink-2: #5f7688;
+  --signal: #00d2c8;
+  --signal-dim: #0b9993;
+  --amber: #f5a623;
+  --coral: #ff5c6c;
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24px;
+  background: var(--canvas-0);
+  color: var(--ink-0);
+  font-family: 'Inter', sans-serif;
+  isolation: isolate;
+
+  // Background radar contours
+  &__background {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  &__radar {
+    width: 840px;
+    height: 840px;
+    max-width: none;
+    flex-shrink: 0;
+    color: var(--hairline);
+  }
+
+  &__signal-ring {
+    color: rgba(11, 153, 147, 0.3);
+  }
+
+  // Main content column
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // Compass rose
+  &__compass {
+    position: relative;
+    display: flex;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  &__compass-halo {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(30, 46, 63, 0.6);
+    border-radius: 50%;
+    background: rgba(12, 28, 42, 0.4);
+  }
+
+  &__compass-inner {
+    width: 48px;
+    height: 48px;
+    border: 1px dashed var(--hairline);
+    border-radius: 50%;
+  }
+
+  &__compass-rose {
+    width: 56px;
+    height: 56px;
+    color: var(--signal);
+    transform: rotate(45deg);
+    transition: transform 700ms ease-out;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__deviation {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    padding: 3px 4px;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    background: var(--canvas-1);
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  // Telemetry status
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 4px 10px;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    background: var(--canvas-1);
+    color: var(--coral);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  &__status-dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--coral);
+  }
+
+  // 404 display
+  &__error-code {
+    margin-bottom: 8px;
+    color: var(--ink-0);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    user-select: text;
+  }
+
+  &__heading {
+    margin: 0 0 12px;
+    color: var(--ink-0);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+  }
+
+  &__description {
+    max-width: 420px;
+    margin: 0 0 24px;
+    color: var(--ink-1);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  // Resolver telemetry panel
+  &__telemetry {
+    width: 100%;
+    margin-bottom: 32px;
+    padding: 12px;
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    background: var(--canvas-1);
+    text-align: left;
+  }
+
+  &__telemetry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--ink-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  &__telemetry-status {
+    color: var(--coral);
+    text-align: right;
+  }
+
+  &__coordinates {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 6px;
+    color: var(--ink-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+
+    > div {
+      min-width: 0;
+    }
+  }
+
+  &__coordinate-label {
+    color: var(--ink-2);
+  }
+
+  &__coordinate-value {
+    margin-left: 6px;
+    color: var(--ink-1);
+    white-space: nowrap;
+  }
+
+  &__projection {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 4px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(30, 46, 63, 0.6);
+
+    span:last-child {
+      color: var(--amber);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+
+  // Action buttons
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__dashboard-button,
+  &__back-button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
+  &__dashboard-button {
+    padding: 10px 20px;
+    border: 1px solid var(--signal);
+    background: var(--signal);
+    color: var(--canvas-0);
+    letter-spacing: 0.025em;
+
+    &:hover {
+      border-color: var(--signal-dim);
+      background: var(--signal-dim);
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--signal);
+      outline-offset: 3px;
+    }
+  }
+
+  &__back-button {
+    padding: 10px 16px;
+    border: 1px solid var(--hairline);
+    background: var(--canvas-1);
+    color: var(--ink-1);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+
+    .material-symbols-outlined {
+      color: var(--ink-2);
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: var(--canvas-2);
+      color: var(--ink-0);
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--signal);
+      outline-offset: 3px;
+    }
+  }
+
+  // Responsive adjustments
+  @media (min-width: 640px) {
+    &__error-code {
+      font-size: 72px;
+    }
+
+    &__actions {
+      width: auto;
+    }
+
+    &__dashboard-button,
+    &__back-button {
+      width: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 16px;
+
+    &__radar {
+      width: 680px;
+      height: 680px;
+    }
+
+    &__error-code {
+      font-size: 60px;
+    }
+
+    &__heading {
+      font-size: 22px;
+    }
+
+    &__status {
+      font-size: 9px;
+    }
+
+    &__coordinates {
+      font-size: 9px;
+    }
+
+    &__projection span:last-child {
+      font-size: 10px;
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    &__dashboard-button,
+    &__back-button {
+      width: 100%;
+    }
+  }
+
+  @media (max-height: 700px) {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &__compass {
+      margin-bottom: 16px;
+    }
+
+    &__telemetry {
+      margin-bottom: 20px;
+    }
+  }
+}
