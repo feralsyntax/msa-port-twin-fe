@@ -1,0 +1,67 @@
+@use '../../../styles/tokens' as *;
+
+.about-thesis {
+  display: flex;
+  flex-direction: column;
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  &__specification,
+  &__category {
+    font-family: $font-mono;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+
+  &__specification {
+    color: $signal;
+  }
+
+  &__separator,
+  &__category {
+    color: $ink-2;
+  }
+
+  &__title {
+    max-width: 850px;
+    margin: 0;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+  }
+
+  &__description {
+    max-width: 700px;
+    margin: 16px 0 0;
+    color: $ink-1;
+    font-family: $font-sans;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-thesis {
+    &__title {
+      font-size: 26px;
+    }
+
+    &__description {
+      font-size: 14px;
+    }
+
+    &__eyebrow {
+      flex-wrap: wrap;
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Shell from './layouts/Shell';
 import Dashboard from './pages/Dashboard/Dashboard';
-import PlaceholderPage from './pages/PlaceholderPage';
 import MapPage from './pages/Map/Map';
 import LandingPage from './pages/Landing/Landing';
 import VesselsDirectoryPage from './pages/Vessels/VesselDirectory/VesselDirectory';
@@ -20,6 +19,7 @@ import SimulationsComparisonPage from './pages/Simulations/SimulationsComparison
 import AddPredictionPage from './pages/Predictions/AddPrediction/AddPrediction';
 import PredictionsDirectoryPage from './pages/Predictions/PredictionsDirectory/PredictionsDirectory';
 import PredictionDetailsPage from './pages/Predictions/PredictionDetails/PredictionDetails';
+import AboutPage from './pages/About/About';
 
 export default function App() {
   return (
@@ -49,7 +49,7 @@ export default function App() {
           <Route path="predictions/new" element={<AddPredictionPage />} />
           <Route path="predictions/:predictionId" element={<PredictionDetailsPage />} />
           <Route path="map" element={<MapPage />} />
-          <Route path="about" element={<PlaceholderPage title="About" />} />
+          <Route path="about" element={<AboutPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
