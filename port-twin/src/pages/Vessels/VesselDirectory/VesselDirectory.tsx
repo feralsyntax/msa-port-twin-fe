@@ -5,21 +5,26 @@ import VesselTable from '../../../components/Vessels/VesselDirectory/VesselTable
 import VesselPagination from '../../../components/Vessels/VesselDirectory/VesselPagination/VesselPagination';
 import './VesselDirectory.scss';
 import { useGetVessels } from '../../../hooks/vessels/useGetVessels';
+import { parseApiError } from '../../../utils/apiError';
+import './VesselDirectory.scss';
 
 const PAGE_SIZE = 20;
 
 const VesselsDirectoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isPending, isError, isPlaceholderData, refetch } = useGetVessels(currentPage);
+  const { data, isPending, isError, error, isPlaceholderData, refetch, isFetching } =
+    useGetVessels(currentPage);
 
   const vessels = data?.results ?? [];
 
   const totalItems = data?.count ?? 0;
-  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 0;
 
   const canGoPrevious = Boolean(data?.previous);
   const canGoNext = Boolean(data?.next);
+
+  const parsedError = isError ? parseApiError(error) : null;
 
   const handlePageChange = (page: number) => {
     if (isPlaceholderData) return;
@@ -35,11 +40,24 @@ const VesselsDirectoryPage = () => {
       <main className="vessels-page__content">
         {isPending ? (
           <p role="status">Loading vessels...</p>
-        ) : isError ? (
-          <div role="alert">
-            <p>Failed to load vessels.</p>
-            <button type="button" onClick={() => refetch()}>
-              Try again
+        ) : isError && parsedError ? (
+          <div className="vessels-page__error" role="alert">
+            <p className="vessels-page__error-title">Failed to load vessels</p>
+            <p className="vessels-page__error-message">{parsedError.message}</p>
+            {(parsedError.status || parsedError.code) && (
+              <p className="vessels-page__error-meta">
+                {parsedError.status != null && <span>HTTP {parsedError.status}</span>}
+                {parsedError.status != null && parsedError.code && ' · '}
+                {parsedError.code && <span>{parsedError.code}</span>}
+              </p>
+            )}
+            <button
+              type="button"
+              className="vessels-page__error-retry"
+              onClick={() => refetch()}
+              disabled={isFetching}
+            >
+              {isFetching ? 'Retrying…' : 'Try again'}
             </button>
           </div>
         ) : (
