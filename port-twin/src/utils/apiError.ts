@@ -3,29 +3,29 @@ import type { AxiosError } from 'axios';
 
 /** Matches OpenAPI APIErrorDetail / APIErrorResponse */
 export interface ApiErrorDetail {
-  code: string
-  message: string
-  details?: unknown
+  code: string;
+  message: string;
+  details?: unknown;
 }
 
 export interface ParsedApiError {
-  status?: number
-  code?: string
-  message: string
-  details?: unknown
-  isNetworkError: boolean
-  isTimeout: boolean
+  status?: number;
+  code?: string;
+  message: string;
+  details?: unknown;
+  isNetworkError: boolean;
+  isTimeout: boolean;
 }
 
 type ApiErrorBody = {
   error?: {
-    code?: string
-    message?: string
-    details?: unknown
-  }
-  detail?: string | Array<{ msg?: string; message?: string }>
-  message?: string
-}
+    code?: string;
+    message?: string;
+    details?: unknown;
+  };
+  detail?: string | Array<{ msg?: string; message?: string }>;
+  message?: string;
+};
 
 export function parseApiError(error: unknown): ParsedApiError {
   if (!axios.isAxiosError(error)) {
@@ -33,18 +33,17 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: error instanceof Error ? error.message : 'Something went wrong.',
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
-  const axiosError = error as AxiosError<ApiErrorBody>
-  const status = axiosError.response?.status
-  const data = axiosError.response?.data
+  const axiosError = error as AxiosError<ApiErrorBody>;
+  const status = axiosError.response?.status;
+  const data = axiosError.response?.data;
 
   const isTimeout =
-    axiosError.code === 'ECONNABORTED' ||
-    axiosError.message.toLowerCase().includes('timeout')
+    axiosError.code === 'ECONNABORTED' || axiosError.message.toLowerCase().includes('timeout');
 
-  const isNetworkError = !axiosError.response && axiosError.request != null
+  const isNetworkError = !axiosError.response && axiosError.request != null;
 
   // Prefer schema shape: { error: { code, message, details } }
   if (data?.error?.message) {
@@ -55,7 +54,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       details: data.error.details,
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   // Common DRF fallbacks
@@ -65,17 +64,17 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: data.detail,
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   if (Array.isArray(data?.detail) && data.detail.length > 0) {
-    const first = data.detail[0]
+    const first = data.detail[0];
     return {
       status,
       message: first.msg ?? first.message ?? 'Request failed.',
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   if (typeof data?.message === 'string') {
@@ -84,7 +83,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: data.message,
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   if (isTimeout) {
@@ -93,7 +92,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: 'Request timed out. Check that the API is reachable.',
       isNetworkError: false,
       isTimeout: true,
-    }
+    };
   }
 
   if (isNetworkError) {
@@ -102,7 +101,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: 'Cannot reach the API. Confirm the backend is running.',
       isNetworkError: true,
       isTimeout: false,
-    }
+    };
   }
 
   if (status === 404) {
@@ -111,7 +110,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: 'Resource not found.',
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   if (status && status >= 500) {
@@ -120,7 +119,7 @@ export function parseApiError(error: unknown): ParsedApiError {
       message: 'Server error. Try again in a moment.',
       isNetworkError: false,
       isTimeout: false,
-    }
+    };
   }
 
   return {
@@ -128,5 +127,5 @@ export function parseApiError(error: unknown): ParsedApiError {
     message: axiosError.message || 'Request failed.',
     isNetworkError: false,
     isTimeout: false,
-  }
+  };
 }

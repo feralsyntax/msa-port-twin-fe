@@ -13,7 +13,8 @@ const PAGE_SIZE = 20;
 const VesselsDirectoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isPending, isError,error, isPlaceholderData, refetch, isFetching } = useGetVessels(currentPage);
+  const { data, isPending, isError, error, isPlaceholderData, refetch, isFetching } =
+    useGetVessels(currentPage);
 
   const vessels = data?.results ?? [];
 
@@ -45,9 +46,7 @@ const VesselsDirectoryPage = () => {
             <p className="vessels-page__error-message">{parsedError.message}</p>
             {(parsedError.status || parsedError.code) && (
               <p className="vessels-page__error-meta">
-                {parsedError.status != null && (
-                  <span>HTTP {parsedError.status}</span>
-                )}
+                {parsedError.status != null && <span>HTTP {parsedError.status}</span>}
                 {parsedError.status != null && parsedError.code && ' · '}
                 {parsedError.code && <span>{parsedError.code}</span>}
               </p>
@@ -89,9 +88,7 @@ const VesselsDirectoryPage = () => {
               />
             </div>
 
-            {isPlaceholderData && (
-              <p role="status">Loading the selected page...</p>
-            )}
+            {isPlaceholderData && <p role="status">Loading the selected page...</p>}
           </>
         )}
       </main>
