@@ -23,7 +23,7 @@ const VesselsDirectoryPage = () => {
   const canGoPrevious = Boolean(data?.previous);
   const canGoNext = Boolean(data?.next);
 
-  const parsedError = isError ? parseApiError(Error) : null;
+  const parsedError = isError ? parseApiError(error) : null;
 
   const handlePageChange = (page: number) => {
     if (isPlaceholderData) return;
