@@ -1,0 +1,54 @@
+.server-errors {
+  &__error {
+    margin: 24px 0;
+    padding: 16px;
+    max-width: 480px;
+    background: #0c1c2a;
+    border: 1px solid #1e2e3f;
+    border-radius: 4px;
+  }
+
+  &__error-title {
+    margin: 0 0 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e6f0f5;
+  }
+
+  &__error-message {
+    margin: 0 0 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #9cb0c2;
+  }
+
+  &__error-meta {
+    margin: 0 0 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #5f7688;
+  }
+
+  &__error-retry {
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid #1e2e3f;
+    border-radius: 2px;
+    background: #14283b;
+    color: #e6f0f5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      border-color: #00d2c8;
+      color: #00d2c8;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import './VesselDirectory.scss';
 import { useGetVessels } from '../../../hooks/vessels/useGetVessels';
 import { parseApiError } from '../../../utils/apiError';
 import './VesselDirectory.scss';
+import ServerErrors from '../../../components/errors/ServerErrors';
 
 const PAGE_SIZE = 20;
 
@@ -38,28 +39,15 @@ const VesselsDirectoryPage = () => {
       <TopBar />
 
       <main className="vessels-page__content">
-        {isPending ? (
-          <p role="status">Loading vessels...</p>
-        ) : isError && parsedError ? (
-          <div className="vessels-page__error" role="alert">
-            <p className="vessels-page__error-title">Failed to load vessels</p>
-            <p className="vessels-page__error-message">{parsedError.message}</p>
-            {(parsedError.status || parsedError.code) && (
-              <p className="vessels-page__error-meta">
-                {parsedError.status != null && <span>HTTP {parsedError.status}</span>}
-                {parsedError.status != null && parsedError.code && ' · '}
-                {parsedError.code && <span>{parsedError.code}</span>}
-              </p>
-            )}
-            <button
-              type="button"
-              className="vessels-page__error-retry"
-              onClick={() => refetch()}
-              disabled={isFetching}
-            >
-              {isFetching ? 'Retrying…' : 'Try again'}
-            </button>
-          </div>
+        {isPending || isError || parsedError || isFetching ? (
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="vessels"
+          />
         ) : (
           <>
             <VesselFilters
