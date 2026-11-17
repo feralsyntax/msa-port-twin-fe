@@ -9,6 +9,7 @@ interface ServerErrorsProps {
   parsedError: ParsedApiError | null;
   refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult>;
   requestedData: string;
+  noData: boolean;
 }
 
 const ServerErrors = ({
@@ -18,6 +19,7 @@ const ServerErrors = ({
   parsedError,
   refetch,
   requestedData,
+  noData,
 }: ServerErrorsProps) => {
   return (
     <>
@@ -42,6 +44,14 @@ const ServerErrors = ({
           >
             {isFetching ? 'Retrying…' : 'Try again'}
           </button>
+        </div>
+      ) : noData ? (
+        <div className="server-errors__error" role="alert">
+          <p className="server-errors__error-title">No {requestedData} found</p>
+          <p className="server-errors__error-message">
+            No {requestedData} have been added yet; {requestedData} will appear here once they're
+            added.
+          </p>
         </div>
       ) : null}
     </>
