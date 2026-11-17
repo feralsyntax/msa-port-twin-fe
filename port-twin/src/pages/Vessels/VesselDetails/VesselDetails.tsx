@@ -9,12 +9,21 @@ import './VesselDetails.scss';
 import { useGetVesselDetails } from '../../../hooks/vessels/useGetVesselDetails';
 import { useGetVesselPositions } from '../../../hooks/vessels/useGetVesselPositions';
 import type { VesselPosition } from '../../../api/models';
+import { parseApiError } from '../../../utils/apiError';
+import ServerErrors from '../../../components/errors/ServerErrors';
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
 
   const { vesselId } = useParams<{ vesselId: string }>();
 
-  const { data: vessel, isPending, isError, refetch } = useGetVesselDetails(vesselId);
+  const {
+    data: vessel,
+    isPending,
+    isError,
+    error,
+    refetch,
+    isFetching,
+  } = useGetVesselDetails(vesselId);
 
   const { data: positionsData } = useGetVesselPositions(vesselId);
 
@@ -46,42 +55,39 @@ const VesselDetailsPage = () => {
     navigate('/app/simulations');
   };
 
-  if (isPending) {
-    return <p role="status">Loading vessel details...</p>;
-  }
-
-  if (isError) {
-    return (
-      <div role="alert" className="alert">
-        <p>Failed to load vessel details.</p>
-        <button type="button" onClick={() => refetch()}>
-          Try again
-        </button>
-      </div>
-    );
-  }
-
-  if (!vessel) {
-    return <p>Vessel not found.</p>;
-  }
+  const parsedError = isError ? parseApiError(error) : null;
 
   return (
     <main className="vessel-details-page">
-      <VesselDetailsTopBar vesselName={vessel.name} />
+      {isPending || isError || parsedError || isFetching || !vessel ? (
+        <ServerErrors
+          isPending={isPending}
+          isError={isError}
+          isFetching={isFetching}
+          parsedError={parsedError}
+          refetch={refetch}
+          requestedData="vessels"
+          noData={!vessel}
+        />
+      ) : (
+        <>
+          <VesselDetailsTopBar vesselName={vessel.name} />
 
-      <div className="vessel-details-page__content">
-        <VesselIdentityHeader vessel={vessel} />
+          <div className="vessel-details-page__content">
+            <VesselIdentityHeader vessel={vessel} />
 
-        <VesselSpecifications vessel={vessel} />
+            <VesselSpecifications vessel={vessel} />
 
-        <section className="vessel-details-page__overview">
-          <VesselIdentityPanel vessel={vessel} />
+            <section className="vessel-details-page__overview">
+              <VesselIdentityPanel vessel={vessel} />
 
-          <LastKnownPositionPanel position={position} />
-        </section>
+              <LastKnownPositionPanel position={position} />
+            </section>
 
-        <VesselSimulationUsage runCount={0} onViewSimulations={handleViewSimulations} />
-      </div>
+            <VesselSimulationUsage runCount={0} onViewSimulations={handleViewSimulations} />
+          </div>
+        </>
+      )}
     </main>
   );
 };
