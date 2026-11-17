@@ -39,7 +39,7 @@ const VesselsDirectoryPage = () => {
       <TopBar />
 
       <main className="vessels-page__content">
-        {isPending || isError || parsedError || isFetching ? (
+        {isPending || isError || parsedError || isFetching || !vessels.length ? (
           <ServerErrors
             isPending={isPending}
             isError={isError}
@@ -47,6 +47,7 @@ const VesselsDirectoryPage = () => {
             parsedError={parsedError}
             refetch={refetch}
             requestedData="vessels"
+            noData={!vessels.length}
           />
         ) : (
           <>
