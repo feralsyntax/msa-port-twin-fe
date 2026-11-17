@@ -24,7 +24,7 @@ const ServerErrors = ({
       {isPending ? (
         <p role="status">Loading {requestedData}...</p>
       ) : isError && parsedError ? (
-        <div className="server-errors" role="alert">
+        <div className="server-errors__error" role="alert">
           <p className="server-errors__error-title">Failed to load {requestedData}</p>
           <p className="server-errors__error-message">{parsedError.message}</p>
           {(parsedError.status || parsedError.code) && (
