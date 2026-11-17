@@ -46,24 +46,7 @@ const VesselDetailsPage = () => {
     navigate('/app/simulations');
   };
 
-  if (isPending) {
-    return <p role="status">Loading vessel details...</p>;
-  }
-
-  if (isError) {
-    return (
-      <div role="alert" className="alert">
-        <p>Failed to load vessel details.</p>
-        <button type="button" onClick={() => refetch()}>
-          Try again
-        </button>
-      </div>
-    );
-  }
-
-  if (!vessel) {
-    return <p>Vessel not found.</p>;
-  }
+  
 
   return (
     <main className="vessel-details-page">
