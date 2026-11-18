@@ -3,7 +3,7 @@ import { vesselsCreate } from '../../api/generated';
 import type { VesselCreateRequest } from '../../api/models';
 
 export const useAddVessel = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (data: VesselCreateRequest) => vesselsCreate(data),
@@ -11,8 +11,8 @@ export const useAddVessel = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['vesselsList'],
-      })
+      });
     },
     // Errors are handled in the page via mutation.error + parseApiError
-  })
-}
+  });
+};

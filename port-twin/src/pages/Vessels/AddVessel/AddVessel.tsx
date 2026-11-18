@@ -26,24 +26,24 @@ const AddVesselPage = () => {
       width: '',
       draft: '',
     },
-  })
+  });
 
-  const navigate = useNavigate()
-  const addVessel = useAddVessel()
+  const navigate = useNavigate();
+  const addVessel = useAddVessel();
 
-  const parsedError = addVessel.isError ? parseApiError(addVessel.error) : null
+  const parsedError = addVessel.isError ? parseApiError(addVessel.error) : null;
 
   const onSubmit = (data: VesselCreateRequest) => {
     addVessel.mutate(data, {
       onSuccess: () => {
-        reset()
+        reset();
       },
-    })
-  }
+    });
+  };
 
   const handleCancel = () => {
-    navigate('/app/vessels')
-  }
+    navigate('/app/vessels');
+  };
 
   return (
     <div className="add-vessel-page">
@@ -76,15 +76,12 @@ const AddVesselPage = () => {
 
             <VesselDimensionsForm register={register} errors={errors} />
 
-            <AddVesselActions
-              isSubmitting={addVessel.isPending}
-              onCancel={handleCancel}
-            />
+            <AddVesselActions isSubmitting={addVessel.isPending} onCancel={handleCancel} />
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddVesselPage
+export default AddVesselPage;
