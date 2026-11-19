@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import TopBar from '../../../components/Berths/BerthDirectory/TopBar/TopBar';
 import BerthFilters, {
@@ -6,80 +6,87 @@ import BerthFilters, {
 } from '../../../components/Berths/BerthDirectory/BerthFilters/BerthFilters';
 import BerthTable from '../../../components/Berths/BerthDirectory/BerthTable/BerthTable';
 import BerthPagination from '../../../components/Berths/BerthDirectory/BerthPagination/BerthPagination';
-
-import './BerthDirectory.scss';
 import { useGetBerths } from '../../../hooks/berths/useGetBerths';
+import { parseApiError } from '../../../utils/apiError';
+import ServerErrors from '../../../components/errors/ServerErrors';
+import './BerthDirectory.scss';
 
 const PAGE_SIZE = 20;
 
-const DEMO_COUNTS = {
-  occupied: 8,
-  available: 12,
-};
-
 const BerthDirectoryPage = () => {
   const [activeFilter, setActiveFilter] = useState<BerthFilterStatus>('all');
-
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isPending, isError, isPlaceholderData, refetch } = useGetBerths(currentPage);
+  const { data, isPending, isError, error, isPlaceholderData, refetch, isFetching } =
+    useGetBerths(currentPage);
 
-  const berths = data?.results ?? [];
+  const berths = useMemo(() => data?.results ?? [], [data?.results]);
   const totalItems = data?.count ?? 0;
-  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 0;
+
+  const parsedError = isError ? parseApiError(error) : null;
+
+  // Counts from loaded page data (no hard-coded DEMO_COUNTS)
+  const counts = useMemo(() => {
+    const occupied = berths.filter((b) => b.is_occupied).length;
+    const available = berths.filter((b) => !b.is_occupied).length;
+    return {
+      all: totalItems,
+      occupied,
+      available,
+    };
+  }, [berths, totalItems]);
+
+  const filteredBerths = useMemo(() => {
+    if (activeFilter === 'occupied') {
+      return berths.filter((b) => b.is_occupied);
+    }
+    if (activeFilter === 'available') {
+      return berths.filter((b) => !b.is_occupied);
+    }
+    return berths;
+  }, [activeFilter, berths]);
 
   const handleFilterChange = (filter: BerthFilterStatus) => {
     setActiveFilter(filter);
   };
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages || isPlaceholderData) {
-      return;
-    }
-
+    if (isPlaceholderData) return;
+    if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
   };
+
+  const showBlockingState = isPending || isError || parsedError != null || !berths.length;
 
   return (
     <div className="berths-page">
       <TopBar />
 
       <main className="berths-page__content">
-        <BerthFilters
-          activeFilter={activeFilter}
-          onFilterChange={handleFilterChange}
-          counts={{
-            all: totalItems,
-            occupied: DEMO_COUNTS.occupied,
-            available: DEMO_COUNTS.available,
-          }}
-        />
+        {showBlockingState ? (
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="berths"
+            noData={!isPending && !isError && berths.length === 0}
+          />
+        ) : (
+          <>
+            <BerthFilters
+              activeFilter={activeFilter}
+              onFilterChange={handleFilterChange}
+              counts={counts}
+            />
 
-        <div className="berths-page__table">
-          {isPending ? (
-            <div className="berths-page__state">Loading berths...</div>
-          ) : isError && !data ? (
-            <div className="berths-page__state" role="alert">
-              <p>Unable to load berths.</p>
-              <button type="button" onClick={() => refetch()}>
-                Try again
-              </button>
-            </div>
-          ) : (
-            <>
-              {isError && (
-                <div role="alert" className="berths-page__error">
-                  Unable to refresh berth data. Showing previously loaded results.
-                  <button type="button" onClick={() => refetch()}>
-                    Retry
-                  </button>
-                </div>
-              )}
-
-              <BerthTable berths={berths} />
+            <div className="berths-page__table">
+              <BerthTable berths={filteredBerths} />
 
               <BerthPagination
-                currentPage={totalItems === 0 ? 0 : currentPage}
+                currentPage={currentPage}
                 totalPages={totalPages}
                 totalItems={totalItems}
                 pageSize={PAGE_SIZE}
@@ -87,9 +94,11 @@ const BerthDirectoryPage = () => {
                 canGoPrevious={Boolean(data?.previous) && !isPlaceholderData}
                 canGoNext={Boolean(data?.next) && !isPlaceholderData}
               />
-            </>
-          )}
-        </div>
+            </div>
+
+            {isPlaceholderData && <p role="status">Loading the selected page...</p>}
+          </>
+        )}
       </main>
     </div>
   );
