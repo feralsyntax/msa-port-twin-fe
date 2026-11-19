@@ -20,7 +20,7 @@ const BerthDirectoryPage = () => {
   const { data, isPending, isError, error, isPlaceholderData, refetch, isFetching } =
     useGetBerths(currentPage);
 
-  const berths = data?.results ?? [];
+  const berths = useMemo(() => data?.results ?? [], [data?.results]);
   const totalItems = data?.count ?? 0;
   const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 0;
 
