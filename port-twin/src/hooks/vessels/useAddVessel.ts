@@ -9,14 +9,10 @@ export const useAddVessel = () => {
     mutationFn: (data: VesselCreateRequest) => vesselsCreate(data),
 
     onSuccess: () => {
-      // Refresh the vessels list after successful registration.
       queryClient.invalidateQueries({
         queryKey: ['vesselsList'],
       });
     },
-
-    onError: (error) => {
-      console.error('Failed to register vessel:', error);
-    },
+    // Errors are handled in the page via mutation.error + parseApiError
   });
 };
