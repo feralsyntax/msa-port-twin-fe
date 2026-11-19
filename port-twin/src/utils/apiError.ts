@@ -129,3 +129,79 @@ export function parseApiError(error: unknown): ParsedApiError {
     isTimeout: false,
   };
 }
+
+
+/** Field name → first server message (for react-hook-form setError) */
+export type FieldErrorMap = Partial<Record<string, string>>
+
+function firstMessage(value: unknown): string | undefined {
+  if (typeof value === 'string' && value.trim()) return value
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const msg = firstMessage(item)
+      if (msg) return msg
+    }
+  }
+  if (value && typeof value === 'object' && 'message' in value) {
+    return firstMessage((value as { message: unknown }).message)
+  }
+  return undefined
+}
+
+/**
+ * Pull per-field messages from common API shapes:
+ * - { error: { details: { field: ["msg"] } } }  (schema APIErrorResponse)
+ * - { name: ["msg"], imo_number: ["msg"] }      (DRF default)
+ * - { error: { details: { fields: { ... } } } }
+ */
+export function getFieldErrors(error: unknown): FieldErrorMap {
+  if (!axios.isAxiosError(error)) return {}
+
+  const data = error.response?.data as Record<string, unknown> | undefined
+  if (!data || typeof data !== 'object') return {}
+
+  const out: FieldErrorMap = {}
+
+  const assignFrom = (source: Record<string, unknown>) => {
+    for (const [key, value] of Object.entries(source)) {
+      if (key === 'error' || key === 'detail' || key === 'message' || key === 'non_field_errors') {
+        continue
+      }
+      const msg = firstMessage(value)
+      if (msg) out[key] = msg
+    }
+  }
+
+  // Schema: { error: { details: { ...fields } } }
+  const envelope = data.error
+  if (envelope && typeof envelope === 'object') {
+    const details = (envelope as { details?: unknown }).details
+    if (details && typeof details === 'object' && !Array.isArray(details)) {
+      const d = details as Record<string, unknown>
+      if (d.fields && typeof d.fields === 'object' && !Array.isArray(d.fields)) {
+        assignFrom(d.fields as Record<string, unknown>)
+      } else {
+        assignFrom(d)
+      }
+    }
+  }
+
+  // DRF: top-level { field: ["..."] }
+  assignFrom(data)
+
+  // non_field_errors → special key for the banner
+  const nonField =
+    firstMessage(data.non_field_errors) ??
+    firstMessage(
+      envelope && typeof envelope === 'object'
+        ? (envelope as { details?: { non_field_errors?: unknown } }).details?.non_field_errors
+        : undefined,
+    )
+  if (nonField) out.non_field_errors = nonField
+
+  return out
+}
+
+export function hasFieldErrors(fields: FieldErrorMap): boolean {
+  return Object.keys(fields).some((k) => k !== 'non_field_errors')
+}
