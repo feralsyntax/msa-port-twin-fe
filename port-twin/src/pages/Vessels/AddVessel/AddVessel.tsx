@@ -8,11 +8,7 @@ import VesselDimensionsForm from '../../../components/Vessels/AddVessel/VesselDi
 import AddVesselActions from '../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions';
 import type { VesselCreateRequest } from '../../../api/models';
 import { useAddVessel } from '../../../hooks/vessels/useAddVessel';
-import {
-  getFieldErrors,
-  hasFieldErrors,
-  parseApiError,
-} from '../../../utils/apiError';
+import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
 
 const SERVER_FIELDS = [
   'name',
@@ -22,7 +18,7 @@ const SERVER_FIELDS = [
   'length_overall',
   'width',
   'draft',
-] as const satisfies ReadonlyArray<keyof VesselCreateRequest>
+] as const satisfies ReadonlyArray<keyof VesselCreateRequest>;
 
 const AddVesselPage = () => {
   const {
@@ -42,42 +38,42 @@ const AddVesselPage = () => {
       width: '',
       draft: '',
     },
-  })
+  });
 
-  const navigate = useNavigate()
-  const addVessel = useAddVessel()
+  const navigate = useNavigate();
+  const addVessel = useAddVessel();
 
-  const parsedError = addVessel.isError ? parseApiError(addVessel.error) : null
-  const fieldErrors = addVessel.isError ? getFieldErrors(addVessel.error) : {}
+  const parsedError = addVessel.isError ? parseApiError(addVessel.error) : null;
+  const fieldErrors = addVessel.isError ? getFieldErrors(addVessel.error) : {};
   const showFormBanner =
     addVessel.isError &&
     parsedError &&
-    (!hasFieldErrors(fieldErrors) || Boolean(fieldErrors.non_field_errors))
+    (!hasFieldErrors(fieldErrors) || Boolean(fieldErrors.non_field_errors));
 
   const onSubmit = (data: VesselCreateRequest) => {
-    clearErrors()
-    addVessel.reset()
+    clearErrors();
+    addVessel.reset();
 
     addVessel.mutate(data, {
       onSuccess: () => {
-        reset()
+        reset();
       },
       onError: (error) => {
-        const fields = getFieldErrors(error)
+        const fields = getFieldErrors(error);
 
         for (const name of SERVER_FIELDS) {
-          const message = fields[name]
+          const message = fields[name];
           if (message) {
-            setError(name, { type: 'server', message })
+            setError(name, { type: 'server', message });
           }
         }
       },
-    })
-  }
+    });
+  };
 
   const handleCancel = () => {
-    navigate('/app/vessels')
-  }
+    navigate('/app/vessels');
+  };
 
   return (
     <div className="add-vessel-page">
@@ -111,15 +107,12 @@ const AddVesselPage = () => {
             <VesselIdentityForm register={register} errors={errors} />
             <VesselDimensionsForm register={register} errors={errors} />
 
-            <AddVesselActions
-              isSubmitting={addVessel.isPending}
-              onCancel={handleCancel}
-            />
+            <AddVesselActions isSubmitting={addVessel.isPending} onCancel={handleCancel} />
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddVesselPage
+export default AddVesselPage;
