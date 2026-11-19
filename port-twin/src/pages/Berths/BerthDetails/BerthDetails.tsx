@@ -8,29 +8,40 @@ import BerthLocation from '../../../components/Berths/BerthDetails/BerthLocation
 import SimulationImpact from '../../../components/Berths/BerthDetails/SimulationImpact/SimulationImpact';
 
 import { useGetBerthDetails } from '../../../hooks/berths/useGetBerthDetails';
+import { parseApiError } from '../../../utils/apiError';
+import ServerErrors from '../../../components/errors/ServerErrors';
 
 import './BerthDetails.scss';
 
 const BerthDetailsPage = () => {
   const { berthId } = useParams<{ berthId: string }>();
 
-  const { data: berth, isPending, isError } = useGetBerthDetails(berthId);
+  const {
+    data: berth,
+    isPending,
+    isError,
+    error,
+    refetch,
+    isFetching,
+  } = useGetBerthDetails(berthId);
 
-  if (isPending) {
+  const parsedError = isError ? parseApiError(error) : null;
+
+  const showBlockingState = isPending || isError || parsedError != null || isFetching || !berth;
+
+  if (showBlockingState) {
     return (
       <main className="berth-details-page">
         <div className="berth-details-page__content">
-          <p>Loading berth details...</p>
-        </div>
-      </main>
-    );
-  }
-
-  if (isError || !berth) {
-    return (
-      <main className="berth-details-page">
-        <div className="berth-details-page__content">
-          <p>Unable to load berth details. Please try again.</p>
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="berth details"
+            noData={!isPending && !isError && !berth}
+          />
         </div>
       </main>
     );
