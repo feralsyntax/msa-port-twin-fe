@@ -129,78 +129,93 @@ export function parseApiError(error: unknown): ParsedApiError {
     isTimeout: false,
   };
 }
-
 /** Field name → first server message (for react-hook-form setError) */
-export type FieldErrorMap = Partial<Record<string, string>>;
+export type FieldErrorMap = Partial<Record<string, string>>
 
 function firstMessage(value: unknown): string | undefined {
-  if (typeof value === 'string' && value.trim()) return value;
+  if (typeof value === 'string' && value.trim()) return value
   if (Array.isArray(value)) {
     for (const item of value) {
-      const msg = firstMessage(item);
-      if (msg) return msg;
+      const msg = firstMessage(item)
+      if (msg) return msg
     }
   }
   if (value && typeof value === 'object' && 'message' in value) {
-    return firstMessage((value as { message: unknown }).message);
+    return firstMessage((value as { message: unknown }).message)
   }
-  return undefined;
+  return undefined
 }
 
 /**
  * Pull per-field messages from common API shapes:
  * - { error: { details: { field: ["msg"] } } }  (schema APIErrorResponse)
- * - { name: ["msg"], imo_number: ["msg"] }      (DRF default)
+ * - { name: ["msg"], parameters: { simulation_hours: ["msg"] } }  (DRF)
  * - { error: { details: { fields: { ... } } } }
+ *
+ * Nested objects are flattened to react-hook-form paths (e.g. parameters.simulation_hours).
  */
 export function getFieldErrors(error: unknown): FieldErrorMap {
-  if (!axios.isAxiosError(error)) return {};
+  if (!axios.isAxiosError(error)) return {}
 
-  const data = error.response?.data as Record<string, unknown> | undefined;
-  if (!data || typeof data !== 'object') return {};
+  const data = error.response?.data as Record<string, unknown> | undefined
+  if (!data || typeof data !== 'object') return {}
 
-  const out: FieldErrorMap = {};
+  const out: FieldErrorMap = {}
 
-  const assignFrom = (source: Record<string, unknown>) => {
+  const assignFrom = (source: Record<string, unknown>, prefix = '') => {
     for (const [key, value] of Object.entries(source)) {
-      if (key === 'error' || key === 'detail' || key === 'message' || key === 'non_field_errors') {
-        continue;
+      if (
+        key === 'error' ||
+        key === 'detail' ||
+        key === 'message' ||
+        key === 'non_field_errors'
+      ) {
+        continue
       }
-      const msg = firstMessage(value);
-      if (msg) out[key] = msg;
-    }
-  };
 
-  // Schema: { error: { details: { ...fields } } }
-  const envelope = data.error;
-  if (envelope && typeof envelope === 'object') {
-    const details = (envelope as { details?: unknown }).details;
-    if (details && typeof details === 'object' && !Array.isArray(details)) {
-      const d = details as Record<string, unknown>;
-      if (d.fields && typeof d.fields === 'object' && !Array.isArray(d.fields)) {
-        assignFrom(d.fields as Record<string, unknown>);
-      } else {
-        assignFrom(d);
+      const path = prefix ? `${prefix}.${key}` : key
+      const msg = firstMessage(value)
+
+      if (msg) {
+        out[path] = msg
+        continue
+      }
+
+      // Nested field errors: { parameters: { simulation_hours: ["…"] } }
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        assignFrom(value as Record<string, unknown>, path)
       }
     }
   }
 
-  // DRF: top-level { field: ["..."] }
-  assignFrom(data);
+  const envelope = data.error
+  if (envelope && typeof envelope === 'object') {
+    const details = (envelope as { details?: unknown }).details
+    if (details && typeof details === 'object' && !Array.isArray(details)) {
+      const d = details as Record<string, unknown>
+      if (d.fields && typeof d.fields === 'object' && !Array.isArray(d.fields)) {
+        assignFrom(d.fields as Record<string, unknown>)
+      } else {
+        assignFrom(d)
+      }
+    }
+  }
 
-  // non_field_errors → special key for the banner
+  assignFrom(data)
+
   const nonField =
     firstMessage(data.non_field_errors) ??
     firstMessage(
       envelope && typeof envelope === 'object'
-        ? (envelope as { details?: { non_field_errors?: unknown } }).details?.non_field_errors
+        ? (envelope as { details?: { non_field_errors?: unknown } }).details
+            ?.non_field_errors
         : undefined,
-    );
-  if (nonField) out.non_field_errors = nonField;
+    )
+  if (nonField) out.non_field_errors = nonField
 
-  return out;
+  return out
 }
 
 export function hasFieldErrors(fields: FieldErrorMap): boolean {
-  return Object.keys(fields).some((k) => k !== 'non_field_errors');
+  return Object.keys(fields).some((k) => k !== 'non_field_errors')
 }
