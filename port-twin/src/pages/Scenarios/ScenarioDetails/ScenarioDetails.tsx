@@ -18,15 +18,12 @@ import ServerErrors from '../../../components/errors/ServerErrors';
 
 import './ScenarioDetails.scss';
 
-type ScenarioParametersWithNullableBerths = Omit<
-  ApiScenarioParameters,
-  'available_berths'
-> & {
-  available_berths?: number | null
-}
+type ScenarioParametersWithNullableBerths = Omit<ApiScenarioParameters, 'available_berths'> & {
+  available_berths?: number | null;
+};
 
 const ScenarioDetailsPage = () => {
-  const { scenarioId } = useParams<{ scenarioId: string }>()
+  const { scenarioId } = useParams<{ scenarioId: string }>();
 
   const {
     data: scenario,
@@ -35,7 +32,7 @@ const ScenarioDetailsPage = () => {
     error: scenarioError,
     refetch: refetchScenario,
     isFetching: isScenarioFetching,
-  } = useGetScenarioDetails(scenarioId)
+  } = useGetScenarioDetails(scenarioId);
 
   const {
     data: simulations = [],
@@ -44,24 +41,20 @@ const ScenarioDetailsPage = () => {
     error: simulationsError,
     refetch: refetchSimulations,
     isFetching: isSimulationsFetching,
-  } = useGetScenarioSimulations(scenarioId)
+  } = useGetScenarioSimulations(scenarioId);
 
-  const runSimulation = useAddScenarioSimulation()
+  const runSimulation = useAddScenarioSimulation();
 
-  const parsedScenarioError = isScenarioError ? parseApiError(scenarioError) : null
-  const parsedSimulationsError = isSimulationsError
-    ? parseApiError(simulationsError)
-    : null
-  const parsedRunError = runSimulation.isError
-    ? parseApiError(runSimulation.error)
-    : null
+  const parsedScenarioError = isScenarioError ? parseApiError(scenarioError) : null;
+  const parsedSimulationsError = isSimulationsError ? parseApiError(simulationsError) : null;
+  const parsedRunError = runSimulation.isError ? parseApiError(runSimulation.error) : null;
 
   const showBlockingState =
     isScenarioPending ||
     isScenarioError ||
     parsedScenarioError != null ||
     isScenarioFetching ||
-    !scenario
+    !scenario;
 
   if (showBlockingState) {
     return (
@@ -76,29 +69,24 @@ const ScenarioDetailsPage = () => {
           noData={!isScenarioPending && !isScenarioError && !scenario}
         />
       </div>
-    )
+    );
   }
 
-  const parameters = scenario.parameters as ScenarioParametersWithNullableBerths
+  const parameters = scenario.parameters as ScenarioParametersWithNullableBerths;
 
-  const scenarioSimulations: ScenarioSimulation[] = simulations.map(
-    (simulation) => ({
-      id: simulation.id,
-      status: simulation.status ?? 'pending',
-      executedAt:
-        simulation.completed_at ??
-        simulation.started_at ??
-        simulation.created_at,
-    }),
-  )
+  const scenarioSimulations: ScenarioSimulation[] = simulations.map((simulation) => ({
+    id: simulation.id,
+    status: simulation.status ?? 'pending',
+    executedAt: simulation.completed_at ?? simulation.started_at ?? simulation.created_at,
+  }));
 
   return (
     <div className="scenario-details">
       <ScenarioDetailsTopBar
         scenarioName={scenario.name}
         onRunSimulation={() => {
-          runSimulation.reset()
-          runSimulation.mutate(scenario.id)
+          runSimulation.reset();
+          runSimulation.mutate(scenario.id);
         }}
         isRunning={runSimulation.isPending}
       />
@@ -112,20 +100,12 @@ const ScenarioDetailsPage = () => {
         <div className="scenario-details__container">
           {parsedRunError && (
             <div className="scenario-details__run-error" role="alert">
-              <p className="scenario-details__run-error-title">
-                Failed to start simulation
-              </p>
-              <p className="scenario-details__run-error-message">
-                {parsedRunError.message}
-              </p>
+              <p className="scenario-details__run-error-title">Failed to start simulation</p>
+              <p className="scenario-details__run-error-message">{parsedRunError.message}</p>
               {(parsedRunError.status != null || parsedRunError.code) && (
                 <p className="scenario-details__run-error-meta">
-                  {parsedRunError.status != null && (
-                    <span>HTTP {parsedRunError.status}</span>
-                  )}
-                  {parsedRunError.status != null && parsedRunError.code
-                    ? ' · '
-                    : null}
+                  {parsedRunError.status != null && <span>HTTP {parsedRunError.status}</span>}
+                  {parsedRunError.status != null && parsedRunError.code ? ' · ' : null}
                   {parsedRunError.code && <span>{parsedRunError.code}</span>}
                 </p>
               )}
@@ -181,7 +161,7 @@ const ScenarioDetailsPage = () => {
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default ScenarioDetailsPage
+export default ScenarioDetailsPage;
