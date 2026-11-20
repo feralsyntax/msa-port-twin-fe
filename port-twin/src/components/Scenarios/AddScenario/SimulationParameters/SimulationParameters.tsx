@@ -71,9 +71,7 @@ const SimulationParameters = ({ register, errors }: SimulationParametersProps) =
 
             <small>Poisson distribution parameter λ = 14</small>
             {errors.parameters?.expected_vessel_arrivals && (
-              <small className="form-error">
-                {errors.parameters.expected_vessel_arrivals.message}
-              </small>
+              <p className="form-error">{errors.parameters.expected_vessel_arrivals.message}</p>
             )}
           </div>
 
@@ -98,9 +96,7 @@ const SimulationParameters = ({ register, errors }: SimulationParametersProps) =
 
             <small>Mean spacing between approach corridors</small>
             {errors.parameters?.arrival_interval_hours && (
-              <small className="form-error">
-                {errors.parameters.arrival_interval_hours.message}
-              </small>
+              <p className="form-error">{errors.parameters.arrival_interval_hours.message}</p>
             )}
           </div>
         </div>
@@ -127,9 +123,7 @@ const SimulationParameters = ({ register, errors }: SimulationParametersProps) =
 
             <small>Crane handling + stevedore dispatch window</small>
             {errors.parameters?.average_service_time_hours && (
-              <small className="form-error">
-                {errors.parameters.average_service_time_hours.message}
-              </small>
+              <p className="form-error">{errors.parameters.average_service_time_hours.message}</p>
             )}
           </div>
 
@@ -156,7 +150,7 @@ const SimulationParameters = ({ register, errors }: SimulationParametersProps) =
 
             <small>2-day rolling window hydrographic forecast</small>
             {errors.parameters?.simulation_hours && (
-              <small className="form-error">{errors.parameters.simulation_hours.message}</small>
+              <p className="form-error">{errors.parameters.simulation_hours.message}</p>
             )}
           </div>
         </div>
@@ -184,7 +178,7 @@ const SimulationParameters = ({ register, errors }: SimulationParametersProps) =
           </select>
 
           {errors.parameters?.available_berths && (
-            <small className="form-error">{errors.parameters.available_berths.message}</small>
+            <p className="form-error">{errors.parameters.available_berths.message}</p>
           )}
 
           <div className="simulation-parameters__berth-statuses">

@@ -84,6 +84,12 @@
       font-size: 0.625rem;
       color: $ink-2;
     }
+
+    .form-error {
+      margin: 6px 0 0;
+      color: $coral;
+      font-size: 12px;
+    }
   }
 
   &__input-wrapper {

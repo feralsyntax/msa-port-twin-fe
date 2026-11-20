@@ -129,7 +129,6 @@ export function parseApiError(error: unknown): ParsedApiError {
     isTimeout: false,
   };
 }
-
 /** Field name → first server message (for react-hook-form setError) */
 export type FieldErrorMap = Partial<Record<string, string>>;
 
@@ -150,8 +149,10 @@ function firstMessage(value: unknown): string | undefined {
 /**
  * Pull per-field messages from common API shapes:
  * - { error: { details: { field: ["msg"] } } }  (schema APIErrorResponse)
- * - { name: ["msg"], imo_number: ["msg"] }      (DRF default)
+ * - { name: ["msg"], parameters: { simulation_hours: ["msg"] } }  (DRF)
  * - { error: { details: { fields: { ... } } } }
+ *
+ * Nested objects are flattened to react-hook-form paths (e.g. parameters.simulation_hours).
  */
 export function getFieldErrors(error: unknown): FieldErrorMap {
   if (!axios.isAxiosError(error)) return {};
@@ -161,17 +162,27 @@ export function getFieldErrors(error: unknown): FieldErrorMap {
 
   const out: FieldErrorMap = {};
 
-  const assignFrom = (source: Record<string, unknown>) => {
+  const assignFrom = (source: Record<string, unknown>, prefix = '') => {
     for (const [key, value] of Object.entries(source)) {
       if (key === 'error' || key === 'detail' || key === 'message' || key === 'non_field_errors') {
         continue;
       }
+
+      const path = prefix ? `${prefix}.${key}` : key;
       const msg = firstMessage(value);
-      if (msg) out[key] = msg;
+
+      if (msg) {
+        out[path] = msg;
+        continue;
+      }
+
+      // Nested field errors: { parameters: { simulation_hours: ["…"] } }
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        assignFrom(value as Record<string, unknown>, path);
+      }
     }
   };
 
-  // Schema: { error: { details: { ...fields } } }
   const envelope = data.error;
   if (envelope && typeof envelope === 'object') {
     const details = (envelope as { details?: unknown }).details;
@@ -185,10 +196,8 @@ export function getFieldErrors(error: unknown): FieldErrorMap {
     }
   }
 
-  // DRF: top-level { field: ["..."] }
   assignFrom(data);
 
-  // non_field_errors → special key for the banner
   const nonField =
     firstMessage(data.non_field_errors) ??
     firstMessage(

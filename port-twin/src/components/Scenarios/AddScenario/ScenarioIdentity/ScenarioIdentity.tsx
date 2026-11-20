@@ -52,19 +52,26 @@ const ScenarioIdentity = ({ register, errors }: ScenarioIdentityProps) => {
             rows={3}
             {...register('description')}
           />
+          {errors.description && <p className="form-error">{errors.description.message}</p>}
         </div>
 
         <div className="scenario-identity__field">
           <label htmlFor="scenario-status">Status</label>
 
           <div className="scenario-identity__select-wrapper">
-            <select id="scenario-status" {...register('status')}>
+            <select
+              id="scenario-status"
+              {...register('status', {
+                required: 'Scenario status is required.',
+              })}
+            >
               <option value="draft">Draft</option>
               <option value="ready">Ready (Operational Baseline)</option>
             </select>
 
             <span className="material-symbols-outlined">unfold_more</span>
           </div>
+          {errors.status && <p className="form-error">{errors.status.message}</p>}
         </div>
       </div>
     </section>

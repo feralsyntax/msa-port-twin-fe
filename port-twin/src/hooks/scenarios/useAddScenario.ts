@@ -13,10 +13,7 @@ export const useAddScenario = () => {
         queryKey: ['scenariosList'],
       });
     },
-
-    onError: (error) => {
-      console.error('Failed to register berth:', error);
-    },
+    // Errors handled in the page via mutation.error + parseApiError
   });
 };
 
