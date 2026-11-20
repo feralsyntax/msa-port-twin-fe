@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { scenariosSimulationsCreate } from '../../api/generated';
 
 export const useAddScenarioSimulation = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (scenarioId: string) => scenariosSimulationsCreate(scenarioId),
@@ -11,13 +11,10 @@ export const useAddScenarioSimulation = () => {
     onSuccess: (_data, scenarioId) => {
       queryClient.invalidateQueries({
         queryKey: ['simulationsList', 'scenario', scenarioId],
-      });
+      })
     },
+    // Errors handled in ScenarioDetails via mutation.error + parseApiError
+  })
+}
 
-    onError: (error) => {
-      console.error('Failed to start scenario simulation:', error);
-    },
-  });
-};
-
-export default useAddScenarioSimulation;
+export default useAddScenarioSimulation
