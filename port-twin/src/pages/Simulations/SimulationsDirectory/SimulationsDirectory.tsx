@@ -11,6 +11,8 @@ import SimulationProvenanceNotice from '../../../components/Simulations/Simulati
 import SimulationStatusTabs from '../../../components/Simulations/SimulationsDirectory/SimulationStatusTabs/SimulationStatusTabs';
 import SimulationsDirectoryTable from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTable/SimulationsDirectoryTable';
 import SimulationsDirectoryPagination from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryPagination/SimulationsDirectoryPagination';
+import ServerErrors from '../../../components/errors/ServerErrors';
+import { parseApiError } from '../../../utils/apiError';
 
 const PAGE_SIZE = 20;
 
@@ -26,7 +28,16 @@ const SimulationsDirectoryPage = () => {
   const [activeFilter, setActiveFilter] = useState<SimulationFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: simulations = [], isLoading, isError, refetch } = useGetSimulations();
+  const {
+    data: simulations = [],
+    isPending,
+    isError,
+    error,
+    isFetching,
+    refetch,
+  } = useGetSimulations();
+  const parsedError = isError ? parseApiError(error) : null;
+  const showBlockingState = isPending || isError || parsedError != null || simulations.length === 0;
 
   const statusCounts = useMemo<SimulationStatusCount[]>(() => {
     const counts = {
@@ -79,16 +90,16 @@ const SimulationsDirectoryPage = () => {
       <div className="simulations-directory-page__content">
         <SimulationProvenanceNotice />
 
-        {isLoading ? (
-          <div className="simulations-directory-page__state">Loading simulations...</div>
-        ) : isError ? (
-          <div className="simulations-directory-page__state simulations-directory-page__state--error">
-            <p>Unable to load simulations.</p>
-
-            <button type="button" onClick={() => refetch()}>
-              Try again
-            </button>
-          </div>
+        {showBlockingState ? (
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="simulations"
+            noData={!isPending && !isError && simulations.length === 0}
+          />
         ) : (
           <>
             <SimulationStatusTabs

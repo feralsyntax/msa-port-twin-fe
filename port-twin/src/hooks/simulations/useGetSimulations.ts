@@ -5,12 +5,12 @@ import type { SimulationHistoryItem } from '../../api/models';
 export const useGetSimulations = () => {
   return useQuery({
     queryKey: ['simulationsList'],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const simulations: SimulationHistoryItem[] = [];
       let page = 1;
 
       while (true) {
-        const response = await simulationsList({ page });
+        const response = await simulationsList({ page }, undefined, signal);
 
         simulations.push(...response.results);
 
