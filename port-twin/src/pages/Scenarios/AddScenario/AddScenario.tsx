@@ -1,30 +1,28 @@
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useForm, type SubmitHandler, type Path } from 'react-hook-form';
 
+import './AddScenario.scss';
+import AddScenarioTopBar from '../../../components/Scenarios/AddScenario/AddScenarioTopBar/AddScenarioTopBar';
 import ScenarioPageHeader from '../../../components/Scenarios/AddScenario/ScenarioPageHeader/ScenarioPageHeader';
 import ScenarioIdentity from '../../../components/Scenarios/AddScenario/ScenarioIdentity/ScenarioIdentity';
 import SimulationParameters from '../../../components/Scenarios/AddScenario/SimulationParameters/SimulationParameters';
 import ScenarioActions from '../../../components/Scenarios/AddScenario/ScenarioActions/ScenarioActions';
-import AddScenarioTopBar from '../../../components/Scenarios/AddScenario/AddScenarioTopBar/AddScenarioTopBar';
-
-import useAddScenario from '../../../hooks/scenarios/useAddScenario';
+import { useAddScenario } from '../../../hooks/scenarios/useAddScenario';
 import type { ScenarioCreateUpdateRequest } from '../../../api/models';
 import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
 
-import './AddScenario.scss';
+// (merge with existing react-hook-form import at lines 1–2)
 
-const SERVER_FIELDS = ['name', 'description', 'status'] as const satisfies ReadonlyArray<
-  keyof ScenarioCreateUpdateRequest
->;
-
-const PARAMETER_FIELDS = [
-  'expected_vessel_arrivals',
-  'arrival_interval_hours',
-  'average_service_time_hours',
-  'simulation_hours',
-  'available_berths',
-] as const;
+const SERVER_FIELD_PATHS = [
+  'parameters.expected_vessel_arrivals',
+  'parameters.arrival_interval_hours',
+  'parameters.average_service_time_hours',
+  'parameters.simulation_hours',
+  'parameters.available_berths',
+  'name',
+  'description',
+  'status',
+] as const satisfies ReadonlyArray<Path<ScenarioCreateUpdateRequest>>;
 
 const AddScenarioPage = () => {
   const navigate = useNavigate();
@@ -33,10 +31,9 @@ const AddScenarioPage = () => {
   const {
     register,
     handleSubmit,
-    reset,
     setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ScenarioCreateUpdateRequest>({
     defaultValues: {
       name: '',
@@ -61,42 +58,10 @@ const AddScenarioPage = () => {
 
   const applyServerFieldErrors = (error: unknown) => {
     const fields = getFieldErrors(error);
-
     for (const name of SERVER_FIELDS) {
       const message = fields[name];
       if (message) {
         setError(name, { type: 'server', message });
-      }
-    }
-
-    // Nested parameter errors (DRF often returns { parameters: { field: ["msg"] } })
-    const data =
-      error &&
-      typeof error === 'object' &&
-      'response' in error &&
-      (error as { response?: { data?: Record<string, unknown> } }).response?.data;
-
-    const parameters =
-      data &&
-      typeof data === 'object' &&
-      data.parameters &&
-      typeof data.parameters === 'object' &&
-      !Array.isArray(data.parameters)
-        ? (data.parameters as Record<string, unknown>)
-        : null;
-
-    if (parameters) {
-      for (const key of PARAMETER_FIELDS) {
-        const value = parameters[key];
-        const message =
-          typeof value === 'string'
-            ? value
-            : Array.isArray(value) && typeof value[0] === 'string'
-              ? value[0]
-              : undefined;
-        if (message) {
-          setError(`parameters.${key}`, { type: 'server', message });
-        }
       }
     }
   };
@@ -107,7 +72,6 @@ const AddScenarioPage = () => {
 
     createScenario.mutate(values, {
       onSuccess: () => {
-        reset();
         navigate('/app/scenarios');
       },
       onError: (error) => {
@@ -122,10 +86,6 @@ const AddScenarioPage = () => {
       status: 'draft',
     });
   });
-
-  const handleCancel = () => {
-    navigate('/app/scenarios');
-  };
 
   return (
     <div className="add-scenario-page">
@@ -151,19 +111,13 @@ const AddScenarioPage = () => {
             </div>
           )}
 
-          {createScenario.isSuccess && (
-            <p role="status" className="add-scenario-page__success">
-              Scenario created successfully.
-            </p>
-          )}
-
           <ScenarioIdentity register={register} errors={errors} />
           <SimulationParameters register={register} errors={errors} />
 
           <ScenarioActions
             onSaveDraft={handleSaveDraft}
-            onCancel={handleCancel}
-            isSubmitting={createScenario.isPending}
+            onCancel={() => navigate('/app/scenarios')}
+            isSubmitting={isSubmitting || createScenario.isPending}
           />
         </form>
       </div>
