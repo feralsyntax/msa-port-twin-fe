@@ -10,11 +10,13 @@ import ScenarioSimulationHistory, {
 
 import { useGetScenarioDetails } from '../../../hooks/scenarios/useGetScenarioDetails';
 import { useGetScenarioSimulations } from '../../../hooks/simulations/useGetScenarioSimulations';
+import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 
 import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
+import { parseApiError } from '../../../utils/apiError';
+import ServerErrors from '../../../components/errors/ServerErrors';
 
 import './ScenarioDetails.scss';
-import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 
 type ScenarioParametersWithNullableBerths = Omit<ApiScenarioParameters, 'available_berths'> & {
   available_berths?: number | null;
@@ -25,34 +27,47 @@ const ScenarioDetailsPage = () => {
 
   const {
     data: scenario,
-    isLoading: isScenarioLoading,
+    isPending: isScenarioPending,
     isError: isScenarioError,
+    error: scenarioError,
     refetch: refetchScenario,
+    isFetching: isScenarioFetching,
   } = useGetScenarioDetails(scenarioId);
 
   const {
     data: simulations = [],
-    isLoading: isSimulationsLoading,
+    isPending: isSimulationsPending,
     isError: isSimulationsError,
+    error: simulationsError,
+    refetch: refetchSimulations,
+    isFetching: isSimulationsFetching,
   } = useGetScenarioSimulations(scenarioId);
 
   const runSimulation = useAddScenarioSimulation();
 
-  if (isScenarioLoading) {
-    return (
-      <div className="scenario-details scenario-details--state">
-        <p>Loading scenario details...</p>
-      </div>
-    );
-  }
+  const parsedScenarioError = isScenarioError ? parseApiError(scenarioError) : null;
+  const parsedSimulationsError = isSimulationsError ? parseApiError(simulationsError) : null;
+  const parsedRunError = runSimulation.isError ? parseApiError(runSimulation.error) : null;
 
-  if (isScenarioError || !scenario) {
+  const showBlockingState =
+    isScenarioPending ||
+    isScenarioError ||
+    parsedScenarioError != null ||
+    isScenarioFetching ||
+    !scenario;
+
+  if (showBlockingState) {
     return (
       <div className="scenario-details scenario-details--state">
-        <p>Unable to load this scenario.</p>
-        <button type="button" onClick={() => refetchScenario()}>
-          Try again
-        </button>
+        <ServerErrors
+          isPending={isScenarioPending}
+          isError={isScenarioError}
+          isFetching={isScenarioFetching}
+          parsedError={parsedScenarioError}
+          refetch={refetchScenario}
+          requestedData="scenario details"
+          noData={!isScenarioPending && !isScenarioError && !scenario}
+        />
       </div>
     );
   }
@@ -69,7 +84,10 @@ const ScenarioDetailsPage = () => {
     <div className="scenario-details">
       <ScenarioDetailsTopBar
         scenarioName={scenario.name}
-        onRunSimulation={() => runSimulation.mutate(scenario.id)}
+        onRunSimulation={() => {
+          runSimulation.reset();
+          runSimulation.mutate(scenario.id);
+        }}
         isRunning={runSimulation.isPending}
       />
 
@@ -80,6 +98,20 @@ const ScenarioDetailsPage = () => {
 
       <main className="scenario-details__content">
         <div className="scenario-details__container">
+          {parsedRunError && (
+            <div className="scenario-details__run-error" role="alert">
+              <p className="scenario-details__run-error-title">Failed to start simulation</p>
+              <p className="scenario-details__run-error-message">{parsedRunError.message}</p>
+              {(parsedRunError.status != null || parsedRunError.code) && (
+                <p className="scenario-details__run-error-meta">
+                  {parsedRunError.status != null && <span>HTTP {parsedRunError.status}</span>}
+                  {parsedRunError.status != null && parsedRunError.code ? ' · ' : null}
+                  {parsedRunError.code && <span>{parsedRunError.code}</span>}
+                </p>
+              )}
+            </div>
+          )}
+
           <ScenarioDetailsHeader
             name={scenario.name}
             description={scenario.description}
@@ -105,10 +137,20 @@ const ScenarioDetailsPage = () => {
               updatedAt={scenario.updated_at}
             />
 
-            {isSimulationsLoading ? (
-              <p>Loading simulation history...</p>
-            ) : isSimulationsError ? (
-              <p>Unable to load simulation history.</p>
+            {isSimulationsPending ? (
+              <p role="status">Loading simulation history...</p>
+            ) : isSimulationsError && parsedSimulationsError ? (
+              <div role="alert">
+                <p>Failed to load simulation history</p>
+                <p>{parsedSimulationsError.message}</p>
+                <button
+                  type="button"
+                  onClick={() => refetchSimulations()}
+                  disabled={isSimulationsFetching}
+                >
+                  {isSimulationsFetching ? 'Retrying…' : 'Try again'}
+                </button>
+              </div>
             ) : (
               <ScenarioSimulationHistory
                 simulations={scenarioSimulations}

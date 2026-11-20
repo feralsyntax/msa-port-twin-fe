@@ -13,10 +13,7 @@ export const useAddScenarioSimulation = () => {
         queryKey: ['simulationsList', 'scenario', scenarioId],
       });
     },
-
-    onError: (error) => {
-      console.error('Failed to start scenario simulation:', error);
-    },
+    // Errors handled in ScenarioDetails via mutation.error + parseApiError
   });
 };
 
