@@ -9,14 +9,10 @@ export const useAddBerth = () => {
     mutationFn: (data: BerthCreateRequest) => berthsCreate(data),
 
     onSuccess: () => {
-      // Refresh the berths list after successful registration.
       queryClient.invalidateQueries({
         queryKey: ['berthsList'],
       });
     },
-
-    onError: (error) => {
-      console.error('Failed to register berth:', error);
-    },
+    // Errors are handled in the page via mutation.error + parseApiError
   });
 };
