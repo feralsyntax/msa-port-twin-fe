@@ -57,15 +57,15 @@ const AddScenarioPage = () => {
     (!hasFieldErrors(fieldErrors) || Boolean(fieldErrors.non_field_errors));
 
   const applyServerFieldErrors = (error: unknown) => {
-    const fields = getFieldErrors(error);
-    for (const name of SERVER_FIELDS) {
-      const message = fields[name];
-      if (message) {
-        setError(name, { type: 'server', message });
-      }
-    }
-  };
+  const fields = getFieldErrors(error)
 
+  for (const path of SERVER_FIELD_PATHS) {
+    const message = fields[path]
+    if (message) {
+      setError(path, { type: 'server', message })
+    }
+  }
+}
   const onSubmit: SubmitHandler<ScenarioCreateUpdateRequest> = (values) => {
     clearErrors();
     createScenario.reset();
