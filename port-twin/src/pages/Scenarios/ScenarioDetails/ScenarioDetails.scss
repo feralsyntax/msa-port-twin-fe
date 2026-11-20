@@ -73,6 +73,35 @@
     }
   }
 }
+.scenario-details__run-error {
+  margin: 0 0 16px;
+  padding: 16px;
+  background: #0c1c2a;
+  border: 1px solid #1e2e3f;
+  border-radius: 4px;
+}
+
+.scenario-details__run-error-title {
+  margin: 0 0 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e6f0f5;
+}
+
+.scenario-details__run-error-message {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #9cb0c2;
+}
+
+.scenario-details__run-error-meta {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #5f7688;
+}
 
 @media (max-width: 1024px) {
   .scenario-details {

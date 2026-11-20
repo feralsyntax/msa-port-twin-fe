@@ -10,66 +10,96 @@ import ScenarioSimulationHistory, {
 
 import { useGetScenarioDetails } from '../../../hooks/scenarios/useGetScenarioDetails';
 import { useGetScenarioSimulations } from '../../../hooks/simulations/useGetScenarioSimulations';
-
-import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
-
-import './ScenarioDetails.scss';
 import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 
-type ScenarioParametersWithNullableBerths = Omit<ApiScenarioParameters, 'available_berths'> & {
-  available_berths?: number | null;
-};
+import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
+import { parseApiError } from '../../../utils/apiError';
+import ServerErrors from '../../../components/errors/ServerErrors';
+
+import './ScenarioDetails.scss';
+
+type ScenarioParametersWithNullableBerths = Omit<
+  ApiScenarioParameters,
+  'available_berths'
+> & {
+  available_berths?: number | null
+}
 
 const ScenarioDetailsPage = () => {
-  const { scenarioId } = useParams<{ scenarioId: string }>();
+  const { scenarioId } = useParams<{ scenarioId: string }>()
 
   const {
     data: scenario,
-    isLoading: isScenarioLoading,
+    isPending: isScenarioPending,
     isError: isScenarioError,
+    error: scenarioError,
     refetch: refetchScenario,
-  } = useGetScenarioDetails(scenarioId);
+    isFetching: isScenarioFetching,
+  } = useGetScenarioDetails(scenarioId)
 
   const {
     data: simulations = [],
-    isLoading: isSimulationsLoading,
+    isPending: isSimulationsPending,
     isError: isSimulationsError,
-  } = useGetScenarioSimulations(scenarioId);
+    error: simulationsError,
+    refetch: refetchSimulations,
+    isFetching: isSimulationsFetching,
+  } = useGetScenarioSimulations(scenarioId)
 
-  const runSimulation = useAddScenarioSimulation();
+  const runSimulation = useAddScenarioSimulation()
 
-  if (isScenarioLoading) {
+  const parsedScenarioError = isScenarioError ? parseApiError(scenarioError) : null
+  const parsedSimulationsError = isSimulationsError
+    ? parseApiError(simulationsError)
+    : null
+  const parsedRunError = runSimulation.isError
+    ? parseApiError(runSimulation.error)
+    : null
+
+  const showBlockingState =
+    isScenarioPending ||
+    isScenarioError ||
+    parsedScenarioError != null ||
+    isScenarioFetching ||
+    !scenario
+
+  if (showBlockingState) {
     return (
       <div className="scenario-details scenario-details--state">
-        <p>Loading scenario details...</p>
+        <ServerErrors
+          isPending={isScenarioPending}
+          isError={isScenarioError}
+          isFetching={isScenarioFetching}
+          parsedError={parsedScenarioError}
+          refetch={refetchScenario}
+          requestedData="scenario details"
+          noData={!isScenarioPending && !isScenarioError && !scenario}
+        />
       </div>
-    );
+    )
   }
 
-  if (isScenarioError || !scenario) {
-    return (
-      <div className="scenario-details scenario-details--state">
-        <p>Unable to load this scenario.</p>
-        <button type="button" onClick={() => refetchScenario()}>
-          Try again
-        </button>
-      </div>
-    );
-  }
+  const parameters = scenario.parameters as ScenarioParametersWithNullableBerths
 
-  const parameters = scenario.parameters as ScenarioParametersWithNullableBerths;
-
-  const scenarioSimulations: ScenarioSimulation[] = simulations.map((simulation) => ({
-    id: simulation.id,
-    status: simulation.status ?? 'pending',
-    executedAt: simulation.completed_at ?? simulation.started_at ?? simulation.created_at,
-  }));
+  const scenarioSimulations: ScenarioSimulation[] = simulations.map(
+    (simulation) => ({
+      id: simulation.id,
+      status: simulation.status ?? 'pending',
+      executedAt:
+        simulation.completed_at ??
+        simulation.started_at ??
+        simulation.created_at,
+    }),
+  )
 
   return (
     <div className="scenario-details">
       <ScenarioDetailsTopBar
         scenarioName={scenario.name}
-        onRunSimulation={() => runSimulation.mutate(scenario.id)}
+        onRunSimulation={() => {
+          runSimulation.reset()
+          runSimulation.mutate(scenario.id)
+        }}
         isRunning={runSimulation.isPending}
       />
 
@@ -80,6 +110,28 @@ const ScenarioDetailsPage = () => {
 
       <main className="scenario-details__content">
         <div className="scenario-details__container">
+          {parsedRunError && (
+            <div className="scenario-details__run-error" role="alert">
+              <p className="scenario-details__run-error-title">
+                Failed to start simulation
+              </p>
+              <p className="scenario-details__run-error-message">
+                {parsedRunError.message}
+              </p>
+              {(parsedRunError.status != null || parsedRunError.code) && (
+                <p className="scenario-details__run-error-meta">
+                  {parsedRunError.status != null && (
+                    <span>HTTP {parsedRunError.status}</span>
+                  )}
+                  {parsedRunError.status != null && parsedRunError.code
+                    ? ' · '
+                    : null}
+                  {parsedRunError.code && <span>{parsedRunError.code}</span>}
+                </p>
+              )}
+            </div>
+          )}
+
           <ScenarioDetailsHeader
             name={scenario.name}
             description={scenario.description}
@@ -105,10 +157,20 @@ const ScenarioDetailsPage = () => {
               updatedAt={scenario.updated_at}
             />
 
-            {isSimulationsLoading ? (
-              <p>Loading simulation history...</p>
-            ) : isSimulationsError ? (
-              <p>Unable to load simulation history.</p>
+            {isSimulationsPending ? (
+              <p role="status">Loading simulation history...</p>
+            ) : isSimulationsError && parsedSimulationsError ? (
+              <div role="alert">
+                <p>Failed to load simulation history</p>
+                <p>{parsedSimulationsError.message}</p>
+                <button
+                  type="button"
+                  onClick={() => refetchSimulations()}
+                  disabled={isSimulationsFetching}
+                >
+                  {isSimulationsFetching ? 'Retrying…' : 'Try again'}
+                </button>
+              </div>
             ) : (
               <ScenarioSimulationHistory
                 simulations={scenarioSimulations}
@@ -119,7 +181,7 @@ const ScenarioDetailsPage = () => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default ScenarioDetailsPage;
+export default ScenarioDetailsPage
