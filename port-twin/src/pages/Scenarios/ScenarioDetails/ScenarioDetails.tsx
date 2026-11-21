@@ -58,17 +58,20 @@ const ScenarioDetailsPage = () => {
 
   if (showBlockingState) {
     return (
-      <div className="scenario-details scenario-details--state">
-        <ServerErrors
-          isPending={isScenarioPending}
-          isError={isScenarioError}
-          isFetching={isScenarioFetching}
-          parsedError={parsedScenarioError}
-          refetch={refetchScenario}
-          requestedData="scenario details"
-          noData={!isScenarioPending && !isScenarioError && !scenario}
-        />
-      </div>
+      <main className="scenario-details">
+        <ScenarioDetailsTopBar scenarioName={scenario?.name} />
+        <div className="scenario-details__content">
+          <ServerErrors
+            isPending={isScenarioPending}
+            isError={isScenarioError}
+            isFetching={isScenarioFetching}
+            parsedError={parsedScenarioError}
+            refetch={refetchScenario}
+            requestedData="scenario details"
+            noData={!isScenarioPending && !isScenarioError && !scenario}
+          />
+        </div>
+      </main>
     );
   }
 
