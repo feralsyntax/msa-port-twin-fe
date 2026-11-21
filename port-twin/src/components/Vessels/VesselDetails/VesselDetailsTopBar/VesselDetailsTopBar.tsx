@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import './VesselDetailsTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 interface VesselDetailsTopBarProps {
   vesselName?: string;
@@ -7,19 +6,11 @@ interface VesselDetailsTopBarProps {
 
 const VesselDetailsTopBar = ({ vesselName }: VesselDetailsTopBarProps) => {
   return (
-    <header className="vessel-details-topbar">
-      <div className="vessel-details-topbar__breadcrumb">
-        <Link to="/app/vessels">Vessels</Link>
-
-        {vesselName && (
-          <>
-            <span className="vessel-details-topbar__separator">/</span>
-
-            <span className="vessel-details-topbar__vessel-name">{vesselName}</span>
-          </>
-        )}
-      </div>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+      current={vesselName}
+      showSearch={false}
+    />
   );
 };
 

@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-
-import './ScenarioDetailsTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 interface ScenarioDetailsTopBarProps {
   scenarioName?: string;
@@ -14,29 +12,22 @@ const ScenarioDetailsTopBar = ({
   isRunning,
 }: ScenarioDetailsTopBarProps) => {
   return (
-    <header className="scenario-details-topbar">
-      <nav className="scenario-details-topbar__breadcrumb" aria-label="Breadcrumb">
-        <Link to="/app/scenarios">Scenarios</Link>
-        {scenarioName && (
-          <>
-            <span aria-hidden="true">/</span>
-            <span className="scenario-details-topbar__current">{scenarioName}</span>
-          </>
-        )}
-      </nav>
-
-      <button
-        type="button"
-        className="scenario-details-topbar__run-button"
-        onClick={onRunSimulation}
-        disabled={!onRunSimulation || isRunning}
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M8 5.5v13l10-6.5-10-6.5z" />
-        </svg>
-        <span>{isRunning ? 'Queuing...' : 'Run Simulation'}</span>
-      </button>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+      current={scenarioName}
+      showSearch={false}
+      action={
+        <button
+          type="button"
+          className="app-topbar__action"
+          onClick={onRunSimulation}
+          disabled={!onRunSimulation || isRunning}
+        >
+          <span className="material-symbols-outlined">play_arrow</span>
+          <span>{isRunning ? 'Queuing...' : 'Run Simulation'}</span>
+        </button>
+      }
+    />
   );
 };
 

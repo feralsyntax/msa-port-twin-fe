@@ -1,26 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import './PredictionsDirectoryTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const PredictionsDirectoryTopBar = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="predictions-directory-top-bar">
-      <div className="predictions-directory-top-bar__heading">
-        <h1>Marine Predictions</h1>
-      </div>
-
-      <button
-        className="predictions-directory-top-bar__new-button"
-        type="button"
-        onClick={() => navigate('/app/predictions/new')}
-      >
-        <span className="material-symbols-outlined" aria-hidden="true">
-          add
-        </span>
-        <span>New Prediction</span>
-      </button>
-    </header>
+    <TopBarBase
+      title="Marine Predictions"
+      showSearch={false}
+      action={
+        <button
+          type="button"
+          className="app-topbar__action"
+          onClick={() => navigate('/app/predictions/new')}
+        >
+          <span className="material-symbols-outlined">add</span>
+          <span>New Prediction</span>
+        </button>
+      }
+    />
   );
 };
 

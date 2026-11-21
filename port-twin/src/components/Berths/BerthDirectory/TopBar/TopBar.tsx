@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './TopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -8,18 +8,16 @@ const TopBar = () => {
     navigate('/app/berths/new');
   };
   return (
-    <header className="berths-topbar">
-      <div className="berths-topbar__heading">
-        <h1>Berths</h1>
-      </div>
-
-      <div className="berths-topbar__actions">
-        <button type="button" className="berths-topbar__add-button" onClick={handleAddBerthClick}>
-          <span className="berths-topbar__add-icon material-symbols-outlined">add</span>
+    <TopBarBase
+      title="Berths"
+      showSearch={false}
+      action={
+        <button type="button" className="app-topbar__action" onClick={handleAddBerthClick}>
+          <span className="material-symbols-outlined">add</span>
           <span>Add Berth</span>
         </button>
-      </div>
-    </header>
+      }
+    />
   );
 };
 

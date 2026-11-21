@@ -1,23 +1,12 @@
-import { Link } from 'react-router-dom';
-import './AddScenarioTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const AddScenarioTopBar = () => {
   return (
-    <header className="add-scenario-top-bar">
-      <div className="add-scenario-top-bar__breadcrumb-container">
-        <nav aria-label="Breadcrumb" className="add-scenario-top-bar__breadcrumb">
-          <Link to="/app/scenarios" className="add-scenario-top-bar__parent">
-            Scenarios
-          </Link>
-
-          <span className="add-scenario-top-bar__separator">/</span>
-
-          <span className="add-scenario-top-bar__current">New</span>
-        </nav>
-      </div>
-
-      <div className="add-scenario-top-bar__actions"></div>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+      current="New"
+      showSearch={false}
+    />
   );
 };
 

@@ -1,19 +1,12 @@
-import { Link } from 'react-router-dom';
-import './AddVesselTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const AddVesselTopBar = () => {
   return (
-    <header className="add-vessel-topbar">
-      <div className="add-vessel-topbar__breadcrumb">
-        <Link to="/app/vessels" className="add-vessel-topbar__parent">
-          Vessels
-        </Link>
-
-        <span className="add-vessel-topbar__separator">/</span>
-
-        <h1 className="add-vessel-topbar__title">Add New</h1>
-      </div>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+      current="Add New"
+      showSearch={false}
+    />
   );
 };
 

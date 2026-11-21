@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './TopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -9,25 +9,16 @@ const TopBar = () => {
   };
 
   return (
-    <header className="vessels-topbar">
-      {/* Page Information */}
-      <div className="vessels-topbar__heading">
-        <h1>Vessels</h1>
-      </div>
-
-      {/* Header Actions */}
-      <div className="vessels-topbar__actions">
-        {/* Add Vessel Button */}
-        <button
-          type="button"
-          className="vessels-topbar__add-vessel-button"
-          onClick={handleAddVesselClick}
-        >
-          <span className="vessels-topbar__add-vessel-icon material-symbols-outlined">add</span>
+    <TopBarBase
+      title="Vessels"
+      showSearch={false}
+      action={
+        <button type="button" className="app-topbar__action" onClick={handleAddVesselClick}>
+          <span className="material-symbols-outlined">add</span>
           <span>Add Vessel</span>
         </button>
-      </div>
-    </header>
+      }
+    />
   );
 };
 

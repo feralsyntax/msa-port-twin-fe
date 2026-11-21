@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import './SimulationDetailsTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 interface SimulationDetailsTopBarProps {
   simulationId?: string;
@@ -7,27 +6,17 @@ interface SimulationDetailsTopBarProps {
 
 const SimulationDetailsTopBar = ({ simulationId }: SimulationDetailsTopBarProps) => {
   return (
-    <header className="sim-details-topbar">
-      <div className="sim-details-topbar__left">
-        <div className="sim-details-topbar__crumbs">
-          <Link to="/app/simulations" className="sim-details-topbar__parent">
-            Simulations
-          </Link>
-          {simulationId && (
-            <>
-              <span className="sim-details-topbar__sep">/</span>
-              <span className="sim-details-topbar__current">{simulationId}</span>
-            </>
-          )}
-        </div>
-        {simulationId && <span className="sim-details-topbar__live-pip" aria-hidden="true" />}
-      </div>
-
-      <button type="button" className="sim-details-topbar__compare">
-        <span className="material-symbols-outlined">compare_arrows</span>
-        <span>Compare Runs</span>
-      </button>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+      current={simulationId}
+      showSearch={false}
+      action={
+        <button type="button" className="app-topbar__action">
+          <span className="material-symbols-outlined">compare_arrows</span>
+          <span>Compare Runs</span>
+        </button>
+      }
+    />
   );
 };
 

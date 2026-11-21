@@ -1,17 +1,12 @@
-import { Link } from 'react-router-dom';
-import './AddPredictionTopBar.scss';
+import TopBarBase from '../../../Common/TopBar/TopBar';
 
 const AddPredictionTopBar = () => {
   return (
-    <header className="add-prediction-top-bar">
-      <nav aria-label="Breadcrumb">
-        <Link to="/app/predictions">Marine Predictions</Link>
-
-        <span>/</span>
-
-        <span className="add-prediction-top-bar__current">New</span>
-      </nav>
-    </header>
+    <TopBarBase
+      breadcrumb={{ label: 'Marine Predictions', to: '/app/predictions' }}
+      current="New"
+      showSearch={false}
+    />
   );
 };
 
