@@ -11,6 +11,8 @@ import AddSimulationTopBar from '../../../components/Simulations/AddSimulation/A
 import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 import type { ScenarioParameters } from '../../../api/models';
+import ServerErrors from '../../../components/errors/ServerErrors';
+import { parseApiError } from '../../../utils/apiError';
 
 const isScenarioParameters = (value: unknown): value is ScenarioParameters => {
   if (!value || typeof value !== 'object') return false;
@@ -33,6 +35,9 @@ const AddSimulationPage = () => {
     data: scenariosResponse,
     isLoading: isLoadingScenarios,
     isError: isScenariosError,
+    error: scenariosError,
+    isFetching: isFetchingScenarios,
+    refetch: refetchScenarios,
   } = useGetScenarios(1);
 
   const addScenarioSimulation = useAddScenarioSimulation();
@@ -58,10 +63,12 @@ const AddSimulationPage = () => {
     addScenarioSimulation.mutate(selectedScenario.id);
   };
 
+  const parsedScenariosError = isScenariosError ? parseApiError(scenariosError) : null;
+  const parsedRunError = addScenarioSimulation.isError
+    ? parseApiError(addScenarioSimulation.error)
+    : null;
   const errorMessage =
-    addScenarioSimulation.error instanceof Error
-      ? addScenarioSimulation.error.message
-      : 'The simulation could not be queued. Please try again.';
+    parsedRunError?.message ?? 'The simulation could not be queued. Please try again.';
 
   return (
     <div className="add-simulation-page">
@@ -73,10 +80,36 @@ const AddSimulationPage = () => {
 
           <AddSimulationHeader />
 
-          {isLoadingScenarios && <p role="status">Loading saved scenarios...</p>}
+          {addScenarioSimulation.isError && (
+            <div className="add-simulation-page__error" role="alert">
+              <div className="add-simulation-page__error-content">
+                <span className="add-simulation-page__error-indicator" />
+                <div>
+                  <p>SIMULATION REQUEST FAILED</p>
+                  <span>{errorMessage}</span>
+                  {(parsedRunError?.status != null || parsedRunError?.code) && (
+                    <small className="add-simulation-page__error-meta">
+                      {parsedRunError.status != null && <span>HTTP {parsedRunError.status}</span>}
+                      {parsedRunError.status != null && parsedRunError.code ? ' · ' : null}
+                      {parsedRunError.code && <span>{parsedRunError.code}</span>}
+                    </small>
+                  )}
+                </div>
+              </div>
+              <span className="add-simulation-page__error-status">ERROR</span>
+            </div>
+          )}
 
-          {isScenariosError && (
-            <p role="alert">Unable to load scenarios. Please refresh the page.</p>
+          {(isLoadingScenarios || isScenariosError || parsedScenariosError) && (
+            <ServerErrors
+              isPending={isLoadingScenarios}
+              isError={isScenariosError}
+              isFetching={isFetchingScenarios}
+              parsedError={parsedScenariosError}
+              refetch={refetchScenarios}
+              requestedData="saved scenarios"
+              noData={false}
+            />
           )}
 
           {!isLoadingScenarios && !isScenariosError && scenarios.length === 0 && (
@@ -116,7 +149,6 @@ const AddSimulationPage = () => {
                         : 'idle'
                 }
                 responseStatus={addScenarioSimulation.data?.status}
-                errorMessage={errorMessage}
               />
             </>
           )}

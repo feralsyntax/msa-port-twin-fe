@@ -7,7 +7,6 @@ interface AddSimulationActionsProps {
   disabled?: boolean;
   status: SimulationActionStatus;
   responseStatus?: string;
-  errorMessage?: string;
 }
 
 const AddSimulationActions = ({
@@ -15,11 +14,9 @@ const AddSimulationActions = ({
   disabled = false,
   status,
   responseStatus,
-  errorMessage,
 }: AddSimulationActionsProps) => {
   const isPending = status === 'pending';
   const isSuccess = status === 'success';
-  const isError = status === 'error';
 
   const buttonLabel = isPending
     ? 'Queueing Simulation...'
@@ -68,21 +65,6 @@ const AddSimulationActions = ({
           <span className="add-simulation-actions__toast-status">
             {responseStatus?.toUpperCase() ?? 'ACCEPTED'}
           </span>
-        </div>
-      )}
-
-      {isError && (
-        <div className="add-simulation-actions__toast" role="alert">
-          <div className="add-simulation-actions__toast-content">
-            <span className="add-simulation-actions__toast-indicator" />
-
-            <div>
-              <p>SIMULATION REQUEST FAILED</p>
-              <span>{errorMessage}</span>
-            </div>
-          </div>
-
-          <span className="add-simulation-actions__toast-status">ERROR</span>
         </div>
       )}
     </section>
