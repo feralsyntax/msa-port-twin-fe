@@ -7,9 +7,6 @@ interface AddSimulationActionsProps {
   disabled?: boolean;
   status: SimulationActionStatus;
   responseStatus?: string;
-  errorMessage?: string;
-  errorStatus?: number;
-  errorCode?: string;
 }
 
 const AddSimulationActions = ({
@@ -17,13 +14,9 @@ const AddSimulationActions = ({
   disabled = false,
   status,
   responseStatus,
-  errorMessage,
-  errorStatus,
-  errorCode,
 }: AddSimulationActionsProps) => {
   const isPending = status === 'pending';
   const isSuccess = status === 'success';
-  const isError = status === 'error';
 
   const buttonLabel = isPending
     ? 'Queueing Simulation...'
@@ -72,31 +65,6 @@ const AddSimulationActions = ({
           <span className="add-simulation-actions__toast-status">
             {responseStatus?.toUpperCase() ?? 'ACCEPTED'}
           </span>
-        </div>
-      )}
-
-      {isError && (
-        <div
-          className="add-simulation-actions__toast add-simulation-actions__toast--error"
-          role="alert"
-        >
-          <div className="add-simulation-actions__toast-content">
-            <span className="add-simulation-actions__toast-indicator" />
-
-            <div>
-              <p>SIMULATION REQUEST FAILED</p>
-              <span>{errorMessage}</span>
-              {(errorStatus != null || errorCode) && (
-                <small className="add-simulation-actions__toast-meta">
-                  {errorStatus != null && <span>HTTP {errorStatus}</span>}
-                  {errorStatus != null && errorCode ? ' · ' : null}
-                  {errorCode && <span>{errorCode}</span>}
-                </small>
-              )}
-            </div>
-          </div>
-
-          <span className="add-simulation-actions__toast-status">ERROR</span>
         </div>
       )}
     </section>

@@ -80,6 +80,26 @@ const AddSimulationPage = () => {
 
           <AddSimulationHeader />
 
+          {addScenarioSimulation.isError && (
+            <div className="add-simulation-page__error" role="alert">
+              <div className="add-simulation-page__error-content">
+                <span className="add-simulation-page__error-indicator" />
+                <div>
+                  <p>SIMULATION REQUEST FAILED</p>
+                  <span>{errorMessage}</span>
+                  {(parsedRunError?.status != null || parsedRunError?.code) && (
+                    <small className="add-simulation-page__error-meta">
+                      {parsedRunError.status != null && <span>HTTP {parsedRunError.status}</span>}
+                      {parsedRunError.status != null && parsedRunError.code ? ' · ' : null}
+                      {parsedRunError.code && <span>{parsedRunError.code}</span>}
+                    </small>
+                  )}
+                </div>
+              </div>
+              <span className="add-simulation-page__error-status">ERROR</span>
+            </div>
+          )}
+
           {(isLoadingScenarios || isScenariosError || parsedScenariosError) && (
             <ServerErrors
               isPending={isLoadingScenarios}
@@ -129,9 +149,6 @@ const AddSimulationPage = () => {
                         : 'idle'
                 }
                 responseStatus={addScenarioSimulation.data?.status}
-                errorMessage={errorMessage}
-                errorStatus={parsedRunError?.status}
-                errorCode={parsedRunError?.code}
               />
             </>
           )}
