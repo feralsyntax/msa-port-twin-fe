@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './BerthDetailsTopBar.scss';
 
 interface BerthDetailsTopBarProps {
-  berthName: string;
+  berthName?: string;
 }
 
 const BerthDetailsTopBar = ({ berthName }: BerthDetailsTopBarProps) => {
@@ -12,8 +12,12 @@ const BerthDetailsTopBar = ({ berthName }: BerthDetailsTopBarProps) => {
         <Link to="/app/berths" className="berth-details-topbar__parent">
           Berths
         </Link>
-        <span className="berth-details-topbar__sep">/</span>
-        <span className="berth-details-topbar__current">{berthName}</span>
+        {berthName && (
+          <>
+            <span className="berth-details-topbar__sep">/</span>
+            <span className="berth-details-topbar__current">{berthName}</span>
+          </>
+        )}
       </div>
     </header>
   );
