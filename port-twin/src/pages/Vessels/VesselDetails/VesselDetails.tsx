@@ -60,15 +60,17 @@ const VesselDetailsPage = () => {
   return (
     <main className="vessel-details-page">
       {isPending || isError || parsedError || isFetching || !vessel ? (
-        <ServerErrors
-          isPending={isPending}
-          isError={isError}
-          isFetching={isFetching}
-          parsedError={parsedError}
-          refetch={refetch}
-          requestedData="vessels"
-          noData={!vessel}
-        />
+        <div className="vessel-details-page__content">
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="vessels"
+            noData={!vessel}
+          />
+        </div>
       ) : (
         <>
           <VesselDetailsTopBar vesselName={vessel.name} />
