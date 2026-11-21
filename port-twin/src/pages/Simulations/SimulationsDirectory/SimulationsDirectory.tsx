@@ -87,9 +87,8 @@ const SimulationsDirectoryPage = () => {
     <div className="simulations-directory-page">
       <SimulationsDirectoryTopBar />
 
-      <div className="simulations-directory-page__content">
-        <SimulationProvenanceNotice />
-
+      <main className="simulations-directory-page__content">
+        {!showBlockingState && <SimulationProvenanceNotice />}
         {showBlockingState ? (
           <ServerErrors
             isPending={isPending}
@@ -119,7 +118,7 @@ const SimulationsDirectoryPage = () => {
             />
           </>
         )}
-      </div>
+      </main>
     </div>
   );
 };
