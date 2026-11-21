@@ -32,6 +32,7 @@ const BerthDetailsPage = () => {
   if (showBlockingState) {
     return (
       <main className="berth-details-page">
+        <BerthDetailsTopBar berthName={berth?.name} />
         <div className="berth-details-page__content">
           <ServerErrors
             isPending={isPending}
