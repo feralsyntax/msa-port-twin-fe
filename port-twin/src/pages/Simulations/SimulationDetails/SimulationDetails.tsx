@@ -7,6 +7,8 @@ import SimulationMetricCards from '../../../components/Simulations/SimulationDet
 import BerthSchedule from '../../../components/Simulations/SimulationDetails/BerthSchedule/BerthSchedule';
 import VesselQueueImpact from '../../../components/Simulations/SimulationDetails/VesselQueueImpact/VesselQueueImpact';
 import SimulationDetailsFooter from '../../../components/Simulations/SimulationDetails/SimulationDetailsFooter/SimulationDetailsFooter';
+import ServerErrors from '../../../components/errors/ServerErrors';
+import { parseApiError } from '../../../utils/apiError';
 
 import './SimulationDetails.scss';
 import useGetSimulationDetails from '../../../hooks/simulations/useGetSimulationDetails';
@@ -15,7 +17,15 @@ const SimulationDetailsPage = () => {
   const { simulationId } = useParams<{ simulationId: string }>();
   const id = simulationId ?? '';
 
-  const { data: simulation, isLoading, isError } = useGetSimulationDetails(id);
+  const {
+    data: simulation,
+    isPending,
+    isError,
+    error,
+    isFetching,
+    refetch,
+  } = useGetSimulationDetails(id);
+  const parsedError = isError ? parseApiError(error) : null;
 
   if (!id) {
     return (
@@ -25,21 +35,20 @@ const SimulationDetailsPage = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="sim-details-page">
-        <p role="status">Loading simulation details...</p>
-      </div>
-    );
-  }
+  const showBlockingState = isPending || isError || parsedError != null || !simulation;
 
-  if (isError || !simulation) {
+  if (showBlockingState) {
     return (
       <div className="sim-details-page">
-        <p role="alert">
-          Unable to load simulation details. The simulation may not exist or the server could not be
-          reached.
-        </p>
+        <ServerErrors
+          isPending={isPending}
+          isError={isError}
+          isFetching={isFetching}
+          parsedError={parsedError}
+          refetch={refetch}
+          requestedData="simulation details"
+          noData={!isPending && !isError && !simulation}
+        />
       </div>
     );
   }

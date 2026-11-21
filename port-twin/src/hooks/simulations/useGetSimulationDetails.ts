@@ -4,7 +4,7 @@ import { simulationsRetrieve } from '../../api/generated';
 const useGetSimulationDetails = (simulationId: string) => {
   return useQuery({
     queryKey: ['simulationsRetrieve', simulationId],
-    queryFn: () => simulationsRetrieve(simulationId),
+    queryFn: ({ signal }) => simulationsRetrieve(simulationId, undefined, signal),
     enabled: Boolean(simulationId),
     staleTime: 30_000,
   });
