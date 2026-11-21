@@ -29,8 +29,11 @@ const SimulationDetailsPage = () => {
 
   if (!id) {
     return (
-      <main className="sim-details-page sim-details-page--state">
-        <p role="alert">No simulation ID was provided.</p>
+      <main className="sim-details-page">
+        <SimulationDetailsTopBar />
+        <div className="sim-details-page__content">
+          <p role="alert">No simulation ID was provided.</p>
+        </div>
       </main>
     );
   }
@@ -39,16 +42,19 @@ const SimulationDetailsPage = () => {
 
   if (showBlockingState) {
     return (
-      <main className="sim-details-page sim-details-page--state">
-        <ServerErrors
-          isPending={isPending}
-          isError={isError}
-          isFetching={isFetching}
-          parsedError={parsedError}
-          refetch={refetch}
-          requestedData="simulation details"
-          noData={!isPending && !isError && !simulation}
-        />
+      <main className="sim-details-page">
+        <SimulationDetailsTopBar simulationId={simulation?.id} />
+        <div className="sim-details-page__content">
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="simulation details"
+            noData={!isPending && !isError && !simulation}
+          />
+        </div>
       </main>
     );
   }

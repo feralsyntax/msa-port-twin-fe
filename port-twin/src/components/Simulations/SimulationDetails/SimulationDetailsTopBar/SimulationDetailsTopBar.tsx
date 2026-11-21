@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './SimulationDetailsTopBar.scss';
 
 interface SimulationDetailsTopBarProps {
-  simulationId: string;
+  simulationId?: string;
 }
 
 const SimulationDetailsTopBar = ({ simulationId }: SimulationDetailsTopBarProps) => {
@@ -13,10 +13,14 @@ const SimulationDetailsTopBar = ({ simulationId }: SimulationDetailsTopBarProps)
           <Link to="/app/simulations" className="sim-details-topbar__parent">
             Simulations
           </Link>
-          <span className="sim-details-topbar__sep">/</span>
-          <span className="sim-details-topbar__current">{simulationId}</span>
+          {simulationId && (
+            <>
+              <span className="sim-details-topbar__sep">/</span>
+              <span className="sim-details-topbar__current">{simulationId}</span>
+            </>
+          )}
         </div>
-        <span className="sim-details-topbar__live-pip" aria-hidden="true" />
+        {simulationId && <span className="sim-details-topbar__live-pip" aria-hidden="true" />}
       </div>
 
       <button type="button" className="sim-details-topbar__compare">
