@@ -30,6 +30,7 @@ const SimulationDetailsPage = () => {
   if (!id) {
     return (
       <main className="sim-details-page">
+        <SimulationDetailsTopBar />
         <div className="sim-details-page__content">
           <p role="alert">No simulation ID was provided.</p>
         </div>
@@ -42,6 +43,7 @@ const SimulationDetailsPage = () => {
   if (showBlockingState) {
     return (
       <main className="sim-details-page">
+        <SimulationDetailsTopBar simulationId={simulation?.id} />
         <div className="sim-details-page__content">
           <ServerErrors
             isPending={isPending}
