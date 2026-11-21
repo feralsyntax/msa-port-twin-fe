@@ -10,7 +10,10 @@ export const useAddScenarioSimulation = () => {
 
     onSuccess: (_data, scenarioId) => {
       queryClient.invalidateQueries({
-        queryKey: ['simulationsList', 'scenario', scenarioId],
+        queryKey: ['simulationsList'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['scenarioSimulations', scenarioId],
       });
     },
     // Errors handled in ScenarioDetails via mutation.error + parseApiError

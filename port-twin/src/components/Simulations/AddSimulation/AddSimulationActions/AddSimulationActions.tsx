@@ -8,6 +8,8 @@ interface AddSimulationActionsProps {
   status: SimulationActionStatus;
   responseStatus?: string;
   errorMessage?: string;
+  errorStatus?: number;
+  errorCode?: string;
 }
 
 const AddSimulationActions = ({
@@ -16,6 +18,8 @@ const AddSimulationActions = ({
   status,
   responseStatus,
   errorMessage,
+  errorStatus,
+  errorCode,
 }: AddSimulationActionsProps) => {
   const isPending = status === 'pending';
   const isSuccess = status === 'success';
@@ -72,13 +76,23 @@ const AddSimulationActions = ({
       )}
 
       {isError && (
-        <div className="add-simulation-actions__toast" role="alert">
+        <div
+          className="add-simulation-actions__toast add-simulation-actions__toast--error"
+          role="alert"
+        >
           <div className="add-simulation-actions__toast-content">
             <span className="add-simulation-actions__toast-indicator" />
 
             <div>
               <p>SIMULATION REQUEST FAILED</p>
               <span>{errorMessage}</span>
+              {(errorStatus != null || errorCode) && (
+                <small className="add-simulation-actions__toast-meta">
+                  {errorStatus != null && <span>HTTP {errorStatus}</span>}
+                  {errorStatus != null && errorCode ? ' · ' : null}
+                  {errorCode && <span>{errorCode}</span>}
+                </small>
+              )}
             </div>
           </div>
 

@@ -18,13 +18,16 @@ export interface ParsedApiError {
 }
 
 type ApiErrorBody = {
-  error?: {
-    code?: string;
-    message?: string;
-    details?: unknown;
-  };
+  error?:
+    | {
+        code?: string;
+        message?: string;
+        details?: unknown;
+      }
+    | string;
   detail?: string | Array<{ msg?: string; message?: string }>;
   message?: string;
+  status?: string;
 };
 
 export function parseApiError(error: unknown): ParsedApiError {
@@ -46,12 +49,23 @@ export function parseApiError(error: unknown): ParsedApiError {
   const isNetworkError = !axiosError.response && axiosError.request != null;
 
   // Prefer schema shape: { error: { code, message, details } }
-  if (data?.error?.message) {
+  if (typeof data?.error === 'object' && data.error.message) {
     return {
       status,
       code: data.error.code,
       message: data.error.message,
       details: data.error.details,
+      isNetworkError: false,
+      isTimeout: false,
+    };
+  }
+
+  // Orval SimulationErrorResponse: { id, scenario_id, status, error }
+  if (typeof data?.error === 'string') {
+    return {
+      status,
+      code: data.status ? `simulation_${data.status}` : 'simulation_error',
+      message: data.error,
       isNetworkError: false,
       isTimeout: false,
     };
