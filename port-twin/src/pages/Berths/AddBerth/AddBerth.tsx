@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import AddBerthTopBar from '../../../components/Berths/AddBerth/AddBerthTopBar/AddBerthTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import BerthIdentityForm from '../../../components/Berths/AddBerth/BerthIdentityForm/BerthIdentityForm';
 import BerthConstraintsForm from '../../../components/Berths/AddBerth/BerthConstraintsForm/BerthConstraintsForm';
 import BerthLocationForm from '../../../components/Berths/AddBerth/BerthLocationForm/BerthLocationForm';
@@ -84,7 +84,11 @@ const AddBerthPage = () => {
 
   return (
     <div className="add-berth-page">
-      <AddBerthTopBar />
+      <TopBar
+        breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+        current="Add New"
+        showSearch={false}
+      />
 
       <div className="add-berth-page__content">
         <div className="add-berth-page__container">

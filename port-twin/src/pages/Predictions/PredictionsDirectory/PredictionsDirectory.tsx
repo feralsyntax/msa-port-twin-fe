@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import PredictionsDirectoryTopBar from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryTopBar/PredictionsDirectoryTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import PredictionsDirectoryStatusTabs from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryStatusTabs/PredictionsDirectoryStatusTabs';
 import PredictionsDirectoryTable from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryTable/PredictionsDirectoryTable';
 import PredictionsDirectoryPagination from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryPagination/PredictionsDirectoryPagination';
@@ -108,7 +108,20 @@ export const PredictionsDirectoryPage = () => {
 
   return (
     <div className="predictions-directory-page">
-      <PredictionsDirectoryTopBar />
+      <TopBar
+        title="Marine Predictions"
+        showSearch={false}
+        action={
+          <button
+            type="button"
+            className="app-topbar__action"
+            onClick={() => navigate('/app/predictions/new')}
+          >
+            <span className="material-symbols-outlined">add</span>
+            <span>New Prediction</span>
+          </button>
+        }
+      />
 
       <PredictionsDirectoryStatusTabs
         activeFilter={activeFilter}

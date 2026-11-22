@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import ScenarioDetailsTopBar from '../../../components/Scenarios/ScenarioDetails/ScenarioDetailsTopBar/ScenarioDetailsTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import ScenarioDetailsHeader from '../../../components/Scenarios/ScenarioDetails/ScenarioDetailsHeader/ScenarioDetailsHeader';
 import ScenarioMetrics from '../../../components/Scenarios/ScenarioDetails/ScenarioMetrics/ScenarioMetrics';
 import ScenarioParameters from '../../../components/Scenarios/ScenarioDetails/ScenarioParameters/ScenarioParameters';
@@ -59,7 +59,17 @@ const ScenarioDetailsPage = () => {
   if (showBlockingState) {
     return (
       <main className="scenario-details">
-        <ScenarioDetailsTopBar scenarioName={scenario?.name} />
+        <TopBar
+          breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+          current={scenario?.name}
+          showSearch={false}
+          action={
+            <button type="button" className="app-topbar__action" disabled>
+              <span className="material-symbols-outlined">play_arrow</span>
+              <span>Run Simulation</span>
+            </button>
+          }
+        />
         <div className="scenario-details__content">
           <ServerErrors
             isPending={isScenarioPending}
@@ -85,13 +95,24 @@ const ScenarioDetailsPage = () => {
 
   return (
     <div className="scenario-details">
-      <ScenarioDetailsTopBar
-        scenarioName={scenario.name}
-        onRunSimulation={() => {
-          runSimulation.reset();
-          runSimulation.mutate(scenario.id);
-        }}
-        isRunning={runSimulation.isPending}
+      <TopBar
+        breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+        current={scenario.name}
+        showSearch={false}
+        action={
+          <button
+            type="button"
+            className="app-topbar__action"
+            onClick={() => {
+              runSimulation.reset();
+              runSimulation.mutate(scenario.id);
+            }}
+            disabled={runSimulation.isPending}
+          >
+            <span className="material-symbols-outlined">play_arrow</span>
+            <span>{runSimulation.isPending ? 'Queuing...' : 'Run Simulation'}</span>
+          </button>
+        }
       />
 
       <div className="scenario-details__provenance">

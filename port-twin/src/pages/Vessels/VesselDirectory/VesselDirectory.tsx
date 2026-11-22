@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import TopBar from '../../../components/Vessels/VesselDirectory/TopBar/TopBar';
+import { useNavigate } from 'react-router-dom';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import VesselFilters from '../../../components/Vessels/VesselDirectory/VesselFilters/VesselFilters';
 import VesselTable from '../../../components/Vessels/VesselDirectory/VesselTable/VesselTable';
 import VesselPagination from '../../../components/Vessels/VesselDirectory/VesselPagination/VesselPagination';
@@ -12,6 +13,7 @@ import ServerErrors from '../../../components/errors/ServerErrors';
 const PAGE_SIZE = 20;
 
 const VesselsDirectoryPage = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isPending, isError, error, isPlaceholderData, refetch, isFetching } =
@@ -36,7 +38,20 @@ const VesselsDirectoryPage = () => {
 
   return (
     <div className="vessels-page">
-      <TopBar />
+      <TopBar
+        title="Vessels"
+        showSearch={false}
+        action={
+          <button
+            type="button"
+            className="app-topbar__action"
+            onClick={() => navigate('/app/vessels/new')}
+          >
+            <span className="material-symbols-outlined">add</span>
+            <span>Add Vessel</span>
+          </button>
+        }
+      />
 
       <main className="vessels-page__content">
         {isPending || isError || parsedError || isFetching || !vessels.length ? (

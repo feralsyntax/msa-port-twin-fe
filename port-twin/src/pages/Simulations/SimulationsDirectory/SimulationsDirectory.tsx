@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './SimulationsDirectory.scss';
 import type {
@@ -6,7 +7,7 @@ import type {
   SimulationStatusCount,
 } from '../../../components/Simulations/SimulationsDirectory/types/simulations.types';
 import useGetSimulations from '../../../hooks/simulations/useGetSimulations';
-import SimulationsDirectoryTopBar from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTopBar/SimulationsDirectoryTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import SimulationProvenanceNotice from '../../../components/Simulations/SimulationsDirectory/SimulationProvenanceNotice/SimulationProvenanceNotice';
 import SimulationStatusTabs from '../../../components/Simulations/SimulationsDirectory/SimulationStatusTabs/SimulationStatusTabs';
 import SimulationsDirectoryTable from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryTable/SimulationsDirectoryTable';
@@ -25,6 +26,7 @@ const statusLabels = {
 } as const;
 
 const SimulationsDirectoryPage = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<SimulationFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -85,7 +87,20 @@ const SimulationsDirectoryPage = () => {
 
   return (
     <div className="simulations-directory-page">
-      <SimulationsDirectoryTopBar />
+      <TopBar
+        title="Simulations"
+        showSearch={false}
+        action={
+          <button
+            type="button"
+            className="app-topbar__action"
+            onClick={() => navigate('/app/simulations/new')}
+          >
+            <span className="material-symbols-outlined">add</span>
+            <span>New Simulation</span>
+          </button>
+        }
+      />
 
       <main className="simulations-directory-page__content">
         {!showBlockingState && <SimulationProvenanceNotice />}
