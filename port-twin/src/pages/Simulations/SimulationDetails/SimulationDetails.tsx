@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import SimulationDetailsTopBar from '../../../components/Simulations/SimulationDetails/SimulationDetailsTopBar/SimulationDetailsTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import SimulatedDataBanner from '../../../components/Simulations/SimulationDetails/SimulatedDataBanner/SimulatedDataBanner';
 import SimulationIdentityHeader from '../../../components/Simulations/SimulationDetails/SimulationIdentityHeader/SimulationIdentityHeader';
 import SimulationMetricCards from '../../../components/Simulations/SimulationDetails/SimulationMetricCards/SimulationMetricCards';
@@ -30,7 +30,7 @@ const SimulationDetailsPage = () => {
   if (!id) {
     return (
       <main className="sim-details-page">
-        <SimulationDetailsTopBar />
+        <TopBar breadcrumb={{ label: 'Simulations', to: '/app/simulations' }} showSearch={false} />
         <div className="sim-details-page__content">
           <p role="alert">No simulation ID was provided.</p>
         </div>
@@ -43,7 +43,17 @@ const SimulationDetailsPage = () => {
   if (showBlockingState) {
     return (
       <main className="sim-details-page">
-        <SimulationDetailsTopBar simulationId={simulation?.id} />
+        <TopBar
+          breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+          current={simulation?.id}
+          showSearch={false}
+          action={
+            <button type="button" className="app-topbar__action">
+              <span className="material-symbols-outlined">compare_arrows</span>
+              <span>Compare Runs</span>
+            </button>
+          }
+        />
         <div className="sim-details-page__content">
           <ServerErrors
             isPending={isPending}
@@ -61,7 +71,17 @@ const SimulationDetailsPage = () => {
 
   return (
     <div className="sim-details-page">
-      <SimulationDetailsTopBar simulationId={simulation.id} />
+      <TopBar
+        breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+        current={simulation.id}
+        showSearch={false}
+        action={
+          <button type="button" className="app-topbar__action">
+            <span className="material-symbols-outlined">compare_arrows</span>
+            <span>Compare Runs</span>
+          </button>
+        }
+      />
       <SimulatedDataBanner />
 
       <div className="sim-details-page__content">

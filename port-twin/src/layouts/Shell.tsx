@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Shell.scss';
+import TopBar from '../components/Common/TopBar/TopBar';
 
 const primaryNav = [
   {
@@ -230,90 +231,30 @@ export default function Shell() {
       </aside>
 
       <div className="shell__main">
-        {isDashboard || isMap ? (
-          <header className="shell__topbar">
-            <div className="shell__topbar-left">
-              {isDashboard ? (
-                <div className="shell__page-meta">
-                  <h1 className="shell__page-title">Port Operations Dashboard</h1>
-                  <div className="shell__sector">
-                    <span className="shell__sector-label">SECTOR</span>
-                    <span className="shell__sector-value">
-                      MOMBASA-KILINDINI // 04°03'S 39°38'E
-                    </span>
-                  </div>
-                </div>
-              ) : isMap ? (
-                <div className="shell__page-meta">
-                  <h1 className="shell__page-title">Marine Map</h1>
-                  <div className="shell__sector">
-                    <span className="shell__sector-label">SECTOR</span>
-                    <span className="shell__sector-value">
-                      MOMBASA-KILINDINI // 04°03'S 39°38'E
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div className="shell__title-placeholder" aria-label="Page title placeholder" />
-              )}
-            </div>
-
-            <div className="shell__topbar-right">
-              <div className="shell__search" role="search">
-                <div className="shell__search-field">
-                  <svg
-                    className="shell__search-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                  <input
-                    type="text"
-                    className="shell__search-input"
-                    placeholder={
-                      isDashboard
-                        ? 'Filter telemetry, vessel, berth...'
-                        : isMap
-                          ? 'Search AIS, Berth, Waypoint...'
-                          : 'Search...'
-                    }
-                  />
-                </div>
-                <kbd className="shell__search-kbd">⌘K</kbd>
-              </div>
-
-              {isDashboard ? (
+        {(isDashboard || isMap) && (
+          <TopBar
+            title={isDashboard ? 'Port Operations Dashboard' : 'Marine Map'}
+            showSearch={isDashboard}
+            searchPlaceholder="Filter telemetry, vessel, berth..."
+            sector={
+              <>
+                <span className="shell__sector-label">SECTOR</span>
+                <span className="shell__sector-value">MOMBASA-KILINDINI // 04°03'S 39°38'E</span>
+              </>
+            }
+            action={
+              isDashboard ? (
                 <button type="button" className="shell__action shell__action--live">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 5v14M5 12h14" strokeLinecap="round" />
-                  </svg>
                   <span>New Simulation</span>
                 </button>
-              ) : isMap ? (
+              ) : (
                 <button type="button" className="shell__action shell__action--live">
                   <span>REFRESH DATA</span>
                 </button>
-              ) : (
-                <button type="button" className="shell__action" aria-label="Primary action">
-                  <span className="shell__action-placeholder" />
-                </button>
-              )}
-            </div>
-          </header>
-        ) : null}
+              )
+            }
+          />
+        )}
 
         <section
           className={`shell__content${isMap ? ' shell__content--bleed' : ''}`}

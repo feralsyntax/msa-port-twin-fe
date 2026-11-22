@@ -2,7 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import './SimulationsComparison.scss';
 
-import SimulationsComparisonTopBar from '../../../components/Simulations/SimulationsComparison/SimulationsComparisonTopBar/SimulationsComparisonTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import SimulationsComparisonBanner from '../../../components/Simulations/SimulationsComparison/SimulationsComparisonBanner/SimulationsComparisonBanner';
 import RunComparisonCard from '../../../components/Simulations/SimulationsComparison/RunComparisonCard/RunComparisonCard';
 import ComparisonMetricCard from '../../../components/Simulations/SimulationsComparison/ComparisonMetricCard/ComparisonMetricCard';
@@ -212,7 +212,11 @@ const SimulationsComparisonPage = () => {
 
   return (
     <div className="simulations-comparison-page">
-      <SimulationsComparisonTopBar />
+      <TopBar
+        breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+        current="Compare"
+        showSearch={false}
+      />
 
       <SimulationsComparisonBanner />
 

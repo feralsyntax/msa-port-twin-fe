@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import BerthDetailsTopBar from '../../../components/Berths/BerthDetails/BerthDetailsTopBar/BerthDetailsTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import BerthIdentityHeader from '../../../components/Berths/BerthDetails/BerthIdentityHeader/BerthIdentityHeader';
 import BerthSpecCards from '../../../components/Berths/BerthDetails/BerthSpecCards/BerthSpecCards';
 import RecentAssignments from '../../../components/Berths/BerthDetails/RecentAssignments/RecentAssignments';
@@ -32,7 +32,11 @@ const BerthDetailsPage = () => {
   if (showBlockingState) {
     return (
       <main className="berth-details-page">
-        <BerthDetailsTopBar berthName={berth?.name} />
+        <TopBar
+          breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+          current={berth?.name}
+          showSearch={false}
+        />
         <div className="berth-details-page__content">
           <ServerErrors
             isPending={isPending}
@@ -72,7 +76,11 @@ const BerthDetailsPage = () => {
 
   return (
     <main className="berth-details-page">
-      <BerthDetailsTopBar berthName={berth.name} />
+      <TopBar
+        breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+        current={berth.name}
+        showSearch={false}
+      />
 
       <div className="berth-details-page__content">
         <BerthIdentityHeader name={berth.name} status={statusLabel} />

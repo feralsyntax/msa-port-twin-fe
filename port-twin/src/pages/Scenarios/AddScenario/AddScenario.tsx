@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, type SubmitHandler, type Path } from 'react-hook-form';
 
 import './AddScenario.scss';
-import AddScenarioTopBar from '../../../components/Scenarios/AddScenario/AddScenarioTopBar/AddScenarioTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import ScenarioPageHeader from '../../../components/Scenarios/AddScenario/ScenarioPageHeader/ScenarioPageHeader';
 import ScenarioIdentity from '../../../components/Scenarios/AddScenario/ScenarioIdentity/ScenarioIdentity';
 import SimulationParameters from '../../../components/Scenarios/AddScenario/SimulationParameters/SimulationParameters';
@@ -89,7 +89,11 @@ const AddScenarioPage = () => {
 
   return (
     <div className="add-scenario-page">
-      <AddScenarioTopBar />
+      <TopBar
+        breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+        current="New"
+        showSearch={false}
+      />
 
       <div className="add-scenario-page__content">
         <ScenarioPageHeader />

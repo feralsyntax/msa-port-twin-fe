@@ -1,0 +1,157 @@
+@use '../../../styles/tokens' as *;
+
+.app-topbar {
+  height: $topbar-height;
+  flex-shrink: 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: $canvas-1;
+  border-bottom: 1px solid $hairline;
+  z-index: 10;
+
+  &__left,
+  &__right,
+  &__title-group,
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+  }
+
+  &__left {
+    min-width: 0;
+  }
+
+  &__title-group {
+    gap: 20px;
+  }
+
+  &__title {
+    margin: 0;
+    color: $ink-0;
+    font-family: $font-display;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  &__breadcrumb {
+    gap: 8px;
+    min-width: 0;
+    color: $ink-2;
+    font-size: 13px;
+
+    a {
+      color: $ink-2;
+      text-decoration: none;
+
+      &:hover {
+        color: $ink-1;
+      }
+    }
+  }
+
+  &__current {
+    min-width: 0;
+    overflow: hidden;
+    color: $ink-0;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__sector {
+    display: flex;
+  }
+
+  &__right {
+    gap: 12px;
+  }
+
+  &__action {
+    height: 32px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: $radius-sm;
+    background: $signal;
+    color: $canvas-0;
+    font-family: $font-mono;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+
+    .material-symbols-outlined {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: $signal-dim;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  &__search {
+    width: 240px;
+    height: 32px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: $canvas-2;
+    border: 1px solid $hairline;
+    border-radius: $radius-sm;
+  }
+
+  &__search-icon {
+    flex-shrink: 0;
+    color: $ink-2;
+    font-size: 14px;
+  }
+
+  &__search-input {
+    min-width: 0;
+    flex: 1;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: $ink-0;
+    font-family: $font-mono;
+    font-size: 11px;
+
+    &::placeholder {
+      color: $ink-2;
+    }
+  }
+
+  &__search-kbd {
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 9px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+
+    &__search {
+      width: 180px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__search {
+      display: none;
+    }
+  }
+}

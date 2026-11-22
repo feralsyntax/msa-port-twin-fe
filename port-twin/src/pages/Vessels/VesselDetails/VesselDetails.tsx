@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import VesselDetailsTopBar from '../../../components/Vessels/VesselDetails/VesselDetailsTopBar/VesselDetailsTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import VesselIdentityHeader from '../../../components/Vessels/VesselDetails/VesselIdentityHeader/VesselIdentityHeader';
 import VesselSpecifications from '../../../components/Vessels/VesselDetails/VesselSpecifications/VesselSpecifications';
 import VesselIdentityPanel from '../../../components/Vessels/VesselDetails/VesselIdentityPanel/VesselIdentityPanel';
@@ -61,7 +61,11 @@ const VesselDetailsPage = () => {
     <main className="vessel-details-page">
       {isPending || isError || parsedError || isFetching || !vessel ? (
         <>
-          <VesselDetailsTopBar vesselName={vessel?.name} />
+          <TopBar
+            breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+            current={vessel?.name}
+            showSearch={false}
+          />
           <div className="vessel-details-page__content">
             <ServerErrors
               isPending={isPending}
@@ -76,7 +80,11 @@ const VesselDetailsPage = () => {
         </>
       ) : (
         <>
-          <VesselDetailsTopBar vesselName={vessel.name} />
+          <TopBar
+            breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+            current={vessel.name}
+            showSearch={false}
+          />
 
           <div className="vessel-details-page__content">
             <VesselIdentityHeader vessel={vessel} />

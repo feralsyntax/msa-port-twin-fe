@@ -7,7 +7,7 @@ import ScenarioSelector from '../../../components/Simulations/AddSimulation/Scen
 import LockedParameters from '../../../components/Simulations/AddSimulation/LockedParameters/LockedParameters';
 import AddSimulationActions from '../../../components/Simulations/AddSimulation/AddSimulationActions/AddSimulationActions';
 import AddSimulationHeader from '../../../components/Simulations/AddSimulation/AddSimulationHeader/AddSimulationHeader';
-import AddSimulationTopBar from '../../../components/Simulations/AddSimulation/AddSimulationTopBar/AddSimulationTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioSimulation';
 import type { ScenarioParameters } from '../../../api/models';
@@ -72,7 +72,11 @@ const AddSimulationPage = () => {
 
   return (
     <div className="add-simulation-page">
-      <AddSimulationTopBar />
+      <TopBar
+        breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+        current="New"
+        showSearch={false}
+      />
 
       <div className="add-simulation-page__content">
         <div className="add-simulation-page__container">

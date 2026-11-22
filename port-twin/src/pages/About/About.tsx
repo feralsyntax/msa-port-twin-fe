@@ -1,4 +1,4 @@
-import AboutTopBar from '../../components/About/AboutTopBar/AboutTopBar';
+import TopBar from '../../components/Common/TopBar/TopBar';
 import AboutThesis from '../../components/About/AboutThesis/AboutThesis';
 import AboutDataSources from '../../components/About/AboutDataSources/AboutDataSources';
 import AboutAICapabilities from '../../components/About/AboutAICapabilities/AboutAICapabilities';
@@ -9,7 +9,7 @@ import './About.scss';
 export const AboutPage = () => {
   return (
     <div className="about-page">
-      <AboutTopBar />
+      <TopBar title="About MSA PortTwin" showSearch={false} />
 
       <main className="about-page__viewport">
         <div className="about-page__content">

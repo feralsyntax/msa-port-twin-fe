@@ -6,7 +6,7 @@ import ScenarioFilters, {
 } from '../../../components/Scenarios/ScenariosDirectory/ScenarioFilters/ScenarioFilters';
 import ScenarioTable from '../../../components/Scenarios/ScenariosDirectory/ScenarioTable/ScenarioTable';
 import ScenarioTableFooter from '../../../components/Scenarios/ScenariosDirectory/ScenarioTableFooter/ScenarioTableFooter';
-import ScenariosDirectoryHeader from '../../../components/Scenarios/ScenariosDirectory/ScenariosDirectoryHeader/ScenariosDirectoryHeader';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 
 import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import { parseApiError } from '../../../utils/apiError';
@@ -58,7 +58,16 @@ const ScenariosDirectoryPage = () => {
 
   return (
     <div className="scenarios-directory">
-      <ScenariosDirectoryHeader onNewScenario={handleNewScenario} />
+      <TopBar
+        title="Scenarios"
+        showSearch={false}
+        action={
+          <button type="button" className="app-topbar__action" onClick={handleNewScenario}>
+            <span className="material-symbols-outlined">add</span>
+            <span>New Scenario</span>
+          </button>
+        }
+      />
 
       <div className="scenarios-directory__content">
         {showBlockingState ? (

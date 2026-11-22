@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import './AddVessel.scss';
-import AddVesselTopBar from '../../../components/Vessels/AddVessel/AddVesselTopBar/AddVesselTopBar';
+import TopBar from '../../../components/Common/TopBar/TopBar';
 import VesselIdentityForm from '../../../components/Vessels/AddVessel/VesselIdentityForm/VesselIdentityForm';
 import VesselDimensionsForm from '../../../components/Vessels/AddVessel/VesselDimensionsForm/VesselDimensionsForm';
 import AddVesselActions from '../../../components/Vessels/AddVessel/AddVesselActions/AddVesselActions';
@@ -77,7 +77,11 @@ const AddVesselPage = () => {
 
   return (
     <div className="add-vessel-page">
-      <AddVesselTopBar />
+      <TopBar
+        breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+        current="Add New"
+        showSearch={false}
+      />
 
       <div className="add-vessel-page__content">
         <div className="add-vessel-page__container">
