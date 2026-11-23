@@ -15,6 +15,7 @@ import useAddScenarioSimulation from '../../../hooks/simulations/useAddScenarioS
 import type { ScenarioParameters as ApiScenarioParameters } from '../../../api/models';
 import { parseApiError } from '../../../utils/apiError';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import { routes } from '../../../utils/routes';
 
 import './ScenarioDetails.scss';
 
@@ -60,7 +61,7 @@ const ScenarioDetailsPage = () => {
     return (
       <main className="scenario-details">
         <TopBar
-          breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+          breadcrumb={{ label: 'Scenarios', to: routes.scenarios() }}
           current={scenario?.name}
           showSearch={false}
           action={
@@ -96,7 +97,7 @@ const ScenarioDetailsPage = () => {
   return (
     <div className="scenario-details">
       <TopBar
-        breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+        breadcrumb={{ label: 'Scenarios', to: routes.scenarios() }}
         current={scenario.name}
         showSearch={false}
         action={

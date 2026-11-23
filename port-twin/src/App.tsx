@@ -21,36 +21,37 @@ import PredictionsDirectoryPage from './pages/Predictions/PredictionsDirectory/P
 import PredictionDetailsPage from './pages/Predictions/PredictionDetails/PredictionDetails';
 import AboutPage from './pages/About/About';
 import NotFoundPage from './pages/404/404';
+import { appRoutePaths, routes } from './utils/routes';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public landing page (future) */}
-        <Route path="/" element={<LandingPage />} />
+        <Route path={routes.home()} element={<LandingPage />} />
 
         {/* Authenticated app shell */}
-        <Route path="/app" element={<Shell />}>
+        <Route path={routes.app()} element={<Shell />}>
           <Route index element={<Dashboard />} />
-          <Route path="vessels" element={<VesselsDirectoryPage />} />
-          <Route path="vessels/:vesselId" element={<VesselDetailsPage />} />
-          <Route path="vessels/new" element={<AddVesselPage />} />
-          <Route path="berths" element={<BerthDirectoryPage />} />
-          <Route path="berths/new" element={<AddBerthPage />} />
-          <Route path="berths/:berthId" element={<BerthDetailsPage />} />
-          <Route path="scenarios" element={<ScenariosDirectoryPage />} />
-          <Route path="scenarios/new" element={<AddScenarioPage />} />
-          <Route path="scenarios/:scenarioId" element={<ScenarioDetailsPage />} />
+          <Route path={appRoutePaths.vessels} element={<VesselsDirectoryPage />} />
+          <Route path={appRoutePaths.vesselNew} element={<AddVesselPage />} />
+          <Route path={appRoutePaths.vesselDetails} element={<VesselDetailsPage />} />
+          <Route path={appRoutePaths.berths} element={<BerthDirectoryPage />} />
+          <Route path={appRoutePaths.berthNew} element={<AddBerthPage />} />
+          <Route path={appRoutePaths.berthDetails} element={<BerthDetailsPage />} />
+          <Route path={appRoutePaths.scenarios} element={<ScenariosDirectoryPage />} />
+          <Route path={appRoutePaths.scenarioNew} element={<AddScenarioPage />} />
+          <Route path={appRoutePaths.scenarioDetails} element={<ScenarioDetailsPage />} />
 
-          <Route path="simulations" element={<SimulationsDirectoryPage />} />
-          <Route path="simulations/new" element={<AddSimulationPage />} />
-          <Route path="simulations/compare" element={<SimulationsComparisonPage />} />
-          <Route path="simulations/:simulationId" element={<SimulationDetailsPage />} />
-          <Route path="predictions" element={<PredictionsDirectoryPage />} />
-          <Route path="predictions/new" element={<AddPredictionPage />} />
-          <Route path="predictions/:predictionId" element={<PredictionDetailsPage />} />
-          <Route path="map" element={<MapPage />} />
-          <Route path="about" element={<AboutPage />} />
+          <Route path={appRoutePaths.simulations} element={<SimulationsDirectoryPage />} />
+          <Route path={appRoutePaths.simulationNew} element={<AddSimulationPage />} />
+          <Route path={appRoutePaths.compare} element={<SimulationsComparisonPage />} />
+          <Route path={appRoutePaths.simulationDetails} element={<SimulationDetailsPage />} />
+          <Route path={appRoutePaths.predictions} element={<PredictionsDirectoryPage />} />
+          <Route path={appRoutePaths.predictionNew} element={<AddPredictionPage />} />
+          <Route path={appRoutePaths.predictionDetails} element={<PredictionDetailsPage />} />
+          <Route path={appRoutePaths.map} element={<MapPage />} />
+          <Route path={appRoutePaths.about} element={<AboutPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

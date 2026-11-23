@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './BerthTable.scss';
+import { routes } from '../../../../utils/routes';
 import type { Berth } from '../../../../api/models';
 
 interface BerthTableProps {
@@ -42,7 +43,7 @@ const BerthTable = ({ berths }: BerthTableProps) => {
                 <tr key={berth.id}>
                   <td>
                     <div className="berth-table__name">
-                      <Link to={`/app/berths/${berth.id}`} className="berth-table__name-link">
+                      <Link to={routes.berthDetails(berth.id)} className="berth-table__name-link">
                         {berth.name}
                       </Link>
                     </div>

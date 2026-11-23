@@ -9,6 +9,7 @@ import BerthPagination from '../../../components/Berths/BerthDirectory/BerthPagi
 
 import './BerthDirectory.scss';
 import { useGetBerths } from '../../../hooks/berths/useGetBerths';
+import { routes } from '../../../utils/routes';
 
 const PAGE_SIZE = 20;
 
@@ -50,7 +51,7 @@ const BerthDirectoryPage = () => {
           <button
             type="button"
             className="app-topbar__action"
-            onClick={() => navigate('/app/berths/new')}
+            onClick={() => navigate(routes.berthNew())}
           >
             <span className="material-symbols-outlined">add</span>
             <span>Add Berth</span>

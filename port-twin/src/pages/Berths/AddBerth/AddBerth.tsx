@@ -10,6 +10,7 @@ import AddBerthActions from '../../../components/Berths/AddBerth/AddBerthActions
 import { useAddBerth } from '../../../hooks/berths/useAddBerth';
 import { BerthOperationalStatusEnum, type BerthCreateRequest } from '../../../api/models';
 import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
+import { routes } from '../../../utils/routes';
 
 import './AddBerth.scss';
 
@@ -63,7 +64,7 @@ const AddBerthPage = () => {
     addBerth.mutate(payload, {
       onSuccess: () => {
         reset();
-        navigate('/app/berths');
+        navigate(routes.berths());
       },
       onError: (error) => {
         const fields = getFieldErrors(error);
@@ -79,13 +80,13 @@ const AddBerthPage = () => {
   };
 
   const handleCancel = () => {
-    navigate('/app/berths');
+    navigate(routes.berths());
   };
 
   return (
     <div className="add-berth-page">
       <TopBar
-        breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+        breadcrumb={{ label: 'Berths', to: routes.berths() }}
         current="Add New"
         showSearch={false}
       />

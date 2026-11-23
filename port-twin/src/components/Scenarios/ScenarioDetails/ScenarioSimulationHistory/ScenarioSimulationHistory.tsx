@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import './ScenarioSimulationHistory.scss';
+import { routes } from '../../../../utils/routes';
 
 export interface ScenarioSimulation {
   id: string;
@@ -64,7 +65,7 @@ const ScenarioSimulationHistory = ({ simulations, totalRuns }: ScenarioSimulatio
           {simulations.length} of {totalRuns} TOTAL RUNS
         </span>
 
-        <Link to="/app/simulations">
+        <Link to={routes.simulations()}>
           View all runs
           <span aria-hidden="true">→</span>
         </Link>

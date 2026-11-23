@@ -9,6 +9,7 @@ import { useGetVessels } from '../../../hooks/vessels/useGetVessels';
 import { parseApiError } from '../../../utils/apiError';
 import './VesselDirectory.scss';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import { routes } from '../../../utils/routes';
 
 const PAGE_SIZE = 20;
 
@@ -45,7 +46,7 @@ const VesselsDirectoryPage = () => {
           <button
             type="button"
             className="app-topbar__action"
-            onClick={() => navigate('/app/vessels/new')}
+            onClick={() => navigate(routes.vesselNew())}
           >
             <span className="material-symbols-outlined">add</span>
             <span>Add Vessel</span>

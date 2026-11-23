@@ -1,10 +1,11 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Shell.scss';
 import TopBar from '../components/Common/TopBar/TopBar';
+import { routes } from '../utils/routes';
 
 const primaryNav = [
   {
-    to: '/app',
+    to: routes.dashboard(),
     label: 'Dashboard',
     end: true,
     icon: (
@@ -25,7 +26,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/vessels',
+    to: routes.vessels(),
     label: 'Vessels',
     icon: (
       <svg
@@ -44,7 +45,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/berths',
+    to: routes.berths(),
     label: 'Berths',
     icon: (
       <svg
@@ -63,7 +64,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/scenarios',
+    to: routes.scenarios(),
     label: 'Scenarios',
     icon: (
       <svg
@@ -83,7 +84,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/predictions',
+    to: routes.predictions(),
     label: 'Marine Predictions',
     icon: (
       <svg
@@ -101,7 +102,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/simulations',
+    to: routes.simulations(),
     label: 'Simulations',
     icon: (
       <svg
@@ -118,7 +119,7 @@ const primaryNav = [
     ),
   },
   {
-    to: '/app/map',
+    to: routes.map(),
     label: 'Marine Map',
     icon: (
       <svg
@@ -140,8 +141,8 @@ const primaryNav = [
 
 export default function Shell() {
   const { pathname } = useLocation();
-  const isDashboard = pathname === '/app' || pathname === '/app/';
-  const isMap = pathname === '/app/map';
+  const isDashboard = pathname === routes.dashboard() || pathname === `${routes.dashboard()}/`;
+  const isMap = pathname === routes.map();
   return (
     <div className="shell">
       <aside className="shell__rail" aria-label="Primary navigation">
@@ -189,7 +190,7 @@ export default function Shell() {
 
           <div className="shell__secondary">
             <NavLink
-              to="/app/about"
+              to={routes.about()}
               className={({ isActive }) =>
                 `shell__nav-item shell__nav-item--secondary${
                   isActive ? ' shell__nav-item--active' : ''

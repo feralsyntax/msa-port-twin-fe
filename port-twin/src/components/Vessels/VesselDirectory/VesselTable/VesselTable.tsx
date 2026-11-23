@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { VesselResponse } from '../../../../api/models';
 import './VesselTable.scss';
+import { routes } from '../../../../utils/routes';
 import { formatVesselType } from '../../../../utils/formatVesselType';
 
 interface VesselTableProps {
@@ -31,7 +32,10 @@ const VesselTable = ({ vessels }: VesselTableProps) => {
                   <tr key={vessel.id}>
                     <td>
                       <div className="vessel-table__name">
-                        <Link to={`/app/vessels/${vessel.id}`} className="vessel-table__name-link">
+                        <Link
+                          to={routes.vesselDetails(vessel.id)}
+                          className="vessel-table__name-link"
+                        >
                           {vessel.name}
                         </Link>
                       </div>

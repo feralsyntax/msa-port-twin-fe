@@ -12,6 +12,7 @@ import type { ComparisonMetricCardProps } from '../../../components/Simulations/
 import type { SimulationVarianceRow } from '../../../components/Simulations/SimulationsComparison/SimulationVarianceMatrix/SimulationVarianceMatrix';
 
 import useGetSimulationComparison from '../../../hooks/simulations/useGetSimulationComparison';
+import { routes } from '../../../utils/routes';
 
 const formatNumber = (value: number, decimals = 0) => {
   return Number(value).toFixed(decimals);
@@ -51,7 +52,7 @@ const SimulationsComparisonPage = () => {
               ? 'Please select two different simulation runs to compare.'
               : 'Two simulation run IDs are required to generate a comparison.'}
           </p>
-          <Link to="/simulations">Return to Simulations</Link>
+          <Link to={routes.simulations()}>Return to Simulations</Link>
         </div>
       );
     }
@@ -72,7 +73,7 @@ const SimulationsComparisonPage = () => {
             The simulation comparison could not be retrieved. Please check that both runs exist and
             have completed successfully.
           </p>
-          <Link to="/simulations">Return to Simulations</Link>
+          <Link to={routes.simulations()}>Return to Simulations</Link>
         </div>
       );
     }
@@ -213,7 +214,7 @@ const SimulationsComparisonPage = () => {
   return (
     <div className="simulations-comparison-page">
       <TopBar
-        breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+        breadcrumb={{ label: 'Simulations', to: routes.simulations() }}
         current="Compare"
         showSearch={false}
       />

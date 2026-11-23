@@ -14,6 +14,7 @@ import SimulationsDirectoryTable from '../../../components/Simulations/Simulatio
 import SimulationsDirectoryPagination from '../../../components/Simulations/SimulationsDirectory/SimulationsDirectoryPagination/SimulationsDirectoryPagination';
 import ServerErrors from '../../../components/errors/ServerErrors';
 import { parseApiError } from '../../../utils/apiError';
+import { routes } from '../../../utils/routes';
 
 const PAGE_SIZE = 20;
 
@@ -94,7 +95,7 @@ const SimulationsDirectoryPage = () => {
           <button
             type="button"
             className="app-topbar__action"
-            onClick={() => navigate('/app/simulations/new')}
+            onClick={() => navigate(routes.simulationNew())}
           >
             <span className="material-symbols-outlined">add</span>
             <span>New Simulation</span>

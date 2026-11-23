@@ -10,6 +10,7 @@ import ScenarioActions from '../../../components/Scenarios/AddScenario/ScenarioA
 import { useAddScenario } from '../../../hooks/scenarios/useAddScenario';
 import type { ScenarioCreateUpdateRequest } from '../../../api/models';
 import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
+import { routes } from '../../../utils/routes';
 
 // (merge with existing react-hook-form import at lines 1–2)
 
@@ -72,7 +73,7 @@ const AddScenarioPage = () => {
 
     createScenario.mutate(values, {
       onSuccess: () => {
-        navigate('/app/scenarios');
+        navigate(routes.scenarios());
       },
       onError: (error) => {
         applyServerFieldErrors(error);
@@ -90,7 +91,7 @@ const AddScenarioPage = () => {
   return (
     <div className="add-scenario-page">
       <TopBar
-        breadcrumb={{ label: 'Scenarios', to: '/app/scenarios' }}
+        breadcrumb={{ label: 'Scenarios', to: routes.scenarios() }}
         current="New"
         showSearch={false}
       />
@@ -120,7 +121,7 @@ const AddScenarioPage = () => {
 
           <ScenarioActions
             onSaveDraft={handleSaveDraft}
-            onCancel={() => navigate('/app/scenarios')}
+            onCancel={() => navigate(routes.scenarios())}
             isSubmitting={isSubmitting || createScenario.isPending}
           />
         </form>

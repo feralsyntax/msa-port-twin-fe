@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.scss';
+import { routes } from '../../utils/routes';
 
 export default function LandingPage() {
   useEffect(() => {
@@ -73,7 +74,7 @@ export default function LandingPage() {
           <a href="#architecture">ARCHITECTURE</a>
           <a href="#provenance">PROVENANCE</a>
           <a href="#specifications">SPECIFICATIONS</a>
-          <Link to="/app" className="landing__nav-cta">
+          <Link to={routes.app()} className="landing__nav-cta">
             ENTER DASHBOARD
           </Link>
         </nav>
@@ -102,7 +103,7 @@ export default function LandingPage() {
             </p>
 
             <div className="landing__actions">
-              <Link to="/app" className="landing__btn landing__btn--primary">
+              <Link to={routes.app()} className="landing__btn landing__btn--primary">
                 ENTER DASHBOARD →
               </Link>
               <a href="#provenance" className="landing__btn landing__btn--ghost">
@@ -636,7 +637,7 @@ export default function LandingPage() {
             <span>KENYA MARITIME AUTHORITY &amp; KPA COMPLIANT</span>
           </div>
 
-          <Link to="/app" className="landing__nav-cta">
+          <Link to={routes.app()} className="landing__nav-cta">
             ENTER DASHBOARD →
           </Link>
         </div>

@@ -1,4 +1,6 @@
 import './AddSimulationActions.scss';
+import { Link } from 'react-router-dom';
+import { routes } from '../../../../utils/routes';
 
 type SimulationActionStatus = 'idle' | 'pending' | 'success' | 'error';
 
@@ -29,9 +31,9 @@ const AddSimulationActions = ({
       <div className="add-simulation-actions__divider" />
 
       <div className="add-simulation-actions__buttons">
-        <a href="/simulations" className="add-simulation-actions__cancel">
+        <Link to={routes.simulations()} className="add-simulation-actions__cancel">
           Cancel
-        </a>
+        </Link>
 
         <button
           type="button"
