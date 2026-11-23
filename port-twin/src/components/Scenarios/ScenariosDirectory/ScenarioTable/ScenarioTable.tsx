@@ -50,7 +50,7 @@ const ScenarioTable = ({ scenarios }: ScenarioTableProps) => {
               scenarios.map((scenario) => (
                 <tr key={scenario.id}>
                   <td className="scenario-table__name">
-                    <Link to={routes.scenario(scenario.id)}>{scenario.name}</Link>
+                    <Link to={routes.scenarioDetails(scenario.id)}>{scenario.name}</Link>
                   </td>
                   <td>
                     <span

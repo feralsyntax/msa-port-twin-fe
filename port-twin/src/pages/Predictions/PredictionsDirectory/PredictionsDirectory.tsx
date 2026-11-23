@@ -104,7 +104,7 @@ export const PredictionsDirectoryPage = () => {
   };
 
   const handleSelectPrediction = (predictionId: string) => {
-    navigate(routes.prediction(predictionId));
+    navigate(routes.predictionDetails(predictionId));
   };
 
   return (

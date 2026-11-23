@@ -70,7 +70,7 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
                     <div>
                       <span className="simulations-directory-table__hash">#</span>
                       <span className="simulations-directory-table__id">
-                        <Link to={routes.simulation(simulation.id)}>{simulation.id}</Link>
+                        <Link to={routes.simulationDetails(simulation.id)}>{simulation.id}</Link>
                       </span>
                     </div>
                   </td>

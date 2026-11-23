@@ -35,21 +35,21 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path={appRoutePaths.vessels} element={<VesselsDirectoryPage />} />
           <Route path={appRoutePaths.vesselNew} element={<AddVesselPage />} />
-          <Route path={appRoutePaths.vessel} element={<VesselDetailsPage />} />
+          <Route path={appRoutePaths.vesselDetails} element={<VesselDetailsPage />} />
           <Route path={appRoutePaths.berths} element={<BerthDirectoryPage />} />
           <Route path={appRoutePaths.berthNew} element={<AddBerthPage />} />
-          <Route path={appRoutePaths.berth} element={<BerthDetailsPage />} />
+          <Route path={appRoutePaths.berthDetails} element={<BerthDetailsPage />} />
           <Route path={appRoutePaths.scenarios} element={<ScenariosDirectoryPage />} />
           <Route path={appRoutePaths.scenarioNew} element={<AddScenarioPage />} />
-          <Route path={appRoutePaths.scenario} element={<ScenarioDetailsPage />} />
+          <Route path={appRoutePaths.scenarioDetails} element={<ScenarioDetailsPage />} />
 
           <Route path={appRoutePaths.simulations} element={<SimulationsDirectoryPage />} />
           <Route path={appRoutePaths.simulationNew} element={<AddSimulationPage />} />
           <Route path={appRoutePaths.compare} element={<SimulationsComparisonPage />} />
-          <Route path={appRoutePaths.simulation} element={<SimulationDetailsPage />} />
+          <Route path={appRoutePaths.simulationDetails} element={<SimulationDetailsPage />} />
           <Route path={appRoutePaths.predictions} element={<PredictionsDirectoryPage />} />
           <Route path={appRoutePaths.predictionNew} element={<AddPredictionPage />} />
-          <Route path={appRoutePaths.prediction} element={<PredictionDetailsPage />} />
+          <Route path={appRoutePaths.predictionDetails} element={<PredictionDetailsPage />} />
           <Route path={appRoutePaths.map} element={<MapPage />} />
           <Route path={appRoutePaths.about} element={<AboutPage />} />
         </Route>

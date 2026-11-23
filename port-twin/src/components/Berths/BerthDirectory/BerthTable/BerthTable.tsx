@@ -43,7 +43,7 @@ const BerthTable = ({ berths }: BerthTableProps) => {
                 <tr key={berth.id}>
                   <td>
                     <div className="berth-table__name">
-                      <Link to={routes.berth(berth.id)} className="berth-table__name-link">
+                      <Link to={routes.berthDetails(berth.id)} className="berth-table__name-link">
                         {berth.name}
                       </Link>
                     </div>
