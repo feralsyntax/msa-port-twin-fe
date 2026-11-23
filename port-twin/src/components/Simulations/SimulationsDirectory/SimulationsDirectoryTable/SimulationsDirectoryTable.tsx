@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { SimulationHistoryItem } from '../../../../api/models';
 
 import './SimulationsDirectoryTable.scss';
+import { routes } from '../../../../utils/routes';
 
 interface SimulationsDirectoryTableProps {
   simulations: SimulationHistoryItem[];
@@ -69,7 +70,7 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
                     <div>
                       <span className="simulations-directory-table__hash">#</span>
                       <span className="simulations-directory-table__id">
-                        <Link to={`/app/simulations/${simulation.id}`}>{simulation.id}</Link>
+                        <Link to={routes.simulation(simulation.id)}>{simulation.id}</Link>
                       </span>
                     </div>
                   </td>

@@ -9,6 +9,7 @@ import AddVesselActions from '../../../components/Vessels/AddVessel/AddVesselAct
 import type { VesselCreateRequest } from '../../../api/models';
 import { useAddVessel } from '../../../hooks/vessels/useAddVessel';
 import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
+import { routes } from '../../../utils/routes';
 
 const SERVER_FIELDS = [
   'name',
@@ -72,13 +73,13 @@ const AddVesselPage = () => {
   };
 
   const handleCancel = () => {
-    navigate('/app/vessels');
+    navigate(routes.vessels());
   };
 
   return (
     <div className="add-vessel-page">
       <TopBar
-        breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+        breadcrumb={{ label: 'Vessels', to: routes.vessels() }}
         current="Add New"
         showSearch={false}
       />

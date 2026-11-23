@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './PredictionDetailsHeader.scss';
+import { routes } from '../../../../utils/routes';
 
 interface PredictionDetailsHeaderProps {
   predictionId: string;
@@ -13,7 +14,7 @@ const PredictionDetailsHeader = ({ predictionId }: PredictionDetailsHeaderProps)
       <button
         className="prediction-details-header__breadcrumb"
         type="button"
-        onClick={() => navigate('/app/predictions')}
+        onClick={() => navigate(routes.predictions())}
       >
         <span>Predictions</span>
         <span className="prediction-details-header__separator">/</span>

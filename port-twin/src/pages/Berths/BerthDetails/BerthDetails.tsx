@@ -10,6 +10,7 @@ import SimulationImpact from '../../../components/Berths/BerthDetails/Simulation
 import { useGetBerthDetails } from '../../../hooks/berths/useGetBerthDetails';
 import { parseApiError } from '../../../utils/apiError';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import { routes } from '../../../utils/routes';
 
 import './BerthDetails.scss';
 
@@ -33,7 +34,7 @@ const BerthDetailsPage = () => {
     return (
       <main className="berth-details-page">
         <TopBar
-          breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+          breadcrumb={{ label: 'Berths', to: routes.berths() }}
           current={berth?.name}
           showSearch={false}
         />
@@ -77,7 +78,7 @@ const BerthDetailsPage = () => {
   return (
     <main className="berth-details-page">
       <TopBar
-        breadcrumb={{ label: 'Berths', to: '/app/berths' }}
+        breadcrumb={{ label: 'Berths', to: routes.berths() }}
         current={berth.name}
         showSearch={false}
       />

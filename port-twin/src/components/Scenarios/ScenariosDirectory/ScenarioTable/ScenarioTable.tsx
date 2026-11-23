@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { ScenarioResponse } from '../../../../api/models';
 import './ScenarioTable.scss';
+import { routes } from '../../../../utils/routes';
 
 interface ScenarioTableProps {
   scenarios: ScenarioResponse[];
@@ -49,7 +50,7 @@ const ScenarioTable = ({ scenarios }: ScenarioTableProps) => {
               scenarios.map((scenario) => (
                 <tr key={scenario.id}>
                   <td className="scenario-table__name">
-                    <Link to={`/app/scenarios/${scenario.id}`}>{scenario.name}</Link>
+                    <Link to={routes.scenario(scenario.id)}>{scenario.name}</Link>
                   </td>
                   <td>
                     <span

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './404.scss';
+import { routes } from '../../utils/routes';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -193,7 +194,7 @@ const NotFoundPage = () => {
           <button
             type="button"
             className="not-found-page__dashboard-button"
-            onClick={() => navigate('/app')}
+            onClick={() => navigate(routes.dashboard())}
           >
             <span className="material-symbols-outlined">grid_view</span>
             <span>Return to Dashboard</span>

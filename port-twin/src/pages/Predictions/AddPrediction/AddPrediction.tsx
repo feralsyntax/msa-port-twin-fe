@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './AddPrediction.scss';
 
 import TopBar from '../../../components/Common/TopBar/TopBar';
+import { routes } from '../../../utils/routes';
 import AddPredictionFooter from '../../../components/Predictions/AddPrediction/AddPredictionFooter/AddPredictionFooter';
 import GridDefinition from '../../../components/Predictions/AddPrediction/GridDefinition/GridDefinition';
 import ForecastWindow from '../../../components/Predictions/AddPrediction/ForecastWindow/ForecastWindow';
@@ -79,7 +80,7 @@ const AddPredictionPage = () => {
   return (
     <div className="add-prediction-page">
       <TopBar
-        breadcrumb={{ label: 'Marine Predictions', to: '/app/predictions' }}
+        breadcrumb={{ label: 'Marine Predictions', to: routes.predictions() }}
         current="New"
         showSearch={false}
       />

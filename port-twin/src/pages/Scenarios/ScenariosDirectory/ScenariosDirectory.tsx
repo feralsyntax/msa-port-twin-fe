@@ -11,6 +11,7 @@ import TopBar from '../../../components/Common/TopBar/TopBar';
 import { useGetScenarios } from '../../../hooks/scenarios/useGetScenarios';
 import { parseApiError } from '../../../utils/apiError';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import { routes } from '../../../utils/routes';
 
 import './ScenariosDirectory.scss';
 
@@ -39,7 +40,7 @@ const ScenariosDirectoryPage = () => {
   }, [scenarios, activeFilter]);
 
   const handleNewScenario = () => {
-    navigate('/app/scenarios/new');
+    navigate(routes.scenarioNew());
   };
 
   const handleFilterChange = (filter: ScenarioStatusFilter) => {

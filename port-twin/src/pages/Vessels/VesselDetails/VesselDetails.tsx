@@ -11,6 +11,7 @@ import { useGetVesselPositions } from '../../../hooks/vessels/useGetVesselPositi
 import type { VesselPosition } from '../../../api/models';
 import { parseApiError } from '../../../utils/apiError';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import { routes } from '../../../utils/routes';
 const VesselDetailsPage = () => {
   const navigate = useNavigate();
 
@@ -52,7 +53,7 @@ const VesselDetailsPage = () => {
     : undefined;
 
   const handleViewSimulations = () => {
-    navigate('/app/simulations');
+    navigate(routes.simulations());
   };
 
   const parsedError = isError ? parseApiError(error) : null;
@@ -62,7 +63,7 @@ const VesselDetailsPage = () => {
       {isPending || isError || parsedError || isFetching || !vessel ? (
         <>
           <TopBar
-            breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+            breadcrumb={{ label: 'Vessels', to: routes.vessels() }}
             current={vessel?.name}
             showSearch={false}
           />
@@ -81,7 +82,7 @@ const VesselDetailsPage = () => {
       ) : (
         <>
           <TopBar
-            breadcrumb={{ label: 'Vessels', to: '/app/vessels' }}
+            breadcrumb={{ label: 'Vessels', to: routes.vessels() }}
             current={vessel.name}
             showSearch={false}
           />

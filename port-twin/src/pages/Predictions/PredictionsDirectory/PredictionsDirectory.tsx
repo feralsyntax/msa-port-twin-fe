@@ -12,6 +12,7 @@ import type {
 } from '../../../components/Predictions/PredictionsDirectory/types/predictions-directory.types';
 
 import './PredictionsDirectory.scss';
+import { routes } from '../../../utils/routes';
 
 const SAMPLE_PREDICTIONS: MarinePrediction[] = [
   {
@@ -103,7 +104,7 @@ export const PredictionsDirectoryPage = () => {
   };
 
   const handleSelectPrediction = (predictionId: string) => {
-    navigate(`/app/marine-predictions/${predictionId}`);
+    navigate(routes.prediction(predictionId));
   };
 
   return (
@@ -115,7 +116,7 @@ export const PredictionsDirectoryPage = () => {
           <button
             type="button"
             className="app-topbar__action"
-            onClick={() => navigate('/app/predictions/new')}
+            onClick={() => navigate(routes.predictionNew())}
           >
             <span className="material-symbols-outlined">add</span>
             <span>New Prediction</span>

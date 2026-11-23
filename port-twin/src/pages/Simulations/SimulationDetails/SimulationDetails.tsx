@@ -12,6 +12,7 @@ import { parseApiError } from '../../../utils/apiError';
 
 import './SimulationDetails.scss';
 import useGetSimulationDetails from '../../../hooks/simulations/useGetSimulationDetails';
+import { routes } from '../../../utils/routes';
 
 const SimulationDetailsPage = () => {
   const { simulationId } = useParams<{ simulationId: string }>();
@@ -30,7 +31,10 @@ const SimulationDetailsPage = () => {
   if (!id) {
     return (
       <main className="sim-details-page">
-        <TopBar breadcrumb={{ label: 'Simulations', to: '/app/simulations' }} showSearch={false} />
+        <TopBar
+          breadcrumb={{ label: 'Simulations', to: routes.simulations() }}
+          showSearch={false}
+        />
         <div className="sim-details-page__content">
           <p role="alert">No simulation ID was provided.</p>
         </div>
@@ -44,7 +48,7 @@ const SimulationDetailsPage = () => {
     return (
       <main className="sim-details-page">
         <TopBar
-          breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+          breadcrumb={{ label: 'Simulations', to: routes.simulations() }}
           current={simulation?.id}
           showSearch={false}
           action={
@@ -72,7 +76,7 @@ const SimulationDetailsPage = () => {
   return (
     <div className="sim-details-page">
       <TopBar
-        breadcrumb={{ label: 'Simulations', to: '/app/simulations' }}
+        breadcrumb={{ label: 'Simulations', to: routes.simulations() }}
         current={simulation.id}
         showSearch={false}
         action={
