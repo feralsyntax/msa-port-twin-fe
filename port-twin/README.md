@@ -1,5 +1,28 @@
 # React + TypeScript + Vite
 
+## API schema and generated client
+
+The frontend API models and React Query hooks are generated from
+`src/api/schema/schema.yml` with Orval.
+
+To refresh the schema from the local backend repository:
+
+```powershell
+Copy-Item ..\..\msa-port-twin-be\docs\api\schema.yml src\api\schema\schema.yml
+npx orval
+npm run build
+```
+
+To refresh it from the public backend repository instead:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/feralsyntax/msa-port-twin-be/main/docs/api/schema.yml" `
+  -OutFile src\api\schema\schema.yml
+npx orval
+npm run build
+```
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
