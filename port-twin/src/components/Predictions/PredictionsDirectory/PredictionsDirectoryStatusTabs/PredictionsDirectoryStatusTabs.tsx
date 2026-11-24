@@ -23,9 +23,9 @@ const PredictionsDirectoryStatusTabs = ({
     value: PredictionFilter;
     count: number;
   }[] = [
-    { label: 'All Runs', value: 'all', count: counts.all },
-    { label: 'Completed', value: 'completed', count: counts.completed },
-    { label: 'Failed', value: 'failed', count: counts.failed },
+    { label: 'All on this page', value: 'all', count: counts.all },
+    { label: 'Completed on this page', value: 'completed', count: counts.completed },
+    { label: 'Failed on this page', value: 'failed', count: counts.failed },
   ];
 
   return (

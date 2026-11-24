@@ -5,6 +5,8 @@ interface PredictionsDirectoryPaginationProps {
   totalPages: number;
   totalItems: number;
   pageSize: number;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
   onPageChange: (page: number) => void;
 }
 
@@ -13,6 +15,8 @@ const PredictionsDirectoryPagination = ({
   totalPages,
   totalItems,
   pageSize,
+  canGoPrevious,
+  canGoNext,
   onPageChange,
 }: PredictionsDirectoryPaginationProps) => {
   const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -36,7 +40,7 @@ const PredictionsDirectoryPagination = ({
         <div className="predictions-directory-pagination__buttons">
           <button
             type="button"
-            disabled={currentPage <= 1}
+            disabled={!canGoPrevious}
             onClick={() => onPageChange(currentPage - 1)}
           >
             Previous
@@ -44,11 +48,7 @@ const PredictionsDirectoryPagination = ({
 
           <span className="predictions-directory-pagination__divider">|</span>
 
-          <button
-            type="button"
-            disabled={currentPage >= totalPages}
-            onClick={() => onPageChange(currentPage + 1)}
-          >
+          <button type="button" disabled={!canGoNext} onClick={() => onPageChange(currentPage + 1)}>
             Next
           </button>
         </div>
