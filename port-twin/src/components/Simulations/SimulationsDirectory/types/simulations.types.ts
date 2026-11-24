@@ -9,3 +9,10 @@ export interface SimulationStatusCount {
   label: string;
   count: number;
 }
+
+export interface Simulation {
+  id: string;
+  scenarioName: string;
+  status: SimulationStatus;
+  startedAt: string;
+}
