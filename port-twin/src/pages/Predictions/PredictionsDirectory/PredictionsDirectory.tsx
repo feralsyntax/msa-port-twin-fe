@@ -5,106 +5,57 @@ import TopBar from '../../../components/Common/TopBar/TopBar';
 import PredictionsDirectoryStatusTabs from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryStatusTabs/PredictionsDirectoryStatusTabs';
 import PredictionsDirectoryTable from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryTable/PredictionsDirectoryTable';
 import PredictionsDirectoryPagination from '../../../components/Predictions/PredictionsDirectory/PredictionsDirectoryPagination/PredictionsDirectoryPagination';
-
-import type {
-  MarinePrediction,
-  PredictionFilter,
-} from '../../../components/Predictions/PredictionsDirectory/types/predictions-directory.types';
+import ServerErrors from '../../../components/errors/ServerErrors';
+import type { PredictionFilter } from '../../../components/Predictions/PredictionsDirectory/types/predictions-directory.types';
+import { useGetMarinePredictions } from '../../../hooks/predictions/useGetMarinePredictions';
+import { parseApiError } from '../../../utils/apiError';
 
 import './PredictionsDirectory.scss';
 import { routes } from '../../../utils/routes';
 
-const SAMPLE_PREDICTIONS: MarinePrediction[] = [
-  {
-    id: 'a1b2c3d4-e5f6',
-    gridExtent: '04°S, 39°E',
-    resolution: '1km res',
-    status: 'completed',
-    createdAt: '12 May, 14:08',
-  },
-  {
-    id: 'b2c3d4e5-f6a7',
-    gridExtent: '04°S, 39°E',
-    resolution: '2km res',
-    status: 'completed',
-    createdAt: '12 May, 11:30',
-  },
-  {
-    id: 'c3d4e5f6-a7b8',
-    gridExtent: '03°S, 40°E',
-    resolution: '1km res',
-    status: 'failed',
-    createdAt: '11 May, 16:45',
-  },
-  {
-    id: 'd4e5f6a7-b8c9',
-    gridExtent: '04°S, 39°E',
-    resolution: '500m res',
-    status: 'completed',
-    createdAt: '11 May, 09:15',
-  },
-  {
-    id: 'e5f6a7b8-c9d0',
-    gridExtent: '04°S, 39°E',
-    resolution: '1km res',
-    status: 'completed',
-    createdAt: '10 May, 14:00',
-  },
-  {
-    id: 'f6a7b8c9-d0e1',
-    gridExtent: '04°S, 39°E',
-    resolution: '1km res',
-    status: 'completed',
-    createdAt: '09 May, 08:30',
-  },
-];
-
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 20;
 
 export const PredictionsDirectoryPage = () => {
   const navigate = useNavigate();
 
   const [activeFilter, setActiveFilter] = useState<PredictionFilter>('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, isPending, isError, error, isPlaceholderData, isFetching, refetch } =
+    useGetMarinePredictions(currentPage);
 
-  const filteredPredictions = useMemo(() => {
-    if (activeFilter === 'all') {
-      return SAMPLE_PREDICTIONS;
-    }
-
-    return SAMPLE_PREDICTIONS.filter((prediction) => prediction.status === activeFilter);
-  }, [activeFilter]);
-
-  const counts = useMemo(
-    () => ({
-      all: SAMPLE_PREDICTIONS.length,
-      completed: SAMPLE_PREDICTIONS.filter((prediction) => prediction.status === 'completed')
-        .length,
-      failed: SAMPLE_PREDICTIONS.filter((prediction) => prediction.status === 'failed').length,
-    }),
-    [],
+  const predictions = useMemo(() => data?.results ?? [], [data]);
+  const visiblePredictions = useMemo(
+    () =>
+      activeFilter === 'all'
+        ? predictions
+        : predictions.filter((prediction) => prediction.status === activeFilter),
+    [activeFilter, predictions],
   );
 
-  const totalPages = Math.max(1, Math.ceil(filteredPredictions.length / PAGE_SIZE));
+  const counts = useMemo(
+    () =>
+      predictions.reduce(
+        (pageCounts, prediction) => {
+          pageCounts.all += 1;
+          pageCounts[prediction.status] += 1;
+          return pageCounts;
+        },
+        { all: 0, completed: 0, failed: 0 },
+      ),
+    [predictions],
+  );
 
-  const paginatedPredictions = useMemo(() => {
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
-
-    return filteredPredictions.slice(startIndex, startIndex + PAGE_SIZE);
-  }, [filteredPredictions, currentPage]);
-
-  const handleFilterChange = (filter: PredictionFilter) => {
-    setActiveFilter(filter);
-    setCurrentPage(1);
-  };
-
-  const handleReset = () => {
-    setActiveFilter('all');
-    setCurrentPage(1);
-  };
+  const parsedError = isError ? parseApiError(error) : null;
 
   const handleSelectPrediction = (predictionId: string) => {
     navigate(routes.predictionDetails(predictionId));
+  };
+
+  const handlePageChange = (page: number) => {
+    if (isPlaceholderData || page < 1) return;
+    if (page < currentPage && !data?.previous) return;
+    if (page > currentPage && !data?.next) return;
+    setCurrentPage(page);
   };
 
   return (
@@ -127,24 +78,40 @@ export const PredictionsDirectoryPage = () => {
       <PredictionsDirectoryStatusTabs
         activeFilter={activeFilter}
         counts={counts}
-        onFilterChange={handleFilterChange}
-        onReset={handleReset}
+        onFilterChange={setActiveFilter}
+        onReset={() => setActiveFilter('all')}
       />
 
       <main className="marine-predictions-page__content">
-        <PredictionsDirectoryTable
-          predictions={paginatedPredictions}
-          onSelectPrediction={handleSelectPrediction}
-        />
+        {isPending || isError || (data !== undefined && predictions.length === 0) ? (
+          <ServerErrors
+            isPending={isPending}
+            isError={isError}
+            isFetching={isFetching}
+            parsedError={parsedError}
+            refetch={refetch}
+            requestedData="marine predictions"
+            noData={data !== undefined && predictions.length === 0}
+          />
+        ) : (
+          <>
+            <PredictionsDirectoryTable
+              predictions={visiblePredictions}
+              onSelectPrediction={handleSelectPrediction}
+            />
+            {isPlaceholderData && <p role="status">Loading the selected page...</p>}
+            <PredictionsDirectoryPagination
+              currentPage={currentPage}
+              totalPages={Math.ceil((data?.count ?? 0) / PAGE_SIZE)}
+              totalItems={data?.count ?? 0}
+              pageSize={PAGE_SIZE}
+              canGoPrevious={Boolean(data?.previous) && !isPlaceholderData}
+              canGoNext={Boolean(data?.next) && !isPlaceholderData}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
       </main>
-
-      <PredictionsDirectoryPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={filteredPredictions.length}
-        pageSize={PAGE_SIZE}
-        onPageChange={setCurrentPage}
-      />
     </div>
   );
 };

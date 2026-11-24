@@ -36,7 +36,12 @@
       border-bottom: 1px solid rgba(30, 46, 63, 0.5);
       transition: background 120ms ease;
 
-      &:hover {
+      &.predictions-directory-table__row {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &:focus-visible {
         background: rgba(12, 28, 42, 0.9);
       }
 
@@ -75,22 +80,19 @@
   }
 
   &__id {
-    padding: 0;
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    border: 0;
     color: #e6f0f5;
-    background: transparent;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: -0.02em;
-    cursor: pointer;
     transition: color 120ms ease;
+  }
 
-    &:hover {
-      color: #00d2c8;
-    }
+  &__row:hover &__id,
+  &__row:focus-visible &__id {
+    color: #00d2c8;
   }
 
   &__indicator {
@@ -153,7 +155,13 @@
     color: #9cb0c2 !important;
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 10px !important;
-    text-align: right;
+  }
+
+  &__error {
+    min-width: 220px;
+    max-width: 360px;
+    color: #ff8b96 !important;
+    white-space: normal;
   }
 
   &__empty {
@@ -183,6 +191,6 @@
 
 @media (max-width: 760px) {
   .predictions-directory-table {
-    min-width: 680px;
+    min-width: 1050px;
   }
 }

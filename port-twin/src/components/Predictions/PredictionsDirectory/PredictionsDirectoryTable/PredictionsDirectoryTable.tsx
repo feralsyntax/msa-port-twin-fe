@@ -1,4 +1,5 @@
 import type { MarinePrediction } from '../types/predictions-directory.types';
+import { guardMarineGrid, guardRecord } from '../../../../utils/apiDataGuards';
 import './PredictionsDirectoryTable.scss';
 
 interface PredictionsDirectoryTableProps {
@@ -16,10 +17,15 @@ const PredictionsDirectoryTable = ({
         <span className="material-symbols-outlined" aria-hidden="true">
           query_stats
         </span>
-        <p>No predictions found for this status.</p>
+        <p>No predictions with this status on the current page.</p>
       </div>
     );
   }
+
+  const formatCreatedAt = (createdAt: string) => {
+    const date = new Date(createdAt);
+    return Number.isNaN(date.getTime()) ? createdAt : date.toLocaleString();
+  };
 
   return (
     <div className="predictions-directory-table__scroll">
@@ -27,47 +33,75 @@ const PredictionsDirectoryTable = ({
         <thead>
           <tr>
             <th className="predictions-directory-table__id-column">Prediction ID</th>
-            <th>Grid Extent</th>
+            <th>Area Covered</th>
+            <th>Grid Size</th>
             <th className="predictions-directory-table__status-column">Status</th>
+            <th>Model Version</th>
+            <th>Prediction Mode</th>
             <th className="predictions-directory-table__created-column">Created</th>
+            <th>Error</th>
           </tr>
         </thead>
 
         <tbody>
-          {predictions.map((prediction) => (
-            <tr key={prediction.id}>
-              <td>
-                <button
-                  className="predictions-directory-table__id"
-                  type="button"
-                  onClick={() => onSelectPrediction(prediction.id)}
-                >
+          {predictions.map((prediction) => {
+            const grid = guardMarineGrid(prediction.grid);
+            const record = guardRecord(prediction);
+            const predictionMode =
+              record.recognised && typeof record.value.prediction_mode === 'string'
+                ? record.value.prediction_mode
+                : '—';
+            const areaCovered = grid.recognised
+              ? `${grid.value.west}, ${grid.value.south} to ${grid.value.east}, ${grid.value.north}`
+              : '—';
+            const gridSize = grid.recognised ? `${grid.value.nx} × ${grid.value.ny}` : '—';
+
+            return (
+              <tr
+                key={prediction.id}
+                className="predictions-directory-table__row"
+                tabIndex={0}
+                aria-label={`Open prediction ${prediction.id}`}
+                onClick={() => onSelectPrediction(prediction.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onSelectPrediction(prediction.id);
+                  }
+                }}
+              >
+                <td>
+                  <span className="predictions-directory-table__id">
+                    <span
+                      className={`predictions-directory-table__indicator predictions-directory-table__indicator--${prediction.status}`}
+                    />
+                    <span>{prediction.id}</span>
+                  </span>
+                </td>
+                <td>
+                  <span className="predictions-directory-table__extent">{areaCovered}</span>
+                </td>
+                <td>{gridSize}</td>
+                <td>
                   <span
-                    className={`predictions-directory-table__indicator predictions-directory-table__indicator--${prediction.status}`}
-                  />
-                  <span>{prediction.id}</span>
-                </button>
-              </td>
-
-              <td>
-                <span className="predictions-directory-table__extent">{prediction.gridExtent}</span>
-                <span className="predictions-directory-table__separator">·</span>
-                <span className="predictions-directory-table__resolution">
-                  {prediction.resolution}
-                </span>
-              </td>
-
-              <td>
-                <span
-                  className={`predictions-directory-table__status predictions-directory-table__status--${prediction.status}`}
-                >
-                  {prediction.status}
-                </span>
-              </td>
-
-              <td className="predictions-directory-table__created">{prediction.createdAt}</td>
-            </tr>
-          ))}
+                    className={`predictions-directory-table__status predictions-directory-table__status--${prediction.status}`}
+                  >
+                    {prediction.status}
+                  </span>
+                </td>
+                <td>{prediction.model_version || '—'}</td>
+                <td>{predictionMode}</td>
+                <td className="predictions-directory-table__created">
+                  {formatCreatedAt(prediction.created_at)}
+                </td>
+                <td className="predictions-directory-table__error">
+                  {prediction.status === 'failed'
+                    ? prediction.error_message || 'No error message provided.'
+                    : '—'}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
