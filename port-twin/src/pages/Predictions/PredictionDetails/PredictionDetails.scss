@@ -66,8 +66,61 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
+    }
+  }
+
+  &__status--completed {
+    border-color: rgba(93, 181, 128, 0.3);
+    color: #5db580;
+    background: rgba(93, 181, 128, 0.1);
+
+    > span {
       background: #5db580;
     }
+  }
+
+  &__status--failed {
+    border-color: rgba(235, 100, 100, 0.35);
+    color: #f08a8a;
+    background: rgba(235, 100, 100, 0.1);
+
+    > span {
+      background: #f08a8a;
+    }
+  }
+
+  &__status--pending {
+    border-color: rgba(0, 210, 200, 0.3);
+    color: #00d2c8;
+    background: rgba(0, 210, 200, 0.08);
+
+    > span {
+      background: #00d2c8;
+    }
+  }
+
+  &__state-message {
+    padding: 24px;
+    border: 1px solid #1e2e3f;
+    border-radius: 4px;
+    background: #0c1c2a;
+
+    h2 {
+      margin: 0;
+      color: #e6f0f5;
+      font-size: 15px;
+    }
+
+    p {
+      margin: 8px 0 0;
+      color: #9cb0c2;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__state-message--failed {
+    border-color: rgba(235, 100, 100, 0.35);
   }
 
   &__grid {

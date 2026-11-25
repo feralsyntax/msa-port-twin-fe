@@ -2,8 +2,13 @@ import './PredictionForecastWindow.scss';
 
 interface PredictionForecastWindowProps {
   startTime: string;
-  timeSteps: number;
+  timeSteps: string;
   interval: string;
+  horizon: string;
+  modelVersion: string;
+  contractVersion: string;
+  predictionMode: string;
+  modelStatus: string;
   createdAt: string;
 }
 
@@ -11,12 +16,22 @@ const PredictionForecastWindow = ({
   startTime,
   timeSteps,
   interval,
+  horizon,
+  modelVersion,
+  contractVersion,
+  predictionMode,
+  modelStatus,
   createdAt,
 }: PredictionForecastWindowProps) => {
   const details = [
     { label: 'Start Time', value: startTime },
-    { label: 'Time Steps', value: String(timeSteps) },
+    { label: 'Time Steps', value: timeSteps },
     { label: 'Interval', value: interval },
+    { label: 'Horizon', value: horizon },
+    { label: 'Model Version', value: modelVersion },
+    { label: 'Contract Version', value: contractVersion },
+    { label: 'Prediction Mode', value: predictionMode },
+    { label: 'Model Status', value: modelStatus },
     { label: 'Created', value: createdAt },
   ];
 

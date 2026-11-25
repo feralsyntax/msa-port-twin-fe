@@ -2,11 +2,10 @@ import './PredictionPeakFlow.scss';
 
 interface PredictionPeakFlowProps {
   value: string;
-  phase: string;
-  verified: boolean;
+  stepLabel: string;
 }
 
-const PredictionPeakFlow = ({ value, phase, verified }: PredictionPeakFlowProps) => {
+const PredictionPeakFlow = ({ value, stepLabel }: PredictionPeakFlowProps) => {
   return (
     <section className="prediction-peak-flow">
       <div className="prediction-peak-flow__content">
@@ -15,15 +14,13 @@ const PredictionPeakFlow = ({ value, phase, verified }: PredictionPeakFlowProps)
         </span>
 
         <div>
-          <span className="prediction-peak-flow__label">Peak Channel Flow</span>
+          <span className="prediction-peak-flow__label">Peak Current Speed</span>
           <p>
             {value}
-            <span> ({phase})</span>
+            <span> · {stepLabel}</span>
           </p>
         </div>
       </div>
-
-      {verified && <span className="prediction-peak-flow__verified">Verified</span>}
     </section>
   );
 };
