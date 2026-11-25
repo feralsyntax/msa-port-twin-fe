@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Shell.scss';
 import TopBar from '../components/Common/TopBar/TopBar';
+import DataStatusIndicator from '../components/Common/DataStatusIndicator/DataStatusIndicator';
 import { routes } from '../utils/routes';
 
 const primaryNav = [
@@ -217,18 +218,7 @@ export default function Shell() {
           </div>
         </div>
 
-        <div className="shell__status">
-          <div className="shell__status-row">
-            <div className="shell__status-live">
-              <span className="shell__status-dot" aria-hidden="true">
-                <span className="shell__status-dot-pulse" />
-                <span className="shell__status-dot-core" />
-              </span>
-              <span className="shell__status-label">LIVE</span>
-            </div>
-            <span className="shell__status-version">v1.4.0-TWIN</span>
-          </div>
-        </div>
+        <DataStatusIndicator />
       </aside>
 
       <div className="shell__main">

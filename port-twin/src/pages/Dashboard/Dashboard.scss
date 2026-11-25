@@ -114,14 +114,6 @@
   letter-spacing: 0.04em;
 }
 
-.kpi-card__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: $ink-1;
-  flex-shrink: 0;
-}
-
 /* ── Main Grid ──────────────────────────────────────────── */
 
 .dashboard__main-grid {
@@ -260,30 +252,6 @@
   font-family: $font-mono;
   font-size: 12px;
   color: $ink-1;
-}
-
-.queue-table__prov {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: $font-mono;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-
-  &--measured {
-    color: $ink-1;
-  }
-
-  &--estimated {
-    color: $amber;
-  }
-}
-
-.queue-table__dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: currentColor;
 }
 
 /* ── Port Status ────────────────────────────────────────── */

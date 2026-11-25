@@ -1,4 +1,5 @@
 import './Dashboard.scss';
+import ProvenanceBadge from '../../components/Common/ProvenanceBadge/ProvenanceBadge';
 
 const kpiCards = [
   {
@@ -7,7 +8,7 @@ const kpiCards = [
     value: '14',
     trend: '+2',
     trendUp: true,
-    provenance: 'MEASURED',
+    provenance: 'demo',
   },
   {
     id: 'berths',
@@ -15,7 +16,7 @@ const kpiCards = [
     value: '6',
     trend: '+1',
     trendUp: true,
-    provenance: 'MEASURED',
+    provenance: 'demo',
   },
   {
     id: 'wait',
@@ -23,7 +24,7 @@ const kpiCards = [
     value: '3.2 h',
     trend: '-0.4',
     trendUp: false,
-    provenance: 'HISTORICAL',
+    provenance: 'demo',
   },
   {
     id: 'util',
@@ -31,18 +32,18 @@ const kpiCards = [
     value: '78%',
     trend: null,
     trendUp: null,
-    provenance: 'MEASURED',
+    provenance: 'demo',
     progress: 78,
   },
 ];
 
 const vesselQueue = [
-  { name: 'MV KWALE STAR', wait: '2.1 h', berth: 'Berth 3', provenance: 'MEASURED' },
-  { name: 'MSC KILINDINI', wait: '3.4 h', berth: 'Berth 1', provenance: 'MEASURED' },
-  { name: 'MT OCEAN VOYAGER', wait: '4.8 h', berth: 'Berth 4', provenance: 'MEASURED' },
-  { name: 'MAERSK TSAVO', wait: '5.2 h', berth: '—', provenance: 'ESTIMATED' },
-  { name: 'CMA CGM MOMBASA', wait: '6.0 h', berth: '—', provenance: 'ESTIMATED' },
-  { name: 'MV NYALI TRADER', wait: '7.5 h', berth: '—', provenance: 'ESTIMATED' },
+  { name: 'MV KWALE STAR', wait: '2.1 h', berth: 'Berth 3', provenance: 'demo' },
+  { name: 'MSC KILINDINI', wait: '3.4 h', berth: 'Berth 1', provenance: 'demo' },
+  { name: 'MT OCEAN VOYAGER', wait: '4.8 h', berth: 'Berth 4', provenance: 'demo' },
+  { name: 'MAERSK TSAVO', wait: '5.2 h', berth: '—', provenance: 'demo' },
+  { name: 'CMA CGM MOMBASA', wait: '6.0 h', berth: '—', provenance: 'demo' },
+  { name: 'MV NYALI TRADER', wait: '7.5 h', berth: '—', provenance: 'demo' },
 ];
 
 const berthOccupancy = [
@@ -88,8 +89,7 @@ export default function Dashboard() {
             </div>
 
             <div className="kpi-card__provenance">
-              <span className="kpi-card__dot" />
-              {card.provenance}
+              <ProvenanceBadge value={card.provenance} />
             </div>
           </article>
         ))}
@@ -117,12 +117,7 @@ export default function Dashboard() {
                 <span className="queue-table__name">{v.name}</span>
                 <span className="queue-table__wait">{v.wait}</span>
                 <span className="queue-table__berth">{v.berth}</span>
-                <span
-                  className={`queue-table__prov queue-table__prov--${v.provenance.toLowerCase()}`}
-                >
-                  <span className="queue-table__dot" />
-                  {v.provenance}
-                </span>
+                <ProvenanceBadge value={v.provenance} />
               </div>
             ))}
           </div>
@@ -165,9 +160,8 @@ export default function Dashboard() {
 
           <footer className="panel__footer">
             <span className="panel__footer-meta">
-              <span className="kpi-card__dot" /> MEASURED
+              <ProvenanceBadge value="demo" />
             </span>
-            <span className="panel__footer-meta">updated 14:22</span>
           </footer>
         </article>
       </section>
@@ -176,6 +170,7 @@ export default function Dashboard() {
         <article className="panel panel--prediction">
           <header className="panel__header">
             <h2 className="panel__title">Latest marine prediction</h2>
+            <ProvenanceBadge value="demo" />
             <button type="button" className="panel__link">
               New →
             </button>
@@ -191,7 +186,7 @@ export default function Dashboard() {
         <article className="panel panel--sims">
           <header className="panel__header">
             <h2 className="panel__title">Recent simulations</h2>
-            <span className="panel__meta">ENSEMBLE 24h</span>
+            <ProvenanceBadge value="demo" />
           </header>
 
           <div className="sim-list">

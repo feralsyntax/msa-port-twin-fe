@@ -1,5 +1,6 @@
 import type { MarinePrediction } from '../types/predictions-directory.types';
 import { guardMarineGrid, guardRecord } from '../../../../utils/apiDataGuards';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 import './PredictionsDirectoryTable.scss';
 
 interface PredictionsDirectoryTableProps {
@@ -88,6 +89,11 @@ const PredictionsDirectoryTable = ({
                   >
                     {prediction.status}
                   </span>
+                  {prediction.status === 'completed' && (
+                    <span className="predictions-directory-table__provenance">
+                      <ProvenanceBadge value={prediction} context="prediction" />
+                    </span>
+                  )}
                 </td>
                 <td>{prediction.model_version || '—'}</td>
                 <td>{predictionMode}</td>

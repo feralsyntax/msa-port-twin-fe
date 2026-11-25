@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.scss';
 import { routes } from '../../utils/routes';
+import ProvenanceBadge from '../../components/Common/ProvenanceBadge/ProvenanceBadge';
 
 export default function LandingPage() {
   useEffect(() => {
@@ -463,7 +464,7 @@ export default function LandingPage() {
             <article className="landing__pillar">
               <div className="landing__pillar-top">
                 <span className="landing__pillar-index">PILLAR 01</span>
-                <span className="landing__pill landing__pill--model">MODEL</span>
+                <ProvenanceBadge value="ai_prediction" />
               </div>
               <h3 className="landing__pillar-title">Marine-Condition Modelling</h3>
               <p className="landing__pillar-body">
@@ -485,7 +486,7 @@ export default function LandingPage() {
             <article className="landing__pillar">
               <div className="landing__pillar-top">
                 <span className="landing__pillar-index">PILLAR 02</span>
-                <span className="landing__pill landing__pill--sim">SIMULATED</span>
+                <ProvenanceBadge value="demo" />
               </div>
               <h3 className="landing__pillar-title">Vessel Queue Simulation</h3>
               <p className="landing__pillar-body">
@@ -557,7 +558,7 @@ export default function LandingPage() {
           <div className="landing__trust-grid">
             <article className="landing__trust-card">
               <div className="landing__trust-card-top">
-                <span className="landing__pill landing__pill--measured">MEASURED</span>
+                <ProvenanceBadge value="observed" />
                 <span className="landing__trust-line-label">SOLID LINE</span>
               </div>
               <h3 className="landing__pillar-title">Live AIS &amp; Sensors</h3>
@@ -569,7 +570,7 @@ export default function LandingPage() {
 
             <article className="landing__trust-card">
               <div className="landing__trust-card-top">
-                <span className="landing__pill landing__pill--hist">HISTORICAL</span>
+                <ProvenanceBadge value="external" />
                 <span className="landing__trust-line-label">DASHED LINE</span>
               </div>
               <h3 className="landing__pillar-title">Recorded Past Voyages</h3>
@@ -581,7 +582,7 @@ export default function LandingPage() {
 
             <article className="landing__trust-card landing__trust-card--model">
               <div className="landing__trust-card-top">
-                <span className="landing__pill landing__pill--model">MODEL</span>
+                <ProvenanceBadge value="ai_prediction" />
                 <span className="landing__trust-line-label">DOTTED LINE</span>
               </div>
               <h3 className="landing__pillar-title">FNO Hydrodynamics</h3>
@@ -593,7 +594,7 @@ export default function LandingPage() {
 
             <article className="landing__trust-card">
               <div className="landing__trust-card-top">
-                <span className="landing__pill landing__pill--sim">SIMULATED</span>
+                <ProvenanceBadge value="demo" />
                 <span className="landing__trust-line-label">HATCHED</span>
               </div>
               <h3 className="landing__pillar-title">Scenario Variations</h3>

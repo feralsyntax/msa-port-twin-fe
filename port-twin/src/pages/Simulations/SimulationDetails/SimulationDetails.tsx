@@ -86,7 +86,7 @@ const SimulationDetailsPage = () => {
           </button>
         }
       />
-      <SimulatedDataBanner />
+      <SimulatedDataBanner value={simulation} />
 
       <div className="sim-details-page__content">
         <SimulationIdentityHeader simulation={simulation} />

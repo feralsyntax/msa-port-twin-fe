@@ -63,22 +63,6 @@
     color: #9cb0c2;
   }
 
-  &__tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-
-    &--sim {
-      color: #f5a623;
-    }
-
-    &--hist {
-      color: #9cb0c2;
-    }
-  }
-
   &__metric-value {
     font-family: 'JetBrains Mono', monospace;
     font-size: 18px;

@@ -1,4 +1,5 @@
 import './LastKnownPositionPanel.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 export interface VesselPositionData {
   latitude: number;
@@ -6,6 +7,7 @@ export interface VesselPositionData {
   speed: string | null;
   course: string | null;
   recordedAt: string;
+  provenance?: unknown;
 }
 
 interface LastKnownPositionPanelProps {
@@ -21,14 +23,12 @@ const LastKnownPositionPanel = ({ position }: LastKnownPositionPanelProps) => {
         <div className="last-known-position__header">
           <h2>Last Known Position</h2>
 
-          <div className="last-known-position__feed">
-            <span />
-            AIS FEED
-          </div>
+          <ProvenanceBadge value={position?.provenance} />
         </div>
 
         {/* Static hydrographic track visualization */}
         <div className="last-known-position__chart">
+          <ProvenanceBadge value="demo" />
           <svg
             className="last-known-position__svg"
             viewBox="0 0 360 202"

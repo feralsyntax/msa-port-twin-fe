@@ -1,4 +1,5 @@
 import './VesselQueueImpact.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface VesselSimulationResult {
   vessel_id: string;
@@ -46,7 +47,10 @@ const VesselQueueImpact = ({ vesselResults }: VesselQueueImpactProps) => {
       <div className="queue-impact__header">
         <h3 className="queue-impact__title">Vessel Queue Impact Telemetry</h3>
 
-        <span className="queue-impact__count">{vessels.length} ARRIVALS MONITORED</span>
+        <div className="queue-impact__meta">
+          <ProvenanceBadge value={vesselResults} context="simulation" />
+          <span className="queue-impact__count">{vessels.length} ARRIVALS MONITORED</span>
+        </div>
       </div>
 
       <div className="queue-impact__scroll">

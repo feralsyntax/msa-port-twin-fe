@@ -115,48 +115,6 @@
   white-space: nowrap;
 }
 
-.map-layers__prov {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: $font-mono;
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  flex-shrink: 0;
-
-  &--measured {
-    color: $measured;
-    .map-layers__prov-dot {
-      background-color: $measured;
-      border: none;
-    }
-  }
-
-  &--model {
-    color: $signal;
-    .map-layers__prov-dot {
-      background-color: transparent;
-      border: 1px solid $signal;
-    }
-  }
-
-  &--historical {
-    color: $historical;
-    .map-layers__prov-dot {
-      background-color: transparent;
-      border: 1px dashed $historical;
-    }
-  }
-}
-
-.map-layers__prov-dot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: 9999px;
-  flex-shrink: 0;
-}
-
 .map-layers__footer {
   display: flex;
   align-items: center;
@@ -214,27 +172,6 @@
   font-weight: 500;
   font-size: 13px;
   color: $ink-0;
-}
-
-.map-inspector__prov {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: $font-mono;
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: $measured;
-  background-color: $canvas-2;
-  padding: 0.125rem 0.375rem;
-  border-radius: $radius-sm;
-}
-
-.map-inspector__prov-dot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: 9999px;
-  background-color: $measured;
 }
 
 .map-inspector__type {
@@ -442,89 +379,6 @@
   }
 }
 
-// ── Provenance legend ────────────────────────────────────
-
-.map-legend {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background-color: $canvas-1;
-  border: 1px solid $hairline;
-  border-radius: $radius-md;
-  padding: 0.5rem 0.75rem;
-  pointer-events: auto;
-}
-
-.map-legend__title {
-  font-family: $font-mono;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $ink-2;
-  border-right: 1px solid $hairline;
-  padding-right: 0.75rem;
-}
-
-.map-legend__items {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-}
-
-.map-legend__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-family: $font-mono;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.map-legend__dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  flex-shrink: 0;
-}
-
-.map-legend__item--measured {
-  color: $ink-0;
-  .map-legend__dot {
-    background-color: $measured;
-  }
-}
-
-.map-legend__item--model {
-  color: $signal;
-  .map-legend__dot {
-    background-color: transparent;
-    border: 1px solid $signal;
-  }
-}
-
-.map-legend__item--historical {
-  color: $historical;
-  .map-legend__dot {
-    background-color: transparent;
-    border: 1px dashed $historical;
-  }
-}
-
-.map-legend__item--simulated {
-  color: $amber;
-  .map-legend__dot {
-    background-color: transparent;
-    border: 1px solid $amber;
-    border-radius: 1px;
-    transform: rotate(45deg);
-  }
-}
-
 // ── Timeline scrubber ────────────────────────────────────
 
 .map-timeline {
@@ -567,26 +421,6 @@
 
 .map-timeline__sep {
   color: $hairline-strong;
-}
-
-.map-timeline__live {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-family: $font-mono;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $signal;
-}
-
-.map-timeline__live-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  background-color: $signal;
-  box-shadow: 0 0 0 3px rgba($signal, 0.25);
 }
 
 .map-timeline__track-wrap {

@@ -1,8 +1,8 @@
 import './AboutDataSources.scss';
+import ProvenanceBadge from '../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface DataSource {
-  type: string;
-  symbol: string;
+  source: 'observed' | 'external' | 'ai_prediction' | 'demo';
   title: string;
   description: string;
   accent: string;
@@ -10,32 +10,28 @@ interface DataSource {
 
 const dataSources: DataSource[] = [
   {
-    type: 'MEASURED',
-    symbol: '●',
+    source: 'observed',
     title: 'AIS & Vessel Telemetry',
     description:
       'Vessel positions, speeds, and headings. Real-time transponder bursts captured through Class A shipboard units and coastal receivers.',
     accent: 'measured',
   },
   {
-    type: 'HISTORICAL',
-    symbol: '◐',
+    source: 'external',
     title: 'Port Operations',
     description:
       'Berth limits, channel geometry, and past vessel calls. Calibrated against historical operational manifests and dwell recordings.',
     accent: 'historical',
   },
   {
-    type: 'MODEL',
-    symbol: '○',
+    source: 'external',
     title: 'Environmental Inputs',
     description:
       'Weather, wind, tide, and oceanographic datasets. Gridded meteorological feeds combined with local bathymetric sounding points.',
-    accent: 'model',
+    accent: 'historical',
   },
   {
-    type: 'SIMULATED',
-    symbol: '◇',
+    source: 'demo',
     title: 'Simulated Inputs',
     description:
       'Controlled scenarios used where live data is unavailable. Heuristic vessel displacement models for outage periods and forward planning.',
@@ -70,16 +66,11 @@ const AboutDataSources = () => {
       <div className="about-data-sources__grid">
         {dataSources.map((source) => (
           <article
-            key={source.type}
+            key={source.source}
             className={`about-data-sources__card about-data-sources__card--${source.accent}`}
           >
             <div className="about-data-sources__card-header">
-              <span
-                className={`about-data-sources__badge about-data-sources__badge--${source.accent}`}
-              >
-                <span aria-hidden="true">{source.symbol}</span>
-                {source.type}
-              </span>
+              <ProvenanceBadge value={source.source} />
             </div>
 
             <h3 className="about-data-sources__card-title">{source.title}</h3>
