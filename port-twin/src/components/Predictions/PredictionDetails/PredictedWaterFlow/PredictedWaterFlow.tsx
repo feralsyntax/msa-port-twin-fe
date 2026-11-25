@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import type { MarinePredictionResultData } from '../../../../utils/apiDataGuards';
 import './PredictedWaterFlow.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface PredictedWaterFlowProps {
   result: MarinePredictionResultData;
@@ -140,7 +141,7 @@ const PredictedWaterFlow = ({
             waves
           </span>
           <h2>Predicted Water Flow</h2>
-          <span className="predicted-water-flow__location">AI ESTIMATE · NOT OBSERVED DATA</span>
+          <ProvenanceBadge value="ai_prediction" context="prediction" />
         </div>
       </div>
 

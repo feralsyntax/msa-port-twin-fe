@@ -18,6 +18,7 @@ import {
 } from '../../../utils/apiDataGuards';
 import type { MarinePredictionResultData } from '../../../utils/apiDataGuards';
 import ServerErrors from '../../../components/errors/ServerErrors';
+import ProvenanceBadge from '../../../components/Common/ProvenanceBadge/ProvenanceBadge';
 
 const isTerminalStatus = (status: string | undefined) =>
   status === 'completed' || status === 'failed';
@@ -202,6 +203,7 @@ export const PredictionDetailsPage = () => {
                 <span />
                 {status.replace(/_/g, ' ')}
               </span>
+              {canShowResult && <ProvenanceBadge value={prediction} context="prediction" />}
             </div>
           </div>
 

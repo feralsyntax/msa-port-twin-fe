@@ -49,6 +49,7 @@ const VesselDetailsPage = () => {
         speed: latestPosition.speed_over_ground,
         course: latestPosition.course_over_ground,
         recordedAt: latestPosition.recorded_at,
+        provenance: latestPosition,
       }
     : undefined;
 

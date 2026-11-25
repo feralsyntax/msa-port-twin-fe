@@ -32,30 +32,6 @@
     }
   }
 
-  &__feed {
-    padding: 2px 6px;
-
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    background: $canvas-0;
-    border: 1px solid $hairline;
-    border-radius: 3px;
-
-    color: $signal;
-    font-family: $font-mono;
-    font-size: 10px;
-    white-space: nowrap;
-
-    span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: $signal;
-    }
-  }
-
   &__chart {
     position: relative;
     width: 100%;
@@ -66,6 +42,12 @@
     background: $canvas-0;
     border: 1px solid $hairline;
     border-radius: 4px;
+
+    .provenance-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+    }
   }
 
   &__svg {
@@ -149,29 +131,6 @@
       font-family: $font-mono;
       font-size: 11px;
       font-weight: 400;
-    }
-  }
-
-  &__provenance {
-    padding: 2px 6px;
-
-    display: flex;
-    align-items: center;
-    gap: 5px;
-
-    background: $canvas-0;
-    border: 1px solid $hairline;
-    border-radius: 3px;
-
-    color: $ink-0;
-    font-family: $font-mono;
-    font-size: 9px;
-
-    span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #d9e9f0;
     }
   }
 

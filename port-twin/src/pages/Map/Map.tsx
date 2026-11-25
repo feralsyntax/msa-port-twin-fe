@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import ProvenanceBadge from '../../components/Common/ProvenanceBadge/ProvenanceBadge';
 import './Map.scss';
 
 type Point = { x: number; y: number };
@@ -8,13 +9,13 @@ type LayerKey = 'vessels' | 'flow' | 'berths' | 'tracks';
 const layerConfig: {
   key: LayerKey;
   label: string;
-  provenance: 'MEASURED' | 'MODEL' | 'HISTORICAL';
+  provenance: string;
   defaultOn: boolean;
 }[] = [
-  { key: 'vessels', label: 'Vessels', provenance: 'MEASURED', defaultOn: true },
-  { key: 'flow', label: 'Flow field', provenance: 'MODEL', defaultOn: true },
-  { key: 'berths', label: 'Berth occupancy', provenance: 'MEASURED', defaultOn: true },
-  { key: 'tracks', label: 'Vessel tracks', provenance: 'HISTORICAL', defaultOn: false },
+  { key: 'vessels', label: 'Vessels', provenance: 'demo', defaultOn: true },
+  { key: 'flow', label: 'Flow field', provenance: 'demo', defaultOn: true },
+  { key: 'berths', label: 'Berth occupancy', provenance: 'demo', defaultOn: true },
+  { key: 'tracks', label: 'Vessel tracks', provenance: 'demo', defaultOn: false },
 ];
 
 export default function MapPage() {
@@ -497,33 +498,6 @@ export default function MapPage() {
         </button>
       </div>
 
-      {/* Provenance legend */}
-      <div
-        className="map-legend"
-        aria-label="Data provenance legend"
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <span className="map-legend__title">PROVENANCE</span>
-        <div className="map-legend__items">
-          <span className="map-legend__item map-legend__item--measured">
-            <span className="map-legend__dot" />
-            MEASURED
-          </span>
-          <span className="map-legend__item map-legend__item--model">
-            <span className="map-legend__dot" />
-            MODEL
-          </span>
-          <span className="map-legend__item map-legend__item--historical">
-            <span className="map-legend__dot" />
-            HISTORICAL
-          </span>
-          <span className="map-legend__item map-legend__item--simulated">
-            <span className="map-legend__dot" />
-            SIMULATED
-          </span>
-        </div>
-      </div>
-
       {/* Timeline scrubber */}
       <div
         className="map-timeline"
@@ -544,10 +518,7 @@ export default function MapPage() {
               TIDE <strong>+1.4m FLOOD</strong>
             </span>
           </div>
-          <div className="map-timeline__live">
-            <span className="map-timeline__live-dot" />
-            LIVE TELEMETRY
-          </div>
+          <ProvenanceBadge value="demo" />
         </div>
 
         <div className="map-timeline__track-wrap">
@@ -603,12 +574,7 @@ export default function MapPage() {
                   />
                   <span className="map-layers__label">{layer.label}</span>
                 </span>
-                <span
-                  className={`map-layers__prov map-layers__prov--${layer.provenance.toLowerCase()}`}
-                >
-                  <span className="map-layers__prov-dot" />
-                  {layer.provenance}
-                </span>
+                <ProvenanceBadge value={layer.provenance} />
               </label>
             </li>
           ))}
@@ -628,10 +594,7 @@ export default function MapPage() {
           <div className="map-inspector__header">
             <div className="map-inspector__title-row">
               <span className="map-inspector__name">MV KWALE STAR</span>
-              <span className="map-inspector__prov">
-                <span className="map-inspector__prov-dot" />
-                MEASURED
-              </span>
+              <ProvenanceBadge value="demo" />
             </div>
             <span className="map-inspector__type">CONTAINER</span>
           </div>
