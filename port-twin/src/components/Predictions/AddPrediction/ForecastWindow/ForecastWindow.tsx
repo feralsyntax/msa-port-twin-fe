@@ -1,12 +1,14 @@
 import AddPredictionSectionHeader from '../AddPredictionSectionHeader/AddPredictionSectionHeader';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { MarinePredictionRequest } from '../../../../api/models';
 import './ForecastWindow.scss';
 
 interface ForecastWindowProps {
-  startTime: string;
-  onChange: (value: string) => void;
+  register: UseFormRegister<MarinePredictionRequest>;
+  errors: FieldErrors<MarinePredictionRequest>;
 }
 
-const ForecastWindow = ({ startTime, onChange }: ForecastWindowProps) => {
+const ForecastWindow = ({ register, errors }: ForecastWindowProps) => {
   return (
     <section className="forecast-window">
       <AddPredictionSectionHeader
@@ -23,18 +25,30 @@ const ForecastWindow = ({ startTime, onChange }: ForecastWindowProps) => {
         <div className="forecast-window__input-wrapper">
           <input
             id="start-time"
-            name="start_time"
             type="datetime-local"
-            required
-            value={startTime}
-            onChange={(e) => onChange(e.target.value)}
+            aria-invalid={Boolean(errors.forecast?.start_time)}
+            aria-describedby={
+              errors.forecast?.start_time ? 'prediction-start-time-error' : undefined
+            }
+            {...register('forecast.start_time', {
+              required: 'Forecast start time is required.',
+              validate: (value) =>
+                !Number.isNaN(new Date(value).getTime()) || 'Enter a valid forecast start time.',
+            })}
           />
 
           <span>LOCAL TIME</span>
         </div>
+        {errors.forecast?.start_time?.message && (
+          <p id="prediction-start-time-error" className="form-error">
+            {errors.forecast.start_time.message}
+          </p>
+        )}
       </div>
 
-      <p className="forecast-window__note">Forecast duration: 6 hours · Output interval: 1 hour</p>
+      <p className="forecast-window__note">
+        The selected local date and time will be sent to the API in UTC.
+      </p>
     </section>
   );
 };
