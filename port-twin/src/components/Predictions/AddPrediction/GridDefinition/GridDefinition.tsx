@@ -12,7 +12,6 @@ const GridDefinition = ({ register, errors }: GridDefinitionProps) => {
   const domainError = errors.domain?.message;
 
   return (
-    
     <section className="grid-definition">
       <AddPredictionSectionHeader
         title="Prediction Domain"
