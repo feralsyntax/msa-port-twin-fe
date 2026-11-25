@@ -1,4 +1,5 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Shell.scss';
 import TopBar from '../components/Common/TopBar/TopBar';
 import DataStatusIndicator from '../components/Common/DataStatusIndicator/DataStatusIndicator';
@@ -140,10 +141,27 @@ const primaryNav = [
   },
 ];
 
+const refreshQueryPrefixes = new Set([
+  'overviewRetrieve',
+  'berthsList',
+  'vesselsList',
+  'simulationsList',
+  'simulationsRetrieve',
+  'marinePredictionsList',
+  'dataStatusRetrieve',
+]);
+
 export default function Shell() {
   const { pathname } = useLocation();
+  const queryClient = useQueryClient();
   const isDashboard = pathname === routes.dashboard() || pathname === `${routes.dashboard()}/`;
   const isMap = pathname === routes.map();
+  const handleRefreshData = () => {
+    void queryClient.invalidateQueries({
+      predicate: (query) => refreshQueryPrefixes.has(String(query.queryKey[0])),
+    });
+  };
+
   return (
     <div className="shell">
       <aside className="shell__rail" aria-label="Primary navigation">
@@ -235,12 +253,25 @@ export default function Shell() {
             }
             action={
               isDashboard ? (
-                <button type="button" className="shell__action shell__action--live">
-                  <span>New Simulation</span>
-                </button>
+                <div className="shell__action-group">
+                  <button
+                    type="button"
+                    className="shell__action shell__action--secondary shell__action--live"
+                    onClick={handleRefreshData}
+                  >
+                    <span>Refresh data</span>
+                  </button>
+                  <Link className="shell__action shell__action--live" to={routes.simulationNew()}>
+                    <span>New Simulation</span>
+                  </Link>
+                </div>
               ) : (
-                <button type="button" className="shell__action shell__action--live">
-                  <span>REFRESH DATA</span>
+                <button
+                  type="button"
+                  className="shell__action shell__action--live"
+                  onClick={handleRefreshData}
+                >
+                  <span>Refresh data</span>
                 </button>
               )
             }
