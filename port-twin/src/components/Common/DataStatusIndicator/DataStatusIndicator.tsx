@@ -28,7 +28,10 @@ const readExplicitFreshness = (value: unknown): 'fresh' | 'stale' | null => {
   return null;
 };
 
-const getFeedFreshness = (value: unknown, overallFreshness: 'fresh' | 'stale' | null): FeedFreshness => {
+const getFeedFreshness = (
+  value: unknown,
+  overallFreshness: 'fresh' | 'stale' | null,
+): FeedFreshness => {
   const record = guardRecord(value);
   if (!record.recognised) return 'unknown';
 
@@ -95,10 +98,9 @@ const DataStatusIndicator = () => {
         ? 'Ready'
         : 'Not configured'
       : aiStatus.readiness.replace(/_/g, ' ');
-  const modelVersion =
-    aiStatus?.configured_model_version?.trim()
-      ? aiStatus.configured_model_version
-      : 'Not configured';
+  const modelVersion = aiStatus?.configured_model_version?.trim()
+    ? aiStatus.configured_model_version
+    : 'Not configured';
 
   const positionsUpdatedAt =
     data?.vessel_positions.latest_ingested_at ?? data?.vessel_positions.latest_recorded_at;

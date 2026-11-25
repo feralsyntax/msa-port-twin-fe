@@ -24,7 +24,14 @@ const sourceProvenance: Record<string, DataProvenance> = {
 
 const readSource = (value: unknown): DataProvenance | null => {
   if (typeof value !== 'string') return null;
-  return sourceProvenance[value.trim().toLowerCase().replace(/[\s-]+/g, '_')] ?? null;
+  return (
+    sourceProvenance[
+      value
+        .trim()
+        .toLowerCase()
+        .replace(/[\s-]+/g, '_')
+    ] ?? null
+  );
 };
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
