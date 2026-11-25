@@ -43,19 +43,19 @@ const GridDefinition = ({ register, errors }: GridDefinitionProps) => {
         <h3>Area summary</h3>
         <dl>
           <div>
-            <dt>West</dt>
+            <dt>West Longitude</dt>
             <dd>39.60°E</dd>
           </div>
           <div>
-            <dt>East</dt>
+            <dt>East Longitude</dt>
             <dd>39.70°E</dd>
           </div>
           <div>
-            <dt>South</dt>
+            <dt>South Latitude</dt>
             <dd>4.10°S</dd>
           </div>
           <div>
-            <dt>North</dt>
+            <dt>North Latitude</dt>
             <dd>4.00°S</dd>
           </div>
           <div>
