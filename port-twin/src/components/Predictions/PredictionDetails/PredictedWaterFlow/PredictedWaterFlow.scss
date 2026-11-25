@@ -285,4 +285,25 @@
       font-size: 10px;
     }
   }
+
+  .predicted-water-flow--compact {
+    padding: 0;
+    border: 0;
+    background: transparent;
+
+    .predicted-water-flow__header,
+    .predicted-water-flow__timeline {
+      display: none;
+    }
+
+    .predicted-water-flow__canvas {
+      max-height: 220px;
+      margin-top: 0;
+    }
+
+    .predicted-water-flow__legend {
+      width: min(190px, calc(100% - 12px));
+      padding: 6px 8px;
+    }
+  }
 }

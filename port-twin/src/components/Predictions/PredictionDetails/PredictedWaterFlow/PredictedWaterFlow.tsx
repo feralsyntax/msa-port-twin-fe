@@ -12,6 +12,7 @@ interface PredictedWaterFlowProps {
   isPlaying: boolean;
   onStepChange: (step: number) => void;
   onPlayPause: () => void;
+  compact?: boolean;
 }
 
 const formatHours = (hours: number) => Number(hours.toFixed(2));
@@ -25,6 +26,7 @@ const PredictedWaterFlow = ({
   isPlaying,
   onStepChange,
   onPlayPause,
+  compact = false,
 }: PredictedWaterFlowProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const waterLevelFrame = result.water_level_m[currentStep];
@@ -134,7 +136,7 @@ const PredictedWaterFlow = ({
   const tickStride = Math.max(1, Math.ceil(totalSteps / 6));
 
   return (
-    <section className="predicted-water-flow">
+    <section className={`predicted-water-flow${compact ? ' predicted-water-flow--compact' : ''}`}>
       <div className="predicted-water-flow__header">
         <div className="predicted-water-flow__title">
           <span className="material-symbols-outlined" aria-hidden="true">
