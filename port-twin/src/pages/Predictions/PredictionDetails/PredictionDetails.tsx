@@ -76,7 +76,8 @@ const findPeakCurrent = (
 export const PredictionDetailsPage = () => {
   const { predictionId } = useParams<{ predictionId: string }>();
   const detailsQuery = useGetMarinePredictionDetails(predictionId);
-  const shouldPollStatus = Boolean(detailsQuery.data) && !isTerminalStatus(detailsQuery.data?.status);
+  const shouldPollStatus =
+    Boolean(detailsQuery.data) && !isTerminalStatus(detailsQuery.data?.status);
   const statusQuery = useGetMarinePredictionStatus(shouldPollStatus ? predictionId : undefined);
   const prediction =
     detailsQuery.data && statusQuery.data
@@ -150,8 +151,7 @@ export const PredictionDetailsPage = () => {
   const isPending =
     Boolean(predictionId) &&
     (detailsQuery.isPending || (shouldPollStatus && statusQuery.isPending));
-  const isFetching =
-    detailsQuery.isFetching || (shouldPollStatus && statusQuery.isFetching);
+  const isFetching = detailsQuery.isFetching || (shouldPollStatus && statusQuery.isFetching);
   const queryError = detailsQuery.isError ? detailsQuery.error : statusQuery.error;
   const parsedError = isError ? parseApiError(queryError) : null;
   const refetch = statusQuery.isError ? statusQuery.refetch : detailsQuery.refetch;
@@ -166,9 +166,7 @@ export const PredictionDetailsPage = () => {
     status === 'completed' ? 'completed' : status === 'failed' ? 'failed' : 'pending';
   const peakCurrent = useMemo(
     () =>
-      canShowResult && result?.recognised
-        ? findPeakCurrent(result.value, stepIntervalHours)
-        : null,
+      canShowResult && result?.recognised ? findPeakCurrent(result.value, stepIntervalHours) : null,
     [canShowResult, result, stepIntervalHours],
   );
   const modelError =
@@ -210,7 +208,10 @@ export const PredictionDetailsPage = () => {
           <div className="prediction-details-page__grid">
             <div className="prediction-details-page__visualization">
               {status === 'failed' ? (
-                <div className="prediction-details-page__state-message prediction-details-page__state-message--failed" role="alert">
+                <div
+                  className="prediction-details-page__state-message prediction-details-page__state-message--failed"
+                  role="alert"
+                >
                   <h2>Prediction failed</h2>
                   <p>{modelError}</p>
                 </div>
@@ -228,8 +229,8 @@ export const PredictionDetailsPage = () => {
                 <div className="prediction-details-page__state-message" role="alert">
                   <h2>Prediction output is inconsistent</h2>
                   <p>
-                    The forecast declares {forecastSteps} steps, but the result contains {resultSteps}{' '}
-                    frames. No visualization is shown.
+                    The forecast declares {forecastSteps} steps, but the result contains{' '}
+                    {resultSteps} frames. No visualization is shown.
                   </p>
                 </div>
               ) : (
@@ -258,9 +259,7 @@ export const PredictionDetailsPage = () => {
                     : `${Number(stepIntervalHours.toFixed(4))} h`
                 }
                 horizon={
-                  forecastHorizonHours === undefined
-                    ? 'Not available'
-                    : `${forecastHorizonHours} h`
+                  forecastHorizonHours === undefined ? 'Not available' : `${forecastHorizonHours} h`
                 }
                 modelVersion={readString(predictionFields.model_version)}
                 contractVersion={readString(predictionFields.contract_version)}

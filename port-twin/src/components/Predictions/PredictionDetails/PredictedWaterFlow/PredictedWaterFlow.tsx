@@ -177,7 +177,9 @@ const PredictedWaterFlow = ({
       <div className="predicted-water-flow__timeline">
         <div className="predicted-water-flow__timeline-heading">
           <div>
-            <span>Forecast Step {currentStep + 1} / {totalSteps}</span>
+            <span>
+              Forecast Step {currentStep + 1} / {totalSteps}
+            </span>
             <span className="predicted-water-flow__time-offset">{timeLabel}</span>
           </div>
 

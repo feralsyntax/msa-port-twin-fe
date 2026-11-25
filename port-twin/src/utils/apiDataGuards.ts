@@ -35,10 +35,7 @@ const isNumericTensor3d = (value: unknown): value is number[][][] => {
       Array.isArray(frame) &&
       frame.length === rowCount &&
       frame.every(
-        (row) =>
-          Array.isArray(row) &&
-          row.length === columnCount &&
-          row.every(isFiniteNumber),
+        (row) => Array.isArray(row) && row.length === columnCount && row.every(isFiniteNumber),
       ),
   );
 };
