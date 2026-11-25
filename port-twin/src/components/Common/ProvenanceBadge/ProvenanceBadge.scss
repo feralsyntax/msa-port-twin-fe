@@ -1,0 +1,37 @@
+.provenance-badge {
+  width: fit-content;
+  padding: 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  background: rgba(6, 18, 27, 0.75);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: help;
+
+  &--measured {
+    color: #5db580;
+  }
+
+  &--historical {
+    color: #8faac0;
+  }
+
+  &--ai-estimate {
+    color: #00d2c8;
+  }
+
+  &--simulated {
+    color: #f5a623;
+  }
+
+  &--unknown {
+    color: #9cb0c2;
+  }
+}
