@@ -27,6 +27,7 @@ type ApiErrorBody = {
     | string;
   detail?: string | Array<{ msg?: string; message?: string }>;
   message?: string;
+  error_message?: string;
   status?: string;
 };
 
@@ -66,6 +67,15 @@ export function parseApiError(error: unknown): ParsedApiError {
       status,
       code: data.status ? `simulation_${data.status}` : 'simulation_error',
       message: data.error,
+      isNetworkError: false,
+      isTimeout: false,
+    };
+  }
+
+  if (typeof data?.error_message === 'string' && data.error_message.trim()) {
+    return {
+      status,
+      message: data.error_message,
       isNetworkError: false,
       isTimeout: false,
     };
@@ -178,7 +188,13 @@ export function getFieldErrors(error: unknown): FieldErrorMap {
 
   const assignFrom = (source: Record<string, unknown>, prefix = '') => {
     for (const [key, value] of Object.entries(source)) {
-      if (key === 'error' || key === 'detail' || key === 'message' || key === 'non_field_errors') {
+      if (
+        key === 'error' ||
+        key === 'detail' ||
+        key === 'message' ||
+        key === 'error_message' ||
+        key === 'non_field_errors'
+      ) {
         continue;
       }
 

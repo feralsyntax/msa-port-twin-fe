@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
+import { useForm, type Path, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import './AddPrediction.scss';
@@ -8,73 +9,101 @@ import { routes } from '../../../utils/routes';
 import AddPredictionFooter from '../../../components/Predictions/AddPrediction/AddPredictionFooter/AddPredictionFooter';
 import GridDefinition from '../../../components/Predictions/AddPrediction/GridDefinition/GridDefinition';
 import ForecastWindow from '../../../components/Predictions/AddPrediction/ForecastWindow/ForecastWindow';
+import { useAddMarinePrediction } from '../../../hooks/predictions/useAddMarinePrediction';
+import type { MarinePrediction, MarinePredictionRequest } from '../../../api/models';
+import { getFieldErrors, hasFieldErrors, parseApiError } from '../../../utils/apiError';
 
-interface PredictionFormValues {
-  westLon: string;
-  eastLon: string;
-  southLat: string;
-  northLat: string;
-  gridNx: string;
-  gridNy: string;
-  crs: string;
-  startTime: string;
-}
-
-const initialFormValues: PredictionFormValues = {
-  westLon: '39.60',
-  eastLon: '39.70',
-  southLat: '-4.10',
-  northLat: '-4.00',
-  gridNx: '64',
-  gridNy: '64',
-  crs: 'EPSG:4326',
-  startTime: '',
-};
+const SERVER_FIELD_PATHS = [
+  'domain',
+  'forecast.start_time',
+] as const satisfies readonly Path<MarinePredictionRequest>[];
 
 const AddPredictionPage = () => {
   const navigate = useNavigate();
+  const createPrediction = useAddMarinePrediction();
+  const submissionLock = useRef(false);
+  const [failedPrediction, setFailedPrediction] = useState<MarinePrediction | null>(null);
 
-  const [formValues, setFormValues] = useState<PredictionFormValues>(initialFormValues);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors, isSubmitting },
+  } = useForm<MarinePredictionRequest>({
+    defaultValues: {
+      domain: 'mombasa_offshore',
+      forecast: { start_time: '' },
+    },
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
-  const [validationMessage, setValidationMessage] = useState('');
+  const parsedError = createPrediction.isError ? parseApiError(createPrediction.error) : null;
+  const fieldErrors = createPrediction.isError ? getFieldErrors(createPrediction.error) : {};
+  const showFormBanner =
+    createPrediction.isError &&
+    parsedError &&
+    (!hasFieldErrors(fieldErrors) || Boolean(fieldErrors.non_field_errors));
+  const isGenerating = isSubmitting || createPrediction.isPending;
 
-  const handleFieldChange = (field: string, value: string) => {
-    setFormValues((previous) => ({
-      ...previous,
-      [field]: value,
-    }));
+  const applyServerFieldErrors = (error: unknown) => {
+    const fields = getFieldErrors(error);
 
-    setValidationMessage('');
+    for (const path of SERVER_FIELD_PATHS) {
+      const message = fields[path];
+      if (message) {
+        setError(path, { type: 'server', message });
+      }
+    }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit: SubmitHandler<MarinePredictionRequest> = async (values) => {
+    clearErrors();
+    createPrediction.reset();
+    setFailedPrediction(null);
+
+    const startTime = new Date(values.forecast.start_time);
+    if (Number.isNaN(startTime.getTime())) {
+      setError('forecast.start_time', {
+        type: 'validate',
+        message: 'Enter a valid forecast start time.',
+      });
+      return;
+    }
+
+    try {
+      const prediction = await createPrediction.mutateAsync({
+        domain: values.domain,
+        forecast: { start_time: startTime.toISOString() },
+      });
+
+      if (prediction.status === 'failed') {
+        setFailedPrediction(prediction);
+        return;
+      }
+
+      navigate(routes.predictionDetails(prediction.id));
+    } catch (error) {
+      applyServerFieldErrors(error);
+    }
+  };
+
+  const runSubmit = (submit: () => Promise<unknown>) => {
+    if (submissionLock.current) return;
+    submissionLock.current = true;
+    void submit().finally(() => {
+      submissionLock.current = false;
+    });
+  };
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    runSubmit(handleSubmit(onSubmit));
+  };
 
-    const { westLon, eastLon, southLat, northLat, gridNx, gridNy } = formValues;
-
-    if (Number(westLon) >= Number(eastLon)) {
-      setValidationMessage('East longitude must be greater than west longitude.');
-      return;
-    }
-
-    if (Number(southLat) >= Number(northLat)) {
-      setValidationMessage('North latitude must be greater than south latitude.');
-      return;
-    }
-
-    if (
-      !Number.isInteger(Number(gridNx)) ||
-      !Number.isInteger(Number(gridNy)) ||
-      Number(gridNx) < 2 ||
-      Number(gridNy) < 2
-    ) {
-      setValidationMessage('Grid dimensions must be integers greater than or equal to 2.');
-      return;
-    }
-
-    setValidationMessage(
-      'Configuration validated successfully. Prediction generation is not connected yet.',
-    );
+  const retrySubmit = () => {
+    runSubmit(handleSubmit(onSubmit));
   };
 
   return (
@@ -87,30 +116,60 @@ const AddPredictionPage = () => {
 
       <div className="add-prediction-page__content">
         <div className="add-prediction-page__container">
-          <form className="add-prediction-page__form" onSubmit={handleSubmit}>
-            <GridDefinition
-              westLon={formValues.westLon}
-              eastLon={formValues.eastLon}
-              southLat={formValues.southLat}
-              northLat={formValues.northLat}
-              gridNx={formValues.gridNx}
-              gridNy={formValues.gridNy}
-              crs={formValues.crs}
-              onChange={handleFieldChange}
-            />
-
-            <ForecastWindow
-              startTime={formValues.startTime}
-              onChange={(value) => handleFieldChange('startTime', value)}
-            />
-
-            {validationMessage && (
-              <p className="add-prediction-page__validation" role="status">
-                {validationMessage}
-              </p>
+          <form
+            className="add-prediction-page__form"
+            onSubmit={handleFormSubmit}
+            noValidate
+            aria-busy={isGenerating}
+          >
+            {showFormBanner && parsedError && (
+              <div className="add-prediction-page__error" role="alert">
+                <p className="add-prediction-page__error-title">Failed to generate prediction</p>
+                <p className="add-prediction-page__error-message">
+                  {fieldErrors.non_field_errors ?? parsedError.message}
+                </p>
+                {(parsedError.status != null || parsedError.code) && (
+                  <p className="add-prediction-page__error-meta">
+                    {parsedError.status != null && <span>HTTP {parsedError.status}</span>}
+                    {parsedError.status != null && parsedError.code ? ' · ' : null}
+                    {parsedError.code && <span>{parsedError.code}</span>}
+                  </p>
+                )}
+                <button type="button" onClick={retrySubmit} disabled={isGenerating}>
+                  Retry
+                </button>
+              </div>
             )}
 
-            <AddPredictionFooter onCancel={() => navigate(-1)} />
+            {failedPrediction && (
+              <div className="add-prediction-page__error" role="alert">
+                <p className="add-prediction-page__error-title">Prediction failed</p>
+                <p className="add-prediction-page__error-message">
+                  {failedPrediction.error_message ||
+                    'The backend did not provide an error message for this failed prediction.'}
+                </p>
+                <button type="button" onClick={retrySubmit} disabled={isGenerating}>
+                  Retry
+                </button>
+              </div>
+            )}
+
+            <fieldset className="add-prediction-page__fieldset" disabled={isGenerating}>
+              <GridDefinition register={register} errors={errors} />
+              <ForecastWindow register={register} errors={errors} />
+
+              {isGenerating && (
+                <p className="add-prediction-page__loading" role="status">
+                  Generating prediction. The AI model may take a moment…
+                </p>
+              )}
+
+              <AddPredictionFooter
+                disabled={isGenerating}
+                isSubmitting={isGenerating}
+                onCancel={() => navigate(-1)}
+              />
+            </fieldset>
           </form>
         </div>
       </div>

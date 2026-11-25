@@ -1034,21 +1034,15 @@ components:
     MarinePredictionRequest:
       type: object
       properties:
-        grid:
-          $ref: '#/components/schemas/MarineGridInput'
+        domain:
+          type: string
+          enum:
+          - mombasa_offshore
         forecast:
           $ref: '#/components/schemas/MarineForecastInput'
-        bathymetry_m: {}
-        initial_water_level_m: {}
-        initial_current_u_ms: {}
-        initial_current_v_ms: {}
       required:
-      - bathymetry_m
+      - domain
       - forecast
-      - grid
-      - initial_current_u_ms
-      - initial_current_v_ms
-      - initial_water_level_m
     MarinePredictionStatusEnum:
       enum:
       - completed
