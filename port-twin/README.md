@@ -23,6 +23,18 @@ npx orval
 npm run build
 ```
 
+## Interactive harbour map
+
+The map uses Leaflet with the OpenStreetMap standard raster tile service:
+`https://tile.openstreetmap.org/{z}/{x}/{y}.png`. The map displays the required
+© OpenStreetMap contributors attribution. This tile service is used for
+low-volume interactive viewing only; it has no availability SLA and must not be
+used for bulk downloads or offline tile caching. Deployments must allow requests
+to `tile.openstreetmap.org` and preserve the browser `Referer` header.
+
+To switch to another tile provider, configure both `VITE_MAP_TILE_URL` and
+`VITE_MAP_TILE_ATTRIBUTION` with that provider's approved URL and attribution.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
