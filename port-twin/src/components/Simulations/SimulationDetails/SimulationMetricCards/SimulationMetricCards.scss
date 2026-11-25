@@ -44,18 +44,6 @@
     color: #9cb0c2;
   }
 
-  &__tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: rgba(245, 166, 35, 0.9);
-    background: rgba(245, 166, 35, 0.1);
-    border: 1px solid rgba(245, 166, 35, 0.2);
-    border-radius: 2px;
-    padding: 1px 4px;
-    white-space: nowrap;
-  }
-
   &__value {
     font-family: 'JetBrains Mono', monospace;
     font-size: 24px;

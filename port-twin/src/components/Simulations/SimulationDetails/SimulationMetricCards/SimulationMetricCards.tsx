@@ -1,4 +1,5 @@
 import './SimulationMetricCards.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface SimulationMetricCardsProps {
   summary: {
@@ -64,7 +65,7 @@ const SimulationMetricCards = ({ summary, queueTimeline }: SimulationMetricCards
           <div className="sim-metric-card__top">
             <span className="sim-metric-card__label">{metric.label}</span>
 
-            <span className="sim-metric-card__tag">◇ SIMULATED</span>
+            <ProvenanceBadge value={summary} context="simulation" />
           </div>
 
           <div className="sim-metric-card__value">{metric.value}</div>

@@ -19,6 +19,12 @@
     color: #e6f0f5;
   }
 
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   &__count {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;

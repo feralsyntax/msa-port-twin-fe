@@ -75,16 +75,6 @@
     gap: 6px;
   }
 
-  &__simulated-label {
-    padding: 1px 5px;
-    border: 1px solid rgba($signal-dim, 0.3);
-    border-radius: 2px;
-
-    color: $signal-dim;
-    font-size: 9px;
-    white-space: nowrap;
-  }
-
   &__run-id {
     padding-left: 24px;
 

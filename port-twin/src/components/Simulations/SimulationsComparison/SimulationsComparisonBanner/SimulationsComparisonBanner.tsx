@@ -1,11 +1,12 @@
 import './SimulationsComparisonBanner.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 const SimulationsComparisonBanner = () => {
   return (
     <div className="simulations-comparison-banner" role="status">
       <div className="simulations-comparison-banner__message">
-        <span aria-hidden="true">◇</span>
-        <span>Simulated Scenario — Not Live Port Data</span>
+        <ProvenanceBadge value="simulation" context="simulation" />
+        <span>Comparison results are not live port data.</span>
       </div>
     </div>
   );

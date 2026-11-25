@@ -3,6 +3,7 @@ import type { SimulationHistoryItem } from '../../../../api/models';
 
 import './SimulationsDirectoryTable.scss';
 import { routes } from '../../../../utils/routes';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface SimulationsDirectoryTableProps {
   simulations: SimulationHistoryItem[];
@@ -36,8 +37,6 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
               <th className="simulations-directory-table__run-column" scope="col">
                 <div className="simulations-directory-table__heading">
                   <span>RUN ID</span>
-
-                  <span className="simulations-directory-table__simulated-label">◇ SIMULATED</span>
                 </div>
               </th>
 
@@ -72,6 +71,7 @@ const SimulationsDirectoryTable = ({ simulations }: SimulationsDirectoryTablePro
                       <span className="simulations-directory-table__id">
                         <Link to={routes.simulationDetails(simulation.id)}>{simulation.id}</Link>
                       </span>
+                      <ProvenanceBadge value={simulation} context="simulation" />
                     </div>
                   </td>
 

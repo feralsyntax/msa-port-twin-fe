@@ -1,4 +1,5 @@
 import './SimulationImpact.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface SimulationImpactProps {
   scenarioCount?: number;
@@ -33,7 +34,7 @@ const SimulationImpact = ({
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
             <span className="simulation-impact__metric-label">Avg. Utilization</span>
-            <span className="simulation-impact__tag simulation-impact__tag--sim">SIMULATED</span>
+            <ProvenanceBadge value="demo" />
           </div>
           <div className="simulation-impact__metric-value">{avgUtilization}</div>
           <div className="simulation-impact__metric-note">{utilizationDelta}</div>
@@ -42,7 +43,7 @@ const SimulationImpact = ({
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
             <span className="simulation-impact__metric-label">Most Frequent Vessel</span>
-            <span className="simulation-impact__tag simulation-impact__tag--hist">HISTORICAL</span>
+            <ProvenanceBadge value="demo" />
           </div>
           <div className="simulation-impact__metric-value simulation-impact__metric-value--text">
             {mostFrequentVessel}
@@ -53,7 +54,7 @@ const SimulationImpact = ({
         <article className="simulation-impact__metric">
           <div className="simulation-impact__metric-top">
             <span className="simulation-impact__metric-label">Simulated Closures</span>
-            <span className="simulation-impact__tag simulation-impact__tag--sim">SIMULATED</span>
+            <ProvenanceBadge value="demo" />
           </div>
           <div className="simulation-impact__metric-value">{simulatedClosures}</div>
           <div className="simulation-impact__metric-note">{closuresNote}</div>

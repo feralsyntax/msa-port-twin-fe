@@ -1,4 +1,5 @@
 import './BerthSchedule.scss';
+import ProvenanceBadge from '../../../Common/ProvenanceBadge/ProvenanceBadge';
 
 interface VesselSimulationResult {
   vessel_id: string;
@@ -91,7 +92,7 @@ const BerthSchedule = ({ vesselResults }: BerthScheduleProps) => {
           <h2 className="berth-schedule__title">Berth Schedule</h2>
 
           <p className="berth-schedule__subtitle">
-            Simulated vessel service allocation across assigned berths
+            Vessel service allocation across assigned berths
           </p>
         </div>
 
@@ -99,7 +100,7 @@ const BerthSchedule = ({ vesselResults }: BerthScheduleProps) => {
           <div className="berth-schedule__legend">
             <div className="berth-schedule__legend-item">
               <span className="berth-schedule__swatch berth-schedule__swatch--opt" />
-              <span>Simulated service</span>
+              <ProvenanceBadge value={vesselResults} context="simulation" />
             </div>
           </div>
         </div>
