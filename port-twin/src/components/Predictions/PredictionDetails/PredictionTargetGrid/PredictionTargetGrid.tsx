@@ -1,23 +1,16 @@
 import './PredictionTargetGrid.scss';
 
 interface PredictionTargetGridProps {
-  bounds: string;
-  resolution: string;
+  area: string;
+  gridSize: string;
   crs: string;
-  spatialResolution: string;
 }
 
-const PredictionTargetGrid = ({
-  bounds,
-  resolution,
-  crs,
-  spatialResolution,
-}: PredictionTargetGridProps) => {
+const PredictionTargetGrid = ({ area, gridSize, crs }: PredictionTargetGridProps) => {
   const details = [
-    { label: 'Bounds', value: bounds },
-    { label: 'Resolution', value: resolution },
+    { label: 'Area (W, S, E, N)', value: area },
+    { label: 'Grid Size', value: gridSize },
     { label: 'CRS', value: crs },
-    { label: 'Spatial Res', value: spatialResolution },
   ];
 
   return (

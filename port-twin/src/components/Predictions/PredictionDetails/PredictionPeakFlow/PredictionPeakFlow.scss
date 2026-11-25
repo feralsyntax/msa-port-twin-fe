@@ -40,17 +40,4 @@
       font-weight: 400;
     }
   }
-
-  &__verified {
-    padding: 3px 6px;
-    flex-shrink: 0;
-    border: 1px solid rgba(0, 210, 200, 0.3);
-    border-radius: 2px;
-    color: #00d2c8;
-    background: #06121b;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
 }
