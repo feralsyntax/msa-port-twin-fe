@@ -4,11 +4,12 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   width: 100%;
   min-height: 0;
   padding: 1.25rem 1.5rem 1.5rem;
-  overflow-y: hidden;
+  overflow-y: auto;
   background: $canvas-0;
 }
 /* ── Content ────────────────────────────────────────────── */
@@ -27,7 +28,7 @@
 
 .dashboard__kpi-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.75rem;
 
   @media (max-width: 1100px) {
@@ -87,6 +88,11 @@
   line-height: 1.1;
   color: $ink-0;
   letter-spacing: -0.02em;
+}
+
+.kpi-card__empty {
+  color: $ink-2;
+  font-size: 12px;
 }
 
 .kpi-card__bar {
@@ -200,6 +206,50 @@
   gap: 0.35rem;
 }
 
+.dashboard__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  color: $ink-2;
+  font-family: $font-mono;
+  font-size: 10px;
+}
+
+.dashboard__state,
+.dashboard__empty {
+  padding: 1.25rem 1rem;
+  color: $ink-2;
+  font-size: 12px;
+}
+
+.dashboard__state {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard__empty {
+  margin: 0;
+  line-height: 1.5;
+
+  a {
+    color: $signal;
+  }
+}
+
+.dashboard__empty--error,
+.dashboard__inline-error {
+  color: $coral;
+}
+
+.dashboard__inline-error {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 11px;
+}
+
 /* ── Vessel Queue Table ─────────────────────────────────── */
 
 .queue-table {
@@ -236,6 +286,10 @@
   }
 }
 
+.queue-table__rows {
+  overflow-y: auto;
+}
+
 .queue-table__name {
   font-size: 13px;
   font-weight: 500;
@@ -254,86 +308,91 @@
   color: $ink-1;
 }
 
-/* ── Port Status ────────────────────────────────────────── */
-
-.status-map {
-  padding: 0.75rem 1rem 0.5rem;
+.dashboard__berth-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid $hairline;
 }
 
-.status-map__canvas {
-  height: 120px;
-  background: $canvas-0;
+.dashboard__berth-summary-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.45rem;
   border: 1px solid $hairline;
   border-radius: $radius-sm;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  strong {
+    color: $ink-0;
+    font-family: $font-mono;
+    font-size: 16px;
+  }
+
+  span {
+    overflow: hidden;
+    color: $ink-2;
+    font-family: $font-mono;
+    font-size: 8px;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &--occupied strong {
+    color: $signal;
+  }
+
+  &--maintenance strong,
+  &--inactive strong {
+    color: $amber;
+  }
 }
 
-.status-map__label {
-  font-family: $font-mono;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: $ink-2;
+.dashboard__berth-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
-.berth-list {
-  padding: 0.5rem 1rem 0.75rem;
-}
-
-.berth-list__title {
-  font-family: $font-mono;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $ink-2;
-  margin-bottom: 0.6rem;
-}
-
-.berth-row {
+.dashboard__berth-row {
   display: grid;
-  grid-template-columns: 60px 1fr 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.45rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid rgba($hairline, 0.6);
 }
 
-.berth-row__name {
-  font-family: $font-mono;
-  font-size: 11px;
-  color: $ink-1;
-}
-
-.berth-row__track {
-  height: 6px;
-  background: $canvas-2;
-  border-radius: 2px;
+.dashboard__berth-name,
+.dashboard__berth-vessel {
   overflow: hidden;
-}
-
-.berth-row__fill {
-  height: 100%;
-  border-radius: 2px;
-
-  &--signal {
-    background: $signal;
-  }
-
-  &--amber {
-    background: $amber;
-  }
-}
-
-.berth-row__pct {
-  font-family: $font-mono;
+  color: $ink-1;
   font-size: 11px;
-  text-align: right;
-  color: $ink-0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard__berth-vessel {
+  color: $ink-2;
+}
+
+.dashboard__berth-state {
+  color: $ink-2;
+  font-family: $font-mono;
+  font-size: 9px;
+  text-transform: uppercase;
+
+  &--occupied {
+    color: $signal;
+  }
+
+  &--maintenance,
+  &--inactive {
+    color: $amber;
+  }
 }
 
 /* ── Bottom Grid ────────────────────────────────────────── */
@@ -374,6 +433,28 @@
   opacity: 0.7;
 }
 
+.dashboard__prediction-preview {
+  flex: 1;
+  min-height: 0;
+  padding: 0.75rem;
+}
+
+.dashboard__prediction-preview .predicted-water-flow--compact {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.dashboard__prediction-preview .predicted-water-flow__canvas {
+  max-height: 230px;
+  margin-top: 0;
+}
+
+.dashboard__prediction-preview .predicted-water-flow__legend {
+  width: min(190px, calc(100% - 24px));
+  padding: 6px 8px;
+}
+
 /* ── Simulations List ───────────────────────────────────── */
 
 .sim-list {
@@ -387,6 +468,8 @@
   align-items: center;
   padding: 0.55rem 1rem;
   border-bottom: 1px solid rgba($hairline, 0.6);
+  color: inherit;
+  text-decoration: none;
 
   &:last-child {
     border-bottom: none;
@@ -438,5 +521,43 @@
   &--failed {
     color: $coral;
     background: rgba($coral, 0.12);
+  }
+
+  &--running,
+  &--queued {
+    color: $amber;
+    background: rgba($amber, 0.12);
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard__kpi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard__berth-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .queue-table__head,
+  .queue-table__row {
+    grid-template-columns: 1.3fr 0.7fr 1fr;
+  }
+
+  .queue-table__head span:nth-child(4),
+  .queue-table__status {
+    display: none;
+  }
+
+  .sim-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .sim-row__left,
+  .sim-row__right {
+    width: 100%;
+    justify-content: space-between;
   }
 }

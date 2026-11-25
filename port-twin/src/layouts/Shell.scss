@@ -249,6 +249,28 @@
   }
 }
 
+.shell__action-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shell__action--secondary {
+  border: 1px solid $hairline;
+  color: $ink-1;
+  background-color: $canvas-1;
+  text-decoration: none;
+
+  &:hover {
+    color: $ink-0;
+    background-color: $canvas-2;
+  }
+}
+
+.shell__action--live {
+  text-decoration: none;
+}
+
 .shell__action-placeholder {
   width: 100px;
   height: 10px;
